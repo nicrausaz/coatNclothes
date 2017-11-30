@@ -6,3 +6,6 @@ E-Commerce module ICT EPSIC
 
 ## WWW
 > Vue.js and vue-material css
+
+## Documentation
+> Documentation du projet
