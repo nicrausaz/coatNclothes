@@ -16,6 +16,7 @@ E-Commerce module ICT EPSIC
 2. [Requêtes POST](#POST)
 3. [Requêtes PATCH](#PATCH)
 4. [Requêtes PUT](#PUT)
+4. [Requêtes DELETE](#DELETE)
 
 ## GET
 ### /products/
@@ -148,11 +149,155 @@ E-Commerce module ICT EPSIC
 }
 ```
 
+### /logout/
+> Déconnexion
+
 
 ## POST
 
-## PATCH
+### /login/
+#### Postfield: username, password
+> Connexion
+```
+{
+    data: {
+        
+    }
+}
+```
+### /signup/
+#### Postfield: username, email, password, fsname, name, adress, npa, locality, gender
+> Création d'un utilisateur
+```
+{
+    data: {
+        
+    }
+}
+```
 
-## PUT
+### /{auth}/password
+#### Postfield: password
+> Modification du mot de passe d'un utilisateur
+```
+{
+    data: {
+        
+    }
+}
+```
 
+### /{auth}/profilepicture/
+#### Postfield: pic
+> Ajout d'une photo de profil
+```
+{
+    data: {
+        
+    }
+}
+```
 
+## PATCH (modifications)
+
+### /{auth}/user/{id}/
+#### Postfield: email, fsname, name, adress, npa, locality, gender
+> Modification des données utilisateur
+```
+{
+    data: {
+        
+    }
+}
+```
+### /{auth}/submitbasket/
+#### Postfield:
+> Validation du panier
+```
+{
+    data: {
+        
+    }
+}
+```
+
+### /{auth}/addwishlisttobasket/{id}
+#### Postfield:
+> Ajout d'une wishlist selon son id au panier
+```
+{
+    data: {
+        
+    }
+}
+```
+
+### /{auth}/addtowishlist/{id}
+#### Postfield:
+> Ajout d'une article à la liste de souhait selon son id
+```
+{
+    data: {
+        
+    }
+}
+```
+
+### /{auth}/addtobasket/
+#### Postfield:
+> Ajout d'un article au panier
+```
+{
+    data: {
+        
+    }
+}
+```
+
+## PUT (ajouts)
+
+## DELETE
+
+### /{auth}/wishlist/{id}
+#### Postfield:
+> Supprimer une liste de souhait
+```
+{
+    data: {
+        
+    }
+}
+```
+
+### /{auth}/wishlist/{id}/product/{id}
+#### Postfield:
+> Supprimer un article d'une liste de souhait
+```
+{
+    data: {
+        
+    }
+}
+```
+
+### /{auth}/basket/product/{id}
+#### Postfield:
+> Supprimer un article du panier
+```
+{
+    data: {
+        
+    }
+}
+```
+
+### /{auth}/user/{id}
+#### Postfield:
+> Supprimer un utlisateur
+```
+{
+    data: {
+        
+    }
+}
+```
