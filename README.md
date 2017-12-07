@@ -14,8 +14,8 @@ E-Commerce module ICT EPSIC
 ## Index
 1. [Requêtes GET](#get)
 2. [Requêtes POST](#post)
-3. [Requêtes PATCH](#patch)
-4. [Requêtes PUT](#put)
+3. [Requêtes PATCH](#patch-modifications)
+4. [Requêtes PUT](#put-ajouts)
 4. [Requêtes DELETE](#delete)
 
 ## GET
