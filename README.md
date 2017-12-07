@@ -12,11 +12,11 @@ E-Commerce module ICT EPSIC
 
 # Requêtes http
 ## Index
-1. [Requêtes GET](#GET)
-2. [Requêtes POST](#POST)
-3. [Requêtes PATCH](#PATCH)
-4. [Requêtes PUT](#PUT)
-4. [Requêtes DELETE](#DELETE)
+1. [Requêtes GET](#get)
+2. [Requêtes POST](#post)
+3. [Requêtes PATCH](#patch)
+4. [Requêtes PUT](#put)
+4. [Requêtes DELETE](#delete)
 
 ## GET
 ### /products/
