@@ -63,7 +63,9 @@ E-Commerce module ICT EPSIC
     "S"
   ],
   "product_brand":"Nike",
-  "product_picture":"http:\/\/monapi\/dl\/folder\/picture.jpg"
+  "product_picture":"http:\/\/monapi\/dl\/folder\/picture.jpg",
+  "product_category_name":"Blouses",
+  "product_category_id":64
 }
 
 
@@ -75,19 +77,41 @@ E-Commerce module ICT EPSIC
 ```
 {
   "V\u00eatements":{
-    "Chemisiers et Tuniques":[
-      "Blouses",
-      "Tuniques",
-      "Chemises et Chemisiers"
-    ],
-    "Pantalons & Leggings":[
-      "Pantalons classiques",
-      "Shorts et Bermuda"
-    ]
+    "content":{
+      "Chemisiers et Tuniques":{
+        "content":{
+          "Blouses":{
+            "id":64
+          },
+          "Tuniques":{
+            "id":198
+          },
+          "Chemises et Chemisiers":{
+            "id":12
+          }
+        },
+        "id":36
+      },
+      "Pantalons & Leggings":{
+        "content":{
+          "Pantalons classiques":{
+            "id":98
+          },
+          "Shorts et Bermuda":{
+            "id":166
+          }
+        },
+        "id":66
+      },
+      "id":4
+    }
   },
-  "Chaussures":[
+  "Chaussures":{
+    "content":[
 
-  ]
+    ],
+    "id":256
+  }
 }
 ```
 
