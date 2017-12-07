@@ -71,11 +71,23 @@ E-Commerce module ICT EPSIC
 
 ### /categories/
 > Retourne toutes les catégories
+#### JSON
 ```
 {
-    data: {
-        
-    }
+  "V\u00eatements":{
+    "Chemisiers et Tuniques":[
+      "Blouses",
+      "Tuniques",
+      "Chemises et Chemisiers"
+    ],
+    "Pantalons & Leggings":[
+      "Pantalons classiques",
+      "Shorts et Bermuda"
+    ]
+  },
+  "Chaussures":[
+
+  ]
 }
 ```
 
