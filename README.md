@@ -27,15 +27,15 @@ E-Commerce module ICT EPSIC
   "products_list":[  
     {  
       "id":1,
-      "name":"T-Shirt XL"
+      "name":"T-Shirt Pigeon de Madagascare"
     },
     {  
       "id":2,
-      "name":"T-Shirt L"
+      "name":"T-Shirt baleine bleu"
     },
     {  
       "id":3,
-      "name":"Pantalon court"
+      "name":"Pantalon court pour aveugle"
     }
   ],
   "products_number":3
@@ -45,12 +45,28 @@ E-Commerce module ICT EPSIC
 
 ### /products/{id}
 > Retourne un produit selon son id
+#### JSON
 ```
-{
-    data: {
-        
-    }
+{  
+  "product_id":2,
+  "product_name":"T-Shirt baleine bleu",
+  "product_description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam risus mauris, placerat ut condimentum non, scelerisque ut nunc. Vestibulum ultrices lorem vitae ante bibendum, eu mollis mi tincidunt. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed non tincidunt turpis. Aenean tincidunt magna vel elit faucibus, non ultricies nisl condimentum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec efficitur orci, vitae fringilla tortor. Nunc venenatis feugiat aliquam.",
+  "product_price":56.5,
+  "product_colors":[  
+    "blue",
+    "green",
+    "red"
+  ],
+  "product_size":[  
+    "L",
+    "XL",
+    "S"
+  ],
+  "product_brand":"Nike",
+  "product_picture":"http:\/\/monapi\/dl\/folder\/picture.jpg"
 }
+
+
 ```
 
 ### /categories/
