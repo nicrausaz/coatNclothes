@@ -50,7 +50,7 @@ E-Commerce module ICT EPSIC
 {  
   "product_id":2,
   "product_name":"T-Shirt baleine bleu",
-  "product_description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam risus mauris, placerat ut condimentum non, scelerisque ut nunc. Vestibulum ultrices lorem vitae ante bibendum, eu mollis mi tincidunt. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed non tincidunt turpis. Aenean tincidunt magna vel elit faucibus, non ultricies nisl condimentum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec efficitur orci, vitae fringilla tortor. Nunc venenatis feugiat aliquam.",
+  "product_description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam risus mauris, placerat ut condimentum non",
   "product_price":56.5,
   "product_colors":[  
     "blue",
