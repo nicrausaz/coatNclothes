@@ -23,36 +23,24 @@ E-Commerce module ICT EPSIC
 > Retourne tous les produits
 #### JSON
 ```
-{"products_list":[{"id":1,"name":"T-Shirt XL"},{"id":2,"name":"T-Shirt L"},{"id":3,"name":"Pantalon court"}],"products_number":3}
-```
-#### PHP
-```
-    Array
-(
-    [products_list] => Array
-        (
-            [0] => Array
-                (
-                    [id] => 1
-                    [name] => T-Shirt XL
-                )
+{  
+  "products_list":[  
+    {  
+      "id":1,
+      "name":"T-Shirt XL"
+    },
+    {  
+      "id":2,
+      "name":"T-Shirt L"
+    },
+    {  
+      "id":3,
+      "name":"Pantalon court"
+    }
+  ],
+  "products_number":3
+}
 
-            [1] => Array
-                (
-                    [id] => 2
-                    [name] => T-Shirt L
-                )
-
-            [2] => Array
-                (
-                    [id] => 3
-                    [name] => Pantalon court
-                )
-
-        )
-
-    [products_number] => 3
-)
 ```
 
 ### /products/{id}
