@@ -45,8 +45,9 @@
               </span>
               </router-link>
             </a>
-          </p><p class="control">
-            <a class="bd-tw-button button">
+          </p>
+          <p class="control" slot="trigger">
+            <a class="bd-tw-button button" >
               <router-link to="/user" class="navbar-item">
               <span class="icon">
                 <i class="fa fa-user"></i>
@@ -54,6 +55,7 @@
               </router-link>
             </a>
           </p>
+          <loginform></loginform>
         </div>
       </div>
     </div>
@@ -62,6 +64,7 @@
 </template>
 
 <script>
+import loginform from '@/components/shared/loginform'
 export default {
   data () {
     return {
@@ -72,6 +75,9 @@ export default {
         { id: 3, name: 'vestes', label: 'Vestes' }
       ]
     }
+  },
+  components: {
+    loginform
   }
 }
 </script>

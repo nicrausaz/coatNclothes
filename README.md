@@ -5,7 +5,7 @@ E-Commerce module ICT EPSIC
 > Laravel Rest API
 
 ## WWW
-> Vue.js and vue-material css
+> Vue.js and buefy css
 
 ## Documentation
 > Documentation du projet
