@@ -17,9 +17,9 @@
           Catégories
         </a>
         <div class="navbar-dropdown is-boxed">
-          <router-link to="/category" class="navbar-item">Toutes</router-link>
+          <router-link to="/category/all" class="navbar-item">Toutes</router-link>
           <hr class="navbar-divider">
-          <router-link v-for="category in categories" :key="category.id" to="/category/category" class="navbar-item">{{category.label}}</router-link>
+          <router-link v-for="category in categories" :key="category.id" to="/category/1" class="navbar-item">{{category.label}}</router-link>
         </div>
       </div>
       <router-link to="/articles" class="navbar-item">Articles</router-link>
@@ -55,7 +55,6 @@
               </router-link>
             </a>
           </p>
-          <loginform></loginform>
         </div>
       </div>
     </div>
@@ -64,7 +63,6 @@
 </template>
 
 <script>
-import loginform from '@/components/shared/loginform'
 export default {
   data () {
     return {
@@ -75,9 +73,6 @@ export default {
         { id: 3, name: 'vestes', label: 'Vestes' }
       ]
     }
-  },
-  components: {
-    loginform
   }
 }
 </script>
