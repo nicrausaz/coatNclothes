@@ -1,31 +1,35 @@
 <template>
   <div class="card">
-  <div class="card-content">
-    <p class="title">
-      “There are two hard things in computer science: cache invalidation, naming things, and off-by-one errors.”
-    </p>
-    <p class="subtitle">
-      Jeff Atwood
-    </p>
+    <div class="card-content">
+      <b-field label="Nom d'utilisateur ou email">
+          <b-input v-model="credentials.username"></b-input>
+      </b-field>
+      <b-field label="Mot de passe">
+          <b-input type="password" v-model="credentials.password" password-reveal>
+          </b-input>
+      </b-field>
+      <footer class="card-footer">
+        <p class="card-footer-item">
+          <span>
+            <a class="button is-primary">Connexion</a>
+          </span>
+        </p>
+      </footer>
+    </div>
+    {{credentials}}
   </div>
-  <footer class="card-footer">
-    <p class="card-footer-item">
-      <span>
-        View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
-      </span>
-    </p>
-    <p class="card-footer-item">
-      <span>
-        Share on <a href="#">Facebook</a>
-      </span>
-    </p>
-  </footer>
-</div>
 </template>
 
 <script>
 export default {
-
+  data () {
+    return {
+      credentials: {
+        username: '',
+        password: ''
+      }
+    }
+  }
 }
 </script>
 
