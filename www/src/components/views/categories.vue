@@ -1,5 +1,6 @@
 <template>
 <div class="container">
+  <subtitle :name="'Catégories'" :text="'Liste des catégories'"></subtitle>
   <section class="section">
     {{$route.params.id}}
   </section>
@@ -7,8 +8,11 @@
 </template>
 
 <script>
+import subtitle from '@/components/templates/subtitle'
 export default {
-
+  components: {
+    subtitle
+  }
 }
 </script>
 

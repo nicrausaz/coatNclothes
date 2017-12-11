@@ -1,27 +1,29 @@
 <template>
-<div class="container">
-  <section class="section">
-      <b-field>
-        <b-radio-button v-model="selectedView" native-value="cardedView">
-            <i class="fa fa-th-large"></i>
-        </b-radio-button>
-        <b-radio-button v-model="selectedView" native-value="listedView">
-            <i class="fa fa-list"></i>
-        </b-radio-button>
-      </b-field>
-      <hr> <!-- Do something better -->
+  <div class="container">
+  <subtitle :name="'Articles'" :text="'Liste des articles'"></subtitle>
+    <section class="section">
+        <b-field>
+          <b-radio-button v-model="selectedView" native-value="cardedView">
+              <i class="fa fa-th-large"></i>
+          </b-radio-button>
+          <b-radio-button v-model="selectedView" native-value="listedView">
+              <i class="fa fa-list"></i>
+          </b-radio-button>
+        </b-field>
+        <hr> <!-- Do something better -->
 
-      <div id="cardedArticles" class="columns is-multiline" v-if="isCardedView">
-        <cardedArticle v-for="article in products_list" :key="article.product_id" :infos="article"></cardedArticle>
-      </div>
-      <div id="linedArticles" v-else>
-        <lined-article v-for="article in products_list" :key="article.product_id" :infos="article"></lined-article>
-      </div>
-  </section>
-</div>
+        <div id="cardedArticles" class="columns is-multiline" v-if="isCardedView">
+          <cardedArticle v-for="article in products_list" :key="article.product_id" :infos="article"></cardedArticle>
+        </div>
+        <div id="linedArticles" v-else>
+          <lined-article v-for="article in products_list" :key="article.product_id" :infos="article"></lined-article>
+        </div>
+    </section>
+  </div>
 </template>
 
 <script>
+import subtitle from '@/components/templates/subtitle'
 import cardedArticle from '@/components/shared/cardedArticle'
 import linedArticle from '@/components/shared/linedArticle'
 export default {
@@ -118,6 +120,7 @@ export default {
     }
   },
   components: {
+    subtitle,
     cardedArticle,
     linedArticle
   }

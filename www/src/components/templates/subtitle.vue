@@ -3,10 +3,10 @@
   <div class="hero-body">
     <div class="container">
       <h1 class="title">
-        Primary title
+        {{ name }}
       </h1>
       <h2 class="subtitle">
-        Primary subtitle
+        {{ text }}
       </h2>
     </div>
   </div>
@@ -15,7 +15,7 @@
 
 <script>
 export default {
-
+  props: ['name', 'text']
 }
 </script>
 
