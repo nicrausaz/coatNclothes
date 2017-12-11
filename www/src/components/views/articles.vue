@@ -1,4 +1,5 @@
 <template>
+<div class="container">
   <section>
       <b-field>
         <b-radio-button v-model="radioButton"
@@ -11,6 +12,7 @@
         </b-radio-button>
       </b-field>
   </section>
+</div>
 </template>
 
 <script>
