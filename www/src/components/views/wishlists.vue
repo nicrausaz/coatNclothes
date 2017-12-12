@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <subtitle :name="'Panier'" :text="'Voir votre panier d\'achats'"></subtitle>
+    <subtitle :name="'Listes de souhaits'" :text="'Voir vos listes de souhaits'"></subtitle>
   </div>
 </template>
 

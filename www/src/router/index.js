@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/views/home'
 import Categories from '@/components/views/categories'
-import WishList from '@/components/views/wishlist'
+import WishLists from '@/components/views/wishlists'
 import Shopbag from '@/components/views/shopbag'
 import Userprofile from '@/components/views/userprofile'
 import Articles from '@/components/views/articles'
@@ -23,9 +23,9 @@ export default new Router({
       component: Categories
     },
     {
-      path: '/wishlist',
-      name: 'Wishlist',
-      component: WishList
+      path: '/wishlists',
+      name: 'Wishlists',
+      component: WishLists
     },
     {
       path: '/shopbag',

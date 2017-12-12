@@ -26,7 +26,7 @@
     </div>
 
     <div class="navbar-end">
-      <router-link to="/wishlist" class="navbar-item" ><b-icon pack="fa" icon="heart" size="is-medium"></b-icon></router-link>
+      <router-link to="/wishlists" class="navbar-item" ><b-icon pack="fa" icon="heart" size="is-medium"></b-icon></router-link>
       <router-link to="/shopbag" class="navbar-item" ><b-icon pack="fa" icon="shopping-bag" size="is-medium"></b-icon></router-link>
       <router-link to="/user" class="navbar-item" ><b-icon pack="fa" icon="user" size="is-medium"></b-icon></router-link>
     </div>

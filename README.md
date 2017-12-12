@@ -19,7 +19,7 @@ E-Commerce module ICT EPSIC
 ## Documentation
 > Documentation du projet
 
-# Template de base pour composant Vue
+# Template de base pour composant "view" Vue
 ```
 <template>
   <div class="container">
@@ -37,6 +37,8 @@ export default {
     subtitle
   }
 }
+</script>
+
 ```
 
 # Requêtes http
