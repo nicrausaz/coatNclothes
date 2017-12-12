@@ -11,7 +11,7 @@
 
     <div class="navbar-menu" id="navMenu">
       <div class="navbar-start">
-        <router-link to="/" class="navbar-item">Acceuil</router-link>
+        <router-link to="/" class="navbar-item">accueil</router-link>
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
             Catégories
