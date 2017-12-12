@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar is-primary">
+  <nav class="navbar is-primary is-fixed-top">
   <div class="navbar-brand">
      <router-link to="/" class="navbar-item"><img src="https://bulma.io/images/bulma-logo.png" alt="" width="112" height="28"></router-link>
     <div class="navbar-burger burger" :class="{'is-active': mobileMenuActive}" @click="mobileMenuActive = !mobileMenuActive" data-target="">

@@ -1,5 +1,6 @@
 <template>
 <div class="container">
+  <sidemenu></sidemenu>
   <subtitle :name="'Catégories'" :text="'Liste des catégories'"></subtitle>
   <section class="section">
     {{$route.params.id}}

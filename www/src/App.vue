@@ -2,7 +2,7 @@
   <div id="app">
     <navigator></navigator>
     <div class="container"><router-view/></div>
-    <!-- <footbar></footbar> -->
+    <footbar></footbar>
   </div>
 </template>
 
@@ -25,5 +25,6 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding-top: 50px;
 }
 </style>
