@@ -8,16 +8,36 @@ E-Commerce module ICT EPSIC
 > Vue.js and buefy css
 
 #### How to
-> cd www/
-> npm i
-> npm run dev
+> - cd www/
+> - npm i
+> - npm run dev
 
 #### Production uniquement
-> npm run build
-> Servir le fichier index.html et le dossier src/ par un serveur http
+> - npm run build
+> - Servir le fichier index.html et le dossier src/ par un serveur http
 
 ## Documentation
 > Documentation du projet
+
+# Template de base pour composant Vue
+```
+<template>
+  <div class="container">
+    <subtitle :name="'text'" :text="'text'"></subtitle>
+  </div>
+</template>
+
+<script>
+import subtitle from '@/components/templates/subtitle'
+export default {
+  data () {
+    return {}
+  },
+  components: {
+    subtitle
+  }
+}
+```
 
 # Requêtes http
 ## Index
