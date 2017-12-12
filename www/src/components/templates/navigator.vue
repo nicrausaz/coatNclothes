@@ -2,7 +2,7 @@
   <nav class="navbar is-primary">
   <div class="navbar-brand">
      <router-link to="/" class="navbar-item"><img src="https://bulma.io/images/bulma-logo.png" alt="" width="112" height="28"></router-link>
-    <div class="navbar-burger burger" data-target="">
+    <div class="navbar-burger burger" :class="{'is-active': mobileMenuActive}" @click="mobileMenuActive = !mobileMenuActive" data-target="">
       <span></span>
       <span></span>
       <span></span>
@@ -66,6 +66,7 @@
 export default {
   data () {
     return {
+      mobileMenuActive: false,
       categories: [
         { id: 0, name: 'tshirt', label: 'T-Shirt' },
         { id: 1, name: 'pulls', label: 'Pulls' },

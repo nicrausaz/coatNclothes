@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <subtitle :name="'Acceuil'" :text="'Page d\'acceuil'"></subtitle>
     <section class="section" v-for="item in news" :key="item.title">
       <h1 class="title">{{item.title}}</h1>
       <h2 class="subtitle">{{item.content}}</h2>
@@ -8,12 +9,13 @@
 </template>
 
 <script>
+import subtitle from '@/components/templates/subtitle'
 export default {
   data () {
     return {
       news: [
         {
-          title: 'Accueil',
+          title: 'En construction',
           content: 'Le site Coat&Clothes est en construction !'
         },
         {
@@ -22,6 +24,9 @@ export default {
         }
       ]
     }
+  },
+  components: {
+    subtitle
   }
 }
 </script>

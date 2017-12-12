@@ -9,9 +9,11 @@
 
 <script>
 import subtitle from '@/components/templates/subtitle'
+import sidemenu from '@/components/shared/sidemenu'
 export default {
   components: {
-    subtitle
+    subtitle,
+    sidemenu
   }
 }
 </script>
