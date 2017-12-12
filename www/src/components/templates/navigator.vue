@@ -26,37 +26,9 @@
     </div>
 
     <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="field is-grouped">
-          <p class="control">
-            <a class="bd-tw-button button">
-              <router-link to="/wishlist" class="navbar-item">
-              <span class="icon">
-                <i class="fa fa-heart"></i>
-              </span>
-              </router-link>
-            </a>
-          </p>
-          <p class="control">
-            <a class="bd-tw-button button">
-              <router-link to="/shopbag" class="navbar-item">
-              <span class="icon">
-                <i class="fa fa-shopping-bag"></i>
-              </span>
-              </router-link>
-            </a>
-          </p>
-          <p class="control" slot="trigger">
-            <a class="bd-tw-button button" >
-              <router-link to="/user" class="navbar-item">
-              <span class="icon">
-                <i class="fa fa-user"></i>
-              </span>
-              </router-link>
-            </a>
-          </p>
-        </div>
-      </div>
+      <router-link to="/wishlist" class="navbar-item" ><b-icon pack="fa" icon="heart" size="is-medium"></b-icon></router-link>
+      <router-link to="/shopbag" class="navbar-item" ><b-icon pack="fa" icon="shopping-bag" size="is-medium"></b-icon></router-link>
+      <router-link to="/user" class="navbar-item" ><b-icon pack="fa" icon="user" size="is-medium"></b-icon></router-link>
     </div>
   </div>
 </nav>

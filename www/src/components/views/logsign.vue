@@ -4,7 +4,7 @@
       <b-tab-item label="Connexion" icon-pack="fa" icon="sign-in">
         <loginform></loginform>
       </b-tab-item>
-      <b-tab-item label="Créer un compte" icon-pack="fa">
+      <b-tab-item label="Créer un compte" icon-pack="fa" icon="user-plus">
         <signupform></signupform>
       </b-tab-item>
     </b-tabs>
