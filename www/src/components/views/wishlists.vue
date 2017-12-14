@@ -17,7 +17,7 @@ export default {
         {
           id: 0,
           name: 'Liste 1',
-          description: '',
+          description: 'description liste 1',
           articles: [
             {
               id: 0, name: 'test', description: 'sdgs', price: 30
@@ -33,15 +33,14 @@ export default {
           description: '',
           articles: [
             {
-              id: 0, name: 'test', description: 'sdgs', price: 30
+              id: 0, name: 'yolo', description: 'starfoulah', price: 15
             },
             {
-              id: 1, name: 'testsada', description: 'asfdasd', price: 40
+              id: 1, name: 'swag', description: 'urujfjpjp', price: 85
             }
           ]
         }
-      ],
-      isOpen: true
+      ]
     }
   },
   components: {

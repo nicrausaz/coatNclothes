@@ -23,7 +23,7 @@
             <i class="fa fa-heart"></i>
           </span>
         </a>
-        <a class="button is-danger is-outlined is-large" @click="addToBasket">
+        <a class="button is-danger is-outlined is-large" @click="addToBasket(infos.product_name)">
           <span class="icon">
             <i class="fa fa-cart-plus"></i>
           </span>
@@ -41,8 +41,8 @@ export default {
     addToBasket (article) {
       this.$toast.open(article + ' ajouté au panier!')
     },
-    addToWishlist () {
-      // open a model to select wishlist
+    addToWishlist (article) {
+      this.$toast.open(article + ' ajouté au la liste de souhait: test!')
     }
   }
 }

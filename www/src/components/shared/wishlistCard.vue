@@ -8,7 +8,7 @@
       </div>
       <div class="card-content">
           <div class="content">
-            Liste des articles
+            <wishllistArticlelist :articles="infos.articles"></wishllistArticlelist>
           </div>
       </div>
       <footer class="card-footer">
@@ -19,8 +19,17 @@
 </template>
 
 <script>
+import wishllistArticlelist from '@/components/shared/wishllistArticlelist'
 export default {
-  props: ['infos']
+  props: ['infos'],
+  data () {
+    return {
+      isOpen: true
+    }
+  },
+  components: {
+    wishllistArticlelist
+  }
 }
 </script>
 
