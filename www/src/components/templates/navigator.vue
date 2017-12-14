@@ -11,7 +11,7 @@
 
     <div class="navbar-menu" id="navMenu">
       <div class="navbar-start">
-        <router-link to="/" class="navbar-item">accueil</router-link>
+        <router-link to="/" class="navbar-item">Accueil</router-link>
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
             Catégories
@@ -19,16 +19,16 @@
           <div class="navbar-dropdown is-boxed">
             <router-link to="/category/all" class="navbar-item">Toutes</router-link>
             <hr class="navbar-divider">
-            <router-link v-for="category in categories" :key="category.id" to="/category/1" class="navbar-item">{{category.label}}</router-link>
+            <router-link v-for="category in categories" :key="category.id" :to="categoryRouteId" class="navbar-item">{{category.label}}</router-link>
           </div>
         </div>
         <router-link to="/articles" class="navbar-item">Articles</router-link>
       </div>
 
       <div class="navbar-end">
-        <router-link to="/wishlists" class="navbar-item" ><b-icon pack="fa" icon="heart" size="is-medium"></b-icon></router-link>
-        <router-link to="/shopbag" class="navbar-item" ><b-icon pack="fa" icon="shopping-bag" size="is-medium"></b-icon></router-link>
-        <router-link to="/user" class="navbar-item" ><b-icon pack="fa" icon="user" size="is-medium"></b-icon></router-link>
+        <router-link to="/wishlists" class="navbar-item" ><b-icon icon="heart" size="is-medium"></b-icon></router-link>
+        <router-link to="/shopbag" class="navbar-item" ><b-icon icon="shopping-bag" size="is-medium"></b-icon></router-link>
+        <router-link to="/user" class="navbar-item" ><b-icon icon="user" size="is-medium"></b-icon></router-link>
       </div>
     </div>
   </nav>
@@ -58,6 +58,11 @@ export default {
           $target.classList.toggle('is-active')
         })
       }
+    }
+  },
+  computed: {
+    categoryRouteId () {
+      return '/category' + this.id
     }
   }
 }

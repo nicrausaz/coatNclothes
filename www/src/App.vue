@@ -2,7 +2,7 @@
   <div id="app">
     <navigator></navigator>
     <div class="container"><router-view/></div>
-    <footbar></footbar>
+    <!-- <footbar></footbar> -->
   </div>
 </template>
 

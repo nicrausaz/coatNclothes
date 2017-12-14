@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <subtitle :name="'accueil'" :text="'Page d\'accueil'"></subtitle>
+    <subtitle :name="'Accueil'" :text="'Page d\'accueil'"></subtitle>
     <section class="section" v-for="item in news" :key="item.title">
       <h1 class="title">{{item.title}}</h1>
       <h2 class="subtitle">{{item.content}}</h2>

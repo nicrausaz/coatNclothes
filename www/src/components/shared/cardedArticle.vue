@@ -18,12 +18,12 @@
       </div>
       <hr>
       <div class="btnZone">
-        <a class="button is-primary is-outlined is-large">
+        <a class="button is-primary is-outlined is-large" @click="addToWishlist(infos.product_name)">
           <span class="icon">
             <i class="fa fa-heart"></i>
           </span>
         </a>
-        <a class="button is-danger is-outlined is-large">
+        <a class="button is-danger is-outlined is-large" @click="addToBasket">
           <span class="icon">
             <i class="fa fa-cart-plus"></i>
           </span>
@@ -36,7 +36,15 @@
 
 <script>
 export default {
-  props: ['infos']
+  props: ['infos'],
+  methods: {
+    addToBasket (article) {
+      this.$toast.open(article + ' ajouté au panier!')
+    },
+    addToWishlist () {
+      // open a model to select wishlist
+    }
+  }
 }
 </script>
 
