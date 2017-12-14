@@ -2,6 +2,7 @@
   <div class="container">
   <subtitle :name="'Articles'" :text="'Liste des articles'"></subtitle>
     <section class="section">
+      <div id="filters">
         <b-field>
           <b-radio-button v-model="selectedView" native-value="cardedView">
               <i class="fa fa-th-large"></i>
@@ -11,7 +12,7 @@
           </b-radio-button>
         </b-field>
         <hr> <!-- Do something better -->
-
+      </div>
         <div id="cardedArticles" class="columns is-multiline" v-if="isCardedView">
           <cardedArticle v-for="article in products_list" :key="article.product_id" :infos="article"></cardedArticle>
         </div>
