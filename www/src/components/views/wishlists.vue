@@ -20,7 +20,7 @@ export default {
           description: 'description liste 1',
           articles: [
             {
-              id: 0, name: 'test', description: 'sdgs', price: 30
+              id: 0, name: 'test', description: 'sdgs', price: 30, img: '/static/articles/chausettessandales.jpg'
             },
             {
               id: 1, name: 'testsada', description: 'asfdasd', price: 40

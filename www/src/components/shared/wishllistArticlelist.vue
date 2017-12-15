@@ -1,9 +1,5 @@
 <template>
     <section>
-      <button class="button field is-danger" @click="checkedRows = []" :disabled="!checkedRows.length">
-        <b-icon icon="close"></b-icon>
-          <span>Clear checked</span>
-        </button>
       <b-table :data="articles" detailed checkable :checked-rows.sync="checkedRows" detail-key="id">
 
         <template slot-scope="props">
@@ -20,7 +16,7 @@
             <article class="media">
                 <figure class="media-left">
                     <p class="image is-128x128">
-                        <img src="https://bulma.io/images/placeholders/1280x960.png">
+                        <img :src="props.row.img">
                     </p>
                 </figure>
                 <div class="media-content">
@@ -31,6 +27,10 @@
             </article>
         </template>
     </b-table>
+    <button class="button field is-danger" @click="checkedRows = []" :disabled="!checkedRows.length">
+        <b-icon icon="close"></b-icon>
+          <span>Clear checked</span>
+        </button>
     </section>
 </template>
 

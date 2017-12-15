@@ -1,6 +1,6 @@
 <template>
-<section class="section">
-  <div class="card">
+<section class="section is-mobile is-centered">
+  <div class="card is-half is-narrow">
     <div class="card-content">
       <b-field label="Nom d'utilisateur ou email">
           <b-input v-model="credentials.username" required></b-input>

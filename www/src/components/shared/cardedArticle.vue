@@ -3,7 +3,7 @@
   <div class="card">
     <div class="card-image">
       <figure class="image is-square">
-        <img src="https://bulma.io/images/placeholders/1280x960.png" alt="alt" draggable="false">
+        <img :src="getImage(infos.product_picture)" alt="alt" draggable="false">
       </figure>
     </div>
     <div class="card-content">
@@ -43,6 +43,9 @@ export default {
     },
     addToWishlist (article) {
       this.$toast.open(article + ' ajouté au la liste de souhait: test!')
+    },
+    getImage (picture) {
+      return picture === '' ? 'https://bulma.io/images/placeholders/1280x960.png' : picture
     }
   }
 }
