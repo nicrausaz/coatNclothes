@@ -3,7 +3,7 @@
       <div slot="trigger" class="card-header">
           <p class="card-header-title">{{ infos.name }}</p>
           <a class="card-header-icon">
-              <b-icon :icon="isOpen ? 'menu-down' : 'menu-up'"></b-icon>
+              <b-icon :icon="isOpen ? 'angle-up' : 'angle-down'"></b-icon>
           </a>
       </div>
       <div class="card-content">
@@ -11,10 +11,6 @@
             <wishllistArticlelist :articles="infos.articles"></wishllistArticlelist>
           </div>
       </div>
-      <footer class="card-footer">
-          <a class="card-footer-item">Supprimer tout</a>
-          <a class="card-footer-item">Ajouter tout au panier</a>
-      </footer>
     </b-collapse>
 </template>
 
@@ -24,7 +20,7 @@ export default {
   props: ['infos'],
   data () {
     return {
-      isOpen: true
+      isOpen: false
     }
   },
   components: {
@@ -33,6 +29,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.card {
+  margin-bottom: 10px;
+}
 </style>
