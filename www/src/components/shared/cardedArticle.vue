@@ -18,6 +18,13 @@
       </div>
       <hr>
       <div class="btnZone">
+        <router-link to="/article/1">
+          <a class="button is-outlined is-large">
+            <span class="icon">
+              <i class="fa fa-info"></i>
+            </span>
+          </a>
+        </router-link>
         <a class="button is-primary is-outlined is-large" @click="addToWishlist(infos.product_name)">
           <span class="icon">
             <i class="fa fa-heart"></i>

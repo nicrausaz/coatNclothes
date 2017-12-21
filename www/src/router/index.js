@@ -6,6 +6,7 @@ import WishLists from '@/components/views/wishlists'
 import Shopbag from '@/components/views/shopbag'
 import Userprofile from '@/components/views/userprofile'
 import Articles from '@/components/views/articles'
+import Article from '@/components/views/article'
 import NotFound from '@/components/views/404'
 
 Vue.use(Router)
@@ -41,6 +42,11 @@ export default new Router({
       path: '/articles',
       name: 'Articles',
       component: Articles
+    },
+    {
+      path: '/article/:id',
+      name: 'Article',
+      component: Article
     },
     {
       path: '*',

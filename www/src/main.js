@@ -5,10 +5,13 @@ import App from './App'
 import router from './router'
 import Buefy from 'buefy'
 import 'buefy/lib/buefy.css'
+import VueCarousel from 'vue-carousel'
 
 Vue.use(Buefy, {
   defaultIconPack: 'fa'
 })
+
+Vue.use(VueCarousel)
 
 Vue.config.productionTip = false
 
