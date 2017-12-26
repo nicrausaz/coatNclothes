@@ -74,7 +74,7 @@ export default {
 
 ```
 
-### /products/{id}
+### /product/{id}
 > Retourne un produit selon son id
 #### JSON
 ```
