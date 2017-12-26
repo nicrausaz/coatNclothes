@@ -54,23 +54,13 @@ export default {
 > Retourne tous les produits
 #### JSON
 ```
-{  
-  "products_list":[  
-    {  
-      "id":1,
-      "name":"T-Shirt Pigeon de Madagascare"
-    },
-    {  
-      "id":2,
-      "name":"T-Shirt baleine bleu"
-    },
-    {  
-      "id":3,
-      "name":"Pantalon court pour aveugle"
-    }
-  ],
-  "products_number":3
-}
+[{
+	"products_id": 1,
+	"products_name": "Jean skinny taille haute"
+}, {
+	"products_id": 2,
+	"products_name": "T-Shirt Pigeon de Madagascare"
+}]
 
 ```
 
