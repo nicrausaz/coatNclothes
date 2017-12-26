@@ -159,11 +159,24 @@ export default {
 ### /category/{id}/products
 > Retourne les produits d'un catégorie selon son id
 ```
-{
-    data: {
-        
+{  
+  "products_list":[  
+    {  
+      "id":1,
+      "name":"T-Shirt Pigeon de Madagascare"
+    },
+    {  
+      "id":2,
+      "name":"T-Shirt baleine bleu"
+    },
+    {  
+      "id":3,
+      "name":"Pantalon court pour aveugle"
     }
+  ],
+  "products_number":3
 }
+
 ```
 
 ### /{auth}/basket/
