@@ -78,25 +78,39 @@ export default {
 > Retourne un produit selon son id
 #### JSON
 ```
-{  
-  "product_id":2,
-  "product_name":"T-Shirt baleine bleu",
-  "product_description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam risus mauris, placerat ut condimentum non",
-  "product_price":56.5,
-  "product_colors":[  
-    "blue",
-    "green",
-    "red"
-  ],
-  "product_size":[  
-    "L",
-    "XL",
-    "S"
-  ],
-  "product_brand":"Nike",
-  "product_picture":"http:\/\/monapi\/dl\/folder\/picture.jpg",
-  "product_category_name":"Blouses",
-  "product_category_id":64
+{
+	"products_id": 2,
+	"products_name": "T-Shirt Pigeon de Madagascare",
+	"products_description": "Un T-Shirt Cool",
+	"products_price": 35,
+	"fk_category_id": 5,
+	"products_brand": "Tally Weijl",
+	"products_size": ["S", "XS"],
+	"products_colors": [{
+		"name": "Red",
+		"rgb": "153,0,0",
+		"hex": "#990000"
+	}, {
+		"name": "Bleu",
+		"rgb": "51,0,204",
+		"hex": "#3300CC"
+	}],
+	"products_pictures": [{
+		"altName": "TshirtMadagascar",
+		"path": "http:\/\/dl.coatandclothes.shop\/Imports\/F\/T\/1.jpg"
+	}, {
+		"altName": "TshirtMadagascar2",
+		"path": "http:\/\/dl.coatandclothes.shop\/Imports\/F\/T\/2.jpg"
+	}, {
+		"altName": "TshirtMadagascar3",
+		"path": "http:\/\/dl.coatandclothes.shop\/Imports\/F\/T\/3.jpg"
+	}, {
+		"altName": "TshirtMadagascar4",
+		"path": "http:\/\/dl.coatandclothes.shop\/Imports\/F\/T\/4.jpg"
+	}, {
+		"altName": "TshirtMadagascar5",
+		"path": "http:\/\/dl.coatandclothes.shop\/Imports\/F\/T\/5.jpg"
+	}]
 }
 
 
