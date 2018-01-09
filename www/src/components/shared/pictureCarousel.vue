@@ -1,7 +1,7 @@
 <template>
   <carousel :navigationEnabled="true">
-    <slide v-for="i in 10" :key="i">
-      Slide {{i}} Content
+    <slide v-for="i in 6" :key="i">
+      <img src="https://bulma.io/images/placeholders/640x480.png">
     </slide>
   </carousel>
 </template>
@@ -20,7 +20,7 @@ export default {
   font-family: Arial;
   font-size: 24px;
   text-align: center;
-  min-height: 100px;
+  min-height: 500px;
 }
 
 .label {
