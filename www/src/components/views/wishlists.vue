@@ -9,7 +9,7 @@
 
 <script>
 import subtitle from '@/components/templates/subtitle'
-import wishlistCard from '@/components/shared/wishlistCard'
+import wishlistCard from '@/components/shared/wishlists/wishlistCard'
 export default {
   data () {
     return {

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import wishllistArticlelist from '@/components/shared/wishllistArticlelist'
+import wishllistArticlelist from '@/components/shared/wishlists/wishlistArticlelist'
 export default {
   props: ['infos'],
   data () {

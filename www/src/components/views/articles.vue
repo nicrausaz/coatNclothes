@@ -25,8 +25,8 @@
 
 <script>
 import subtitle from '@/components/templates/subtitle'
-import cardedArticle from '@/components/shared/cardedArticle'
-import linedArticle from '@/components/shared/linedArticle'
+import cardedArticle from '@/components/shared/articles/cardedArticle'
+import linedArticle from '@/components/shared/articles/linedArticle'
 export default {
   data () {
     return {
