@@ -3,7 +3,7 @@
   <article class="media">
     <div class="media-left" @click="isImageModalActive = true">
       <figure class="image is-64x64">
-        <img :src="getImage(infos.product_picture)" alt="alt" draggable="false">
+        <img :src="getImage(infos.product_picture)" draggable="false">
       </figure>
     </div>
     <div class="media-content">

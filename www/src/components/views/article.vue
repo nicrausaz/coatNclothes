@@ -11,6 +11,10 @@
         <div class="tile is-parent is-vertical">
           <article class="tile is-child is-vertical">
             <p class="title">Article descr</p>
+            <section>
+              <b-tag rounded>Tag1</b-tag>
+              <b-tag rounded>Tag2</b-tag>
+            </section>
              <b-dropdown>
               <button class="button is-primary" slot="trigger">
                   <span>{{ textSize }}</span>
