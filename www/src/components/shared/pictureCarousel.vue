@@ -1,21 +1,20 @@
 <template>
   <carousel :navigationEnabled="true">
-    <slide v-for="i in 6" :key="i">
-      <img src="https://bulma.io/images/placeholders/640x480.png">
+    <slide v-for="pic in pictures" :key="pic.altName">
+      <img :src="pic.path">
     </slide>
   </carousel>
 </template>
 
 <script>
 export default {
-
+  props: ['pictures']
 }
 </script>
 
 <style scoped>
 .VueCarousel-slide {
   position: relative;
-  background: #42b983;
   color: #fff;
   font-family: Arial;
   font-size: 24px;
