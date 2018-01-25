@@ -19,7 +19,7 @@ export default {
   font-family: Arial;
   font-size: 24px;
   text-align: center;
-  min-height: 500px;
+  min-height: 400px;
 }
 
 .label {
