@@ -14,8 +14,9 @@
               <p class="title">{{ articleData.products_name }}</p>
 
               <p><i>{{articleData.products_description}}</i></p>
-              <b-tag rounded>Category</b-tag>
-              <b-tag rounded>Tag2</b-tag>
+              <b-tag rounded>Category1</b-tag> <!-- get from api -->
+              <b-tag rounded>Category2</b-tag>
+              <b-tag rounded>Category3</b-tag>
             </section>
 
             <section class="section">
