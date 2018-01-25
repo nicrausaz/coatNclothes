@@ -1,6 +1,5 @@
 <template>
 <div class="container">
-  <sidemenu></sidemenu>
   <subtitle :name="'Catégories'" :text="category"></subtitle>
   <section class="section">
   </section>
@@ -9,7 +8,7 @@
 
 <script>
 import subtitle from '@/components/templates/subtitle'
-import sidemenu from '@/components/shared/sidemenu'
+
 export default {
   data () {
     return {
@@ -30,8 +29,7 @@ export default {
     }
   },
   components: {
-    subtitle,
-    sidemenu
+    subtitle
   }
 }
 </script>

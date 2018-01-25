@@ -32,10 +32,10 @@
                   </button>
                   <b-dropdown-item v-for="size in articleData.products_size" :key="size" @click="setSize(size)">{{ size }}</b-dropdown-item>
                 </b-dropdown>
-  <section class="section">
-                <a class="button is-primary is-rounded"><b-icon icon="heart"></b-icon></a>
-                <a class="button is-primary is-rounded"><b-icon icon="cart-plus"></b-icon></a>
-  </section>
+                <section class="section">
+                  <a class="button is-primary is-rounded" @click="openWishlistSelector"><b-icon icon="heart"></b-icon></a>
+                  <a class="button is-primary is-rounded"><b-icon icon="cart-plus"></b-icon></a>
+                </section>
               </form>
             </section>
           </article>
@@ -46,11 +46,12 @@
         {{articleData}}
       </pre>
     </section>
-    </div>
+  </div>
 </template>
 
 <script>
 import pictureCarousel from '@/components/shared/pictureCarousel'
+import wishListChooseModal from '@/components/shared/wishlists/wishListChooseModal'
 
 export default {
   data () {
@@ -69,6 +70,13 @@ export default {
     },
     setColor (color) {
       this.currentArticle.selectedColor = color
+    },
+    openWishlistSelector () {
+      this.$modal.open({
+        parent: this,
+        component: wishListChooseModal,
+        hasModalCard: true
+      })
     }
   },
   computed: {
@@ -86,7 +94,8 @@ export default {
     })
   },
   components: {
-    pictureCarousel
+    pictureCarousel,
+    wishListChooseModal
   }
 }
 </script>
