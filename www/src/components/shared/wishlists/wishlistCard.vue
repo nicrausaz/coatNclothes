@@ -9,7 +9,7 @@
       <div class="card-content">
           <div class="content">
             <i>{{ infos.description }}</i>
-            <wishllistArticlelist :articles="infos.articles"></wishllistArticlelist>
+            <wishllistArticlelist :products="infos.products"></wishllistArticlelist>
           </div>
       </div>
     </b-collapse>

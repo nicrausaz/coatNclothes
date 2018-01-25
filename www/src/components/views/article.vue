@@ -34,7 +34,7 @@
                 </b-dropdown>
                 <section class="section">
                   <a class="button is-primary is-rounded" @click="openWishlistSelector"><b-icon icon="heart"></b-icon></a>
-                  <a class="button is-primary is-rounded"><b-icon icon="cart-plus"></b-icon></a>
+                  <a class="button is-primary is-rounded" @click="addToBasket"><b-icon icon="cart-plus"></b-icon></a>
                 </section>
               </form>
             </section>
@@ -60,7 +60,7 @@ export default {
       productData: [],
       currentProduct: {
         selectedSize: '',
-        selectedColor: ''
+        selectedColor: '' // Est ce vraiment utile s'avoir le choix des couleurs ?
       }
     }
   },
@@ -77,6 +77,15 @@ export default {
         component: wishListChooseModal,
         hasModalCard: true
       })
+    },
+    checkSelection () {
+      return this.currentProduct.selectedSize !== '' && this.currentProduct.selectedColor !== ''
+    },
+    addToBasket () {
+      if (this.checkSelection()) {
+        console.log('good')
+        // send to api
+      }
     }
   },
   computed: {

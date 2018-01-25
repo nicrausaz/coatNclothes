@@ -1,45 +1,49 @@
 <template>
-    <section>
-      <b-table :data="articles" detailed checkable :checked-rows.sync="checkedRows" detail-key="id">
+  <section>
+      <b-table :data="isEmpty ? [] : products"
+            :hoverable="true"
+            :mobile-cards="true">
 
-        <template slot-scope="props">
-            <b-table-column label="Nom">
-                {{ props.row.name }}
-            </b-table-column>
+            <template slot-scope="props">
+                <b-table-column width="40">
+                    <img :src="props.row.img">
+                </b-table-column>
+                <b-table-column label="Nom">
+                    {{ props.row.name }}
+                </b-table-column>
+                <b-table-column label="Description"> <!-- not necessary -->
+                    {{ props.row.description }}
+                </b-table-column>
+                <b-table-column label="Prix">
+                    {{ props.row.price }}
+                </b-table-column>
+                <b-table-column label="" width="40">
+                    ADD +
+                </b-table-column>
+            </template>
 
-            <b-table-column label="Prix">
-                {{ formatedPrice(props.row.price) }}
-            </b-table-column>
-        </template>
-
-        <template slot="detail" slot-scope="props">
-            <article class="media">
-                <figure class="media-left">
-                    <p class="image is-128x128">
-                        <img :src="props.row.img">
-                    </p>
-                </figure>
-                <div class="media-content">
-                    <div class="content">
-                        <p>{{ props.row.description }}</p>
+            <template slot="empty">
+                <section class="section">
+                    <div class="content has-text-grey has-text-centered">
+                        <p>
+                            <b-icon
+                                icon="emoticon-sad"
+                                size="is-large">
+                            </b-icon>
+                        </p>
+                        <p>La liste est vide ...</p>
                     </div>
-                </div>
-            </article>
-        </template>
-    </b-table>
-    <button class="button field is-danger" @click="checkedRows = []" :disabled="!checkedRows.length">
-        <b-icon icon="close"></b-icon>
-          <span>Clear checked</span>
-        </button>
-    </section>
+                </section>
+            </template>
+        </b-table>
+  </section>
 </template>
 
 <script>
   export default {
-    props: ['articles'],
+    props: ['products'],
     data () {
       return {
-        checkedRows: []
       }
     },
     methods: {
@@ -50,6 +54,9 @@
     computed: {
       isChecked () {
         return this.checkedRows > 0
+      },
+      isEmpty () {
+        return this.products.lenght === 0
       }
     }
   }
