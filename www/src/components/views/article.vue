@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <subtitle :name="'Article ' + articleId" :text="''"></subtitle>
     <section class="section">
       <div class="tile is-ancestor">
         <div class="tile is-parent">
@@ -10,26 +9,34 @@
         </div>
         <div class="tile is-parent is-vertical">
           <article class="tile is-child is-vertical">
-            <p class="title">{{ articleData.products_name }}</p>
-            <section>
-              {{articleData.products_description}}
-            </section>
-            <section>
+            <section class="section">
+              {{articleData.products_brand}}
+              <p class="title">{{ articleData.products_name }}</p>
+
+              <p><i>{{articleData.products_description}}</i></p>
               <b-tag rounded>Category</b-tag>
               <b-tag rounded>Tag2</b-tag>
             </section>
-            <section>
-              <div class="buttons has-addons">
-                <span class="button" v-for="color in articleData.products_colors" :key="color.name" :style="'background-color:' + color.hex" @click="setColor(color.name)">{{color.name}}</span>
-              </div>
+
+            <section class="section">
+              <form>
+                <div class="buttons has-addons">
+                  <span class="button" v-for="color in articleData.products_colors" :key="color.name" :style="'background-color:' + color.hex" @click="setColor(color.name)">{{color.name}}</span>
+                </div>
+
+                <b-dropdown>
+                  <button class="button is-primary" slot="trigger">
+                      <span>{{ textSize }}</span>
+                      <b-icon icon="angle-down"></b-icon>
+                  </button>
+                  <b-dropdown-item v-for="size in articleData.products_size" :key="size" @click="setSize(size)">{{ size }}</b-dropdown-item>
+                </b-dropdown>
+  <section class="section">
+                <a class="button is-primary is-rounded"><b-icon icon="heart"></b-icon></a>
+                <a class="button is-primary is-rounded"><b-icon icon="cart-plus"></b-icon></a>
+  </section>
+              </form>
             </section>
-             <b-dropdown>
-              <button class="button is-primary" slot="trigger">
-                  <span>{{ textSize }}</span>
-                  <b-icon icon="angle-down"></b-icon>
-              </button>
-              <b-dropdown-item v-for="size in articleData.products_size" :key="size" @click="setSize(size)">{{ size }}</b-dropdown-item>
-            </b-dropdown>
           </article>
           {{currentArticle}}
         </div>
@@ -43,7 +50,7 @@
 
 <script>
 import pictureCarousel from '@/components/shared/pictureCarousel'
-import subtitle from '@/components/templates/subtitle'
+
 export default {
   data () {
     return {
@@ -78,8 +85,7 @@ export default {
     })
   },
   components: {
-    pictureCarousel,
-    subtitle
+    pictureCarousel
   }
 }
 </script>

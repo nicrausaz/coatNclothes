@@ -30,11 +30,6 @@
             <i class="fa fa-heart"></i>
           </span>
         </a>
-        <a class="button is-danger is-outlined is-large" @click="addToBasket(infos.product_name)">
-          <span class="icon">
-            <i class="fa fa-cart-plus"></i>
-          </span>
-        </a>
       </div>
     </div>
   </div>
