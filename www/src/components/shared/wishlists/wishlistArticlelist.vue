@@ -18,8 +18,8 @@
                     {{ props.row.price }}
                 </b-table-column>
                 <b-table-column label="" width="40">
-                    ADD +
-                </b-table-column>
+                    <a class="button is-primary is-rounded" @click="addToBasket"><b-icon icon="plus"></b-icon></a>
+                 </b-table-column>
             </template>
 
             <template slot="empty">
@@ -49,7 +49,8 @@
     methods: {
       formatedPrice (price) {
         return price.toFixed(2) + 'CHF'
-      }
+      },
+      addToBasket () {}
     },
     computed: {
       isChecked () {

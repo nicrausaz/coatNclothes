@@ -20,7 +20,7 @@ export default {
           description: 'description liste 1',
           products: [
             {
-              id: 0, name: 'test', description: 'sdgs', price: 30, img: '/static/articles/chausettessandales.jpg'
+              id: 0, name: 'test', description: 'sdgs', price: 30, img: 'http://dl.coatandclothes.shop:8090/Imports/F/lewisskinnyjeanstaillehaute1.jpg'
             },
             {
               id: 1, name: 'testsada', description: 'asfdasd', price: 40
