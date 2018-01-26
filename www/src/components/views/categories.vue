@@ -1,7 +1,8 @@
 <template>
 <div class="container">
-  <subtitle :name="'Catégories'" :text="category"></subtitle>
+  <subtitle :name="'Catégories'" :text="''"></subtitle>
   <section class="section">
+    {{ categories }} Request not active yet
   </section>
 </div>
 </template>
@@ -12,21 +13,17 @@ import subtitle from '@/components/templates/subtitle'
 export default {
   data () {
     return {
-      categoryText: '',
-      selectedCategory: ''
+      categories: []
     }
   },
-  computed: {
-    category () {
-      if (this.$route.params.id !== 'all') {
-        this.selectedCategory = this.$route.params.id
-        this.categoryText = 'Liste de ' + this.selectedCategory
-      } else {
-        this.selectedCategory = ''
-        this.categoryText = 'Liste de toutes les catégories'
-      }
-      return this.categoryText
-    }
+  created () {
+    this.axios({
+      method: 'get',
+      url: '/categories'
+    })
+    .then((response) => {
+      this.categories = response.data
+    })
   },
   components: {
     subtitle
@@ -34,6 +31,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

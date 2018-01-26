@@ -23,7 +23,7 @@ export default {
               id: 0, name: 'test', description: 'sdgs', price: 30, img: 'http://dl.coatandclothes.shop:8090/Imports/F/lewisskinnyjeanstaillehaute1.jpg'
             },
             {
-              id: 1, name: 'testsada', description: 'asfdasd', price: 40
+              id: 1, name: 'testsada', description: 'asfdasd', price: 40, img: 'http://dl.coatandclothes.shop:8090/Imports/F/lewisskinnyjeanstaillehaute2.jpg'
             }
           ]
         },

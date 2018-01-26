@@ -4,7 +4,7 @@ import Home from '@/components/views/home'
 import Categories from '@/components/views/categories'
 import WishLists from '@/components/views/wishlists'
 import Shopbag from '@/components/views/shopbag'
-import Userprofile from '@/components/views/userprofile'
+import checkLogin from '@/components/views/checkLogin'
 import Articles from '@/components/views/articles'
 import Article from '@/components/views/article'
 import NotFound from '@/components/views/404'
@@ -41,7 +41,7 @@ export default new Router({
     {
       path: '/user',
       name: 'User',
-      component: Userprofile
+      component: checkLogin
     },
     {
       path: '/articles',
