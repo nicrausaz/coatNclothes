@@ -7,6 +7,10 @@
               {{wishlist.name}}
               <a class="button is-primary is-rounded" @click="choose(wishlist.id)"><b-icon class="actions" icon="plus"></b-icon></a>
             </div>
+            <hr>
+            <div class="choices">
+              Créer une nouvelle liste
+            </div>
         </div>
       </div>
   </div>
@@ -36,6 +40,7 @@ export default {
 <style scoped>
 .card {
   padding: 20px;
+  width: 600px;
 }
 .choices {
   padding: 20px;
