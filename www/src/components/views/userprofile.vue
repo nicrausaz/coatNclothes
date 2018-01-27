@@ -5,7 +5,7 @@
       <div class="columns">
         <div class="column is-one-quarter">
           <figure class="image">
-            <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+            <img src="static/noImgAvailable.png" alt="Image">
           </figure>
         </div>
         <div class="column">

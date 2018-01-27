@@ -21,10 +21,6 @@
 
             <section class="section">
               <form>
-                <div class="buttons has-addons">
-                  <span class="button" v-for="color in productData.products_colors" :key="color.name" :style="'background-color:' + color.hex" @click="setColor(color.name)">{{color.name}}</span>
-                </div>
-
                 <b-dropdown>
                   <button class="button is-primary" slot="trigger">
                       <span>{{ textSize }}</span>
@@ -59,17 +55,13 @@ export default {
       productId: this.$route.params.id,
       productData: [],
       currentProduct: {
-        selectedSize: '',
-        selectedColor: '' // Est ce vraiment utile s'avoir le choix des couleurs ?
+        selectedSize: ''
       }
     }
   },
   methods: {
     setSize (size) {
       this.currentProduct.selectedSize = size
-    },
-    setColor (color) {
-      this.currentProduct.selectedColor = color
     },
     openWishlistSelector () {
       this.$modal.open({
@@ -79,7 +71,7 @@ export default {
       })
     },
     checkSelection () {
-      return this.currentProduct.selectedSize !== '' && this.currentProduct.selectedColor !== ''
+      return this.currentProduct.selectedSize !== ''
     },
     addToBasket () {
       if (this.checkSelection()) {

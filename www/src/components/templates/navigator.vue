@@ -1,12 +1,12 @@
 <template>
   <nav class="navbar is-primary is-fixed-top">
     <div class="navbar-brand">
-      <router-link to="/" class="navbar-item"><img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"></router-link>
+      <router-link to="/" class="navbar-item"><img src="static/favicon.png"></router-link>
       <button class="button navbar-burger is-primary" @click="createMobileMenu" data-target="navMenu">
         <span></span>
         <span></span>
         <span></span>
-      </button >
+      </button>
     </div>
 
     <div class="navbar-menu" id="navMenu" @click="closeMobileMenu">
