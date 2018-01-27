@@ -1,8 +1,11 @@
 <template>
   <section>
-    <b-table :data="products" :hoverable="true" :mobile-cards="true">
+    <b-table :data="products" :hoverable="true" :mobile-cards="true" :narrowed="true">
         <template slot-scope="props">
-            <b-table-column width="40">
+            <b-table-column width="20">
+                <a @click="deleteItem(props.row.id)"><b-icon icon="times" size="is-small"></b-icon></a>
+            </b-table-column>
+            <b-table-column width="100" label="Image">
                 <img :src="props.row.img">
             </b-table-column>
             <b-table-column label="Nom">
@@ -14,9 +17,9 @@
             <b-table-column label="Prix">
                 {{ formatedPrice(props.row.price) }}
             </b-table-column>
-            <b-table-column label="" width="110">
-                <router-link class="button is-primary is-outlined" to="/article/1"><b-icon icon="info" size="is-small"></b-icon></router-link>
-                <a class="button is-primary" @click="addToBasket(props.row.id)"><b-icon icon="shopping-cart" size="is-small"></b-icon></a>
+            <b-table-column label="Actions" width="110">       
+                <b-tooltip label="Voir l'article" position="is-top"><router-link class="button" to="/article/1"><b-icon icon="info" size="is-small"></b-icon></router-link></b-tooltip>
+                <b-tooltip label="Ajouter au panier" position="is-top"><a class="button is-primary" @click="addToBasket(props.row.id)"><b-icon icon="shopping-cart" size="is-small"></b-icon></a></b-tooltip>
             </b-table-column>
         </template>
 
@@ -46,6 +49,9 @@
         return price.toFixed(2) + ' CHF'
       },
       addToBasket (id) {
+        console.log(id)
+      },
+      deleteItem (id) {
         console.log(id)
       }
     }

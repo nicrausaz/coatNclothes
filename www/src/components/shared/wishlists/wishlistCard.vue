@@ -9,46 +9,50 @@
       <div class="card-content">
           <div class="content">
             <i>{{ infos.description }}</i>
+            <hr>
             <wishllistArticlelist :products="infos.products"></wishllistArticlelist>
           </div>
       </div>
       <footer class="card-footer">
-        <a class="card-footer-item">Supprimer la liste <b-icon icon="trash-o"></b-icon></a>
-        <a class="card-footer-item" @click="editName">Modifier le nom <b-icon icon="pencil"></b-icon></a>
-        <a class="card-footer-item" @click="editDescription">Modifier la description <b-icon icon="pencil"></b-icon></a>
+        <a class="card-footer-item" @click="deleteWishlist">Supprimer la liste<b-icon icon="trash-o"></b-icon></a>
+        <a class="card-footer-item" @click="edit">Modifier<b-icon icon="pencil"></b-icon></a>
         <a class="card-footer-item" v-if="hasProducts">Tout ajouter au panier <b-icon icon="cart-plus"></b-icon></a>
       </footer>
+      <b-modal :active.sync="isEditing" has-modal-card>
+        <wishlist-edit-modal :name="infos.name" :description="infos.description"></wishlist-edit-modal>
+      </b-modal>
     </b-collapse>
 </template>
 
 <script>
 import wishllistArticlelist from '@/components/shared/wishlists/wishlistArticlelist'
-// import wishlistEditModal from '@/components/shared/wishlists/wishlistEditModal'
+import wishlistEditModal from '@/components/shared/wishlists/wishlistEditModal'
 
 export default {
   props: ['infos'],
   data () {
     return {
-      isOpen: false
+      isOpen: false,
+      isEditing: false
     }
   },
   methods: {
-    editName () {
-      this.$dialog.prompt({
-        message: 'Modifier le nom de la liste de souhaits',
-        inputAttrs: [
-          {
-            placeholder: this.infos.name,
-            maxlength: 30
-          }
-        ],
+    edit () {
+      this.isEditing = true
+    },
+    deleteWishlist () {
+      this.$dialog.confirm({
+        title: 'Supprimer la liste de souhait',
+        message: 'Êtes-vous sûr de vouloir supprimer la liste de souhait NAME ?',
+        type: 'is-danger',
+        hasIcon: true,
+        icon: 'times-circle',
+        confirmText: 'Confirmer',
         cancelText: 'Annuler',
-        confirmText: 'Modifier'
-        // onConfirm: (value) => this.$toast.open(`Your name is: ${value}`)
+        onConfirm: () => this.$toast.open('Suppression')
+        // delete API
       })
     },
-    editDescription () {},
-    delete () {},
     addItemToBasket () {},
     addListToBasket () {}
   },
@@ -58,8 +62,8 @@ export default {
     }
   },
   components: {
-    wishllistArticlelist
-    // wishlistEditModal
+    wishllistArticlelist,
+    wishlistEditModal
   }
 }
 </script>
