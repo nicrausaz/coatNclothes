@@ -8,14 +8,14 @@
     </div>
     <div>
         <div id="filtersDiv" class="columns">
-          <div class="column is-three-fifths">
+          <div class="column is-6">
             <div class="field">
               <b-field label="Prix">
                 <vueSlider v-model="search.price" :formatter="sliderConfig.formatter" :bgStyle="sliderConfig.bgStyle" :processStyle="sliderConfig.processStyle" :tooltipStyle="sliderConfig.tooltipStyle" :tooltip="'hover'"></vueSlider>
               </b-field>
             </div>
           </div>
-          <div class="column is-three-fifths">
+          <div class="column is-4">
             <div class="field">
               <b-field label="Sexe">
                 <b-checkbox size="is-small" native-value="H" v-model="search.genders">H</b-checkbox>
@@ -23,7 +23,7 @@
               </b-field>
             </div>
           </div>
-          <div class="column is-three-fifths">
+          <div class="column is-6">
             <b-field label="Marque">
               <b-select placeholder="Choisir des marques">
                 <!-- <option v-for="option in data" :value="option.id"
@@ -33,8 +33,24 @@
               </b-select>
             </b-field>
           </div>
+          <b-field>
+            <div class="column is-4">
+              <b-radio-button v-model="selectedView" native-value="cardedView">
+                  <i class="fa fa-th-large"></i>
+              </b-radio-button>
+              <b-radio-button v-model="selectedView" native-value="listedView">
+                  <i class="fa fa-list"></i>
+              </b-radio-button>
+            </div>
+        </b-field>
         </div>
         {{search}}
+        <div id="cardedArticles" class="columns is-multiline" v-if="isCardedView">
+          <cardedArticle v-for="product in products_list" :key="product.product_id" :infos="product"></cardedArticle>
+        </div>
+        <div id="linedArticles" v-else>
+          <lined-article v-for="product in products_list" :key="product.product_id" :infos="product"></lined-article>
+        </div>
     </div>
   </div>
 </div>
@@ -44,11 +60,15 @@
 import vueSlider from 'vue-slider-component'
 import subtitle from '@/components/templates/subtitle'
 import sidebar from '@/components/templates/sidebar'
+import cardedArticle from '@/components/shared/articles/cardedArticle'
+import linedArticle from '@/components/shared/articles/linedArticle'
 
 export default {
   data () {
     return {
+      selectedView: 'cardedView',
       categories: [],
+      products_list: [],
       sliderConfig: {
         formatter: '{value} CHF',
         bgStyle: {
@@ -72,16 +92,30 @@ export default {
   created () {
     this.axios({
       method: 'get',
+      url: '/products'
+    })
+    .then((response) => {
+      this.products_list = response.data
+    })
+    this.axios({
+      method: 'get',
       url: '/categories'
     })
     .then((response) => {
       this.categories = response.data
     })
   },
+  computed: {
+    isCardedView () {
+      return this.selectedView === 'cardedView'
+    }
+  },
   components: {
     subtitle,
     sidebar,
-    vueSlider
+    vueSlider,
+    cardedArticle,
+    linedArticle
   }
 }
 </script>
