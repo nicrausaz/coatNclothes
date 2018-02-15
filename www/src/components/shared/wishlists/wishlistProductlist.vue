@@ -18,7 +18,7 @@
                 {{ formatedPrice(props.row.price) }}
             </b-table-column>
             <b-table-column label="Actions" width="110">       
-                <b-tooltip label="Voir l'article" position="is-top"><router-link class="button" to="/article/1"><b-icon icon="info" size="is-small"></b-icon></router-link></b-tooltip>
+                <b-tooltip label="Voir l'product" position="is-top"><router-link class="button" to="/product/1"><b-icon icon="info" size="is-small"></b-icon></router-link></b-tooltip>
                 <b-tooltip label="Ajouter au panier" position="is-top"><a class="button is-primary" @click="addToBasket(props.row.id)"><b-icon icon="shopping-cart" size="is-small"></b-icon></a></b-tooltip>
             </b-table-column>
         </template>
@@ -29,7 +29,7 @@
                     <p>
                       <b-icon icon="frown-o" size="is-large"></b-icon>
                     </p>
-                    <p>La liste est vide, ajoutez-y des articles !</p>
+                    <p>La liste est vide, ajoutez-y des products !</p>
                 </div>
             </section>
         </template>

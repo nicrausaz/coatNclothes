@@ -13,7 +13,7 @@
       <div class="navbar-start">
         <router-link to="/" class="navbar-item">Accueil</router-link>
         <router-link to="/categories" class="navbar-item">Catégories</router-link>
-        <router-link to="/articles" class="navbar-item">Articles</router-link>
+        <router-link to="/products" class="navbar-item">products</router-link>
       </div>
 
       <div class="navbar-end">

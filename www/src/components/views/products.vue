@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-  <subtitle :name="'Articles'" :text="'Liste des articles'"></subtitle>
+  <subtitle :name="'products'" :text="'Liste des products'"></subtitle>
     <section class="section">
       <div id="filters">
         <b-field>
@@ -13,11 +13,11 @@
         </b-field>
         <hr>
       </div>
-        <div id="cardedArticles" class="columns is-multiline" v-if="isCardedView">
-          <cardedArticle v-for="article in products_list" :key="article.product_id" :infos="article"></cardedArticle>
+        <div id="cardedproducts" class="columns is-multiline" v-if="isCardedView">
+          <cardedproduct v-for="product in products_list" :key="product.product_id" :infos="product"></cardedproduct>
         </div>
-        <div id="linedArticles" v-else>
-          <lined-article v-for="article in products_list" :key="article.product_id" :infos="article"></lined-article>
+        <div id="linedproducts" v-else>
+          <lined-product v-for="product in products_list" :key="product.product_id" :infos="product"></lined-product>
         </div>
     </section>
   </div>
@@ -25,8 +25,8 @@
 
 <script>
 import subtitle from '@/components/templates/subtitle'
-import cardedArticle from '@/components/shared/articles/cardedArticle'
-import linedArticle from '@/components/shared/articles/linedArticle'
+import cardedproduct from '@/components/shared/products/cardedproduct'
+import linedproduct from '@/components/shared/products/linedproduct'
 export default {
   data () {
     return {
@@ -50,8 +50,8 @@ export default {
   },
   components: {
     subtitle,
-    cardedArticle,
-    linedArticle
+    cardedproduct,
+    linedproduct
   }
 }
 </script>

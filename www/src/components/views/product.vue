@@ -3,12 +3,12 @@
     <section class="section">
       <div class="tile is-ancestor">
         <div class="tile is-parent">
-          <article class="tile is-child">
+          <product class="tile is-child">
               <pictureCarousel :pictures="productData.products_pictures"></pictureCarousel>
-          </article>
+          </product>
         </div>
         <div class="tile is-parent is-vertical">
-          <article class="tile is-child is-vertical">
+          <product class="tile is-child is-vertical">
             <section class="section">
               {{productData.products_brand}}
               <p class="title">{{ productData.products_name }}</p>
@@ -34,11 +34,11 @@
                 </section>
               </form>
             </section>
-          </article>
+          </product>
           {{currentProduct}}
         </div>
       </div>
-      <suggestedArticles></suggestedArticles>
+      <suggestedproducts></suggestedproducts>
       <pre>
         {{productData}}
       </pre>
@@ -49,7 +49,7 @@
 <script>
 import pictureCarousel from '@/components/shared/pictureCarousel'
 import wishListChooseModal from '@/components/shared/wishlists/wishListChooseModal'
-import suggestedArticles from '@/components/shared/categories/suggestedArticles'
+import suggestedproducts from '@/components/shared/categories/suggestedproducts'
 
 export default {
   data () {
@@ -99,7 +99,7 @@ export default {
   components: {
     pictureCarousel,
     wishListChooseModal,
-    suggestedArticles
+    suggestedproducts
   }
 }
 </script>

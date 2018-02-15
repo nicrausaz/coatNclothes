@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-  <article class="media">
+  <product class="media">
     <div class="media-left" @click="isImageModalActive = true">
       <figure class="image is-64x64">
         <img :src="getImage(infos.product_picture)" draggable="false">
@@ -22,7 +22,7 @@
         </div>
       </nav>
     </div>
-  </article>
+  </product>
   <b-modal :active.sync="isImageModalActive">
     <p class="image is-4by4">
       <img :src="getImage(infos.product_picture)">
@@ -40,11 +40,11 @@ export default {
     }
   },
   methods: {
-    addToBasket (article) {
-      this.$toast.open(article + ' ajouté au panier!')
+    addToBasket (product) {
+      this.$toast.open(product + ' ajouté au panier!')
     },
-    addToWishlist (article) {
-      this.$toast.open(article + ' ajouté au la liste de souhait: test!')
+    addToWishlist (product) {
+      this.$toast.open(product + ' ajouté au la liste de souhait: test!')
     },
     getImage (picture) {
       return picture === '' ? 'https://bulma.io/images/placeholders/1280x960.png' : picture

@@ -45,11 +45,11 @@
         </b-field>
         </div>
         {{search}}
-        <div id="cardedArticles" class="columns is-multiline" v-if="isCardedView">
-          <cardedArticle v-for="product in products_list" :key="product.product_id" :infos="product"></cardedArticle>
+        <div id="cardedproducts" class="columns is-multiline" v-if="isCardedView">
+          <cardedproduct v-for="product in products_list" :key="product.product_id" :infos="product"></cardedproduct>
         </div>
-        <div id="linedArticles" v-else>
-          <lined-article v-for="product in products_list" :key="product.product_id" :infos="product"></lined-article>
+        <div id="linedproducts" v-else>
+          <lined-product v-for="product in products_list" :key="product.product_id" :infos="product"></lined-product>
         </div>
     </div>
   </div>
@@ -60,8 +60,8 @@
 import vueSlider from 'vue-slider-component'
 import subtitle from '@/components/templates/subtitle'
 import sidebar from '@/components/templates/sidebar'
-import cardedArticle from '@/components/shared/articles/cardedArticle'
-import linedArticle from '@/components/shared/articles/linedArticle'
+import cardedproduct from '@/components/shared/products/cardedproduct'
+import linedproduct from '@/components/shared/products/linedproduct'
 
 export default {
   data () {
@@ -114,8 +114,8 @@ export default {
     subtitle,
     sidebar,
     vueSlider,
-    cardedArticle,
-    linedArticle
+    cardedproduct,
+    linedproduct
   }
 }
 </script>

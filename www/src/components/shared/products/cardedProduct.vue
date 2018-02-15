@@ -18,7 +18,7 @@
       </div>
       <hr>
       <div class="btnZone">
-        <router-link to="/article/1">
+        <router-link to="/product/1">
           <a class="button is-outlined is-large">
             <span class="icon">
               <i class="fa fa-info"></i>
@@ -50,11 +50,11 @@ export default {
     }
   },
   methods: {
-    addToBasket (article) {
-      this.$toast.open(article + ' ajouté au panier!')
+    addToBasket (product) {
+      this.$toast.open(product + ' ajouté au panier!')
     },
-    addToWishlist (article) {
-      this.$toast.open(article + ' ajouté au la liste de souhait: test!')
+    addToWishlist (product) {
+      this.$toast.open(product + ' ajouté au la liste de souhait: test!')
     },
     getImage (picture) {
       return picture === '' ? 'https://bulma.io/images/placeholders/1280x960.png' : picture

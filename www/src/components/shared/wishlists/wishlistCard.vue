@@ -10,7 +10,7 @@
           <div class="content">
             <i>{{ infos.description }}</i>
             <hr>
-            <wishllistArticlelist :products="infos.products"></wishllistArticlelist>
+            <wishllistproductlist :products="infos.products"></wishllistproductlist>
           </div>
       </div>
       <footer class="card-footer">
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import wishllistArticlelist from '@/components/shared/wishlists/wishlistArticlelist'
+import wishllistproductlist from '@/components/shared/wishlists/wishlistproductlist'
 import wishlistEditModal from '@/components/shared/wishlists/wishlistEditModal'
 
 export default {
@@ -62,7 +62,7 @@ export default {
     }
   },
   components: {
-    wishllistArticlelist,
+    wishllistproductlist,
     wishlistEditModal
   }
 }
