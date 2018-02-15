@@ -2,7 +2,7 @@
   <div id="logsign" class="container">
     <subtitle :name="''" :text="'Connectez-vous ou créez un compte'"></subtitle>
     <b-tabs v-model="activeTab" position="is-centered">
-      <b-tab-item label="Connexion" icon="sign-in">
+      <b-tab-item label="Connexion" icon="sign-in-alt">
         <loginform></loginform>
       </b-tab-item>
       <b-tab-item label="Créer un compte" icon="user-plus">

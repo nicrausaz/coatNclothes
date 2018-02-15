@@ -3,7 +3,7 @@
       <div slot="trigger" class="card-header">
           <p class="card-header-title">{{ infos.name }}</p>
           <a class="card-header-icon">
-              <b-icon :icon="isOpen ? 'angle-up' : 'angle-down'"></b-icon>
+            <b-icon :icon="isOpen ? 'angle-up' : 'angle-down'"></b-icon>
           </a>
       </div>
       <div class="card-content">
@@ -14,8 +14,8 @@
           </div>
       </div>
       <footer class="card-footer">
-        <a class="card-footer-item" @click="deleteWishlist">Supprimer la liste<b-icon icon="trash-o"></b-icon></a>
-        <a class="card-footer-item" @click="edit">Modifier<b-icon icon="pencil"></b-icon></a>
+        <a class="card-footer-item" @click="deleteWishlist">Supprimer la liste<b-icon icon="trash-alt"></b-icon></a>
+        <a class="card-footer-item" @click="edit">Modifier<b-icon icon="pencil-alt"></b-icon></a>
         <a class="card-footer-item" v-if="hasProducts">Tout ajouter au panier <b-icon icon="cart-plus"></b-icon></a>
       </footer>
       <b-modal :active.sync="isEditing" has-modal-card>
