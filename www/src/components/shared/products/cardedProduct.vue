@@ -3,18 +3,20 @@
   <div class="card">
     <div class="card-image" @click="isImageModalActive = true">
       <figure class="image is-square">
-        <img :src="getImage(infos.product_picture)" alt="alt" draggable="false">
+        <!-- <img :src="getImage(infos.product_picture)" alt="alt" draggable="false"> -->
+        <img src="static/noImgAvailable.png" draggable="false">
       </figure>
     </div>
     <div class="card-content">
       <div class="media">
         <div class="media-content">
-          <p class="title is-4">{{ infos.product_name }}</p>
+          <p class="title is-4">{{ infos.product_name }}test</p>
         </div>
       </div>
 
       <div class="content">
         {{infos.product_description}}
+        test
       </div>
       <hr>
       <div class="btnZone">
@@ -57,7 +59,7 @@ export default {
       this.$toast.open(product + ' ajouté au la liste de souhait: test!')
     },
     getImage (picture) {
-      return picture === '' ? 'https://bulma.io/images/placeholders/1280x960.png' : picture
+      return picture === '' ? 'static/noImgAvailable.png' : picture
     }
   }
 }
@@ -65,7 +67,8 @@ export default {
 
 <style scoped>
 .card {
-  height: 600px;
+  height: 400px;
+  width: 190px;
 }
 .card-image {
   cursor: pointer;

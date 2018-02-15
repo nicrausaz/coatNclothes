@@ -8,14 +8,14 @@
     </div>
     <div>
         <div id="filtersDiv" class="columns">
-          <div class="column is-6">
+          <div class="column is-4">
             <div class="field">
               <b-field label="Prix">
                 <vueSlider v-model="search.price" :formatter="sliderConfig.formatter" :bgStyle="sliderConfig.bgStyle" :processStyle="sliderConfig.processStyle" :tooltipStyle="sliderConfig.tooltipStyle" :tooltip="'hover'"></vueSlider>
               </b-field>
             </div>
           </div>
-          <div class="column is-4">
+          <div class="column is-2">
             <div class="field">
               <b-field label="Sexe">
                 <b-checkbox size="is-small" native-value="H" v-model="search.genders">H</b-checkbox>
@@ -23,9 +23,9 @@
               </b-field>
             </div>
           </div>
-          <div class="column is-6">
+          <div class="column is-4">
             <b-field label="Marque">
-              <b-select placeholder="Choisir des marques">
+              <b-select placeholder="Choisir des marques" v-model="search.brands">
                 <!-- <option v-for="option in data" :value="option.id"
                   :key="option.id">
                   {{ option.user.first_name }}
@@ -49,7 +49,7 @@
           <cardedproduct v-for="product in products_list" :key="product.product_id" :infos="product"></cardedproduct>
         </div>
         <div id="linedproducts" v-else>
-          <lined-product v-for="product in products_list" :key="product.product_id" :infos="product"></lined-product>
+          <linedproduct v-for="product in products_list" :key="product.product_id" :infos="product"></linedproduct>
         </div>
     </div>
   </div>
@@ -85,7 +85,8 @@ export default {
       },
       search: {
         price: [0, 100],
-        genders: []
+        genders: [],
+        brands: []
       }
     }
   },

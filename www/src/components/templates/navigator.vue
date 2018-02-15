@@ -17,6 +17,7 @@
       </div>
 
       <div class="navbar-end">
+        <search></search>
         <router-link to="/wishlists" class="navbar-item" ><b-icon icon="heart" size="is-medium"></b-icon></router-link>
         <router-link to="/shopbag" class="navbar-item" ><b-icon icon="shopping-bag" size="is-medium"></b-icon></router-link>
         <router-link to="/user" class="navbar-item" ><b-icon icon="user" size="is-medium"></b-icon></router-link>
@@ -26,6 +27,8 @@
 </template>
 
 <script>
+import search from '@/components/shared/search'
+
 export default {
   methods: {
     createMobileMenu () {
@@ -43,6 +46,9 @@ export default {
     getCategoryRouteId (id) {
       return '/category/' + id
     }
+  },
+  components: {
+    search
   }
 }
 </script>
