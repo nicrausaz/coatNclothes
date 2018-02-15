@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-  <product class="media">
+  <!-- <product class="media"> -->
     <div class="media-left" @click="isImageModalActive = true">
       <figure class="image is-64x64">
         <img :src="getImage(infos.product_picture)" draggable="false">
@@ -22,7 +22,7 @@
         </div>
       </nav>
     </div>
-  </product>
+  <!-- </product> -->
   <b-modal :active.sync="isImageModalActive">
     <p class="image is-4by4">
       <img :src="getImage(infos.product_picture)">

@@ -8,7 +8,7 @@
     </div>
     <div>
         <div id="filtersDiv" class="columns">
-          <div class="column is-4">
+          <div class="column is-3">
             <div class="field">
               <b-field label="Prix">
                 <vueSlider v-model="search.price" :formatter="sliderConfig.formatter" :bgStyle="sliderConfig.bgStyle" :processStyle="sliderConfig.processStyle" :tooltipStyle="sliderConfig.tooltipStyle" :tooltip="'hover'"></vueSlider>
@@ -33,16 +33,16 @@
               </b-select>
             </b-field>
           </div>
-          <b-field>
-            <div class="column is-4">
-              <b-radio-button v-model="selectedView" native-value="cardedView">
-                  <i class="fa fa-th-large"></i>
-              </b-radio-button>
-              <b-radio-button v-model="selectedView" native-value="listedView">
-                  <i class="fa fa-list"></i>
-              </b-radio-button>
-            </div>
-        </b-field>
+          <div class="column is-4">
+            <b-field>
+                <b-radio-button v-model="selectedView" native-value="cardedView">
+                    <i class="fa fa-th-large"></i>
+                </b-radio-button>
+                <b-radio-button v-model="selectedView" native-value="listedView">
+                    <i class="fa fa-list"></i>
+                </b-radio-button>
+            </b-field>
+          </div>
         </div>
         {{search}}
         <div id="cardedproducts" class="columns is-multiline" v-if="isCardedView">
