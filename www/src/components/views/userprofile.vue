@@ -35,11 +35,13 @@
                 <strong>Mes commandes</strong>
             </div>
             <div class="panel-block">
+              <p>Dernieres commandes</p>
               <ul>
                 <li>Commande1</li>
                 <li>Commande2</li>
                 <li>Commande3</li>
               </ul>
+              <p>Voir tout</p>
             </div>
         </b-collapse>
         </div>

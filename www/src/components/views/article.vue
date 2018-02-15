@@ -38,6 +38,7 @@
           {{currentProduct}}
         </div>
       </div>
+      <suggestedArticles></suggestedArticles>
       <pre>
         {{productData}}
       </pre>
@@ -48,6 +49,7 @@
 <script>
 import pictureCarousel from '@/components/shared/pictureCarousel'
 import wishListChooseModal from '@/components/shared/wishlists/wishListChooseModal'
+import suggestedArticles from '@/components/shared/categories/suggestedArticles'
 
 export default {
   data () {
@@ -96,7 +98,8 @@ export default {
   },
   components: {
     pictureCarousel,
-    wishListChooseModal
+    wishListChooseModal,
+    suggestedArticles
   }
 }
 </script>
