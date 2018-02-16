@@ -3,12 +3,12 @@
     <section class="section">
       <div class="tile is-ancestor">
         <div class="tile is-parent">
-          <product class="tile is-child">
+          <div class="tile is-child">
               <pictureCarousel :pictures="productData.products_pictures"></pictureCarousel>
-          </product>
+          </div>
         </div>
         <div class="tile is-parent is-vertical">
-          <product class="tile is-child is-vertical">
+          <div class="tile is-child is-vertical">
             <section class="section">
               {{productData.products_brand}}
               <p class="title">{{ productData.products_name }}</p>
@@ -21,12 +21,12 @@
 
             <section class="section">
               <form>
-                <b-dropdown>
+                <b-dropdown v-model="currentProduct.size">
                   <button class="button is-primary" slot="trigger">
                       <span>{{ textSize }}</span>
                       <b-icon icon="angle-down"></b-icon>
                   </button>
-                  <b-dropdown-item v-for="size in productData.products_size" :key="size" @click="setSize(size)">{{ size }}</b-dropdown-item>
+                  <b-dropdown-item v-for="size in productData.products_size" :key="size" >{{ size }}</b-dropdown-item>
                 </b-dropdown>
                 <section class="section">
                   <a class="button is-primary is-rounded" @click="openWishlistSelector"><b-icon icon="heart"></b-icon></a>
@@ -34,7 +34,7 @@
                 </section>
               </form>
             </section>
-          </product>
+          </div>
           {{currentProduct}}
         </div>
       </div>
@@ -49,7 +49,7 @@
 <script>
 import pictureCarousel from '@/components/shared/pictureCarousel'
 import wishListChooseModal from '@/components/shared/wishlists/wishListChooseModal'
-import suggestedproducts from '@/components/shared/categories/suggestedproducts'
+import suggestedproducts from '@/components/shared/products/suggestedproducts'
 
 export default {
   data () {
