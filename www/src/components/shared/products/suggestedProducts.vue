@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>D'autres products qui pourraient vous interreser !</h1>
+    <h1>D'autres products qui pourraient vous intéresser !</h1>
 
     <carousel :perPage="6" :navigationEnabled="true" paginationActiveColor="#da0f68" paginationColor="#f5f5f5">
     <slide v-for="i in 10" :key="i">
