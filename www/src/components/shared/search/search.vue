@@ -9,9 +9,10 @@
       <div class="modal-card" style="width: 400px;">
         <section class="modal-card-body">
           <b-field>
-            <b-input placeholder="Chercher un article, catégorie..." type="search" icon="search" v-model="searchContent"></b-input>
+            <b-input placeholder="Chercher un article, catégorie..." loading type="search" icon="search" v-model="searchContent"></b-input>
           </b-field>
           <div id="searchResults">
+            <searchResult></searchResult>
             ... {{searchContent}}
           </div>
         </section>
@@ -22,11 +23,16 @@
 </template>
 
 <script>
+import searchResult from '@/components/shared/search/searchresult'
+
 export default {
   data () {
     return {
       searchContent: ''
     }
+  },
+  components: {
+    searchResult
   }
 }
 </script>

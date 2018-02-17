@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import search from '@/components/shared/search'
+import search from '@/components/shared/search/search'
 
 export default {
   methods: {
