@@ -1,5 +1,5 @@
 <template>
-<div class="column is-one-quarter">
+<div class="column is-one-third">
   <div class="card">
     <div class="card-image" @click="isImageModalActive = true">
       <figure class="image is-square">
@@ -67,8 +67,8 @@ export default {
 
 <style scoped>
 .card {
-  height: 400px;
-  width: 190px;
+  height: 500px;
+  width: 250px;
 }
 .card-image {
   cursor: pointer;
