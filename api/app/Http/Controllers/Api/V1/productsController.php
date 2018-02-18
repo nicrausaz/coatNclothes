@@ -9,7 +9,10 @@ use Illuminate\Routing\Controller;
 
 class productsController extends Controller
 {
+
     use Helpers;
+
+    private $categories;
 
     public function getAllProducts(){
         $products = \DB::select('select products_id, products_name from TB_Products', array(1));
@@ -80,32 +83,52 @@ class productsController extends Controller
         }
     }
     public function getAllCategories(){
+        $array=array();
         $categories = \DB::select('SELECT category_name, category_id FROM `TB_Category` WHERE `fk_category_id` IS NULL');
         $categories=json_decode(json_encode($categories), true);
 
+        foreach($categories as $key => $value) {
+            $this->categories=array($value['category_name']=>1);
+            print_r('<br/>---<br/><br/><pre>');
+            if ($this->checkIfCategoryBelow($value['category_id'])) {
+            $array['category_name']=$this->getCategoryBelow($value['category_id']);
+            print_r($array);
+            } else{
+
+            }
+        }
         //cat
     }
-
+    public function getAllCategories2(){
+        $array= array('Homme'=>array('JeanLewis'=> array('jeans slim', 'jeans Stretch'), 'T-shirt'), 'Femme'=>array('Top', 'Débardeur'));
+        return json_encode($array);
+    }
     /*
      * Private function (notusable from api.php)
      */
-
+    private function checkIfCategoryBelow($id){
+        if(\DB::select('SELECT * FROM `TB_Category` WHERE `fk_category_id` = ?',[$id])){
+            return true;
+        }else{
+            return false;
+        }
+    }
     private function checkCategoryUpTo($catId){
         $category= \DB::select('select category_name, fk_category_id from TB_Category WHERE category_id = ?', [$catId]);
         return array('name'=>$category[0]->category_name, 'id'=>$category[0]->fk_category_id);
     }
-    private function getCategoryBelow($categories){
-        foreach($categories as $key=> $value){
-            $catBelow= \DB::select('SELECT category_name, category_id FROM `TB_Category` WHERE `fk_category_id` = ?', [$value['category_id']]);
-            $catBelow=json_decode(json_encode($catBelow), true);
-            foreach($catBelow as $value22 => $key22){
-                if(!empty($catBelow)) {
-                    $catBelow = $this->getCategoryBelow($catBelow);
+    private function getCategoryBelow($id){
+        $dbfeedback=\DB::select('SELECT * FROM `TB_Category` WHERE `fk_category_id` = ?',[$id]);
+        $dbfeedback=json_decode(json_encode($dbfeedback), true);
+        print_r($dbfeedback);
+            foreach($dbfeedback as $key => $value){
+                if($this->checkIfCategoryBelow($value['category_id'])){
+                    $array['category_name']=$this->getCategoryBelow($value['category_id']);
+                }else{
+                    print_r('top');
+                    $array= array($value['category_name']);
                 }
             }
-            $categories[$key]['categories_below']=$catBelow;
-
-            return $categories;
-        }
+        return $array;
     }
 }
