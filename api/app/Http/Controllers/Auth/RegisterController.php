@@ -6,6 +6,10 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Dingo\Api\Exception\StoreResourceFailedException;
+use Dingo\Api\Routing\Helpers;
 
 class RegisterController extends Controller
 {
@@ -21,51 +25,46 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    use Helpers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
+    public function register(Request $request){
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
+        $validator = $this->validator($request->all());
+        if($validator->fails()){
+            throw new StoreResourceFailedException("Validation Error", $validator->errors());
+        }
+
+        $user = $this->create($request->all());
+
+        if($user){
+
+            $token = JWTAuth::fromUser($user);
+
+            return $this->response->array([
+                "token" => $token,
+                "message" => "User created",
+                "status_code" => 201
+            ]);
+        }else{
+            return $this->response->error("User Not Found...", 404);
+        }
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'users_login' => 'required|unique:users',
+            'users_email' => 'required|email|max:255|unique:users',
+            'users_pass' => 'required|min:6',
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'users_login' => $data['users_login'],
+            'users_email' => $data['users_email'],
+            'users_pass' => bcrypt($data['users_pass']),
         ]);
     }
 }

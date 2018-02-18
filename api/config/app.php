@@ -177,7 +177,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 		Dingo\Api\Provider\LaravelServiceProvider::class,
-],
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -227,6 +228,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 		'DingoApi' => Dingo\Api\Facade\API::class,
 		'DingoRoute' => Dingo\Api\Facade\Route::class,
-],
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+    ],
 
 ];
