@@ -18,12 +18,12 @@ export default {
           id: 0,
           name: 'Liste 1',
           description: 'description liste 1',
-          articles: [
+          products: [
             {
-              id: 0, name: 'test', description: 'sdgs', price: 30, img: '/static/articles/chausettessandales.jpg'
+              id: 0, name: 'test', description: 'sdgs', price: 30, img: 'http://dl.coatandclothes.shop:8090/Imports/F/lewisskinnyjeanstaillehaute1.jpg'
             },
             {
-              id: 1, name: 'testsada', description: 'asfdasd', price: 40
+              id: 1, name: 'testsada', description: 'asfdasd', price: 40, img: 'http://dl.coatandclothes.shop:8090/Imports/F/lewisskinnyjeanstaillehaute2.jpg'
             }
           ]
         },
@@ -31,7 +31,7 @@ export default {
           id: 1,
           name: 'Liste 2',
           description: '',
-          articles: [
+          products: [
             {
               id: 0, name: 'yolo', description: 'starfoulah', price: 15
             },
@@ -39,6 +39,12 @@ export default {
               id: 1, name: 'swag', description: 'urujfjpjp', price: 85
             }
           ]
+        },
+        {
+          id: 2,
+          name: 'Liste 3',
+          description: 'description liste 3',
+          products: []
         }
       ]
     }

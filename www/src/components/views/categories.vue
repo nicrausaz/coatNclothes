@@ -1,41 +1,64 @@
 <template>
 <div class="container">
-  <sidemenu></sidemenu>
-  <subtitle :name="'Catégories'" :text="category"></subtitle>
-  <section class="section">
-  </section>
+  <subtitle :name="'Catégories'" :text="''"></subtitle>
+  <div class="columns">
+    <div class="column is-3">
+      <sidebar></sidebar>
+    </div>
+    <div id="filtersDiv">
+      <filters></filters>
+    </div>
+  </div>
 </div>
 </template>
 
 <script>
 import subtitle from '@/components/templates/subtitle'
-import sidemenu from '@/components/shared/sidemenu'
+import sidebar from '@/components/templates/sidebar'
+import cardedproduct from '@/components/shared/products/cardedproduct'
+import linedproduct from '@/components/shared/products/linedproduct'
+import filters from '@/components/shared/products/filters'
+
 export default {
   data () {
     return {
-      categoryText: '',
-      selectedCategory: ''
+      categories: [],
+      products_list: []
     }
   },
+  created () {
+    this.axios({
+      method: 'get',
+      url: '/products'
+    })
+    .then((response) => {
+      this.products_list = response.data
+    })
+    this.axios({
+      method: 'get',
+      url: '/categories'
+    })
+    .then((response) => {
+      this.categories = response.data
+    })
+  },
   computed: {
-    category () {
-      if (this.$route.params.id !== 'all') {
-        this.selectedCategory = this.$route.params.id
-        this.categoryText = 'Liste de ' + this.selectedCategory
-      } else {
-        this.selectedCategory = ''
-        this.categoryText = 'Liste de toutes les catégories'
-      }
-      return this.categoryText
+    isCardedView () {
+      return this.selectedView === 'cardedView'
     }
   },
   components: {
     subtitle,
-    sidemenu
+    sidebar,
+    cardedproduct,
+    linedproduct,
+    filters
   }
 }
 </script>
 
-<style>
-
+<style scoped>
+#filtersDiv {
+  margin-top: 20px;
+}
 </style>

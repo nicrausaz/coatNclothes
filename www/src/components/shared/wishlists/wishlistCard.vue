@@ -3,29 +3,67 @@
       <div slot="trigger" class="card-header">
           <p class="card-header-title">{{ infos.name }}</p>
           <a class="card-header-icon">
-              <b-icon :icon="isOpen ? 'angle-up' : 'angle-down'"></b-icon>
+            <b-icon :icon="isOpen ? 'angle-up' : 'angle-down'"></b-icon>
           </a>
       </div>
       <div class="card-content">
           <div class="content">
             <i>{{ infos.description }}</i>
-            <wishllistArticlelist :articles="infos.articles"></wishllistArticlelist>
+            <hr>
+            <wishllistproductlist :products="infos.products"></wishllistproductlist>
           </div>
       </div>
+      <footer class="card-footer">
+        <a class="card-footer-item" @click="deleteWishlist">Supprimer la liste<b-icon icon="trash-alt"></b-icon></a>
+        <a class="card-footer-item" @click="edit">Modifier<b-icon icon="pencil-alt"></b-icon></a>
+        <a class="card-footer-item" v-if="hasProducts">Tout ajouter au panier <b-icon icon="cart-plus"></b-icon></a>
+      </footer>
+      <b-modal :active.sync="isEditing" has-modal-card>
+        <wishlist-edit-modal :name="infos.name" :description="infos.description"></wishlist-edit-modal>
+      </b-modal>
     </b-collapse>
 </template>
 
 <script>
-import wishllistArticlelist from '@/components/shared/wishlists/wishlistArticlelist'
+import wishllistproductlist from '@/components/shared/wishlists/wishlistproductlist'
+import wishlistEditModal from '@/components/shared/wishlists/wishlistEditModal'
+
 export default {
   props: ['infos'],
   data () {
     return {
-      isOpen: false
+      isOpen: false,
+      isEditing: false
+    }
+  },
+  methods: {
+    edit () {
+      this.isEditing = true
+    },
+    deleteWishlist () {
+      this.$dialog.confirm({
+        title: 'Supprimer la liste de souhait',
+        message: 'Êtes-vous sûr de vouloir supprimer la liste de souhait NAME ?',
+        type: 'is-danger',
+        hasIcon: true,
+        icon: 'times-circle',
+        confirmText: 'Confirmer',
+        cancelText: 'Annuler',
+        onConfirm: () => this.$toast.open('Suppression')
+        // delete API
+      })
+    },
+    addItemToBasket () {},
+    addListToBasket () {}
+  },
+  computed: {
+    hasProducts () {
+      return this.infos.products.length > 0
     }
   },
   components: {
-    wishllistArticlelist
+    wishllistproductlist,
+    wishlistEditModal
   }
 }
 </script>

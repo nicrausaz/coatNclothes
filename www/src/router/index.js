@@ -4,9 +4,9 @@ import Home from '@/components/views/home'
 import Categories from '@/components/views/categories'
 import WishLists from '@/components/views/wishlists'
 import Shopbag from '@/components/views/shopbag'
-import Userprofile from '@/components/views/userprofile'
-import Articles from '@/components/views/articles'
-import Article from '@/components/views/article'
+import checkLogin from '@/components/views/checkLogin'
+import products from '@/components/views/products'
+import product from '@/components/views/product'
 import NotFound from '@/components/views/404'
 
 Vue.use(Router)
@@ -41,17 +41,17 @@ export default new Router({
     {
       path: '/user',
       name: 'User',
-      component: Userprofile
+      component: checkLogin
     },
     {
-      path: '/articles',
-      name: 'Articles',
-      component: Articles
+      path: '/products',
+      name: 'products',
+      component: products
     },
     {
-      path: '/article/:id',
-      name: 'Article',
-      component: Article
+      path: '/product/:id',
+      name: 'product',
+      component: product
     },
     {
       path: '*',

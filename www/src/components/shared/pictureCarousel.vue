@@ -1,5 +1,5 @@
 <template>
-  <carousel :navigationEnabled="true">
+  <carousel :navigationEnabled="true" paginationActiveColor="#da0f68" paginationColor="#f5f5f5">
     <slide v-for="pic in pictures" :key="pic.altName">
       <img :src="pic.path">
     </slide>
@@ -19,7 +19,7 @@ export default {
   font-family: Arial;
   font-size: 24px;
   text-align: center;
-  min-height: 500px;
+  min-height: 400px;
 }
 
 .label {

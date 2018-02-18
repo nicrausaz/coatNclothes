@@ -1,10 +1,11 @@
 <template>
   <div id="logsign" class="container">
+    <subtitle :name="''" :text="'Connectez-vous ou créez un compte'"></subtitle>
     <b-tabs v-model="activeTab" position="is-centered">
-      <b-tab-item label="Connexion" icon-pack="fa" icon="sign-in">
+      <b-tab-item label="Connexion" icon="sign-in-alt">
         <loginform></loginform>
       </b-tab-item>
-      <b-tab-item label="Créer un compte" icon-pack="fa" icon="user-plus">
+      <b-tab-item label="Créer un compte" icon="user-plus">
         <signupform></signupform>
       </b-tab-item>
     </b-tabs>
@@ -15,6 +16,7 @@
 
 import loginform from '@/components/shared/forms/loginform'
 import signupform from '@/components/shared/forms/signupform'
+import subtitle from '@/components/templates/subtitle'
 
 export default {
   name: 'logsign',
@@ -25,7 +27,8 @@ export default {
   },
   components: {
     loginform,
-    signupform
+    signupform,
+    subtitle
   }
 }
 </script>

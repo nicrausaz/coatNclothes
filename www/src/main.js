@@ -9,7 +9,7 @@ import 'buefy/lib/buefy.css'
 import VueCarousel from 'vue-carousel'
 
 Vue.use(Buefy, {
-  defaultIconPack: 'fa'
+  defaultIconPack: 'fas'
 })
 
 Vue.use(VueCarousel)
