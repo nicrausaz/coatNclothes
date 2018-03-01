@@ -54,8 +54,11 @@
                   <strong>Actions</strong>
               </div>
               <div class="panel-block">
-                <a class="button is-primary"><b-icon icon="pencil"></b-icon><span>Modifier mes informations</span></a>
-                <a class="button is-primary"><b-icon icon="sign-out"></b-icon><span>Déconnexion</span></a>
+                <ul>
+                  <router-link to="/admin" class="button is-primary"><b-icon icon="unlock-alt"></b-icon><span>Administration</span></router-link>
+                  <a class="button is-primary"><b-icon icon="pencil-alt"></b-icon><span>Modifier mes informations</span></a>
+                  <a class="button is-primary"><b-icon icon="sign-out-alt"></b-icon><span>Déconnexion</span></a>
+                </ul>
               </div>
           </b-collapse>
         </div>

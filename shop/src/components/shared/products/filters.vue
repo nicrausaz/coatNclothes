@@ -8,12 +8,10 @@
       </div>
     </div>
     <div class="column is-4">
-      
         <b-field label="Sexe">
           <b-checkbox size="is-small" native-value="H" v-model="search.genders">H</b-checkbox>
           <b-checkbox size="is-small" native-value="F" v-model="search.genders">F</b-checkbox>
         </b-field>
-      
     </div>
     <div class="column is-4">
       <b-field label="Marque">
