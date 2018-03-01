@@ -7,6 +7,7 @@
     </div>
     <div id="filtersDiv">
       <filters></filters>
+      <!-- products -->
     </div>
   </div>
 </div>
