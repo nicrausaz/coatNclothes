@@ -2,17 +2,29 @@
   <div class="container">
     <subtitle :name="'Listes de souhaits'" :text="'Voir vos listes de souhaits'"></subtitle>
     <section class="section">
+      <div class="card" id="newWLButton">
+        <div class="card-content" @click="createNewWishlist">
+          <strong>Créer une nouvelle liste</strong>
+          <b-icon pack="fas" icon="plus" type="is-primary" style="float: right;"></b-icon>
+        </div>
+      </div>
     <wishlistCard v-for="wishlist in wishlists" :key="wishlist.id" :infos="wishlist"></wishlistCard>
     </section>
+    <b-modal :active.sync="isCreating" has-modal-card>
+      <wishlistNewModal></wishlistNewModal>
+    </b-modal>
   </div>
 </template>
 
 <script>
 import subtitle from '@/components/templates/subtitle'
 import wishlistCard from '@/components/shared/wishlists/wishlistCard'
+import wishlistNewModal from '@/components/shared/wishlists/wishlistNewModal'
+
 export default {
   data () {
     return {
+      isCreating: false,
       wishlists: [
         {
           id: 0,
@@ -49,9 +61,22 @@ export default {
       ]
     }
   },
+  methods: {
+    createNewWishlist () {
+      this.isCreating = true
+    }
+  },
   components: {
     subtitle,
-    wishlistCard
+    wishlistCard,
+    wishlistNewModal
   }
 }
 </script>
+
+<style scoped>
+#newWLButton {
+  margin-bottom: 50px;
+  cursor: pointer;
+}
+</style>

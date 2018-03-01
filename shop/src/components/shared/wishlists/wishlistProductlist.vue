@@ -11,14 +11,14 @@
             <b-table-column label="Nom">
                 {{ props.row.name }}
             </b-table-column>
-            <b-table-column label="Description"> <!-- not necessary -->
+            <!-- <b-table-column label="Description">
                 {{ props.row.description }}
-            </b-table-column>
+            </b-table-column> -->
             <b-table-column label="Prix">
                 {{ formatedPrice(props.row.price) }}
             </b-table-column>
-            <b-table-column label="Actions" width="110">       
-                <b-tooltip label="Voir l'product" position="is-top"><router-link class="button" to="/product/1"><b-icon icon="info" size="is-small"></b-icon></router-link></b-tooltip>
+            <b-table-column label="Actions" width="110">
+                <b-tooltip label="Voir le produit" position="is-top"><router-link class="button" to="/product/1"><b-icon icon="info" size="is-small"></b-icon></router-link></b-tooltip>
                 <b-tooltip label="Ajouter au panier" position="is-top"><a class="button is-primary" @click="addToBasket(props.row.id)"><b-icon icon="shopping-cart" size="is-small"></b-icon></a></b-tooltip>
             </b-table-column>
         </template>

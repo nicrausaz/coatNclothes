@@ -43,7 +43,7 @@ export default {
     deleteWishlist () {
       this.$dialog.confirm({
         title: 'Supprimer la liste de souhait',
-        message: 'Êtes-vous sûr de vouloir supprimer la liste de souhait NAME ?',
+        message: 'Êtes-vous sûr de vouloir supprimer la liste de souhait <b>' + this.infos.name + '</b> ?',
         type: 'is-danger',
         hasIcon: true,
         icon: 'times-circle',
