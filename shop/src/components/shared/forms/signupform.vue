@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     doublePasswordIsValid () {
-      return this.infos.password === this.passwordConfirm && this.infos.password !== ''
+      return this.infos.users_pass === this.passwordConfirm && this.infos.users_pass !== ''
     },
     createUser () {
       if (this.doublePasswordIsValid()) {

@@ -1,13 +1,13 @@
 <template>
-  <div class="columns">
-    <div class="column is-4">
+  <div class="columns notification" style="border: 1px solid black;">
+    <div class="column is-3">
       <div class="field">
         <b-field label="Prix">
           <vueSlider v-model="search.price" :max="hightestPrice" :formatter="sliderConfig.formatter" :bgStyle="sliderConfig.bgStyle" :processStyle="sliderConfig.processStyle" :tooltipStyle="sliderConfig.tooltipStyle" :tooltip="'hover'"></vueSlider>
         </b-field>
       </div>
     </div>
-    <div class="column is-4">
+    <div class="column is-3">
         <b-field label="Sexe">
           <b-checkbox size="is-small" native-value="H" v-model="search.genders">H</b-checkbox>
           <b-checkbox size="is-small" native-value="F" v-model="search.genders">F</b-checkbox>
@@ -16,10 +16,9 @@
     <div class="column is-4">
       <b-field label="Marque">
         <b-select placeholder="Choisir des marques" v-model="search.brands">
-          <!-- <option v-for="option in data" :value="option.id"
-            :key="option.id">
-            {{ option.user.first_name }}
-          </option> -->
+          <option v-for="i in 4" :value="i" :key="i">
+            {{ i }}
+          </option>
         </b-select>
       </b-field>
     </div>

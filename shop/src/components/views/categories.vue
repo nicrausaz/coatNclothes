@@ -5,7 +5,7 @@
     <div class="column is-3">
       <sidebar></sidebar>
     </div>
-    <div id="filtersDiv">
+    <div class="column" id="filtersDiv">
       <filters></filters>
       <!-- products -->
     </div>

@@ -7,6 +7,7 @@ import Shopbag from '@/components/views/shopbag'
 import checkLogin from '@/components/views/checkLogin'
 import products from '@/components/views/products'
 import product from '@/components/views/product'
+import orders from '@/components/views/orders'
 import NotFound from '@/components/views/404'
 
 Vue.use(Router)
@@ -52,6 +53,16 @@ export default new Router({
       path: '/product/:id',
       name: 'product',
       component: product
+    },
+    {
+      path: '/orders',
+      name: 'orders',
+      component: orders
+    },
+    {
+      path: '/order/:id',
+      name: 'orders',
+      component: orders
     },
     {
       path: '*',

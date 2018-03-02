@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <img src="static/404.jpeg" draggable="false"/>
   </div>
 </template>
 
