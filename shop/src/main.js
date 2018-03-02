@@ -2,7 +2,11 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+
 import router from './router'
+import Vuex from 'vuex'
+import store from './store/store.js'
+
 import axios from 'axios'
 import Buefy from 'buefy'
 import 'buefy/lib/buefy.css'
@@ -13,6 +17,7 @@ Vue.use(Buefy, {
 })
 
 Vue.use(VueCarousel)
+Vue.use(Vuex)
 
 Vue.config.productionTip = false
 
@@ -24,6 +29,7 @@ Vue.prototype.axios = axios.create({
 new Vue({
   el: '#app',
   router,
+  store: store,
   template: '<App/>',
   components: { App }
 })
