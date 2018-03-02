@@ -8,7 +8,9 @@
           <shopBagProduct v-for="i in 10" :key="i"></shopBagProduct>
         </div>
         <div class="content column is-one-quarter notification" id="summaryDiv">
-          <h3>Résumé du panier</h3>
+          <h3>Résumé du panier:</h3>
+          {{ articlesNumberText }}
+          {{totalPrice}}
           <!-- listes des articles et prix total -->
         </div>
       </div>
@@ -34,8 +36,21 @@ export default {
       return false
       // return this.products.length === 0
     },
+    articleNumber () {
+      return this.products.length
+    },
+    articlesNumberText () {
+      switch (this.articleNumber) {
+        case 0:
+          return 'Aucun article'
+        case 1:
+          return '1 article'
+        default:
+          return this.articleNumber + ' articles'
+      }
+    },
     totalPrice () {
-      return 100
+      return 0
     }
   },
   components: {

@@ -1,19 +1,21 @@
 <template>
 <div class="column is-one-third">
-  <div class="card">
+  <div class="card" @mouseover="hover = true" @mouseout="hover = false">
     <div class="card-image" @click="isImageModalActive = true">
       <figure class="image is-square">
         <!-- <img :src="getImage(infos.product_picture)" alt="alt" draggable="false"> -->
         <img src="static/noImgAvailable.png" draggable="false">
       </figure>
     </div>
-    <div class="card-content">
-      <div class="media">
-        <div class="media-content">
-          <p class="title is-4">test</p>
+    <transition name="fade">
+      <div class="card-content notification" v-if="hover">
+        <div class="media">
+          <div class="media-content">
+            test
+          </div>
         </div>
       </div>
-    </div>
+    </transition>
   </div>
   <b-modal :active.sync="isImageModalActive">
     <p class="image is-4by4">
@@ -28,6 +30,7 @@ export default {
   props: ['infos'],
   data () {
     return {
+      hover: false,
       isImageModalActive: false
     }
   },
