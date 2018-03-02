@@ -10,7 +10,7 @@
           </b-input>
       </b-field>
       <span>
-        <a class="button is-primary">Connexion</a>
+        <a class="button is-primary" @click="connect">Connexion</a>
       </span>
     </div>
   </div>
@@ -25,6 +25,16 @@ export default {
         username: '',
         password: ''
       }
+    }
+  },
+  methods: {
+    connect () {
+      let self = this
+      this.axios({
+        method: 'post',
+        url: '/login',
+        data: self.credentials
+      })
     }
   }
 }

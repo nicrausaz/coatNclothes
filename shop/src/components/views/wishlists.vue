@@ -10,7 +10,7 @@
       </div>
     <wishlistCard v-for="wishlist in wishlists" :key="wishlist.id" :infos="wishlist"></wishlistCard>
     </section>
-    <b-modal :active.sync="isCreating" has-modal-card>
+    <b-modal :active.sync="isCreating">
       <wishlistNewModal></wishlistNewModal>
     </b-modal>
   </div>

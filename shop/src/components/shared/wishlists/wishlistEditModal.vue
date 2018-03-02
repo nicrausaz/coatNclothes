@@ -1,20 +1,20 @@
 <template>
-  <div class="card">
-    <h1 class="title">Modifier la liste de souhait</h1>
-    <div class="card-content">
-      <form>
-        <b-field label="Nom">
-            <b-input v-model="editedName"></b-input>
-        </b-field>
-        <b-field label="Description">
-            <b-input type="textarea" v-model="editedDescription"></b-input>
-        </b-field>
-        <div class="buttons">
-          <a class="button" @click="this.$parent.close">Annuler</a>
-          <a class="button is-primary" @click="update">Confirmer</a>
-        </div>
-      </form>
-    </div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Modifier la liste de souhait</p>
+    </header>
+    <section class="modal-card-body">
+      <b-field label="Nom">
+        <b-input type="text" v-model="editedName" required></b-input>
+      </b-field>
+      <b-field label="Description">
+        <b-input type="textarea" v-model="editedDescription" maxlength="100"></b-input>
+      </b-field>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button" @click="this.$parent.close">Annuler</button>
+      <button class="button is-primary" @click="update">Confirmer</button>
+    </footer>
   </div>
 </template>
 
@@ -38,12 +38,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.card {
-  padding: 40px;
-}
-.buttons {
-  float: right;
-}
-</style>

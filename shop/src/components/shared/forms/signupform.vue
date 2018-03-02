@@ -42,7 +42,7 @@
             <b-input v-model="infos.gender" placeholder="Genre" required></b-input>
         </b-field> -->
       <span>
-        <a class="button is-primary" @click="createUser">Créer le compte</a>
+        <a class="button is-primary" style="float: right" @click="createUser">Créer le compte</a>
       </span>
         </section>
         {{infos}}
