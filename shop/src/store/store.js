@@ -7,6 +7,11 @@ const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   state: {
     userToken: ''
+  },
+  mutations: {
+    setUserToken (token) {
+      this.state.userToken = token
+    }
   }
 })
 

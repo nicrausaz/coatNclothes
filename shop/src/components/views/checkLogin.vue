@@ -2,8 +2,6 @@
   <div>
     <logsign v-if="!isUserLogedIn"></logsign>
     <userprofile v-else></userprofile>
-    <input type="checkbox" v-model="isUserLogedIn">
-      {{isUserLogedIn}}
   </div>
 </template>
 
@@ -12,9 +10,10 @@ import logsign from '@/components/views/logsign'
 import userprofile from '@/components/views/userprofile'
 
 export default {
-  data () {
-    return {
-      isUserLogedIn: false
+  computed: {
+    isUserLogedIn () {
+      // check if token in in store.state
+      return false
     }
   },
   components: {
@@ -23,7 +22,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

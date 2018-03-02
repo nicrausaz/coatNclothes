@@ -1,20 +1,22 @@
 <template>
-<section class="section is-mobile is-centered">
-  <div class="card is-half is-narrow">
-    <div class="card-content">
-      <b-field label="Nom d'utilisateur ou email">
-          <b-input v-model="credentials.username" required></b-input>
-      </b-field>
-      <b-field label="Mot de passe">
-          <b-input type="password" v-model="credentials.password" password-reveal required>
-          </b-input>
-      </b-field>
-      <span>
-        <a class="button is-primary" @click="connect">Connexion</a>
-      </span>
+  <div class="columns is-centered">
+    <div class="column is-half">
+      <div class="card">
+        <div class="card-content">
+          <b-field label="Nom d'utilisateur ou email">
+              <b-input v-model="credentials.username" placeholder="Nom d'utilisateur ou email" icon="user" required></b-input>
+          </b-field>
+          <b-field label="Mot de passe">
+              <b-input type="password" v-model="credentials.password" placeholder="Mot de passe" password-reveal icon="key" required>
+              </b-input>
+          </b-field>
+          <div class="level-right">
+            <button class="button is-primary" @click="connect">Connexion</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</section>
 </template>
 
 <script>
@@ -39,7 +41,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

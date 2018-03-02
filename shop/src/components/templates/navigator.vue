@@ -2,15 +2,15 @@
   <nav class="navbar is-primary is-fixed-top">
     <div class="navbar-brand">
       <router-link to="/" class="navbar-item"><img src="static/favicon.png"></router-link>
-      <button class="button navbar-burger is-primary" @click="createMobileMenu" data-target="navMenu">
+      <button class="button navbar-burger is-primary" @click="toggleMenu" :class="{'is-active': navIsActive}" data-target="navMenu">
         <span></span>
         <span></span>
         <span></span>
       </button>
     </div>
 
-    <div class="navbar-menu" id="navMenu" @click="closeMobileMenu">
-      <div class="navbar-start">
+    <div class="navbar-menu" id="navMenu" :class="{'is-active': navIsActive}">
+      <div class="navbar-start" @click="toggleMenu">
         <router-link to="/" class="navbar-item">Accueil</router-link>
         <router-link to="/categories" class="navbar-item">Catégories</router-link>
         <router-link to="/products" class="navbar-item">products</router-link>
@@ -30,21 +30,14 @@
 import search from '@/components/shared/search/search'
 
 export default {
+  data () {
+    return {
+      navIsActive: false
+    }
+  },
   methods: {
-    createMobileMenu () {
-      let navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0)
-      if (navbarBurgers.length > 0) {
-        navbarBurgers.forEach(function (el) {
-          let target = el.dataset.target
-          let $target = document.getElementById(target)
-          el.classList.toggle('is-active')
-          $target.classList.toggle('is-active')
-        })
-      }
-    },
-    closeMobileMenu () {},
-    getCategoryRouteId (id) {
-      return '/category/' + id
+    toggleMenu () {
+      this.navIsActive = !this.navIsActive
     }
   },
   components: {
