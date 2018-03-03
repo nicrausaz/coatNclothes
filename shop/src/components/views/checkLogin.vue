@@ -13,7 +13,7 @@ export default {
   computed: {
     isUserLogedIn () {
       // check if token in in store.state
-      return true
+      return false
     }
   },
   components: {

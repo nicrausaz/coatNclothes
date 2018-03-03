@@ -61,7 +61,7 @@ export default new Router({
     },
     {
       path: '/order/:id',
-      name: 'orders',
+      name: 'order',
       component: orders
     },
     {

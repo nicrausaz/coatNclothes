@@ -26,7 +26,9 @@
         </template>
 
         <template slot="detail" slot-scope="props">
-          <orderProduct v-for="i in 10" :key="i"></orderProduct>
+          <div>
+            <orderProduct v-for="i in 1" :key="i"></orderProduct>
+          </div>
           <!-- <orderProduct v-for="product in props.row.orders_content" :key="product.products_id"></orderProduct> -->
         </template>
     </b-table>

@@ -28,6 +28,7 @@
               <button class="button is-primary" @click="createUser">Créer le compte</button>
             </div>
           </section>
+          {{errors}}
         </div>
       </div>
     </div>
@@ -45,7 +46,8 @@ export default {
         users_name: '',
         users_fsname: ''
       },
-      passwordConfirm: ''
+      passwordConfirm: '',
+      errors: []
     }
   },
   methods: {
@@ -60,8 +62,18 @@ export default {
           url: '/register',
           data: self.infos
         })
-        .then((response) => {
-          console.log(response)
+        .then(response => {
+          this.errors = response.data
+          console.log('test')
+          // console.log(response)
+          // console.log(response.data.status_code)
+          // if (response.data.status_code !== 201) {
+          //   this.errors = response.data.errors
+          // }
+        })
+        .catch(errors => {
+          console.log(errors)
+          this.errors = errors
         })
       } else {
         this.$toast.open({
@@ -70,6 +82,13 @@ export default {
           position: 'is-top',
           type: 'is-danger'
         })
+      }
+    },
+    computed: {
+      toastErrors () {
+        if (this.errors.length > 0) {
+          console.log(this.errors)
+        }
       }
     }
   }
