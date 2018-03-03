@@ -28,7 +28,6 @@
               <button class="button is-primary" @click="createUser">Créer le compte</button>
             </div>
           </section>
-          {{errors}}
         </div>
       </div>
     </div>
@@ -72,8 +71,8 @@ export default {
           // }
         })
         .catch(errors => {
-          console.log(errors)
-          this.errors = errors
+          this.errors = errors.response.data.errors
+          this.toastErrors()
         })
       } else {
         this.$toast.open({
@@ -84,12 +83,17 @@ export default {
         })
       }
     },
-    computed: {
-      toastErrors () {
-        if (this.errors.length > 0) {
-          console.log(this.errors)
-        }
-      }
+    toastErrors () {
+      let self = this
+      let errors = Object.keys(this.errors).map(function (key) { return self.errors[key] })
+      errors.forEach((error) => {
+        self.$toast.open({
+          duration: 5000,
+          message: error,
+          position: 'is-top',
+          type: 'is-danger'
+        })
+      })
     }
   }
 }
