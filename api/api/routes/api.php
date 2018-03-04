@@ -23,5 +23,8 @@ $api->version('v1', function (Router $api) {
         $api->get('categories', '\App\Http\Controllers\Api\V1\productsController@getAllCategories');
         $api->get('categories2', '\App\Http\Controllers\Api\V1\productsController@getAllCategories2');
 
+        $api->post('login', 'App\Http\Controllers\Auth\LoginController@login');
+        $api->post('register', 'App\Http\Controllers\Auth\RegisterController@register');
+
 
 });

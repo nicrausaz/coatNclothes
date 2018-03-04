@@ -12,11 +12,7 @@ class UserController extends Controller
 {
     use Helpers;
 
-    public function index()
-    {
-        $array = \DB::select('select * from TB_Users where users_id = 2', array(1));
-        //var_dump($array);
-
-        return json_encode($array);
+    public function index(){
+        return User::all();
     }
 }

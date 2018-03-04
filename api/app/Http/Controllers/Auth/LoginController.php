@@ -2,38 +2,58 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\User;
+use Dingo\Api\Routing\Helpers;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
     use AuthenticatesUsers;
+    use Helpers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function login(Request $request)
     {
-        $this->middleware('guest')->except('logout');
+        //print_r($request);
+        // $request->email correspond à la valeur de l'input entré par l'utilisateur
+        // Dans notre cas, comme l'on souhaite pouvoir se connecter soit en rentrant l'email, soit le pseudo, je rajoute une condition à ma requête
+        $user = User::where('users_email', $request->users_login)->orWhere('users_login', $request->users_login)->first();
+
+        if ($user && Hash::check($request->get('users_pass'), $user->users_pass)) {
+            $token = JWTAuth::fromUser($user);
+            return $this->sendLoginResponse($request, $token);
+        }
+
+        return $this->sendFailedLoginResponse($request);
+    }
+
+    public function sendLoginResponse(Request $request, $token)
+    {
+        $this->clearLoginAttempts($request);
+
+        return $this->authenticated($token);
+    }
+
+    public function authenticated($token)
+    {
+        return $this->response->array([
+            'token' => $token,
+            'status_code' => 200,
+            'message' => 'User Authenticated'
+        ]);
+    }
+
+    public function sendFailedLoginResponse()
+    {
+        throw new UnauthorizedHttpException("Bad Credentials");
+    }
+
+    public function logout()
+    {
+        $this->guard()->logout();
     }
 }

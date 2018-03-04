@@ -15,16 +15,31 @@ use Dingo\Api\Routing\Router;
 */
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1', function (Router $api) {
-		$api->get('test', function(){return "Hello World !";});
+$api->version('v1',  function (Router $api) {
+
+        /*
+         * PUBLIC
+         */
+        $api->get('user', '\App\Http\Controllers\Api\V1\UserController@index');
+
         $api->get('products', '\App\Http\Controllers\Api\V1\productsController@getAllProducts');
         $api->get('product/{id}', '\App\Http\Controllers\Api\V1\productsController@getProductsDetails');
         $api->get('category/{id}/products', '\App\Http\Controllers\Api\V1\productsController@getspecificcategoryproducts');
         $api->get('categories', '\App\Http\Controllers\Api\V1\productsController@getAllCategories');
         $api->get('categories2', '\App\Http\Controllers\Api\V1\productsController@getAllCategories2');
 
-        $api->post('login', 'App\Http\Controllers\Api\Auth\LoginController@login');
-        $api->post('register', 'App\Http\Controllers\Api\Auth\RegisterController@register');
+        /*
+         * POST - Login and Registration
+         */
+        $api->post('login', 'App\Http\Controllers\Auth\LoginController@login');
+        $api->post('register', 'App\Http\Controllers\Auth\RegisterController@register');
 
+        /*
+        * Protégé
+        */
+        $api->group(['middleware' => 'jwt.auth'], function (Router $api) {
+            $api->get('test', function(){return "Hello World !";});
+        });
 
 });
+

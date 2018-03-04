@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -15,16 +17,17 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'users_login', 'users_email', 'users_pass', 'users_name', 'users_fsname', 'users_address', 'users_npa', 'users_locality', 'users_createDate', 'fk_gender_id'
     ];
-
+    protected $table = 'TB_Users';
+    public $timestamps = false;
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'users_pass', 'remember_token',
     ];
 
     /**

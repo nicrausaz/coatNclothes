@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'api',
+        'users_pass' => 'users_login',
     ],
 
     /*
@@ -38,12 +38,12 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'TB_Users',
         ],
 
         'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
+            'driver' => 'jwt',
+            'provider' => 'TB_Users',
         ],
     ],
 
@@ -65,9 +65,10 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'TB_Users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+            //'table' => 'TB_Users',
         ],
 
         // 'users' => [
@@ -92,8 +93,8 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'TB_Users' => [
+            'provider' => 'TB_Users',
             'table' => 'password_resets',
             'expire' => 60,
         ],
