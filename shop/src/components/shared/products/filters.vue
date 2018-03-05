@@ -8,13 +8,15 @@
       </div>
     </div>
     <div class="column is-3">
+      <div class="field">
         <b-field label="Sexe">
           <b-checkbox size="is-small" native-value="H" v-model="search.genders">H</b-checkbox>
           <b-checkbox size="is-small" native-value="F" v-model="search.genders">F</b-checkbox>
         </b-field>
+      </div>
     </div>
     <div class="column is-4">
-      <b-field label="Marque">
+      <b-field label="Marques">
         <b-select placeholder="Choisir des marques" v-model="search.brands">
           <option v-for="i in 4" :value="i" :key="i">
             {{ i }}
@@ -22,7 +24,7 @@
         </b-select>
       </b-field>
     </div>
-    <div class="column is-4">
+    <div class="column is-2">
       <b-field>
         <b-radio-button v-model="selectedView" native-value="cardedView">
           <i class="fa fa-th-large"></i>
