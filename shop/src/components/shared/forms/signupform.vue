@@ -11,7 +11,7 @@
               <b-input v-model="infos.users_email" icon="at" placeholder="Email" type="email" required></b-input>
             </b-field>
             <b-field label="Mot de passe">
-                <b-input type="password" v-model="infos.users_pass" icon="key" placeholder="Mot de passe" password-reveal required>
+                <b-input type="password" v-model="infos.users_pass" icon="key" placeholder="Mot de passe" minlength="6" password-reveal required>
                 </b-input>
             </b-field>
             <b-field label="Confirmer mot de passe">
@@ -53,8 +53,14 @@ export default {
     doublePasswordIsValid () {
       return this.infos.users_pass === this.passwordConfirm && this.infos.users_pass !== ''
     },
+    validData () {
+      Object.keys(this.infos).forEach((key) => {
+        console.log(key, this.infos[key])
+      })
+      return true
+    },
     createUser () {
-      if (this.doublePasswordIsValid()) {
+      if (this.doublePasswordIsValid() && this.validData()) {
         let self = this
         this.axios({
           method: 'post',
@@ -62,13 +68,15 @@ export default {
           data: self.infos
         })
         .then(response => {
-          this.errors = response.data
-          console.log('test')
-          // console.log(response)
-          // console.log(response.data.status_code)
-          // if (response.data.status_code !== 201) {
-          //   this.errors = response.data.errors
-          // }
+          this.$store.commit('setUserToken', response.data.token)
+
+          console.log(response.data.token)
+          this.$toast.open({
+            duration: 5000,
+            message: response.data.message,
+            position: 'is-top',
+            type: 'is-success'
+          })
         })
         .catch(errors => {
           this.errors = errors.response.data.errors
@@ -85,7 +93,7 @@ export default {
     },
     toastErrors () {
       let self = this
-      let errors = Object.keys(this.errors).map(function (key) { return self.errors[key] })
+      let errors = Object.keys(this.errors).map(function (key) { return self.errors[key].toString() })
       errors.forEach((error) => {
         self.$toast.open({
           duration: 5000,
