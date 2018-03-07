@@ -13,6 +13,9 @@ const store = new Vuex.Store({
   mutations: {
     setUserToken (state, token) {
       this.state.userToken = token
+    },
+    detroyUserToken () {
+      this.state.userToken = ''
     }
   }
 })
