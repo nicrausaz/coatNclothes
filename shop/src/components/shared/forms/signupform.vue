@@ -70,7 +70,6 @@ export default {
         .then(response => {
           this.$store.commit('setUserToken', response.data.token)
 
-          console.log(response.data.token)
           this.$toast.open({
             duration: 5000,
             message: response.data.message,

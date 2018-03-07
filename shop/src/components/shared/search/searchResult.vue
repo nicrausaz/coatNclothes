@@ -20,7 +20,7 @@ export default {
   props: ['data'],
   methods: {
     goToArticle () {
-      this.$router.push('product/1')
+      this.$router.push('/product/' + this.data.products_id)
     }
   }
 }

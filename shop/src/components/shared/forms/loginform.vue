@@ -4,10 +4,10 @@
       <div class="card">
         <div class="card-content">
           <b-field label="Nom d'utilisateur ou email">
-              <b-input v-model="credentials.username" placeholder="Nom d'utilisateur ou email" icon="user" required></b-input>
+              <b-input v-model="credentials.users_login" placeholder="Nom d'utilisateur ou email" icon="user" required></b-input>
           </b-field>
           <b-field label="Mot de passe">
-              <b-input type="password" v-model="credentials.password" placeholder="Mot de passe" password-reveal icon="key" required>
+              <b-input type="password" v-model="credentials.users_pass" placeholder="Mot de passe" password-reveal icon="key" required>
               </b-input>
           </b-field>
           <div class="level-right">
@@ -24,8 +24,8 @@ export default {
   data () {
     return {
       credentials: {
-        username: '',
-        password: ''
+        users_login: '',
+        users_pass: ''
       }
     }
   },
@@ -36,6 +36,24 @@ export default {
         method: 'post',
         url: '/login',
         data: self.credentials
+      })
+      .then((response) => {
+        this.$store.commit('setUserToken', response.data.token)
+        this.$toast.open({
+          duration: 3000,
+          message: response.data.message,
+          position: 'is-top',
+          type: 'is-success'
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+        this.$toast.open({
+          duration: 3000,
+          message: 'Nom de compte, email ou mot passe erroné !',
+          position: 'is-top',
+          type: 'is-danger'
+        })
       })
     }
   }

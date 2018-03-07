@@ -12,8 +12,7 @@ import userprofile from '@/components/views/userprofile'
 export default {
   computed: {
     isUserLogedIn () {
-      // check if token in in store.state
-      return this.$store.state.userToken === ''
+      return this.$store.state.userToken !== ''
     }
   },
   components: {
