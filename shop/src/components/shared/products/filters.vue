@@ -1,5 +1,5 @@
 <template>
-  <div class="columns notification" style="border: 1px solid black;">
+  <div class="columns notification">
     <div class="column is-3">
       <div class="field">
         <b-field label="Prix">

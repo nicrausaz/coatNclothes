@@ -1,46 +1,41 @@
 <template>
-<div class="column is-one-third">
-  <div class="card">
-    <div class="card-image" @click="isImageModalActive = true">
-      <figure class="image is-square">
-        <!-- <img :src="getImage(infos.product_picture)" alt="alt" draggable="false"> -->
-        <img src="static/noImgAvailable.png" draggable="false">
-      </figure>
-    </div>
-    <div class="card-content">
-      <div class="media">
-        <div class="media-content">
-          <p class="title is-4">{{ infos.product_name }}test</p>
-        </div>
+  <div class="column is-one-quarter">
+    <div class="card" @mouseover="hover = true" @mouseout="hover = false">
+      <div class="card-image" @click="isImageModalActive = true">
+        <figure class="image is-square">
+          <!-- <img :src="getImage(infos.product_picture)" alt="alt" draggable="false"> -->
+          <img src="static/noImgAvailable.png" draggable="false">
+        </figure>
       </div>
-
-      <div class="content">
-        {{infos.product_description}}
-        test
-      </div>
-      <hr>
-      <div class="btnZone">
-        <router-link to="/product/1">
-          <a class="button is-outlined is-large">
+      <div class="card-content">
+        <div class="media">
+          <div class="media-content">
+              <ul>
+                <li>Nom de l'article</li>
+                <li class="has-text-right">20 CHF</li>
+              </ul>
+              <router-link to="/product/1">
+            <a class="button is-outlined">
+              <span class="icon">
+                <i class="fa fa-info"></i>
+              </span>
+            </a>
+              </router-link>
+              <a class="button is-primary is-outlined" @click="addToWishlist(infos.product_name)">
             <span class="icon">
-              <i class="fa fa-info"></i>
+              <i class="fa fa-heart"></i>
             </span>
           </a>
-        </router-link>
-        <a class="button is-primary is-outlined is-large" @click="addToWishlist(infos.product_name)">
-          <span class="icon">
-            <i class="fa fa-heart"></i>
-          </span>
-        </a>
+            </div>
+        </div>
       </div>
     </div>
+    <b-modal :active.sync="isImageModalActive">
+      <p class="image is-4by4">
+        <img :src="getImage(infos.product_picture)">
+      </p>
+    </b-modal>
   </div>
-  <b-modal :active.sync="isImageModalActive">
-    <p class="image is-4by4">
-      <img :src="getImage(infos.product_picture)">
-    </p>
-  </b-modal>
-</div>
 </template>
 
 <script>
@@ -48,7 +43,8 @@ export default {
   props: ['infos'],
   data () {
     return {
-      isImageModalActive: false
+      isImageModalActive: false,
+      hover: false
     }
   },
   methods: {
@@ -67,8 +63,8 @@ export default {
 
 <style scoped>
 .card {
-  height: 500px;
-  width: 250px;
+  height: 350px;
+  width: 200px;
 }
 .card-image {
   cursor: pointer;

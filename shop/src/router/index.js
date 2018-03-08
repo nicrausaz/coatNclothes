@@ -5,7 +5,6 @@ import Categories from '@/components/views/categories'
 import WishLists from '@/components/views/wishlists'
 import Shopbag from '@/components/views/shopbag'
 import checkLogin from '@/components/views/checkLogin'
-import products from '@/components/views/products'
 import product from '@/components/views/product'
 import orders from '@/components/views/orders'
 import NotFound from '@/components/views/404'
@@ -43,11 +42,6 @@ export default new Router({
       path: '/user',
       name: 'User',
       component: checkLogin
-    },
-    {
-      path: '/products',
-      name: 'products',
-      component: products
     },
     {
       path: '/product/:id',

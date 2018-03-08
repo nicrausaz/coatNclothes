@@ -1,7 +1,7 @@
 <template>
 <div class="column is-one-third">
   <div class="card" @mouseover="hover = true" @mouseout="hover = false">
-    <button class="button is-small is-rounded is-light" @click="removeProductFromShopBag">
+    <button class="button is-small is-text" @click="removeProductFromShopBag" style="text-decoration: none;">
       <b-icon icon="times" size="is-small"></b-icon>
     </button>
     <div class="card-image" @click="$router.push('/product/1')">
@@ -23,11 +23,6 @@
       </div>
     </transition>
   </div>
-  <b-modal :active.sync="isImageModalActive">
-    <p class="image is-4by4">
-      <!-- <img :src="getImage(infos.product_picture)"> -->
-    </p>
-  </b-modal>
 </div>
 </template>
 
