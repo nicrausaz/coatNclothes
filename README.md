@@ -70,7 +70,7 @@ export default {
 ```
 {
 	"products_id": 2,
-	"products_name": "T-Shirt Pigeon de Madagascare",
+	"products_name": "T-Shirt Pigeon de Madagascar",
 	"products_description": "Un T-Shirt Cool",
 	"products_price": 35,
 	"fk_category_id": 5,
@@ -258,7 +258,7 @@ export default {
 ```
 {
     data: {
-        
+
     }
 }
 ```
@@ -275,17 +275,22 @@ export default {
 ```
 {
     data: {
-        
+      users_login: 'username',
+      users_pass: 'password'
     }
 }
 ```
-### /signup/
+### /register/
 #### Postfield: username, email, password, fsname, name, adress, npa, locality, gender
 > Création d'un utilisateur
 ```
 {
     data: {
-        
+      users_login: 'username',
+      users_email: 'email',
+      users_pass: 'password',
+      users_name: 'name',
+      users_fsname: 'firstname'
     }
 }
 ```
