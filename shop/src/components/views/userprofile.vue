@@ -34,11 +34,15 @@
             <div class="panel-heading">
                 <strong>Mes commandes</strong>
             </div>
-            <div class="panel-block">
-              <ul>
-                <b-table :data="orders" :columns="columns"></b-table>
-                <router-link to="/orders" class="button is-small is-primary">Voir tout <b-icon icon="arrow-right" size="is-small"></b-icon></router-link>
-              </ul>
+            <div class="panel-block" style="display: inline-block; width: 100%;">
+              <div class="ordersDiv" v-for="order in orders" :key="order.orders_id">
+                <router-link :to="'/order/' + order.orders_id">
+                  <small>{{order.orders_id}}</small>
+                  <span>{{order.orders_createdDate}}</span>
+                  <span>{{order.orders_status}}</span>
+                </router-link>
+              </div>
+              <router-link to="/orders" class="button is-small is-primary">Voir tout <b-icon icon="arrow-right" size="is-small"></b-icon></router-link>
             </div>
         </b-collapse>
         </div>
@@ -74,21 +78,6 @@ export default {
     return {
       user: {
       },
-      columns: [
-        {
-          field: 'orders_id',
-          label: '#',
-          numeric: true
-        },
-        {
-          field: 'orders_createdDate',
-          label: 'Date'
-        },
-        {
-          field: 'orders_status',
-          label: 'Status'
-        }
-      ],
       orders: [
         {
           orders_id: 1,
@@ -124,5 +113,10 @@ export default {
 <style scoped>
 .updivs {
   height: 350px;
+}
+.ordersDiv {
+  padding: 5px;
+  border: 1px solid lightgray;
+  cursor: pointer;
 }
 </style>
