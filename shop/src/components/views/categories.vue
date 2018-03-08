@@ -6,12 +6,12 @@
       <sidebar></sidebar>
     </div>
     <div class="column" id="filtersDiv">
-      <filters></filters>
+      <filters @filter="setFilters"></filters>
       <div id="cardedproducts" class="columns is-multiline" v-if="isCardedView">
         <cardedproduct v-for="product in products_list" :key="product.product_id" :infos="product"></cardedproduct>
       </div>
       <div id="linedproducts" v-else>
-        <lined-product v-for="product in products_list" :key="product.product_id" :infos="product"></lined-product>
+        <linedproduct v-for="product in products_list" :key="product.product_id" :infos="product"></linedproduct>
       </div>
     </div>
   </div>
@@ -28,9 +28,14 @@ import filters from '@/components/shared/products/filters'
 export default {
   data () {
     return {
-      selectedView: 'cardedView',
+      filters: [],
       categories: [],
       products_list: []
+    }
+  },
+  methods: {
+    setFilters (filters) {
+      this.filters = filters
     }
   },
   created () {
@@ -51,7 +56,7 @@ export default {
   },
   computed: {
     isCardedView () {
-      return this.selectedView === 'cardedView'
+      return this.filters.selectedView !== 'listedView'
     }
   },
   components: {

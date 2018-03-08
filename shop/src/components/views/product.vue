@@ -21,12 +21,12 @@
 
             <section class="section">
               <form>
-                <b-dropdown v-model="currentProduct.size">
+                <b-dropdown v-model="currentProduct.selectedSize">
                   <button class="button is-primary" slot="trigger">
                       <span>{{ textSize }}</span>
                       <b-icon icon="angle-down"></b-icon>
                   </button>
-                  <b-dropdown-item v-for="size in productData.products_size" :key="size" >{{ size }}</b-dropdown-item>
+                  <b-dropdown-item v-for="size in productData.products_size" :key="size" :value="size">{{ size }}</b-dropdown-item>
                 </b-dropdown>
                 <section class="section">
                   <a class="button is-primary is-rounded" @click="openWishlistSelector"><b-icon icon="heart"></b-icon></a>
@@ -35,7 +35,6 @@
               </form>
             </section>
           </div>
-          {{currentProduct}}
         </div>
       </div>
       <suggestedproducts></suggestedproducts>

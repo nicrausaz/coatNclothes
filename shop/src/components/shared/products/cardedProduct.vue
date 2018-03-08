@@ -3,16 +3,15 @@
     <div class="card" @mouseover="hover = true" @mouseout="hover = false">
       <div class="card-image" @click="isImageModalActive = true">
         <figure class="image is-square">
-          <!-- <img :src="getImage(infos.product_picture)" alt="alt" draggable="false"> -->
-          <img src="static/noImgAvailable.png" draggable="false">
+          <img :src="getImage(infos.products_pictures)" alt="alt" draggable="false">
         </figure>
       </div>
       <div class="card-content">
         <div class="media">
           <div class="media-content">
               <ul>
-                <li>Nom de l'article</li>
-                <li class="has-text-right">20 CHF</li>
+                <li>{{ infos.products_name }}</li>
+                <li class="has-text-right">{{infos.products_price}} 10 CHF</li>
               </ul>
               <router-link to="/product/1">
             <a class="button is-outlined">
@@ -21,7 +20,7 @@
               </span>
             </a>
               </router-link>
-              <a class="button is-primary is-outlined" @click="addToWishlist(infos.product_name)">
+              <a class="button is-primary is-outlined" @click="addToWishlist(infos.products_name)">
             <span class="icon">
               <i class="fa fa-heart"></i>
             </span>
@@ -32,7 +31,7 @@
     </div>
     <b-modal :active.sync="isImageModalActive">
       <p class="image is-4by4">
-        <img :src="getImage(infos.product_picture)">
+        <img :src="getImage(infos.products_pictures)">
       </p>
     </b-modal>
   </div>

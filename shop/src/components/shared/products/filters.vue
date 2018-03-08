@@ -1,5 +1,5 @@
 <template>
-  <div class="columns notification">
+  <div class="columns notification" @change="$emit('filter', search)">
     <div class="column is-3">
       <div class="field">
         <b-field label="Prix">
@@ -26,10 +26,10 @@
     </div>
     <div class="column is-2">
       <b-field>
-        <b-radio-button v-model="selectedView" native-value="cardedView">
+        <b-radio-button v-model="search.selectedView" native-value="cardedView">
           <i class="fa fa-th-large"></i>
         </b-radio-button>
-        <b-radio-button v-model="selectedView" native-value="listedView">
+        <b-radio-button v-model="search.selectedView" native-value="listedView">
           <i class="fa fa-list"></i>
         </b-radio-button>
       </b-field>
@@ -44,7 +44,6 @@ import vueSlider from 'vue-slider-component'
 export default {
   data () {
     return {
-      selectedView: 'cardedView',
       sliderConfig: {
         formatter: '{value} CHF',
         bgStyle: {
@@ -62,7 +61,8 @@ export default {
       search: {
         price: [0, 500],
         genders: [],
-        brands: []
+        brands: [],
+        selectedView: 'cardedView'
       }
     }
   },
