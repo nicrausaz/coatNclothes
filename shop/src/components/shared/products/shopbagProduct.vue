@@ -1,7 +1,10 @@
 <template>
 <div class="column is-one-third">
   <div class="card" @mouseover="hover = true" @mouseout="hover = false">
-    <div class="card-image" @click="isImageModalActive = true">
+    <button class="button is-small is-rounded is-light" @click="removeProductFromShopBag">
+      <b-icon icon="times" size="is-small"></b-icon>
+    </button>
+    <div class="card-image" @click="$router.push('/product/1')">
       <figure class="image is-square">
         <!-- <img :src="getImage(infos.product_picture)" alt="alt" draggable="false"> -->
         <img src="static/noImgAvailable.png" draggable="false">
@@ -11,7 +14,10 @@
       <div class="card-content notification" v-if="hover">
         <div class="media">
           <div class="media-content">
-            test
+            <ul>
+              <li>Nom de l'article</li>
+              <li class="has-text-right">{{ formatedprice(20) }}</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -30,13 +36,18 @@ export default {
   props: ['infos'],
   data () {
     return {
-      hover: false,
-      isImageModalActive: false
+      hover: false
     }
   },
   methods: {
     getImage (picture) {
       return picture === '' ? 'static/noImgAvailable.png' : picture
+    },
+    formatedprice (price) {
+      return price + ' CHF'
+    },
+    removeProductFromShopBag () {
+      // remove from api / toast
     }
   }
 }
@@ -44,7 +55,7 @@ export default {
 
 <style scoped>
 .card {
-  height: 300px;
+  height: 320px;
   width: 200px;
 }
 .card-image {
