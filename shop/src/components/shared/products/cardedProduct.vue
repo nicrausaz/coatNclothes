@@ -13,18 +13,14 @@
                 <li>{{ infos.products_name }}</li>
                 <li class="has-text-right">{{infos.products_price}} 10 CHF</li>
               </ul>
-              <router-link to="/product/1">
-            <a class="button is-outlined">
-              <span class="icon">
-                <i class="fa fa-info"></i>
-              </span>
-            </a>
+              <router-link :to="/product/ + infos.products_id">
+                <button class="button is-outlined">
+                  <b-icon icon="info" size="is-small"></b-icon>
+                </button>
               </router-link>
-              <a class="button is-primary is-outlined" @click="addToWishlist(infos.products_name)">
-            <span class="icon">
-              <i class="fa fa-heart"></i>
-            </span>
-          </a>
+              <button class="button is-primary is-outlined" @click="addToWishlist(infos.products_name)">
+                  <b-icon icon="heart" size="is-small"></b-icon>
+              </button>
             </div>
         </div>
       </div>

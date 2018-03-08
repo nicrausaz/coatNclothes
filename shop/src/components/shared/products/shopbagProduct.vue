@@ -1,10 +1,8 @@
 <template>
 <div class="column is-one-third">
   <div class="card" @mouseover="hover = true" @mouseout="hover = false">
-    <button class="button is-small is-text" @click="removeProductFromShopBag" style="text-decoration: none;">
-      <b-icon icon="times" size="is-small"></b-icon>
-    </button>
-    <div class="card-image" @click="$router.push('/product/1')">
+    <button class="delete" @click="removeProductFromShopBag" style="margin: 5px;"></button>
+    <div class="card-image" @click="$router.push('/product/' + infos.products_id)">
       <figure class="image is-square">
         <!-- <img :src="getImage(infos.product_picture)" alt="alt" draggable="false"> -->
         <img src="static/noImgAvailable.png" draggable="false">
@@ -15,7 +13,7 @@
         <div class="media">
           <div class="media-content">
             <ul>
-              <li>Nom de l'article</li>
+              <li>{{infos.products_name}}</li>
               <li class="has-text-right">{{ formatedprice(20) }}</li>
             </ul>
           </div>

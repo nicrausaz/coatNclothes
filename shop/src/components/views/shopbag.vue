@@ -3,19 +3,21 @@
     <subtitle :name="'Panier'" :text="'Voir votre panier d\'achats'"></subtitle>
     <section class="section">
       <div v-if="!isShopBagEmpty" class="columns">
-        <!-- <shopBagProduct v-for="product in products" :key="product.product_id"></shopBagProduct> -->
         <div class="columns is-multiline is-three-quarter">
-          <shopBagProduct v-for="i in 10" :key="i"></shopBagProduct>
+          <shopBagProduct v-for="product in products" :key="product.products_id" :infos="product"></shopBagProduct>
         </div>
         <div class="content column is-one-quarter notification" id="summaryDiv">
-          <h3>Résumé du panier:</h3>
-          {{ articlesNumberText }}
-          {{totalPrice}}
-          <!-- listes des articles et prix total -->
+          <h3>Résumé du panier:</h3> <small>{{ articlesNumberText }}</small>
+          <ul>
+            <li v-for="product in products" :key="product.products_id">{{ product.products_name }} {{ product.products_price }}</li>
+          </ul>
+          <hr>
+          <p class="has-text-right">Prix total: {{totalPrice}}</p>
         </div>
       </div>
-      <div v-else>
-        Panier vide
+      <div class="has-text-centered subtitle is-3" v-else>
+        <b-icon icon="inbox" size="is-large"></b-icon>
+        <p>Votre panier est vide ... Ajoutez-y des produits ! </p>
       </div>
     </section>
   </div>
@@ -31,10 +33,18 @@ export default {
       products: []
     }
   },
+  created () {
+    this.axios({
+      method: 'get',
+      url: '/products'
+    })
+    .then((response) => {
+      this.products = response.data
+    })
+  },
   computed: {
     isShopBagEmpty () {
-      return false
-      // return this.products.length === 0
+      return this.products.length === 0
     },
     articleNumber () {
       return this.products.length
@@ -50,7 +60,11 @@ export default {
       }
     },
     totalPrice () {
-      return 0
+      let totalPrice = 0
+      this.products.forEach((product) => {
+        totalPrice += product.products_price // will work when data will be on good format
+      })
+      return totalPrice
     }
   },
   components: {
