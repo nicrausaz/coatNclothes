@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
+
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
@@ -25,6 +26,7 @@ class LoginController extends Controller
 
         if ($user && Hash::check($request->get('users_pass'), $user->users_pass)) {
             $token = JWTAuth::fromUser($user);
+            //$token= JWTAuth::attempt($user);
             return $this->sendLoginResponse($request, $token);
         }
 
