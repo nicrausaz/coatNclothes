@@ -22,7 +22,7 @@ Vue.use(Vuex)
 Vue.config.productionTip = false
 
 Vue.prototype.axios = axios.create({
-  baseURL: 'http://api.coatandclothes.shop:8090'
+  baseURL: 'https://api.coatandclothes.shop/'
 })
 
 /* eslint-disable no-new */

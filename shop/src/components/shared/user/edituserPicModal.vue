@@ -5,8 +5,14 @@
     </header>
     <section class="modal-card-body">
       <img src="static/noImgAvailable.png" />
+      <b-field>
+        <a class="button is-primary">
+          <b-icon icon="trash-alt"></b-icon>
+          <span>Remove picture</span>
+        </a>
+      </b-field>
         <b-field>
-          <b-upload v-model="files">
+          <b-upload v-model="files" accept="image/*">
             <a class="button is-primary">
               <b-icon icon="upload"></b-icon>
               <span>Click to upload</span>

@@ -1,18 +1,20 @@
 <template>
-  <div>
-      <div class="card">
-        <h1 class="title">Choisir la liste</h1>
-        <div class="card-content">
-            <div v-for="wishlist in wishlists" class="choices" :key="wishlist.id">
-              {{wishlist.name}}
-              <a class="button is-primary is-rounded" @click="choose(wishlist.id)"><b-icon class="actions" icon="plus"></b-icon></a>
-            </div>
-            <hr>
-            <div class="choices">
-              Créer une nouvelle liste
-            </div>
-        </div>
+<div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Choisir la liste</p>
+    </header>
+    <section class="modal-card-body">
+      <div v-for="wishlist in wishlists" class="choices" :key="wishlist.id" @click="choose(wishlist.id)">
+        {{wishlist.name}}
       </div>
+      <hr>
+      <div class="choices" @click="createNew">
+        Créer une nouvelle liste
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button" type="button" @click="this.$parent.close">Annuler</button>
+    </footer>
   </div>
 </template>
 
@@ -31,7 +33,12 @@ export default {
   methods: {
     choose (id) {
       console.log('add to wishlist' + id)
+      // API: add product-Id to wishlist_id
       this.$parent.close()
+    },
+    createNew () {
+      this.$parent.close()
+      this.$router.push('/wishlists')
     }
   }
 }
@@ -46,6 +53,7 @@ export default {
   padding: 20px;
   margin-bottom: 10px;
   border: 1px solid lightgray;
+  cursor: pointer;
 }
 .actions {
   float: right;

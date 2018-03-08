@@ -5,7 +5,7 @@
       <div class="columns">
         <div class="column is-one-quarter">
           <div class="updivs">
-            <figure class="image" @click="editUserPic">
+            <figure class="image" @click="editUserPic" style="cursor: pointer;">
               <img src="static/noImgAvailable.png" alt="userpic">
             </figure>
           </div>
@@ -29,19 +29,16 @@
             n.crausaz99@gmail.com
             pseudo
           </div>
-        
+
           <b-collapse class="panel">
             <div class="panel-heading">
                 <strong>Mes commandes</strong>
             </div>
             <div class="panel-block">
-              <p>Dernieres commandes</p>
               <ul>
-                <li>Commande1</li>
-                <li>Commande2</li>
-                <li>Commande3</li>
+                <b-table :data="orders" :columns="columns"></b-table>
+                <router-link to="/orders" class="button is-small is-primary">Voir tout <b-icon icon="arrow-right" size="is-small"></b-icon></router-link>
               </ul>
-              <p>Voir tout</p>
             </div>
         </b-collapse>
         </div>
@@ -77,6 +74,38 @@ export default {
     return {
       user: {
       },
+      columns: [
+        {
+          field: 'orders_id',
+          label: '#',
+          numeric: true
+        },
+        {
+          field: 'orders_createdDate',
+          label: 'Date'
+        },
+        {
+          field: 'orders_status',
+          label: 'Status'
+        }
+      ],
+      orders: [
+        {
+          orders_id: 1,
+          orders_createdDate: '02/02/2018',
+          orders_status: 'En préparation'
+        },
+        {
+          orders_id: 2,
+          orders_createdDate: '01/02/2018',
+          orders_status: 'En livraison'
+        },
+        {
+          orders_id: 3,
+          orders_createdDate: '01/01/2018',
+          orders_status: 'Terminée'
+        }
+      ],
       isEditingPhoto: false
     }
   },
