@@ -1,5 +1,5 @@
 <template>
-  <article class="media">
+  <article class="media column is-4">
     <figure class="media-left">
       <p class="image is-64x64">
         <img src="static/noImgAvailable.png">
@@ -18,10 +18,15 @@
 
 <script>
 export default {
-
+  props: ['data']
 }
 </script>
 
-<style>
-
+<style scoped>
+.media {
+  border: none;
+  margin: 0px;
+  padding: 10px;
+  border: 1px solid black;
+}
 </style>

@@ -27,7 +27,7 @@
             <section class="section">
                 <div class="content has-text-grey has-text-centered">
                     <p>
-                      <b-icon icon="frown-o" size="is-large"></b-icon>
+                        <b-icon icon="inbox" size="is-large"></b-icon>
                     </p>
                     <p>La liste est vide, ajoutez-y des products !</p>
                 </div>
@@ -38,22 +38,22 @@
 </template>
 
 <script>
-  export default {
-    props: ['products'],
-    data () {
-      return {
-      }
+export default {
+  props: ['products'],
+  data () {
+    return {
+    }
+  },
+  methods: {
+    formatedPrice (price) {
+      return price.toFixed(2) + ' CHF'
     },
-    methods: {
-      formatedPrice (price) {
-        return price.toFixed(2) + ' CHF'
-      },
-      addToBasket (id) {
-        console.log(id)
-      },
-      deleteItem (id) {
-        console.log(id)
-      }
+    addToBasket (id) {
+      console.log(id)
+    },
+    deleteItem (id) {
+      console.log(id)
     }
   }
+}
 </script>

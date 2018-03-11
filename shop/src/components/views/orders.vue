@@ -26,8 +26,8 @@
         </template>
 
         <template slot="detail" slot-scope="props">
-          <div>
-            <orderProduct v-for="i in 1" :key="i"></orderProduct>
+          <div class="columns is-multiline">
+            <orderProduct v-for="i in 4" :key="i"></orderProduct>
           </div>
           <!-- <orderProduct v-for="product in props.row.orders_content" :key="product.products_id"></orderProduct> -->
         </template>

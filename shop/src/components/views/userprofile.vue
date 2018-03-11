@@ -23,13 +23,27 @@
             </div>
           </b-collapse>
         </div>
-        <div class="column">
+        <div class="column is-one-third">
           <div class="updivs">
             <h1 class="title">Nicolas Crausaz</h1>
             n.crausaz99@gmail.com
             pseudo
           </div>
-
+           <b-collapse class="panel">
+              <div class="panel-heading">
+                  <strong>Actions</strong>
+              </div>
+              <div class="panel-block">
+                  <router-link to="/admin" class="button is-primary"><b-icon icon="unlock-alt"></b-icon><span>Administration</span></router-link>
+                  <a class="button is-primary"><b-icon icon="pencil-alt"></b-icon><span>Modifier mes informations</span></a>
+                  <a class="button is-primary" @click="$store.commit('detroyUserToken')"><b-icon icon="sign-out-alt"></b-icon><span>Déconnexion</span></a>
+              </div>
+          </b-collapse>
+        </div>
+        <div class="column">
+          <div class="updivs">
+            Role (client, admin) #id
+          </div>
           <b-collapse class="panel">
             <div class="panel-heading">
                 <strong>Mes commandes</strong>
@@ -45,21 +59,6 @@
               <router-link to="/orders" class="button is-small is-primary">Voir tout <b-icon icon="arrow-right" size="is-small"></b-icon></router-link>
             </div>
         </b-collapse>
-        </div>
-        <div class="column">
-          <div class="updivs">
-            Role (client, admin) #id
-          </div>
-          <b-collapse class="panel">
-              <div class="panel-heading">
-                  <strong>Actions</strong>
-              </div>
-              <div class="panel-block">
-                  <router-link to="/admin" class="button is-primary"><b-icon icon="unlock-alt"></b-icon><span>Administration</span></router-link>
-                  <a class="button is-primary"><b-icon icon="pencil-alt"></b-icon><span>Modifier mes informations</span></a>
-                  <a class="button is-primary" @click="$store.commit('detroyUserToken')"><b-icon icon="sign-out-alt"></b-icon><span>Déconnexion</span></a>
-              </div>
-          </b-collapse>
         </div>
       </div>
     </section>
