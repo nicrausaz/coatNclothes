@@ -9,7 +9,7 @@
       <div class="content">
         <p>
           <strong>Nom de l'article</strong>
-          Prix
+          <small>20 CHF</small>
         </p>
       </div>
     </div>
@@ -26,7 +26,7 @@ export default {
 .media {
   border: none;
   margin: 0px;
-  padding: 10px;
-  border: 1px solid black;
+  padding-left: 20px;
+  /* border: 1px solid black; */
 }
 </style>
