@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     isFilterValid () {
-      return this.searchContent.length >= 3
+      return this.searchContent.length >= 2
     },
     resultHasContent () {
       return this.filteredProducts.length > 0
