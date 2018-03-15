@@ -9,6 +9,7 @@
       <div class="content">
         <p>
           <strong>{{ data.products_name }}</strong>
+          <small>{{data.products_price}} CHF</small>
         </p>
       </div>
     </div>

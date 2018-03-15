@@ -3,7 +3,7 @@
   <subtitle :name="'Catégories'" :text="''"></subtitle>
   <div class="columns">
     <div class="column is-3">
-      <sidebar></sidebar>
+      <sidebarproduct></sidebarproduct>
     </div>
     <div class="column" id="filtersDiv">
       <filters @filter="setFilters"></filters>
@@ -20,7 +20,7 @@
 
 <script>
 import subtitle from '@/components/templates/subtitle'
-import sidebar from '@/components/shared/products/sidebarProducts'
+import sidebarproduct from '@/components/shared/products/sidebarProducts'
 import cardedproduct from '@/components/shared/products/cardedproduct'
 import linedproduct from '@/components/shared/products/linedproduct'
 import filters from '@/components/shared/products/filters'
@@ -61,7 +61,7 @@ export default {
   },
   components: {
     subtitle,
-    sidebar,
+    sidebarproduct,
     cardedproduct,
     linedproduct,
     filters
