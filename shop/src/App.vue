@@ -8,13 +8,11 @@
 
 <script>
 import navigator from '@/components/templates/navigator'
-import sidebar from '@/components/templates/sidebar'
 import footbar from '@/components/templates/footbar'
 export default {
   name: 'app',
   components: {
     navigator,
-    sidebar,
     footbar
   }
 }

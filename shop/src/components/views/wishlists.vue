@@ -20,8 +20,10 @@
 import subtitle from '@/components/templates/subtitle'
 import wishlistCard from '@/components/shared/wishlists/wishlistCard'
 import wishlistNewModal from '@/components/shared/wishlists/wishlistNewModal'
+import checkAccess from '@/mixins/checkAccess'
 
 export default {
+  mixins: [checkAccess],
   data () {
     return {
       isCreating: false,

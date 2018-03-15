@@ -20,7 +20,7 @@
 
 <script>
 import subtitle from '@/components/templates/subtitle'
-import sidebar from '@/components/templates/sidebar'
+import sidebar from '@/components/shared/products/sidebarProducts'
 import cardedproduct from '@/components/shared/products/cardedproduct'
 import linedproduct from '@/components/shared/products/linedproduct'
 import filters from '@/components/shared/products/filters'

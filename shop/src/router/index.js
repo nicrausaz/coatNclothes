@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Home from '@/components/views/home'
 import Categories from '@/components/views/categories'
 import WishLists from '@/components/views/wishlists'
@@ -7,6 +8,9 @@ import Shopbag from '@/components/views/shopbag'
 import checkLogin from '@/components/views/checkLogin'
 import product from '@/components/views/product'
 import orders from '@/components/views/orders'
+
+import admin from '@/components/views/admin/admin'
+
 import NotFound from '@/components/views/404'
 
 Vue.use(Router)
@@ -57,6 +61,11 @@ export default new Router({
       path: '/order/:id',
       name: 'order',
       component: orders
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: admin
     },
     {
       path: '*',

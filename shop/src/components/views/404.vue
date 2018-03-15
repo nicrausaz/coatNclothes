@@ -4,12 +4,12 @@
   </div>
 </template>
 
-<script>
-export default {
-
+<style scoped>
+.container {
+  text-align: center;
 }
-</script>
-
-<style>
-
+img {
+  padding-top: 20px;
+  width: 500px;
+}
 </style>

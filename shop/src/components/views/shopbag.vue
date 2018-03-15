@@ -26,8 +26,10 @@
 <script>
 import subtitle from '@/components/templates/subtitle'
 import shopBagProduct from '@/components/shared/products/shopbagproduct'
+import checkAccess from '@/mixins/checkAccess'
 
 export default {
+  mixins: [checkAccess],
   data () {
     return {
       products: []
