@@ -11,6 +11,9 @@ import orders from '@/components/views/orders'
 
 import admin from '@/components/views/admin/admin'
 import adminProducts from '@/components/shared/admin/products/productsTable'
+import adminDashboard from '@/components/shared/admin/dashboard'
+// import adminOrders from '@/components/shared/admin/orders/'
+// import adminUsers from '@/components/shared/admin/products/productsTable'
 
 import NotFound from '@/components/views/404'
 
@@ -70,7 +73,7 @@ export default new Router({
       children: [
         {
           path: 'dashboard',
-          component: adminProducts
+          component: adminDashboard
         },
         {
           path: 'products',

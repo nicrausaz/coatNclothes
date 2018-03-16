@@ -37,7 +37,7 @@
       </b-field>
 
       <b-field label="Images">
-        <div v-if="hasPicture" class="columns is-multiline">
+        <div v-if="hasPicture" class="columns is-multiline is-mobile">
           <figure class="image is-128x128 column" v-for="pic in newData.products_pictures" :key="pic.altName">
             <img :src="pic.path" draggable="false">
           </figure>

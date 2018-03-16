@@ -1,49 +1,39 @@
 <template>
   <aside class="menu">
     <p class="menu-label">
-      <router-link to="/admin/dashboard">Dashboard</router-link>
+      Dashboard {{activeView}}
     </p>
     <ul class="menu-list">
-      <li><a>Résumé</a></li>
+      <router-link to="/admin/dashboard" :class="{'is-active' : isActive('/admin/dashboard')}">Résumé</router-link>
     </ul>
-    <p class="menu-label">
-      Administration
-    </p>
+    <p class="menu-label">Administration</p>
     <ul class="menu-list">
-        <li>
-          <a class="is-active">Articles</a>
-          <ul>
-              <li><a>Members</a></li>
-              <li><a>Plugins</a></li>
-              <li><a>Add a member</a></li>
-          </ul>
-        </li>
-        <li>
-          <a class="is-active">Commandes</a>
-          <ul>
-              <li><a>Members</a></li>
-              <li><a>Plugins</a></li>
-              <li><a>Add a member</a></li>
-          </ul>
-        </li>
-        <li>
-          <a class="">Utilisateurs</a>
-          <ul>
-              <li><a>Members</a></li>
-              <li><a>Plugins</a></li>
-              <li><a>Add a member</a></li>
-          </ul>
-        </li>
-
+      <router-link to="/admin/products" :class="{'is-active' : isActive('/admin/products')}">Produits</router-link>
+    </ul>
+    <ul class="menu-list">
+      <router-link to="/admin/orders" :class="{'is-active' : isActive('/admin/orders')}">Commandes</router-link>
+    </ul>
+    <ul class="menu-list">
+      <router-link to="/admin/users" :class="{'is-active' : isActive('/admin/users')}">Utilisateurs</router-link>
     </ul>
   </aside>
 </template>
 
 <script>
 export default {
+  data () {
+    return {
+      active: ''
+    }
+  },
   methods: {
-    test (test) {
-      console.log(test)
+    isActive (item) {
+      return this.active === item
+    }
+  },
+  computed: {
+    activeView () {
+      this.active = this.$route.fullPath
     }
   }
 }
