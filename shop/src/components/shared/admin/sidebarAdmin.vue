@@ -1,7 +1,7 @@
 <template>
   <aside class="menu">
     <p class="menu-label">
-      Dashboard
+      <router-link to="/admin/dashboard">Dashboard</router-link>
     </p>
     <ul class="menu-list">
       <li><a>Résumé</a></li>
@@ -41,7 +41,11 @@
 
 <script>
 export default {
-
+  methods: {
+    test (test) {
+      console.log(test)
+    }
+  }
 }
 </script>
 

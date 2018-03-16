@@ -10,6 +10,7 @@ import product from '@/components/views/product'
 import orders from '@/components/views/orders'
 
 import admin from '@/components/views/admin/admin'
+import adminProducts from '@/components/shared/admin/products/productsTable'
 
 import NotFound from '@/components/views/404'
 
@@ -65,7 +66,25 @@ export default new Router({
     {
       path: '/admin',
       name: 'admin',
-      component: admin
+      component: admin,
+      children: [
+        {
+          path: 'dashboard',
+          component: adminProducts
+        },
+        {
+          path: 'products',
+          component: adminProducts
+        },
+        {
+          path: 'orders',
+          component: adminProducts
+        },
+        {
+          path: 'users',
+          component: adminProducts
+        }
+      ]
     },
     {
       path: '*',
