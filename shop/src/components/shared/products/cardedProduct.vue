@@ -3,7 +3,7 @@
     <div class="card" @mouseover="hover = true" @mouseout="hover = false">
       <div class="card-image" @click="isImageModalActive = true">
         <figure class="image is-square">
-          <img :src="getImage(infos.products_pictures)" alt="alt" draggable="false">
+          <img :src="getImage(infos.productsPics_path)" alt="alt" draggable="false">
         </figure>
       </div>
       <div class="card-content">
@@ -11,7 +11,7 @@
           <div class="media-content">
               <ul>
                 <li>{{ infos.products_name }}</li>
-                <li class="has-text-right">{{infos.products_price}} 10 CHF</li>
+                <li class="has-text-right"><small>{{infos.products_price}} CHF</small></li>
               </ul>
               <router-link :to="/product/ + infos.products_id">
                 <button class="button is-outlined">
@@ -27,7 +27,7 @@
     </div>
     <b-modal :active.sync="isImageModalActive">
       <p class="image is-4by4">
-        <img :src="getImage(infos.products_pictures)">
+        <img :src="getImage(infos.productsPics_path)">
       </p>
     </b-modal>
   </div>
@@ -50,6 +50,7 @@ export default {
       this.$toast.open(product + ' ajouté au la liste de souhait: test!')
     },
     getImage (picture) {
+      console.log(picture)
       return picture === '' ? 'static/noImgAvailable.png' : picture
     }
   }

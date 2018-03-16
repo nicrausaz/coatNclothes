@@ -14,18 +14,30 @@
         <b-input v-model="newData.products_price" type="number" step="1"></b-input>
       </b-field>
       <b-field label="Catégories">
-        <b-taginput v-model="newData.products_categories" :data="categories" autocomplete :allowNew="true" field="category_name" icon="tag" placeholder="Choisir une catégorie" @typing="getFilteredTags"></b-taginput>
+        <b-taginput v-model="newData.products_categories" :data="filteredCategories" autocomplete :allowNew="true" field="category_name" icon="tag" placeholder="Choisir une catégorie" @typing="getFilteredCategories"></b-taginput>
       </b-field>
-      <b-field label="Marque">
-        {{newData.products_brand}}
-      </b-field>
+       <b-field label="Marque">
+         <b-input v-model="newData.products_brand"></b-input>
+         <!-- make this searchable -->
+        </b-field>
 
-      <b-field label="Tailles">
-        {{newData.products_size}}
+      <b-field label="Tailles disponibles">
+         <b-checkbox-button v-model="newData.products_size" native-value="S">
+            <span>S</span>
+          </b-checkbox-button>
+          <b-checkbox-button v-model="newData.products_size" native-value="M">
+            <span>M</span>
+          </b-checkbox-button>
+          <b-checkbox-button v-model="newData.products_size" native-value="L">
+            <span>L</span>
+          </b-checkbox-button>
+          <b-checkbox-button v-model="newData.products_size" native-value="XL">
+            <span>XL</span>
+          </b-checkbox-button>
       </b-field>
 
       <b-field label="Images">
-        <div v-if="hasPicture" class="columns">
+        <div v-if="hasPicture" class="columns is-multiline">
           <figure class="image is-128x128 column" v-for="pic in newData.products_pictures" :key="pic.altName">
             <img :src="pic.path" draggable="false">
           </figure>
@@ -51,7 +63,12 @@ export default {
       categories: [
         { category_id: 2, category_name: 'Jeans' }
       ],
+      brands: [
+        { brand_id: 1, brand_name: 'Lewi\'s' }
+      ],
       newData: {},
+      filteredCategories: [],
+      filteredBrands: [],
       loaded: false
     }
   },
@@ -72,10 +89,17 @@ export default {
     // .then((response) => {
     //   console.log(response)
     // })
+
+    // get brands
   },
   methods: {
-    getFilteredTags (text) {
-      this.filteredTags = this.categories.filter((option) => {
+    getFilteredCategories (text) {
+      this.filteredCategories = this.categories.filter((option) => {
+        return option.toString().toLowerCase().indexOf(text.toLowerCase()) >= 0
+      })
+    },
+    getFilteredBrands (text) {
+      this.filteredBrands = this.brands.filter((option) => {
         return option.toString().toLowerCase().indexOf(text.toLowerCase()) >= 0
       })
     },

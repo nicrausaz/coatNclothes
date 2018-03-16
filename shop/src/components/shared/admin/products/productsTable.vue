@@ -8,7 +8,7 @@
       </b-select>
       <b-input placeholder="Rechercher..." type="search" icon-pack="fas" icon="search" v-model="searchContent"></b-input>
     </b-field>
-    <b-table :data="filteredProducts" :per-page="filter.perPage" default-sort="products_id">
+    <b-table :data="filteredProducts" :per-page="filter.perPage" default-sort="products_id" :mobile-cards="false">
       <template slot-scope="props">
         <b-table-column field="products_id" label="No" width="40" sortable numeric>
           {{ props.row.products_id }}
@@ -25,7 +25,7 @@
         <b-table-column label="Actions" centered>
           <a @click="editProduct(props.row.products_id)">
             <span class="icon is-small">
-              <b-icon icon="edit" size="is-small"></b-icon>
+              <b-icon icon="edit"></b-icon>
             </span>
           </a>
         </b-table-column>
