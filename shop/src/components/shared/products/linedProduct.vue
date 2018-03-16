@@ -3,7 +3,7 @@
   <article class="media">
     <figure class="media-left" @click="isImageModalActive = true">
       <p class="image is-64x64">
-        <img src="/static/noImgAvailable.png" draggable="false">
+        <img :src="getImage(infos.productsPics_path)" :alt="infos.productsPics_altName" draggable="false">
       </p>
     </figure>
     <div class="media-content">
@@ -29,7 +29,7 @@
 
   <b-modal :active.sync="isImageModalActive">
     <p class="image is-4by4">
-      <img :src="getImage(infos.product_picture)">
+      <img :src="getImage(infos.productsPics_path)">
     </p>
   </b-modal>
 </div>
@@ -51,7 +51,8 @@ export default {
       this.$toast.open(product + ' ajouté au la liste de souhait: test!')
     },
     getImage (picture) {
-      return picture === '' ? 'https://bulma.io/images/placeholders/1280x960.png' : picture
+      console.log(picture)
+      return picture === '' ? 'static/noImgAvailable.png' : picture
     }
   }
 }

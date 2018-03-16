@@ -7,16 +7,6 @@
         </b-field>
       </div>
     </div>
-    <div class="column is-3">
-      <b-field label="Genre">
-        <b-checkbox-button v-model="search.genders" native-value="H">
-          <span><b-icon icon="male"></b-icon></span>
-        </b-checkbox-button>
-        <b-checkbox-button v-model="search.genders" native-value="F">
-          <span><b-icon icon="female"></b-icon></span>
-        </b-checkbox-button>
-      </b-field>
-    </div>
     <div class="column is-4">
       <b-field label="Marques">
         <b-select placeholder="Choisir des marques" v-model="search.brands">
@@ -24,6 +14,11 @@
             {{ i }}
           </option>
         </b-select>
+      </b-field>
+    </div>
+    <div class="column is-2">
+      <b-field label="Rechercher">
+        <b-input placeholder="Rechercher..." type="search" icon-pack="fas" icon="search" v-model="search.searchContent"></b-input>
       </b-field>
     </div>
     <div class="column is-2">
@@ -62,9 +57,9 @@ export default {
       },
       search: {
         price: [0, 500],
-        genders: [],
         brands: [],
-        selectedView: 'cardedView'
+        selectedView: 'cardedView',
+        searchContent: ''
       }
     }
   },

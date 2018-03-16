@@ -3,7 +3,7 @@
     <div class="card" @mouseover="hover = true" @mouseout="hover = false">
       <div class="card-image" @click="isImageModalActive = true">
         <figure class="image is-square">
-          <img :src="getImage(infos.productsPics_path)" alt="alt" draggable="false">
+          <img :src="getImage(infos.productsPics_path)" :alt="infos.productsPics_altName" draggable="false">
         </figure>
       </div>
       <div class="card-content">

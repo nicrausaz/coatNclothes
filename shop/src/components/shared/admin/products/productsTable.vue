@@ -1,5 +1,9 @@
 <template>
   <section>
+    <h2 class="subtitle">
+      Éditer les produits
+    </h2>
+    <hr>
     <b-field grouped group-multiline>
       <b-select v-model="filter.perPage">
         <option value="10">10 par page</option>
