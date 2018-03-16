@@ -8,7 +8,7 @@
     <div class="column" id="filtersDiv">
       <filters @filter="setFilters"></filters>
       <div id="cardedproducts" class="columns is-multiline" v-if="isCardedView">
-        <cardedproduct v-for="product in products_list" :key="product.product_id" :infos="product"></cardedproduct>
+        <cardedproduct v-for="product in filterProducts" :key="product.product_id" :infos="product"></cardedproduct>
       </div>
       <div id="linedproducts" v-else>
         <linedproduct v-for="product in products_list" :key="product.product_id" :infos="product"></linedproduct>
@@ -57,6 +57,15 @@ export default {
   computed: {
     isCardedView () {
       return this.filters.selectedView !== 'listedView'
+    },
+    filterProducts () {
+      let filteredProducts = []
+      this.products_list.forEach(product => {
+        if (product.products_price >= this.filters.price[0] && product.products_price <= this.filters.price[1]) {
+          filteredProducts.push(product)
+        }
+      })
+      return filteredProducts
     }
   },
   components: {

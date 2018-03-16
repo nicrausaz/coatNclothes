@@ -63,6 +63,9 @@ export default {
       }
     }
   },
+  created () {
+    this.$emit('filter', this.search)
+  },
   computed: {
     hightestPrice () {
       return 500
