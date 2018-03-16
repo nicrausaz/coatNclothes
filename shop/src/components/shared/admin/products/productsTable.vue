@@ -2,9 +2,9 @@
   <section>
     <b-field grouped group-multiline>
       <b-select v-model="filter.perPage">
-        <option value="10">10 per page</option>
-        <option value="20">20 per page</option>
-        <option value="50">50 per page</option>
+        <option value="10">10 par page</option>
+        <option value="20">20 par page</option>
+        <option value="50">50 par page</option>
       </b-select>
       <b-input placeholder="Rechercher..." type="search" icon-pack="fas" icon="search" v-model="searchContent"></b-input>
     </b-field>
@@ -23,7 +23,7 @@
         </b-table-column>
 
         <b-table-column label="Actions" centered>
-          <a @click="editProduct">
+          <a @click="editProduct(props.row.products_id)">
             <span class="icon is-small">
               <b-icon icon="edit" size="is-small"></b-icon>
             </span>
@@ -32,7 +32,7 @@
       </template>
     </b-table>
     <b-modal :active.sync="isEditing" has-modal-card>
-      <productEditModal></productEditModal>
+      <productEditModal :id="productId"></productEditModal>
     </b-modal>
   </section>
 </template>
@@ -48,11 +48,13 @@ export default {
       },
       isEditing: false,
       searchContent: '',
-      products: []
+      products: [],
+      productId: 0
     }
   },
   methods: {
-    editProduct () {
+    editProduct (id) {
+      this.productId = id
       this.isEditing = true
     }
   },

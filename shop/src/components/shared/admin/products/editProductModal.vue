@@ -5,10 +5,35 @@
     </header>
     <section class="modal-card-body">
       <b-field label="Nom">
-        <!-- <b-input type="text" v-model="editedName" required></b-input> -->
+         <b-input v-model="newData.products_name"></b-input>
       </b-field>
       <b-field label="Description">
-        <!-- <b-input type="textarea" v-model="editedDescription" maxlength="100"></b-input> -->
+         <b-input v-model="newData.products_description" maxlength="300" type="textarea"></b-input>
+      </b-field>
+      <b-field label="Prix">
+        <b-input v-model="newData.products_price" type="number" step="1"></b-input>
+      </b-field>
+      <b-field label="Catégories">
+        <b-taginput v-model="newData.products_categories" :data="categories" autocomplete :allowNew="true" field="category_name" icon="tag" placeholder="Choisir une catégorie" @typing="getFilteredTags"></b-taginput>
+      </b-field>
+      <b-field label="Marque">
+        {{newData.products_brand}}
+      </b-field>
+
+      <b-field label="Tailles">
+        {{newData.products_size}}
+      </b-field>
+
+      <b-field label="Images">
+        <div v-if="hasPicture" class="columns">
+          <figure class="image is-128x128 column" v-for="pic in newData.products_pictures" :key="pic.altName">
+            <img :src="pic.path" draggable="false">
+          </figure>
+        </div>
+        <div v-else>
+          No pictures
+        </div>
+        <!-- upload button -->
       </b-field>
     </section>
     <footer class="modal-card-foot">
@@ -20,16 +45,49 @@
 
 <script>
 export default {
+  props: ['id'],
   data () {
     return {
+      categories: [
+        { category_id: 2, category_name: 'Jeans' }
+      ],
+      newData: {},
+      loaded: false
     }
   },
   created () {
-    // get data api from id
+    this.axios({
+      method: 'get',
+      url: '/product/' + this.id
+    })
+    .then((response) => {
+      this.newData = response.data
+      this.loaded = true
+    })
+
+    // this.axios({
+    //   method: 'get',
+    //   url: '/categories'
+    // })
+    // .then((response) => {
+    //   console.log(response)
+    // })
   },
   methods: {
+    getFilteredTags (text) {
+      this.filteredTags = this.categories.filter((option) => {
+        return option.toString().toLowerCase().indexOf(text.toLowerCase()) >= 0
+      })
+    },
     update () {
       console.log('update product')
+    }
+  },
+  computed: {
+    hasPicture () {
+      if (this.loaded) {
+        return this.newData.products_pictures.length > 0
+      }
     }
   }
 }
