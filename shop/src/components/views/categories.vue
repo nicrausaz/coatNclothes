@@ -7,7 +7,7 @@
     </div>
     <div class="column" id="filtersDiv">
       <filters @filter="setFilters"></filters>
-      <div id="cardedproducts" class="columns is-multiline" v-if="isCardedView">
+      <div id="cardedproducts" class="columns is-multiline is-mobile" v-if="isCardedView">
         <cardedproduct v-for="product in filterProducts" :key="product.product_id" :infos="product"></cardedproduct>
       </div>
       <div id="linedproducts" v-else>

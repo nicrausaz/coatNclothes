@@ -7,7 +7,8 @@
           <shopBagProduct v-for="product in products" :key="product.products_id" :infos="product"></shopBagProduct>
         </div>
         <div class="content column is-one-quarter notification" id="summaryDiv">
-          <h3>Résumé du panier:</h3> <small>{{ articlesNumberText }}</small>
+          <h3>Résumé du panier:</h3>
+          <small>{{ articlesNumberText }}</small>
           <ul>
             <li v-for="product in products" :key="product.products_id">{{ product.products_name }} {{ product.products_price }}</li>
           </ul>

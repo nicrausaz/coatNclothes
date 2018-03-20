@@ -7,21 +7,25 @@
         </figure>
       </div>
       <div class="card-content">
-        <div class="media">
+        <div class="media description">
           <div class="media-content">
-              <ul>
-                <li>{{ infos.products_name }}</li>
-                <li class="has-text-right"><small>{{infos.products_price}} CHF</small></li>
-              </ul>
-              <router-link :to="/product/ + infos.products_id">
-                <button class="button is-outlined">
-                  <b-icon icon="info" size="is-small"></b-icon>
-                </button>
-              </router-link>
-              <button class="button is-primary is-outlined" @click="addToWishlist(infos.products_name)">
-                  <b-icon icon="heart" size="is-small"></b-icon>
-              </button>
-            </div>
+            <ul>
+              <li>{{ infos.products_name }}</li>
+              <li class="has-text-right">
+                <small>{{infos.products_price}} CHF</small>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div v-if="hover">
+          <router-link :to="/product/ + infos.products_id">
+            <button class="button is-outlined">
+              <b-icon icon="info" size="is-small"></b-icon>
+            </button>
+          </router-link>
+          <button class="button is-primary is-outlined" @click="addToWishlist(infos.products_name)">
+            <b-icon icon="heart" size="is-small"></b-icon>
+          </button>
         </div>
       </div>
     </div>
@@ -43,14 +47,10 @@ export default {
     }
   },
   methods: {
-    addToBasket (product) {
-      this.$toast.open(product + ' ajouté au panier!')
-    },
     addToWishlist (product) {
       this.$toast.open(product + ' ajouté au la liste de souhait: test!')
     },
     getImage (picture) {
-      // console.log(picture)
       return picture === '' ? 'static/noImgAvailable.png' : picture
     }
   }
@@ -67,5 +67,9 @@ export default {
 }
 .card:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.description {
+  padding-bottom: 50px;
+  max-height: 60px;
 }
 </style>
