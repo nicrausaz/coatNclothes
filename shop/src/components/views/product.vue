@@ -4,7 +4,7 @@
       <div class="tile is-ancestor">
         <div class="tile is-parent">
           <div class="tile is-child">
-              <pictureCarousel :pictures="productData.products_pictures"></pictureCarousel>
+            <pictureCarousel :pictures="productData.products_pictures"></pictureCarousel>
           </div>
         </div>
         <div class="tile is-parent is-vertical">
@@ -13,8 +13,11 @@
               {{productData.products_brand}}
               <p class="title">{{ productData.products_name }}</p>
 
-              <p><i>{{productData.products_description}}</i></p>
-              <b-tag rounded>Category1</b-tag> <!-- get from api -->
+              <p>
+                <i>{{productData.products_description}}</i>
+              </p>
+              <b-tag rounded>Category1</b-tag>
+              <!-- get from api -->
               <b-tag rounded>Category2</b-tag>
               <b-tag rounded>Category3</b-tag>
             </section>
@@ -23,24 +26,25 @@
               <form>
                 <b-dropdown v-model="currentProduct.selectedSize">
                   <button class="button is-primary" slot="trigger">
-                      <span>{{ textSize }}</span>
-                      <b-icon icon="angle-down"></b-icon>
+                    <span>{{ textSize }}</span>
+                    <b-icon icon="angle-down"></b-icon>
                   </button>
                   <b-dropdown-item v-for="size in productData.products_size" :key="size" :value="size">{{ size }}</b-dropdown-item>
                 </b-dropdown>
                 <section class="section">
-                  <a class="button is-primary is-rounded" @click="openWishlistSelector"><b-icon icon="heart"></b-icon></a>
-                  <a class="button is-primary is-rounded" @click="addToBasket"><b-icon icon="cart-plus"></b-icon></a>
+                  <a class="button is-primary is-rounded" @click="openWishlistSelector">
+                    <b-icon icon="heart"></b-icon>
+                  </a>
+                  <a class="button is-primary is-rounded" @click="addToBasket">
+                    <b-icon icon="cart-plus"></b-icon>
+                  </a>
                 </section>
               </form>
             </section>
           </div>
         </div>
       </div>
-      <suggestedproducts></suggestedproducts>
-      <pre>
-        {{productData}}
-      </pre>
+      <suggestedproducts v-if="loaded" :category="productData.fk_category_id"></suggestedproducts>
     </section>
   </div>
 </template>
@@ -57,7 +61,8 @@ export default {
       productData: [],
       currentProduct: {
         selectedSize: ''
-      }
+      },
+      loaded: false
     }
   },
   methods: {
@@ -93,6 +98,7 @@ export default {
     })
     .then(response => {
       this.productData = response.data
+      this.loaded = true
     })
   },
   components: {

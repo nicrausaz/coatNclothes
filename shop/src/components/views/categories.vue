@@ -1,21 +1,27 @@
 <template>
-<div class="container">
-  <subtitle :name="'Catégories'" :text="''"></subtitle>
-  <div class="columns">
-    <div class="column is-3">
-      <sidebarproduct></sidebarproduct>
-    </div>
-    <div class="column" id="filtersDiv">
-      <filters @filter="setFilters"></filters>
-      <div id="cardedproducts" class="columns is-multiline is-mobile" v-if="isCardedView">
-        <cardedproduct v-for="product in filterProducts" :key="product.product_id" :infos="product"></cardedproduct>
+  <div class="container">
+    <subtitle :name="'Catégories'" :text="''"></subtitle>
+    <div class="columns">
+      <div class="column is-3">
+        <sidebarproduct></sidebarproduct>
       </div>
-      <div id="linedproducts" v-else>
-        <linedproduct v-for="product in products_list" :key="product.product_id" :infos="product"></linedproduct>
+      <div class="column" id="filtersDiv">
+        <filters @filter="setFilters"></filters>
+        <div v-if="hasFilteredArticle">
+          <div id="cardedproducts" class="columns is-multiline is-mobile" v-if="isCardedView">
+            <cardedproduct v-for="product in filterProducts" :key="product.product_id" :infos="product"></cardedproduct>
+          </div>
+          <div id="linedproducts" v-else>
+            <linedproduct v-for="product in products_list" :key="product.product_id" :infos="product"></linedproduct>
+          </div>
+        </div>
+        <div class="has-text-centered subtitle is-3" style="padding-top: 50px;" v-else>
+          <b-icon icon="inbox" size="is-large"></b-icon>
+          <p>Aucun produit correspondant aux filtres n'a été trouvé ...</p>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -66,6 +72,9 @@ export default {
         }
       })
       return filteredProducts
+    },
+    hasFilteredArticle () {
+      return this.filterProducts.length > 0
     }
   },
   components: {
