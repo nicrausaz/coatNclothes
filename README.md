@@ -54,14 +54,22 @@ export default {
 > Retourne tous les produits
 #### JSON
 ```
-[{
-	"products_id": 1,
-	"products_name": "Jean skinny taille haute"
-}, {
-	"products_id": 2,
-	"products_name": "T-Shirt Pigeon de Madagascare"
-}]
-
+[
+	{
+	products_id: 1,
+	products_name: "Jean skinny noir",
+	products_price: 120,
+	productsPics_altName: "JeansLewis",
+	productsPics_path: "http://dl.coatandclothes.shop:8090/Imports/F/lewisskinnyjeanstaillehaute1.jpg"
+	},
+	{
+	products_id: 2,
+	products_name: "T-Shirt Pigeon de Madagascare",
+	products_price: 35,
+	productsPics_altName: "JeansLewis",
+	productsPics_path: "http://dl.coatandclothes.shop:8090/Imports/F/lewisskinnyjeanstaillehaute1.jpg"
+	}
+]
 ```
 
 ### /product/{id}
