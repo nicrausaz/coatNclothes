@@ -16,7 +16,7 @@
 
 <script>
 import subtitle from '@/components/templates/subtitle'
-import sidebaradmin from '@/components/shared/admin/sidebaradmin'
+import sidebaradmin from '@/components/shared/admin/sidebarAdmin'
 import checkAccess from '@/mixins/checkAccess'
 
 export default {

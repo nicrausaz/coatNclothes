@@ -52,7 +52,7 @@
 <script>
 import pictureCarousel from '@/components/shared/pictureCarousel'
 import wishListChooseModal from '@/components/shared/wishlists/wishListChooseModal'
-import suggestedproducts from '@/components/shared/products/suggestedproducts'
+import suggestedproducts from '@/components/shared/products/suggestedProducts'
 
 export default {
   data () {

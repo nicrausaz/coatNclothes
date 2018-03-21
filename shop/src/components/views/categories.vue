@@ -27,8 +27,8 @@
 <script>
 import subtitle from '@/components/templates/subtitle'
 import sidebarproduct from '@/components/shared/products/sidebarProducts'
-import cardedproduct from '@/components/shared/products/cardedproduct'
-import linedproduct from '@/components/shared/products/linedproduct'
+import cardedproduct from '@/components/shared/products/cardedProduct'
+import linedproduct from '@/components/shared/products/linedProduct'
 import filters from '@/components/shared/products/filters'
 
 export default {

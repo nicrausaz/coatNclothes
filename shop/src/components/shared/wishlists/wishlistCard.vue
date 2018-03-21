@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import wishllistproductlist from '@/components/shared/wishlists/wishlistproductlist'
+import wishllistproductlist from '@/components/shared/wishlists/wishlistProductlist'
 import wishlistEditModal from '@/components/shared/wishlists/wishlistEditModal'
 
 export default {

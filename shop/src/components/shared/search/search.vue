@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import searchResult from '@/components/shared/search/searchresult'
+import searchResult from '@/components/shared/search/searchResult'
 
 export default {
   data () {
