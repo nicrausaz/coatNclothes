@@ -84,15 +84,6 @@ export default {
 	"fk_category_id": 5,
 	"products_brand": "Tally Weijl",
 	"products_size": ["S", "XS"],
-	"products_colors": [{
-		"name": "Red",
-		"rgb": "153,0,0",
-		"hex": "#990000"
-	}, {
-		"name": "Bleu",
-		"rgb": "51,0,204",
-		"hex": "#3300CC"
-	}],
 	"products_pictures": [{
 		"altName": "TshirtMadagascar",
 		"path": "http:\/\/dl.coatandclothes.shop\/Imports\/F\/T\/1.jpg"
