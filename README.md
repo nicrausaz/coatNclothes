@@ -152,11 +152,11 @@ export default {
 ### /category/{id}
 > Retourne une catégorie selon son id
 ```
-{
-    data: {
-        
-    }
-}
+[
+	{
+		"category_name": "Jeans"
+	}
+]
 ```
 
 ### /category/{id}/products
