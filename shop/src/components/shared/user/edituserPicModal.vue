@@ -27,7 +27,7 @@
     </section>
     <footer class="modal-card-foot">
       <button class="button" type="button" @click="this.$parent.close">Annuler</button>
-      <button class="button is-primary" >Confirmer</button>
+      <button class="button is-primary">Confirmer</button>
     </footer>
   </div>
 </template>

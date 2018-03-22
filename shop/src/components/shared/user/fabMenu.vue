@@ -16,6 +16,7 @@
 <script>
 import fab from 'vue-fab'
 export default {
+  props: ['isAdmin'],
   data () {
     return {
       fabConfig: {
@@ -46,6 +47,13 @@ export default {
       }
     }
   },
+  created () {
+    if (!this.isAdmin) {
+      this.fabConfig.actions = this.fabConfig.actions.filter((action) => {
+        return action.name !== 'admin'
+      })
+    }
+  },
   methods: {
     infos () {
       this.$emit('editInfos')
@@ -58,6 +66,12 @@ export default {
     },
     logoff () {
       this.$store.commit('detroyUser')
+      this.$toast.open({
+        duration: 3000,
+        message: 'Déconnecté !',
+        position: 'is-top',
+        type: 'is-success'
+      })
     }
   },
   components: {
