@@ -29,7 +29,7 @@ class User extends Authenticatable implements JWTSubject
     protected $primaryKey = 'users_id';
     protected $guarded = ['users_id'];
     protected $hidden = [
-        'users_pass', 'users_token',
+        'users_pass',
     ];
 
     /**

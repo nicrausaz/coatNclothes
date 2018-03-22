@@ -15,7 +15,7 @@ class productsController extends Controller
     private $categories;
 
     public function getAllProducts(){
-        $products = \DB::select('select products_id, products_name from TB_Products', array(1));
+        $products = \DB::select('select prod.products_id, prod.products_name, prod.products_price, pic.productsPics_altName, pic.productsPics_path from TB_Products prod LEFT JOIN TB_ProductsPics pic ON pic.fk_products_id = prod.products_id GROUP BY prod.products_id', array(1));
         return json_encode($products);
     }
     public function getspecificcategoryproducts(Request $request, $id){
@@ -45,16 +45,6 @@ class productsController extends Controller
         }
         $gotProduct['products_size']=$sizeArray;
 
-        //color
-        $color = \DB::select('SELECT * FROM TB_Colors WHERE fk_products_id = ?', [$id]);
-        $colorArray=array();
-        foreach ($color as $key => $value){
-            $colorArray[$key]['name']= $color[$key]->colors_name;
-            $colorArray[$key]['rgb']=$color[$key]->colors_rgb;
-            $colorArray[$key]['hex']=$color[$key]->colors_hexa;
-        }
-        $gotProduct['products_colors']=$colorArray;
-
         //pictures
         $pictures = \DB::select('SELECT * FROM TB_ProductsPics WHERE fk_products_id = ?', [$id]);
         $picturesArray=array();
@@ -64,9 +54,6 @@ class productsController extends Controller
         }
         $gotProduct['products_pictures']=$picturesArray;
 
-        //print_r('<pre>');
-        //print_r(json_encode($gotProduct,true));
-        //print_r('</pre>');
         return json_encode($gotProduct);
     }
 
@@ -103,7 +90,27 @@ class productsController extends Controller
         $array= array('Homme'=>array('JeanLewis'=> array('jeans slim', 'jeans Stretch'), 'T-shirt'), 'Femme'=>array('Top', 'Débardeur'));
         return json_encode($array);
     }
-    /*
+	
+	public function getCategroyName(Request $request, $id){
+		$gotProduct = \DB::select('select category_name from TB_Category WHERE category_id = ?', [$id]);
+		$gotProduct = json_decode(json_encode($gotProduct), true);
+		return $gotProduct;
+	
+	
+	
+	}
+
+	public function getProductsByCategory(Request $request, $id){
+		$array=array();
+		
+		$gotProduct = \DB::select('select prod.products_id, prod.products_name, prod.products_price, prod.fk_category_id, prod.fk_brand_id, pic.productsPics_altName, pic.productsPics_path from TB_Products prod LEFT JOIN TB_ProductsPics pic ON pic.fk_products_id = prod.products_id WHERE prod.fk_category_id = ? GROUP BY prod.products_id', [$id]);
+		$gotProduct = json_decode(json_encode($gotProduct), true);
+		return $gotProduct; 
+
+	}
+
+
+	/*
      * Private function (notusable from api.php)
      */
     private function checkIfCategoryBelow($id){

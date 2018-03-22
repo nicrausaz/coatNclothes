@@ -19,39 +19,43 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        //print_r($request);
-        // $request->email correspond à la valeur de l'input entré par l'utilisateur
         // Dans notre cas, comme l'on souhaite pouvoir se connecter soit en rentrant l'email, soit le pseudo, je rajoute une condition à ma requête
         $user = User::where('users_email', $request->users_login)->orWhere('users_login', $request->users_login)->first();
 
         if ($user && Hash::check($request->get('users_pass'), $user->users_pass)) {
             $token = JWTAuth::fromUser($user);
             //$token= JWTAuth::attempt($user);
-            return $this->sendLoginResponse($request, $token);
+            return $this->sendLoginResponse($request, $token, $user);
         }
 
         return $this->sendFailedLoginResponse($request);
     }
 
-    public function sendLoginResponse(Request $request, $token)
+    public function sendLoginResponse(Request $request, $token, $user)
     {
         $this->clearLoginAttempts($request);
 
-        return $this->authenticated($token);
+        return $this->authenticated($token, $user);
     }
 
-    public function authenticated($token)
+    public function authenticated($token, $user)
     {
         return $this->response->array([
             'token' => $token,
+            'users_id' => $user->users_id,
+            'users_name'=> $user->users_name,
+            'users_fsname' => $user->users_fsname,
+            'users_login' => $user->users_login,
+            'users_email' => $user->users_email,
+            'users_admin' => $user->users_admin,
             'status_code' => 200,
-            'message' => 'User Authenticated'
+            'message' => 'Utilisateur authentifié !'
         ]);
     }
 
     public function sendFailedLoginResponse()
     {
-        throw new UnauthorizedHttpException("Bad Credentials");
+        throw new UnauthorizedHttpException("Nom d'utilisateur ou mot de passe incorrect");
     }
 
     public function logout()
