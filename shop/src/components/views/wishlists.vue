@@ -37,7 +37,6 @@ export default {
   },
   created () {
     this.axios({
-      headers: {'Authorization': 'Bearer' + this.$store.state.user.token},
       method: 'get',
       url: 'wishlists/user/' + this.$store.state.user.users_id + '/contents'
     })

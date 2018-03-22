@@ -49,7 +49,6 @@ export default {
     this.products.forEach((product) => {
       let id = product.fk_products_id
       this.axios({
-        headers: {'Authorization': 'Bearer' + this.$store.state.user.token},
         method: 'get',
         url: 'product/' + id
       })
