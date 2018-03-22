@@ -65,7 +65,7 @@ export default {
       return pictures.length === 0 ? 'static/noImgAvailable.png' : pictures[0].path
     },
     getAltName (pictures) {
-      return pictures.length === 0 ? 'static/noImgAvailable.png' : pictures[0].altName
+      return pictures.length === 0 ? 'noimg' : pictures[0].altName
     },
     addToBasket (id) {
       console.log(id)

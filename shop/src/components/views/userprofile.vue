@@ -2,7 +2,21 @@
   <div class="container">
     <subtitle :name="'Votre profil'" :text="'Consultez et modifiez vos informations'"></subtitle>
     <section class="section">
-      <div class="columns">
+      <div class="tile is-12">
+        <figure class="image" @click="editUserPic" style="cursor: pointer;">
+          <img src="static/noImgAvailable.png" alt="userpic">
+        </figure>
+        <div id="infos">
+          <h1 class="title">Nicolas Crausaz</h1>
+          <h2>n.crausaz99@gmail.com</h2>
+          <h2>pseudo</h2>
+        </div>
+        <fabmenu v-if="!isEditingPhoto" @editInfos="editInfos"></fabmenu>
+      </div>
+      <div class="tile is-12">
+
+      </div>
+      <!-- <div class="columns">
         <div class="column is-one-quarter">
           <div class="updivs">
             <figure class="image" @click="editUserPic" style="cursor: pointer;">
@@ -60,10 +74,13 @@
             </div>
         </b-collapse>
         </div>
-      </div>
+      </div>-->
     </section>
-     <b-modal :active.sync="isEditingPhoto">
+    <b-modal :active.sync="isEditingPhoto">
       <editpicmodal></editpicmodal>
+    </b-modal>
+    <b-modal :active.sync="isEditingInfos">
+      <!-- <editinfosmodal></editinfosmodal> -->
     </b-modal>
   </div>
 </template>
@@ -71,12 +88,11 @@
 <script>
 import subtitle from '@/components/templates/subtitle'
 import editpicmodal from '@/components/shared/user/edituserPicModal'
+import fabmenu from '@/components/shared/user/fabMenu'
 
 export default {
   data () {
     return {
-      user: {
-      },
       orders: [
         {
           orders_id: 1,
@@ -94,17 +110,22 @@ export default {
           orders_status: 'Terminée'
         }
       ],
-      isEditingPhoto: false
+      isEditingPhoto: false,
+      isEditingInfos: false
     }
   },
   methods: {
     editUserPic () {
       this.isEditingPhoto = true
+    },
+    editInfos () {
+      console.log('start editing user infos')
     }
   },
   components: {
     subtitle,
-    editpicmodal
+    editpicmodal,
+    fabmenu
   }
 }
 </script>

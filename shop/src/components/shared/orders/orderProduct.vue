@@ -1,27 +1,18 @@
 <template>
   <article class="media column is-6">
-    <figure class="media-left image is-64x64" style="padding-bottom: 5px;">
+    <figure class="media-left image is-64x64">
       <img :src="getPicture(product.products_pictures)" :alt="getAltName(product.products_pictures)">
     </figure>
     <div class="media-content">
-    <div class="content">
-      <p>
-        <strong>{{product.products_name}}</strong> <small>{{product.products_price}} CHF</small>
-        <br>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-      </p>
-    </div>
-  </div>
-    <!--
-    <div class="media-content">
       <div class="content">
         <p>
-          {{product}}
-          <strong></strong>
-          <small></small>
+          <br>
+          <small>{{product.products_brand}}</small>
+          <strong>{{product.products_name}}</strong>
+          <small>{{product.products_price}} CHF</small>
         </p>
       </div>
-    </div> -->
+    </div>
   </article>
 </template>
 
@@ -52,7 +43,7 @@ export default {
     },
     getAltName (pictures) {
       if (this.loaded) {
-        return pictures.length === 0 ? 'static/noImgAvailable.png' : pictures[0].altName
+        return pictures.length === 0 ? 'noimg' : pictures[0].altName
       }
     }
   }
