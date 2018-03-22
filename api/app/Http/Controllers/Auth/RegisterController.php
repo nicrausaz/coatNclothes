@@ -31,7 +31,7 @@ class RegisterController extends Controller
 
         $validator = $this->validator($request->all());
         if($validator->fails()){
-            throw new StoreResourceFailedException("Validation Error", $validator->errors());
+            throw new StoreResourceFailedException("Données non conformes", $validator->errors());
         }
 
         $user = $this->create($request->all());
@@ -42,11 +42,17 @@ class RegisterController extends Controller
 
             return $this->response->array([
                 "token" => $token,
-                "message" => "User created",
+                'users_id' => $user->users_id,
+                'users_name'=> $user->users_name,
+                'users_fsname' => $user->users_fsname,
+                'users_login' => $user->users_login,
+                'users_email' => $user->users_email,
+                'users_admin' => 0,
+                "message" => "Utilisateur créé !",
                 "status_code" => 201
             ]);
         }else{
-            return $this->response->error("User Not Found...", 404);
+            return $this->response->error("Utilisateur introuvable", 404);
         }
     }
 

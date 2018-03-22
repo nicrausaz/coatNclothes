@@ -20,14 +20,15 @@ $api->version('v1',  function (Router $api) {
         /*
          * PUBLIC
          */
-        $api->get('user', '\App\Http\Controllers\Api\V1\UserController@index');
 
         $api->get('products', '\App\Http\Controllers\Api\V1\productsController@getAllProducts');
         $api->get('product/{id}', '\App\Http\Controllers\Api\V1\productsController@getProductsDetails');
+
         $api->get('category/{id}/products', '\App\Http\Controllers\Api\V1\productsController@getspecificcategoryproducts');
         $api->get('categories', '\App\Http\Controllers\Api\V1\productsController@getAllCategories');
         $api->get('categories2', '\App\Http\Controllers\Api\V1\productsController@getAllCategories2');
-
+		$api->get('category/{id}/products', '\App\Http\Controllers\Api\V1\productsController@getProductsByCategory');
+		$api->get('category/{id}', '\App\Http\Controllers\Api\V1\productsController@getCategroyName');
         /*
          * POST - Login and Registration
          */
@@ -38,7 +39,23 @@ $api->version('v1',  function (Router $api) {
         * Protégé
         */
         $api->group(['middleware' => 'jwt.auth'], function (Router $api) {
-            $api->get('test', function(){return "Hello World !";});
+            $api->get('/orders/user/{id}', '\App\Http\Controllers\Api\V1\ordersController@getAllOrders');
+            $api->get('/order/{id}', '\App\Http\Controllers\Api\V1\ordersController@getOrderContent');
+            $api->get('/orders/user/{id}/contents', '\App\Http\Controllers\Api\V1\ordersController@getAllOrderContent');
+
+            $api->get('/basket/user/{id}', '\App\Http\Controllers\Api\V1\ordersController@getBasket');
+
+            $api->get('/wishlists/user/{id}', '\App\Http\Controllers\Api\V1\ordersController@getAllWishlists');
+            $api->get('/wishlist/{id}', '\App\Http\Controllers\Api\V1\ordersController@getWishlistContent');
+            $api->get('/wishlists/user/{id}/contents', '\App\Http\Controllers\Api\V1\ordersController@getAllWishlistsContent');
+
+
+            /*
+             * PUT - Update des informations en db
+             */
+            $api->put('/basket/user/{id}', '\App\Http\Controllers\Api\V1\ordersController@putInBasket');
+
+
         });
 
 });
