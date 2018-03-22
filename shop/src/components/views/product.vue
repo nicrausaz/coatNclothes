@@ -16,10 +16,7 @@
               <p>
                 <i>{{productData.products_description}}</i>
               </p>
-              <b-tag rounded>Category1</b-tag>
-              <!-- get from api -->
-              <b-tag rounded>Category2</b-tag>
-              <b-tag rounded>Category3</b-tag>
+              <b-tag rounded>{{categoryName}}</b-tag>
             </section>
 
             <section class="section">
@@ -62,7 +59,8 @@ export default {
       currentProduct: {
         selectedSize: ''
       },
-      loaded: false
+      loaded: false,
+      categoryName: ''
     }
   },
   methods: {
@@ -89,6 +87,17 @@ export default {
   computed: {
     textSize () {
       return this.currentProduct.selectedSize === '' ? 'Choisir la taille' : this.currentProduct.selectedSize
+    },
+    categoryName () {
+      if (this.loaded) {
+        this.axios({
+          method: 'get',
+          url: 'category/' + this.product_data.fk_category_id
+        })
+        .then(response => {
+          return response.data
+        })
+      }
     }
   },
   created () {
