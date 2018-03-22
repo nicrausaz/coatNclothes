@@ -9,5 +9,7 @@ export default {
       })
       this.$router.push('/user')
     }
+
+    // TODO: check if the token is expired
   }
 }

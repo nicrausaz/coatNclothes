@@ -8,7 +8,7 @@
           <b-icon pack="fas" icon="plus" type="is-primary" style="float: right;"></b-icon>
         </div>
       </div>
-    <wishlistCard v-for="wishlist in wishlists" :key="wishlist.id" :infos="wishlist"></wishlistCard>
+      <wishlistCard v-for="wishlist in wishlists" :key="wishlist.wishlist_id" :infos="wishlist"></wishlistCard>
     </section>
     <b-modal :active.sync="isCreating">
       <wishlistNewModal></wishlistNewModal>
@@ -27,40 +27,7 @@ export default {
   data () {
     return {
       isCreating: false,
-      wishlists: [
-        {
-          id: 0,
-          name: 'Liste 1',
-          description: 'description liste 1',
-          products: [
-            {
-              id: 0, name: 'test', description: 'sdgs', price: 30, img: 'http://dl.coatandclothes.shop:8090/Imports/F/lewisskinnyjeanstaillehaute1.jpg'
-            },
-            {
-              id: 1, name: 'testsada', description: 'asfdasd', price: 40, img: 'http://dl.coatandclothes.shop:8090/Imports/F/lewisskinnyjeanstaillehaute2.jpg'
-            }
-          ]
-        },
-        {
-          id: 1,
-          name: 'Liste 2',
-          description: '',
-          products: [
-            {
-              id: 0, name: 'yolo', description: 'starfoulah', price: 15
-            },
-            {
-              id: 1, name: 'swag', description: 'urujfjpjp', price: 85
-            }
-          ]
-        },
-        {
-          id: 2,
-          name: 'Liste 3',
-          description: 'description liste 3',
-          products: []
-        }
-      ]
+      wishlists: []
     }
   },
   methods: {
@@ -70,12 +37,12 @@ export default {
   },
   created () {
     this.axios({
-      headers: {'Authorization': 'Bearer' + this.$store.state.userToken},
+      headers: {'Authorization': 'Bearer' + this.$store.state.user.token},
       method: 'get',
-      url: 'orders/user/18'
+      url: 'wishlists/user/' + this.$store.state.user.users_id + '/contents'
     })
     .then((response) => {
-      console.log(response)
+      this.wishlists = response.data
     })
   },
   components: {
