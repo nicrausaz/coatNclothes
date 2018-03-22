@@ -1,6 +1,6 @@
 export default {
   created () {
-    if (this.$store.state.userToken === '') {
+    if (Object.keys(this.$store.state.user).length === 0) {
       this.$toast.open({
         duration: 3000,
         message: 'Connectez-vous ou créez un compte pour accéder à cette page!',

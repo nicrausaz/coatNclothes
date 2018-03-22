@@ -13,7 +13,6 @@
 </template>
 
 <script>
-
 import loginform from '@/components/shared/forms/loginform'
 import signupform from '@/components/shared/forms/signupform'
 import subtitle from '@/components/templates/subtitle'

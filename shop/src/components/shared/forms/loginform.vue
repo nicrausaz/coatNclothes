@@ -38,8 +38,7 @@ export default {
         data: self.credentials
       })
       .then((response) => {
-        console.log(response)
-        this.$store.commit('setUserToken', response.data.token)
+        this.$store.commit('setUser', response.data)
         this.$toast.open({
           duration: 3000,
           message: response.data.message,

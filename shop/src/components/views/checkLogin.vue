@@ -12,7 +12,7 @@ import userprofile from '@/components/views/userprofile'
 export default {
   computed: {
     isUserLogedIn () {
-      return this.$store.state.userToken !== ''
+      return Object.keys(this.$store.state.user).length > 0
     }
   },
   components: {

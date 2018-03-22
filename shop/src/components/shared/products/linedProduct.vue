@@ -51,7 +51,6 @@ export default {
       this.$toast.open(product + ' ajouté au la liste de souhait: test!')
     },
     getImage (picture) {
-      console.log(picture)
       return picture === '' ? 'static/noImgAvailable.png' : picture
     }
   }

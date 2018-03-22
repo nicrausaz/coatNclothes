@@ -55,7 +55,7 @@ export default {
     },
     validData () {
       Object.keys(this.infos).forEach((key) => {
-        console.log(key, this.infos[key])
+        // console.log(key, this.infos[key])
       })
       return true
     },
@@ -68,7 +68,7 @@ export default {
           data: self.infos
         })
         .then(response => {
-          this.$store.commit('setUserToken', response.data.token)
+          this.$store.commit('setUser', response.data)
 
           this.$toast.open({
             duration: 5000,

@@ -36,7 +36,7 @@
               <div class="panel-block">
                   <router-link to="/admin/dashboard" class="button is-primary"><b-icon icon="unlock-alt"></b-icon><span>Administration</span></router-link>
                   <a class="button is-primary"><b-icon icon="pencil-alt"></b-icon><span>Modifier mes informations</span></a>
-                  <a class="button is-primary" @click="$store.commit('detroyUserToken')"><b-icon icon="sign-out-alt"></b-icon><span>Déconnexion</span></a>
+                  <a class="button is-primary" @click="$store.commit('detroyUser')"><b-icon icon="sign-out-alt"></b-icon><span>Déconnexion</span></a>
               </div>
           </b-collapse>
         </div>

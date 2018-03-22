@@ -8,14 +8,14 @@ const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   plugins: [createPersistedState()],
   state: {
-    userToken: ''
+    user: {}
   },
   mutations: {
-    setUserToken (state, token) {
-      this.state.userToken = token
+    setUser (state, user) {
+      this.state.user = user
     },
-    detroyUserToken () {
-      this.state.userToken = ''
+    detroyUser () {
+      this.state.user = {}
     }
   }
 })
