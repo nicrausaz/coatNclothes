@@ -2,15 +2,12 @@
   <div>
     <h1>D'autres produits semblables qui pourraient vous intéresser !</h1>
     <br>
-
-    <pre>
-      {{suggestedproducts}}
-    </pre>
-
     <carousel :perPage="6" :navigationEnabled="true" paginationActiveColor="#da0f68" paginationColor="#f5f5f5">
       <slide v-for="product in suggestedproducts" :key="product.products_id">
         <figure class="image is-128x128">
-          <img src="http://dl.coatandclothes.shop:8090/Imports/F/lewisskinnyjeanstaillehaute4.jpg" alt="">
+          <router-link :to="/product/ + product.products_id">
+            <img :src="product.productsPics_path" :alt="product.productsPics_altName">
+          </router-link>
         </figure>
       </slide>
     </carousel>
@@ -36,7 +33,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

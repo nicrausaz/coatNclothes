@@ -6,7 +6,7 @@
     <hr>
     <b-field grouped group-multiline>
       <b-select v-model="filter.perPage">
-        <option value="5">5 par page</option>       
+        <option value="5">5 par page</option>
         <option value="10">10 par page</option>
         <option value="20">20 par page</option>
       </b-select>

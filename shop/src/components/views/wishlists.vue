@@ -68,6 +68,16 @@ export default {
       this.isCreating = true
     }
   },
+  created () {
+    this.axios({
+      headers: {'Authorization': 'Bearer' + this.$store.state.userToken},
+      method: 'get',
+      url: 'orders/user/18'
+    })
+    .then((response) => {
+      console.log(response)
+    })
+  },
   components: {
     subtitle,
     wishlistCard,

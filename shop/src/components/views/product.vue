@@ -12,11 +12,10 @@
             <section class="section">
               {{productData.products_brand}}
               <p class="title">{{ productData.products_name }}</p>
-
               <p>
                 <i>{{productData.products_description}}</i>
               </p>
-              <b-tag rounded>{{categoryName}}</b-tag>
+              <b-tag rounded>categoryname</b-tag>
             </section>
 
             <section class="section">
@@ -59,8 +58,7 @@ export default {
       currentProduct: {
         selectedSize: ''
       },
-      loaded: false,
-      categoryName: ''
+      loaded: false
     }
   },
   methods: {
@@ -87,17 +85,6 @@ export default {
   computed: {
     textSize () {
       return this.currentProduct.selectedSize === '' ? 'Choisir la taille' : this.currentProduct.selectedSize
-    },
-    categoryName () {
-      if (this.loaded) {
-        this.axios({
-          method: 'get',
-          url: 'category/' + this.product_data.fk_category_id
-        })
-        .then(response => {
-          return response.data
-        })
-      }
     }
   },
   created () {
