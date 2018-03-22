@@ -25,7 +25,7 @@ export default {
           {
             name: 'infos',
             icon: 'mode_edit',
-            tooltip: 'Editer mes infos'
+            tooltip: 'Éditer mes infos'
           },
           {
             name: 'orders',
