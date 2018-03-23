@@ -90,6 +90,10 @@ export default new Router({
       ]
     },
     {
+      path: '/error',
+      component: NotFound
+    },
+    {
       path: '*',
       component: NotFound
     }

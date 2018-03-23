@@ -13,7 +13,7 @@
             <li v-for="product in products" :key="product.products_id">{{ product.products_name }} {{ product.products_price }}</li>
           </ul>
           <hr>
-          <p class="has-text-right">Prix total: {{totalPrice}}</p>
+          <p class="has-text-right">Prix total: {{totalPrice}} CHF</p>
         </div>
       </div>
       <div class="has-text-centered subtitle is-3" v-else>

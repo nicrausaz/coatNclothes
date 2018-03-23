@@ -96,6 +96,8 @@ export default {
       this.productData = response.data
       this.loaded = true
     })
+    .catch(() => {
+    })
   },
   components: {
     pictureCarousel,
