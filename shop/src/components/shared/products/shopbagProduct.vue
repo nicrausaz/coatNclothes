@@ -1,25 +1,32 @@
 <template>
   <div class="column is-one-third">
     <div class="card">
-      <button class="delete" @click="removeProductFromShopBag" style="margin: 5px;"></button>
-      <div class="card-image" @click="$router.push('/product/' + infos.products_id)">
+      <button class="delete" @click="removeProductFromShopBag"></button>
+      <div class="card-image" @click="$router.push('/product/' + product.products_id)">
         <figure class="image is-square">
-          <!-- <img :src="getImage(infos.product_picture)" alt="alt" draggable="false"> -->
-          <img src="static/noImgAvailable.png" draggable="false">
+          <img :src="picture" :alt="altName" draggable="false">
         </figure>
       </div>
-      <transition name="fade">
         <div class="card-content notification">
           <div class="media">
             <div class="media-content">
               <ul>
-                <li>{{infos.products_name}}</li>
-                <li class="has-text-right">{{ formatedprice(20) }}</li>
+                <li><small>{{product.products_brand}}</small></li>
+                <li><b>{{product.products_name}}</b></li>
+                <li class="has-text-right">{{formatedprice}}</li>
               </ul>
             </div>
           </div>
         </div>
-      </transition>
+        <div class="has-text-centered">
+          <button class="button is-small is-primary is-outlined" :disabled="!isEnabled" @click="decrement">
+            <b-icon icon="minus" size="is-small"></b-icon>
+          </button>
+            <b>{{infos.basket_quantity}}</b>
+          <button class="button is-small is-primary is-outlined" @click="increment">
+            <b-icon icon="plus" size="is-small"></b-icon>
+          </button>
+        </div>
     </div>
   </div>
 </template>
@@ -27,15 +34,50 @@
 <script>
 export default {
   props: ['infos'],
-  methods: {
-    getImage (picture) {
-      return picture === '' ? 'static/noImgAvailable.png' : picture
+  data () {
+    return {
+      product: [],
+      loaded: false
+    }
+  },
+  created () {
+    this.axios({
+      method: 'get',
+      url: 'product/' + this.infos.products_id
+    })
+    .then((response) => {
+      this.product = response.data
+      this.loaded = true
+    })
+  },
+  computed: {
+    picture () {
+      if (this.loaded) {
+        return this.product.products_pictures.length === 0 ? 'static/noImgAvailable.png' : this.product.products_pictures[0].path
+      }
     },
-    formatedprice (price) {
-      return price + ' CHF'
+    altName () {
+      if (this.loaded) {
+        return this.product.products_pictures.length === 0 ? 'noImg' : this.product.products_pictures[0].altName
+      }
+    },
+    isEnabled () {
+      return this.infos.basket_quantity > 1
+    },
+    formatedprice () {
+      return this.product.products_price + ' CHF'
+    }
+  },
+  methods: {
+    decrement () {
+      this.infos.basket_quantity -= 1
+    },
+    increment () {
+      this.infos.basket_quantity += 1
     },
     removeProductFromShopBag () {
       // remove from api / toast
+      this.$forceUpdate()
     }
   }
 }
@@ -43,8 +85,9 @@ export default {
 
 <style scoped>
 .card {
-  height: 320px;
+  height: 380px;
   width: 200px;
+  margin-bottom: 10px;
 }
 .card-image {
   cursor: pointer;
@@ -52,8 +95,14 @@ export default {
 .card:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-
+.delete {
+  position: absolute;
+  margin: 5px;
+  z-index: 1;
+}
 .notification {
-  padding-top: 10px;
+  padding-top: 15px;
+  margin-bottom: 10px;
+  height: 135px;
 }
 </style>

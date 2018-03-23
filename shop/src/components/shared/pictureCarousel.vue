@@ -1,5 +1,5 @@
 <template>
-  <carousel :navigationEnabled="true" paginationActiveColor="#da0f68" paginationColor="#f5f5f5">
+  <carousel :perPage="1" :navigationEnabled="true" paginationActiveColor="#da0f68" paginationColor="#f5f5f5">
     <slide v-for="pic in pictures" :key="pic.altName">
       <img :src="pic.path">
     </slide>

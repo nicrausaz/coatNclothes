@@ -24,6 +24,7 @@ export default {
         })
         this.$store.commit('detroyUser')
         this.$router.push('/user')
+        this.$forceUpdate() // check if it works !
       })
     }
   }
