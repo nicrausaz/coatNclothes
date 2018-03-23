@@ -3,7 +3,7 @@
     <div class="card" @mouseover="hover = true" @mouseout="hover = false">
       <div class="card-image" @click="isImageModalActive = true">
         <figure class="image is-square">
-          <img :src="getImage(infos.productsPics_path)" :alt="infos.productsPics_altName" draggable="false">
+          <img :src="picture" :alt="altName" draggable="false">
         </figure>
       </div>
       <div class="card-content">
@@ -23,7 +23,7 @@
               <b-icon icon="info" size="is-small"></b-icon>
             </button>
           </router-link>
-          <button class="button is-primary is-outlined" @click="addToWishlist(infos.products_name)">
+          <button class="button is-primary is-outlined" @click="addToBasket">
             <b-icon icon="heart" size="is-small"></b-icon>
           </button>
         </div>
@@ -31,7 +31,7 @@
     </div>
     <b-modal :active.sync="isImageModalActive">
       <p class="image is-4by4">
-        <img :src="getImage(infos.productsPics_path)">
+        <img :src="picture">
       </p>
     </b-modal>
   </div>
@@ -47,11 +47,14 @@ export default {
     }
   },
   methods: {
-    addToWishlist (product) {
-      this.$toast.open(product + ' ajouté au la liste de souhait: test!')
+    addToBasket () {}
+  },
+  computed: {
+    picture () {
+      return this.infos.productsPics_path === null ? 'static/noImgAvailable.png' : this.infos.productsPics_path
     },
-    getImage (picture) {
-      return picture === '' ? 'static/noImgAvailable.png' : picture
+    altName (altName) {
+      return this.infos.productsPics_altName === null ? 'noimg' : this.infos.productsPics_altName
     }
   }
 }

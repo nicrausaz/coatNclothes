@@ -17,11 +17,6 @@
       </b-field>
     </div>
     <div class="column is-2">
-      <b-field label="Rechercher">
-        <b-input placeholder="Rechercher..." type="search" icon-pack="fas" icon="search" v-model="search.searchContent"></b-input>
-      </b-field>
-    </div>
-    <div class="column is-2">
       <b-field>
         <b-radio-button v-model="search.selectedView" native-value="cardedView">
           <i class="fa fa-th-large"></i>
@@ -58,8 +53,7 @@ export default {
       search: {
         price: [0, 500],
         brands: [],
-        selectedView: 'cardedView',
-        searchContent: ''
+        selectedView: 'cardedView'
       }
     }
   },
