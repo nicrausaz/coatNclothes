@@ -96,8 +96,7 @@ export default {
       this.productData = response.data
       this.loaded = true
     })
-    .catch(() => {
-    })
+    .catch(() => { this.$router.push('/error') })
   },
   components: {
     pictureCarousel,

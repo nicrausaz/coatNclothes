@@ -24,7 +24,7 @@
             </button>
           </router-link>
           <button class="button is-primary is-outlined" @click="addToBasket">
-            <b-icon icon="heart" size="is-small"></b-icon>
+            <b-icon icon="shopping-cart" size="is-small"></b-icon>
           </button>
         </div>
       </div>
@@ -47,7 +47,9 @@ export default {
     }
   },
   methods: {
-    addToBasket () {}
+    addToBasket () {
+      // add item to basket
+    }
   },
   computed: {
     picture () {

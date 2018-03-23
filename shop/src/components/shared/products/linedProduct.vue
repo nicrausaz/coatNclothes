@@ -15,12 +15,12 @@
         </p>
       </div>
       <nav class="level is-mobile">
-        <div class="level-left">
+        <div class="media-right">
           <button class="button is-outlined is-small">
             <b-icon icon="info" size="is-small"></b-icon>
           </button>
-          <button class="button is-outlined is-small" @click="addToBasket">
-            <b-icon icon="heart" size="is-small"></b-icon>
+          <button class="button is-outlined is-primary is-small" @click="addToBasket">
+            <b-icon icon="shopping-cart" size="is-small"></b-icon>
           </button>
         </div>
       </nav>
