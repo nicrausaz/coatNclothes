@@ -10,7 +10,9 @@
     </li>
   </ul>
   <p class="menu-label has-text-right">Total - CHF</p>
-  <button class="button is-primary is-large">Commander</button>
+  <router-link to="/orderconfirm">
+    <button class="button is-primary is-large">Commander</button>
+  </router-link>
 </aside>
 </template>
 
