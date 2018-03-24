@@ -77,7 +77,13 @@ export default {
     },
     removeProductFromShopBag () {
       // remove from api / toast
-      this.$forceUpdate()
+      this.axios({
+        method: 'delete',
+        url: '/basket/user/' + this.$store.state.user.users_id,
+        data: {
+          'product': this.infos.products_id
+        }
+      })
     }
   }
 }

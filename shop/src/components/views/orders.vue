@@ -25,7 +25,7 @@
             <orderProduct v-for="product in props.row.ordersContent" :key="product.products_id" :data="product"></orderProduct>
           </div>
         </template>
-    </b-table>
+      </b-table>
     </section>
   </div>
 </template>

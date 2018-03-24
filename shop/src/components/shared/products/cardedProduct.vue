@@ -49,6 +49,14 @@ export default {
   methods: {
     addToBasket () {
       // add item to basket
+      this.axios({
+        method: 'put',
+        url: '/basket/user/' + this.$store.state.user.users_id,
+        data: {
+          'product': this.infos.products_id,
+          'quantity': 1
+        }
+      })
     }
   },
   computed: {

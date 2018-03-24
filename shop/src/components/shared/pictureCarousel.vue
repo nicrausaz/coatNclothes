@@ -17,9 +17,9 @@ export default {
   position: relative;
   color: #fff;
   font-family: Arial;
-  font-size: 24px;
   text-align: center;
   min-height: 400px;
+  max-height: 600px;
 }
 
 .label {

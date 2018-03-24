@@ -16,15 +16,14 @@ export default {
         url: '/token'
       })
       .catch(() => {
-        this.$toast.open({
-          duration: 3000,
-          message: 'Session expirée, veuillez vous connecter à nouveau',
-          position: 'is-top',
-          type: 'is-warning'
-        })
-        this.$store.commit('detroyUser')
-        this.$router.push('/user')
-        this.$forceUpdate() // check if it works !
+        // this.$toast.open({
+        //   duration: 3000,
+        //   message: 'Session expirée, veuillez vous connecter à nouveau',
+        //   position: 'is-top',
+        //   type: 'is-warning'
+        // })
+        // this.$store.commit('detroyUser')
+        // this.$router.push('/user')
       })
     }
   }

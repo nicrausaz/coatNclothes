@@ -23,7 +23,10 @@ Vue.config.productionTip = false
 
 Vue.prototype.axios = axios.create({
   baseURL: 'https://api.coatandclothes.shop/fr/',
-  headers: {'Authorization': 'Bearer' + store.state.user.token}
+  headers: {
+    'Authorization': 'Bearer' + store.state.user.token,
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
 })
 
 /* eslint-disable no-new */

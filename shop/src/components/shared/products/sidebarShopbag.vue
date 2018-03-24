@@ -16,6 +16,12 @@
 
 <script>
 export default {
-
+  props: ['products'],
+  data () {
+    return {
+      productsData: []
+    }
+  },
+  computed: {}
 }
 </script>
