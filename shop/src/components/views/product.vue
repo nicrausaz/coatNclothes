@@ -49,8 +49,10 @@
 import pictureCarousel from '@/components/shared/pictureCarousel'
 import wishListChooseModal from '@/components/shared/wishlists/wishListChooseModal'
 import suggestedproducts from '@/components/shared/products/suggestedProducts'
+import productshelpers from '@/mixins/productsHelpers'
 
 export default {
+  mixins: [productshelpers],
   data () {
     return {
       productId: this.$route.params.id,
@@ -77,8 +79,7 @@ export default {
     },
     addToBasket () {
       if (this.checkSelection()) {
-        console.log('good')
-        // send to api
+        this.addProductToBasket(this.productId)
       }
     }
   },
@@ -86,20 +87,6 @@ export default {
     textSize () {
       return this.currentProduct.selectedSize === '' ? 'Choisir la taille' : this.currentProduct.selectedSize
     }
-  },
-  activated () {
-    this.$nextTick(function () {
-      console.log('rerended')
-    })
-    // this.axios({
-    //   method: 'get',
-    //   url: 'product/' + this.productId
-    // })
-    // .then(response => {
-    //   this.productData = response.data
-    //   this.loaded = true
-    // })
-    // .catch(() => { this.$router.push('/error') })
   },
   created () {
     this.axios({

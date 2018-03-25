@@ -36,8 +36,11 @@
 </template>
 
 <script>
+import productshelpers from '@/mixins/productsHelpers'
+
 export default {
   props: ['infos'],
+  mixins: [productshelpers],
   data () {
     return {
       isImageModalActive: false
@@ -53,31 +56,7 @@ export default {
   },
   methods: {
     addToBasket () {
-      // add item to basket
-      this.axios({
-        method: 'put',
-        url: '/basket/user/' + this.$store.state.user.users_id,
-        data: {
-          'product': this.infos.products_id,
-          'quantity': 1
-        }
-      })
-      .then((response) => {
-        this.$toast.open({
-          duration: 5000,
-          message: response.data.message,
-          position: 'is-top',
-          type: 'is-success'
-        })
-      })
-      .catch((err) => {
-        this.$toast.open({
-          duration: 5000,
-          message: err.response.data.message,
-          position: 'is-top',
-          type: 'is-warning'
-        })
-      })
+      this.addProductToBasket(this.infos.products_id)
     }
   }
 }

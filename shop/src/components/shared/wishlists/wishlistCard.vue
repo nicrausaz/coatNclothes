@@ -16,7 +16,7 @@
       <footer class="card-footer">
         <a class="card-footer-item" @click="deleteWishlist">Supprimer la liste<b-icon icon="trash-alt"></b-icon></a>
         <a class="card-footer-item" @click="edit">Modifier<b-icon icon="pencil-alt"></b-icon></a>
-        <a class="card-footer-item" v-if="hasProducts">Tout ajouter au panier <b-icon icon="cart-plus"></b-icon></a>
+        <a class="card-footer-item" @click="addAllToBasket" v-if="hasProducts">Tout ajouter au panier <b-icon icon="cart-plus"></b-icon></a>
       </footer>
       <b-modal :active.sync="isEditing" has-modal-card>
         <wishlist-edit-modal :name="infos.wishlist_name" :description="infos.wishlist_description"></wishlist-edit-modal>
@@ -27,9 +27,11 @@
 <script>
 import wishllistproductlist from '@/components/shared/wishlists/wishlistProductlist'
 import wishlistEditModal from '@/components/shared/wishlists/wishlistEditModal'
+import productshelpers from '@/mixins/productsHelpers'
 
 export default {
   props: ['infos'],
+  mixins: [productshelpers],
   data () {
     return {
       isOpen: false,
@@ -55,7 +57,11 @@ export default {
         }
       })
     },
-    addItemToBasket () {},
+    addAllToBasket () {
+      this.infos.ordersContent.forEach(product => {
+        this.addProductToBasket(product.fk_poduct_id)
+      })
+    },
     addListToBasket () {}
   },
   computed: {

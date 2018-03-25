@@ -39,7 +39,7 @@ export default {
       .then((response) => {
         this.$store.commit('setUser', response.data)
         this.$toast.open({
-          duration: 3000,
+          duration: 2000,
           message: response.data.message,
           position: 'is-top',
           type: 'is-success'
@@ -48,7 +48,7 @@ export default {
       .catch((error) => {
         console.log(error)
         this.$toast.open({
-          duration: 3000,
+          duration: 2000,
           message: 'Nom de compte, email ou mot passe erroné !',
           position: 'is-top',
           type: 'is-danger'

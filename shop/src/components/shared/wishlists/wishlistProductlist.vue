@@ -38,8 +38,11 @@
 </template>
 
 <script>
+import productshelpers from '@/mixins/productsHelpers'
+
 export default {
   props: ['products'],
+  mixins: [productshelpers],
   data () {
     return {
       productList: []
@@ -68,7 +71,7 @@ export default {
       return pictures.length === 0 ? 'noimg' : pictures[0].altName
     },
     addToBasket (id) {
-      console.log(id)
+      this.addProductToBasket(id)
     },
     deleteItem (id) {
       console.log(id)
