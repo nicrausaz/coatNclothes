@@ -19,13 +19,17 @@
         </div>
         <div v-if="hover">
           <router-link :to="/product/ + infos.products_id">
+          <b-tooltip label="Voir le produit" position="is-bottom">
             <button class="button is-outlined">
               <b-icon icon="info" size="is-small"></b-icon>
             </button>
+          </b-tooltip>
           </router-link>
-          <button class="button is-primary is-outlined" @click="addToBasket">
-            <b-icon icon="shopping-cart" size="is-small"></b-icon>
-          </button>
+          <b-tooltip label="Ajouter au panier" position="is-bottom">
+            <button class="button is-primary is-outlined" @click="addToBasket">
+              <b-icon icon="shopping-cart" size="is-small"></b-icon>
+            </button>
+          </b-tooltip>
         </div>
       </div>
     </div>

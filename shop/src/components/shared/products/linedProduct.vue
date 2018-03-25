@@ -16,10 +16,12 @@
       </div>
       <nav class="level is-mobile">
         <div class="media-right">
-          <button class="button is-outlined is-small">
-            <b-icon icon="info" size="is-small"></b-icon>
-          </button>
-          <button class="button is-outlined is-primary is-small" @click="addToBasket">
+          <router-link :to="/product/ + infos.products_id">
+            <button class="button is-outlined is-small">
+              <b-icon icon="info" size="is-small"></b-icon>
+            </button>
+          </router-link>
+            <button class="button is-outlined is-primary is-small" @click="addToBasket">
             <b-icon icon="shopping-cart" size="is-small"></b-icon>
           </button>
         </div>

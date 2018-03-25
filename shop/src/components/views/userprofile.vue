@@ -3,9 +3,11 @@
     <subtitle :name="'Votre profil'" :text="'Consultez et modifiez vos informations'"></subtitle>
     <section class="section">
       <div class="tile is-12">
-        <figure class="image" @click="editUserPic" style="cursor: pointer;">
-          <img src="static/noImgAvailable.png" alt="userpic">
-        </figure>
+        <b-tooltip label="Cliquer pour éditer" position="is-bottom">
+          <figure class="image" @click="editUserPic" style="cursor: pointer;">
+            <img src="static/noImgAvailable.png" alt="userpic">
+          </figure>
+        </b-tooltip>
         <div id="infos">
           <h1 class="title">{{$store.state.user.users_fsname}} {{$store.state.user.users_name}}</h1>
           <h2>{{$store.state.user.users_email}}</h2>
@@ -58,14 +60,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.updivs {
-  height: 350px;
-}
-.ordersDiv {
-  padding: 5px;
-  border: 1px solid lightgray;
-  cursor: pointer;
-}
-</style>

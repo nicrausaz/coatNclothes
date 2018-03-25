@@ -2,16 +2,17 @@
   <aside class="menu">
   <p class="menu-label">Résumé du panier</p>
   <ul class="menu-list">
-    <li v-for="i in 5" :key="i">
+    <li v-for="(product, index) in productsData" :key="product.products_id">
       <a>
-        <b-icon icon="times" size="is-small"></b-icon>
-        <span class="has-text-centered">Produit {{i}}</span>
+        <span class="has-text-left">{{products[index].basket_quantity}}x</span>
+        <span class="has-text-centered">{{product.products_name}}</span>
+        <span class="has-text-right">{{product.products_price}}</span>
       </a>
     </li>
   </ul>
-  <p class="menu-label has-text-right">Total - CHF</p>
+  <p class="menu-label has-text-right">{{totalPrice}}</p>
   <router-link to="/orderconfirm">
-    <button class="button is-primary is-large">Commander</button>
+    <button class="button is-primary is-large is-pulled-right">Commander</button>
   </router-link>
 </aside>
 </template>
@@ -24,6 +25,25 @@ export default {
       productsData: []
     }
   },
-  computed: {}
+  created () {
+    this.products.forEach(product => {
+      this.axios({
+        method: 'get',
+        url: 'product/' + product.products_id
+      })
+      .then((response) => {
+        this.productsData.push(response.data)
+      })
+    })
+  },
+  computed: {
+    totalPrice () {
+      let total = 0
+      this.productsData.forEach(product => {
+        total += product.products_price
+      })
+      return 'Total ' + total + ' CHF'
+    }
+  }
 }
 </script>
