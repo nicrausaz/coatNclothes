@@ -61,11 +61,10 @@ export default {
     },
     createUser () {
       if (this.doublePasswordIsValid() && this.validData()) {
-        let self = this
         this.axios({
           method: 'post',
           url: '/register',
-          data: self.infos
+          data: this.infos
         })
         .then(response => {
           this.$store.commit('setUser', response.data)
@@ -94,7 +93,7 @@ export default {
       let self = this
       let errors = Object.keys(this.errors).map(function (key) { return self.errors[key].toString() })
       errors.forEach((error) => {
-        self.$toast.open({
+        this.$toast.open({
           duration: 5000,
           message: error,
           position: 'is-top',

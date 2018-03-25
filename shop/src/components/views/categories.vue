@@ -52,13 +52,13 @@ export default {
     .then((response) => {
       this.products_list = response.data
     })
-    this.axios({
-      method: 'get',
-      url: '/categories'
-    })
-    .then((response) => {
-      this.categories = response.data
-    })
+    // this.axios({
+    //   method: 'get',
+    //   url: '/categories'
+    // })
+    // .then((response) => {
+    //   this.categories = response.data
+    // })
   },
   computed: {
     isCardedView () {

@@ -31,11 +31,10 @@ export default {
   },
   methods: {
     connect () {
-      let self = this
       this.axios({
         method: 'post',
         url: '/login',
-        data: self.credentials
+        data: this.credentials
       })
       .then((response) => {
         this.$store.commit('setUser', response.data)

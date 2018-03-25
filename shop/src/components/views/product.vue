@@ -87,6 +87,20 @@ export default {
       return this.currentProduct.selectedSize === '' ? 'Choisir la taille' : this.currentProduct.selectedSize
     }
   },
+  activated () {
+    this.$nextTick(function () {
+      console.log('rerended')
+    })
+    // this.axios({
+    //   method: 'get',
+    //   url: 'product/' + this.productId
+    // })
+    // .then(response => {
+    //   this.productData = response.data
+    //   this.loaded = true
+    // })
+    // .catch(() => { this.$router.push('/error') })
+  },
   created () {
     this.axios({
       method: 'get',

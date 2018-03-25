@@ -57,6 +57,22 @@ export default {
           'quantity': 1
         }
       })
+      .then((response) => {
+        this.$toast.open({
+          duration: 5000,
+          message: response.data.message,
+          position: 'is-top',
+          type: 'is-success'
+        })
+      })
+      .catch((err) => {
+        this.$toast.open({
+          duration: 5000,
+          message: err.response.data.message,
+          position: 'is-top',
+          type: 'is-warning'
+        })
+      })
     }
   },
   computed: {
