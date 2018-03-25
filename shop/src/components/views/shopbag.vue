@@ -4,20 +4,11 @@
     <section class="section">
       <div v-if="!isShopBagEmpty" class="columns">
         <div class="columns column is-multiline is-three-quarter is-mobile">
-          <shopBagProduct v-for="product in products" :key="product.products_id" :infos="product"></shopBagProduct>
+          <shopBagProduct v-for="product in products" :key="product.products_id" :infos="product" @delete="updateProducts"></shopBagProduct>
         </div>
         <div class="column is-one-quarter">
           <sidebarShopbag :products="products"></sidebarShopbag>
         </div>
-        <!-- <div class="content column is-one-quarter notification" id="summaryDiv">
-          <h3>Résumé du panier:</h3>
-          <small>{{ articlesNumberText }}</small>
-          <ul>
-            <li v-for="product in products" :key="product.products_id">{{ product.products_name }} {{ product.products_price }}</li>
-          </ul>
-          <hr>
-          <p class="has-text-right">Prix total: {{totalPrice}} CHF</p>
-        </div> -->
       </div>
       <div class="has-text-centered subtitle is-3" v-else>
         <b-icon icon="inbox" size="is-large"></b-icon>
@@ -52,6 +43,11 @@ export default {
     })
   },
   methods: {
+    updateProducts (id) {
+      this.products = this.products.filter((product) => {
+        return product.products_id !== id
+      })
+    },
     mergeDuplicate () {
       // if product is multiple time, increment quantity and remove duplicates
       let compressed = []

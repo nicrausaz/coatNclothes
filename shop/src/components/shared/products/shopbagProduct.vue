@@ -76,7 +76,6 @@ export default {
       this.infos.basket_quantity += 1
     },
     removeProductFromShopBag () {
-      // remove from api / toast
       this.axios({
         method: 'delete',
         url: '/basket/user/' + this.$store.state.user.users_id,
@@ -84,6 +83,15 @@ export default {
           'product': this.infos.products_id
         }
       })
+      .then((response) => {
+        this.$toast.open({
+          duration: 2000,
+          message: response.data.message,
+          position: 'is-top',
+          type: 'is-success'
+        })
+      })
+      this.$emit('delete', this.infos.products_id)
     }
   }
 }

@@ -59,7 +59,7 @@ export default {
     },
     addAllToBasket () {
       this.infos.ordersContent.forEach(product => {
-        this.addProductToBasket(product.fk_poduct_id)
+        this.addProductToBasket(product.fk_products_id)
       })
     },
     addListToBasket () {}
