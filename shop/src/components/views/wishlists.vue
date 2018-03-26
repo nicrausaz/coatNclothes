@@ -8,7 +8,13 @@
           <b-icon pack="fas" icon="plus" type="is-primary" style="float: right;"></b-icon>
         </div>
       </div>
-      <wishlistCard v-for="wishlist in wishlists" :key="wishlist.wishlist_id" :infos="wishlist"></wishlistCard>
+      <div v-if="hasWishLists">
+        <wishlistCard v-for="wishlist in wishlists" :key="wishlist.wishlist_id" :infos="wishlist"></wishlistCard>
+      </div>
+      <div class="has-text-centered subtitle is-3" style="margin-top: 150px;" v-else>
+        <b-icon icon="inbox" size="is-large"></b-icon>
+        <p>Aucune liste de souhait ...</p>
+      </div>
     </section>
     <b-modal :active.sync="isCreating">
       <wishlistNewModal></wishlistNewModal>
@@ -43,6 +49,11 @@ export default {
     .then((response) => {
       this.wishlists = response.data
     })
+  },
+  computed: {
+    hasWishLists () {
+      return this.wishlists.length > 0
+    }
   },
   components: {
     subtitle,

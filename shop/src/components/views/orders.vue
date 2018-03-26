@@ -25,6 +25,14 @@
             <orderProduct v-for="product in props.row.ordersContent" :key="product.products_id" :data="product"></orderProduct>
           </div>
         </template>
+         <template slot="empty">
+            <section class="section">
+              <div class="content has-text-centered has-text-centered subtitle is-3">
+                <p><b-icon icon="inbox" size="is-large"> </b-icon></p>
+                <p>Vous n'avez effectué aucune commande ...</p>
+              </div>
+            </section>
+         </template>
       </b-table>
     </section>
   </div>
