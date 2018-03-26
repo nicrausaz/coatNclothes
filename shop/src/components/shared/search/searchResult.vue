@@ -1,8 +1,8 @@
 <template>
-  <article class="media" @click="goToArticle">
+  <article class="media" @click="goToArticle" style="cursor: pointer;">
     <figure class="media-left">
       <p class="image is-32x32">
-        <img src="https://bulma.io/images/placeholders/128x128.png">
+        <img :src="picture" :alt="altName">
       </p>
     </figure>
     <div class="media-content">
@@ -23,10 +23,14 @@ export default {
     goToArticle () {
       this.$router.push('/product/' + this.data.products_id)
     }
+  },
+  computed: {
+    picture () {
+      return this.data.productsPics_path === null ? 'static/noImgAvailable.png' : this.data.productsPics_path
+    },
+    altName (altName) {
+      return this.data.productsPics_altName === null ? 'noimg' : this.data.productsPics_altName
+    }
   }
 }
 </script>
-
-<style>
-
-</style>

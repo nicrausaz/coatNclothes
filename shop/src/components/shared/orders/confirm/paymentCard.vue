@@ -1,9 +1,9 @@
 <template>
   <b-collapse class="card">
-    <div slot="trigger" slot-scope="props" class="card-header">
+    <div class="card-header">
       <p class="card-header-title">Paiement</p>
       <a class="card-header-icon">
-        <b-icon :icon="isOpen ? 'angle-up' : 'angle-down'"></b-icon>
+        <b-icon :icon="isConfirmed ? 'check' : 'times'"></b-icon>
       </a>
     </div>
     <div class="card-content">
@@ -21,7 +21,7 @@
       </div>
     </div>
     <footer class="card-footer">
-      <a class="card-footer-item">Confirmer</a>
+      <a class="card-footer-item" @click="valid">Confirmer</a>
     </footer>
   </b-collapse>
 </template>
@@ -30,9 +30,14 @@
 export default {
   data () {
     return {
-      isOpen: true,
       isConfirmed: false,
       paymentMethod: 'Nature'
+    }
+  },
+  methods: {
+    valid () {
+      this.isConfirmed = true
+      this.$emit('confirm', 'payment')
     }
   }
 }
