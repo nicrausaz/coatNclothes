@@ -6,11 +6,14 @@ import App from './App'
 import router from './router'
 import Vuex from 'vuex'
 import store from './store/store.js'
-
 import axios from 'axios'
+
 import Buefy from 'buefy'
 import 'buefy/lib/buefy.css'
 import VueCarousel from 'vue-carousel'
+
+import Chartkick from 'chartkick'
+import VueChartkick from 'vue-chartkick'
 
 Vue.use(Buefy, {
   defaultIconPack: 'fas'
@@ -18,6 +21,7 @@ Vue.use(Buefy, {
 
 Vue.use(VueCarousel)
 Vue.use(Vuex)
+Vue.use(VueChartkick, { Chartkick })
 
 Vue.config.productionTip = false
 
