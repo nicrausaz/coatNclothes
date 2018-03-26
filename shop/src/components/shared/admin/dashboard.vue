@@ -10,7 +10,7 @@
     </div>
     <div class="graphs">
       <p>Commandes par mois</p>
-      <column-chart :data="monthlyOrdersData" :library="{backgroundColor: '#fff'}"></column-chart>
+      <column-chart :data="monthlyOrdersData"></column-chart>
     </div>
 
   </div>
@@ -20,8 +20,8 @@
 export default {
   data () {
     return {
-      globalOrdersData: [['Jan', 4], ['Feb', 2], ['Mar', 10], ['Apr', 5], ['May', 3]],
-      monthlyOrdersData: [['Jan', 4], ['Feb', 2], ['Mar', 10], ['Apr', 5], ['May', 3]]
+      globalOrdersData: [['En attente', 1], ['En traitement', 2], ['En livraison', 10], ['Terminée', 5]],
+      monthlyOrdersData: [['Janvier', 4], ['Fevrier', 2], ['Mars', 10], ['Avril', 5], ['Mai', 3], ['Juin', 4], ['Juillet', 2], ['Août', 8], ['Septembre', 5], ['Octobre', 3], ['Novembre', 5], ['Decembre', 3]]
     }
   }
 }
