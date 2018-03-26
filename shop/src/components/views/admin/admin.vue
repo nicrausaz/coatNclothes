@@ -18,9 +18,10 @@
 import subtitle from '@/components/templates/subtitle'
 import sidebaradmin from '@/components/shared/admin/sidebarAdmin'
 import checkAccess from '@/mixins/checkAccess'
+import checkAdmin from '@/mixins/checkAdmin'
 
 export default {
-  mixins: [checkAccess],
+  mixins: [checkAccess, checkAdmin],
   data () {
     return {
     }

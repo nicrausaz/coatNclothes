@@ -38,6 +38,7 @@ export default {
       })
       .then((response) => {
         this.$store.commit('setUser', response.data)
+        location.reload()
         this.$toast.open({
           duration: 2000,
           message: response.data.message,
