@@ -55,7 +55,6 @@ export default {
   mixins: [productshelpers],
   data () {
     return {
-      productId: this.$route.params.id,
       productData: [],
       currentProduct: {
         selectedSize: ''
@@ -64,6 +63,17 @@ export default {
     }
   },
   methods: {
+    getProductData () {
+      this.axios({
+        method: 'get',
+        url: 'product/' + this.$route.params.id
+      })
+      .then(response => {
+        this.productData = response.data
+        this.loaded = true
+      })
+      .catch(() => { this.$router.push('/error') })
+    },
     setSize (size) {
       this.currentProduct.selectedSize = size
     },
@@ -83,21 +93,16 @@ export default {
       }
     }
   },
+  watch: {
+    $route () { this.getProductData() }
+  },
   computed: {
     textSize () {
       return this.currentProduct.selectedSize === '' ? 'Choisir la taille' : this.currentProduct.selectedSize
     }
   },
   created () {
-    this.axios({
-      method: 'get',
-      url: 'product/' + this.productId
-    })
-    .then(response => {
-      this.productData = response.data
-      this.loaded = true
-    })
-    .catch(() => { this.$router.push('/error') })
+    this.getProductData()
   },
   components: {
     pictureCarousel,
