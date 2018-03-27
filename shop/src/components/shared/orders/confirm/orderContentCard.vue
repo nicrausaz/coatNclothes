@@ -50,6 +50,6 @@ export default {
 
 <style scoped>
 .confirmed {
-  color: #7CCD7C;
+  color: #23d160;
 }
 </style>

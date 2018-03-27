@@ -4,8 +4,9 @@
       <p class="modal-card-title">Choisir la liste</p>
     </header>
     <section class="modal-card-body">
-      <div v-for="wishlist in wishlists" class="choices" :key="wishlist.id" @click="choose(wishlist.id)">
-        {{wishlist.name}}
+      <div v-for="wishlist in wishlists" class="choices" :key="wishlist.wishlist_id" @click="choose(wishlist.wishlist_id)">
+        {{wishlist.wishlist_name}}
+        <span class="actions"><b-icon icon="plus" type="is-primary"></b-icon></span>
       </div>
       <hr>
       <div class="choices" @click="createNew">
@@ -23,12 +24,18 @@ export default {
   props: ['active'],
   data () {
     return {
-      wishlists: [
-        { id: 1, name: 'liste1' },
-        { id: 2, name: 'liste2' }
-      ],
+      wishlists: [],
       chosenWishlist: ''
     }
+  },
+  created () {
+    this.axios({
+      method: 'get',
+      url: 'wishlists/user/' + this.$store.state.user.users_id
+    })
+    .then((response) => {
+      this.wishlists = response.data
+    })
   },
   methods: {
     choose (id) {
@@ -54,6 +61,9 @@ export default {
   margin-bottom: 10px;
   border: 1px solid lightgray;
   cursor: pointer;
+}
+.choices:hover {
+  background-color: lightgray;
 }
 .actions {
   float: right;
