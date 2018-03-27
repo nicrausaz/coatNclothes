@@ -3,7 +3,7 @@
     <div class="card-header">
       <p class="card-header-title">Adresse</p>
       <a class="card-header-icon">
-        <b-icon :icon="isConfirmed ? 'check' : 'times'"></b-icon>
+        <b-icon :icon="isConfirmed ? 'check' : 'times'" :class="{'confirmed': isConfirmed}"></b-icon>
       </a>
     </div>
     <div class="card-content">
@@ -52,6 +52,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.confirmed {
+  color: #7CCD7C;
+}
 </style>

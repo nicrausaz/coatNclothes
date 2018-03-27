@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <subtitle :name="'Catégories'" :text="''"></subtitle>
+    <subtitle :name="'Magasin'" :text="'Consulter les produits'"></subtitle>
     <div class="columns">
       <div class="column is-3">
         <sidebarproduct></sidebarproduct>

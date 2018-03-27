@@ -25,7 +25,7 @@
                     <span>{{ textSize }}</span>
                     <b-icon icon="angle-down"></b-icon>
                   </button>
-                  <b-dropdown-item v-for="size in productData.products_size" :key="size" :value="size">{{ size }}</b-dropdown-item>
+                  <b-dropdown-item v-for="size in productData.products_size" :key="size" :value="size" @click="e.preventDefault()">{{ size }}</b-dropdown-item>
                 </b-dropdown>
                 <section class="section">
                   <a class="button is-primary is-rounded" @click="openWishlistSelector">
