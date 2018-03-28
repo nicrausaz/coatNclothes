@@ -2,6 +2,7 @@
   <aside class="menu">
   <p class="menu-label">Résumé du panier</p>
   <ul class="menu-list">
+    <!-- {{number}} -->
     <li v-for="(product, index) in productsData" :key="product.products_id">
       <a>
         <span class="has-text-left">{{products[index].basket_quantity}}x</span>
@@ -19,7 +20,7 @@
 
 <script>
 export default {
-  props: ['products'],
+  props: ['products', 'number'],
   data () {
     return {
       productsData: []

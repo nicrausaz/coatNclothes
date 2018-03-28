@@ -7,7 +7,7 @@
           <shopBagProduct v-for="product in products" :key="product.products_id" :infos="product" @delete="updateProducts"></shopBagProduct>
         </div>
         <div class="column is-one-quarter">
-          <sidebarShopbag :products="products"></sidebarShopbag>
+          <sidebarShopbag :products="products" :number="articlesNumberText"></sidebarShopbag>
         </div>
       </div>
       <div class="has-text-centered subtitle is-3" v-else>
@@ -66,11 +66,8 @@ export default {
     isShopBagEmpty () {
       return this.products.length === 0
     },
-    articleNumber () {
-      return this.products.length
-    },
     articlesNumberText () {
-      switch (this.articleNumber) {
+      switch (this.products.length) {
         case 0:
           return 'Aucun article'
         case 1:
