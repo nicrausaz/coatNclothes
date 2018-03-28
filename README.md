@@ -339,17 +339,6 @@ export default {
 }
 ```
 
-### /{auth}/addwishlisttobasket/{id}
-#### Postfield:
-> Ajout d'une wishlist selon son id au panier
-```
-{
-    data: {
-        
-    }
-}
-```
-
 ### /{auth}/addtowishlist/{id}
 #### Postfield:
 > Ajout d'une article à la liste de souhait selon son id
@@ -399,7 +388,7 @@ export default {
 ```
 
 ### /{auth}/basket/product/{id}
-#### Postfield:
+#### Postfield: product_id
 > Supprimer un article du panier
 ```
 {
