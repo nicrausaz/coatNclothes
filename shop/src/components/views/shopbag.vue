@@ -4,7 +4,7 @@
     <section class="section">
       <div v-if="!isShopBagEmpty" class="columns">
         <div class="columns column is-multiline is-three-quarter is-mobile">
-          <shopBagProduct v-for="product in products" :key="product.products_id" :infos="product" @delete="updateProducts"></shopBagProduct>
+          <shopBagProduct v-for="product in products" :key="product.products_id" :infos="product" @delete="getBasket"></shopBagProduct>
         </div>
         <div class="column is-one-quarter">
           <sidebarShopbag :products="products" :number="articlesNumberText"></sidebarShopbag>
@@ -33,18 +33,16 @@ export default {
     }
   },
   created () {
-    this.axios({
-      method: 'get',
-      url: '/basket/user/' + this.$store.state.user.users_id
-    })
-    .then((response) => {
-      this.products = response.data
-    })
+    this.getBasket()
   },
   methods: {
-    updateProducts (id) {
-      this.products = this.products.filter((product) => {
-        return product.products_id !== id
+    getBasket () {
+      this.axios({
+        method: 'get',
+        url: '/basket/user/' + this.$store.state.user.users_id
+      })
+      .then((response) => {
+        this.products = response.data
       })
     }
   },

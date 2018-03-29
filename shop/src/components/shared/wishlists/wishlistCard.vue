@@ -58,7 +58,7 @@ export default {
           })
           .then((response) => {
             this.$toast.open('Liste de souhaits supprimée !')
-            this.$emit('delete', this.infos.wishlist_id)
+            this.$emit('delete')
           })
         }
       })

@@ -126,7 +126,7 @@ export default {
           type: 'is-success'
         })
       })
-      this.$emit('delete', this.infos.products_id)
+      this.$emit('delete')
     }
   }
 }
