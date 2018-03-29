@@ -9,7 +9,7 @@
         </div>
       </div>
       <div v-if="hasWishLists">
-        <wishlistCard v-for="wishlist in wishlists" :key="wishlist.wishlist_id" :infos="wishlist"></wishlistCard>
+        <wishlistCard v-for="wishlist in wishlists" :key="wishlist.wishlist_id" :infos="wishlist" @delete="getWishlists"></wishlistCard>
       </div>
       <div class="has-text-centered subtitle is-3" style="margin-top: 150px;" v-else>
         <b-icon icon="inbox" size="is-large"></b-icon>
@@ -17,7 +17,7 @@
       </div>
     </section>
     <b-modal :active.sync="isCreating">
-      <wishlistNewModal></wishlistNewModal>
+      <wishlistNewModal @new="getWishlists"></wishlistNewModal>
     </b-modal>
   </div>
 </template>
@@ -37,18 +37,21 @@ export default {
     }
   },
   methods: {
+    getWishlists () {
+      this.axios({
+        method: 'get',
+        url: 'wishlists/user/' + this.$store.state.user.users_id + '/contents'
+      })
+      .then((response) => {
+        this.wishlists = response.data
+      })
+    },
     createNewWishlist () {
       this.isCreating = true
     }
   },
   created () {
-    this.axios({
-      method: 'get',
-      url: 'wishlists/user/' + this.$store.state.user.users_id + '/contents'
-    })
-    .then((response) => {
-      this.wishlists = response.data
-    })
+    this.getWishlists()
   },
   computed: {
     hasWishLists () {

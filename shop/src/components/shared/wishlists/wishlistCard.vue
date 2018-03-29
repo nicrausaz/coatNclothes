@@ -52,8 +52,14 @@ export default {
         confirmText: 'Confirmer',
         cancelText: 'Annuler',
         onConfirm: () => {
-          this.$toast.open('Suppression')
-          // delete API
+          this.axios({
+            method: 'delete',
+            url: 'wishlist/' + this.infos.wishlist_id + '/user/' + this.$store.state.user.users_id
+          })
+          .then((response) => {
+            this.$toast.open('Liste de souhaits supprimée !')
+            this.$emit('delete', this.infos.wishlist_id)
+          })
         }
       })
     },
