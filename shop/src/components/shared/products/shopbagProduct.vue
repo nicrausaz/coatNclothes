@@ -14,14 +14,15 @@
                 <li><small>{{product.products_brand}}</small></li>
                 <li><b>{{product.products_name}}</b></li>
                 <li class="has-text-right">{{formatedprice}}</li>
+              {{selectedSize}}
               </ul>
             </div>
           </div>
         </div>
         <div class="actions columns">
           <div class="column">
-            <b-select placeholder="Taille">
-              <option v-for="size in product.products_size" :v-model="product.size" :key="size">
+            <b-select placeholder="Taille" :v-model="infos.fk_productsSize_id">
+              <option v-for="size in product.products_size" :key="size">
                 {{ size }}
               </option>
             </b-select>
@@ -48,10 +49,12 @@ export default {
   data () {
     return {
       product: [],
-      loaded: false
+      loaded: false,
+      selectedSize: null
     }
   },
   created () {
+    this.selectedSize = this.infos.fk_productsSize_id
     this.axios({
       method: 'get',
       url: 'product/' + this.infos.products_id
@@ -82,9 +85,28 @@ export default {
   methods: {
     decrement () {
       this.infos.basket_quantity -= 1
+      this.updateBasket()
     },
     increment () {
       this.infos.basket_quantity += 1
+      this.updateBasket()
+    },
+    updateBasket () {
+      this.axios({
+        method: 'patch',
+        url: '/basket/user/' + this.$store.state.user.users_id,
+        data: {
+          'basketItemID': this.infos.basket_id,
+          'size': this.selectedSize,
+          'quantity': this.infos.basket_quantity
+        }
+      })
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     },
     removeProductFromShopBag () {
       this.axios({

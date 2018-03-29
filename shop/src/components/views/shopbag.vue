@@ -4,7 +4,6 @@
     <section class="section">
       <div v-if="!isShopBagEmpty" class="columns">
         <div class="columns column is-multiline is-three-quarter is-mobile">
-          {{products}}
           <shopBagProduct v-for="product in products" :key="product.products_id" :infos="product" @delete="updateProducts"></shopBagProduct>
         </div>
         <div class="column is-one-quarter">
@@ -40,7 +39,6 @@ export default {
     })
     .then((response) => {
       this.products = response.data
-      // this.products = this.mergeDuplicate()
     })
   },
   methods: {
@@ -49,19 +47,6 @@ export default {
         return product.products_id !== id
       })
     }
-    // mergeDuplicate () {
-    //   // if product is multiple time, increment quantity and remove duplicates
-    //   let compressed = []
-
-    //   this.products.forEach((product) => {
-    //     if (!(product.products_id in compressed)) {
-    //       compressed[product.products_id] = { 'products_id': product.products_id, 'basket_quantity': product.basket_quantity }
-    //     } else {
-    //       compressed[product.products_id].basket_quantity += product.basket_quantity
-    //     }
-    //   })
-    //   return compressed.filter((n) => { return n !== undefined })
-    // }
   },
   computed: {
     isShopBagEmpty () {
