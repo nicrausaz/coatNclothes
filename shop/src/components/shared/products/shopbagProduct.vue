@@ -18,14 +18,25 @@
             </div>
           </div>
         </div>
-        <div class="has-text-centered">
-          <button class="button is-small is-primary is-outlined" :disabled="!isEnabled" @click="decrement">
-            <b-icon icon="minus" size="is-small"></b-icon>
-          </button>
-            <b>{{infos.basket_quantity}}</b>
-          <button class="button is-small is-primary is-outlined" @click="increment">
-            <b-icon icon="plus" size="is-small"></b-icon>
-          </button>
+        <div class="actions columns">
+          <div class="column">
+            <b-select placeholder="Taille">
+              <option v-for="size in product.products_size" :v-model="product.size" :key="size">
+                {{ size }}
+              </option>
+            </b-select>
+          </div>
+          <div class="column">
+            <div class="has-text-centered">
+              <button class="button is-small is-primary is-outlined" :disabled="!isEnabled" @click="decrement">
+                <b-icon icon="minus" size="is-small"></b-icon>
+              </button>
+                <b>{{infos.basket_quantity}}</b>
+              <button class="button is-small is-primary is-outlined" @click="increment">
+                <b-icon icon="plus" size="is-small"></b-icon>
+              </button>
+            </div>
+          </div>
         </div>
     </div>
   </div>

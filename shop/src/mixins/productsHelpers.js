@@ -1,13 +1,14 @@
 export default {
   methods: {
-    addProductToBasket (id) {
+    addProductToBasket (id, size) {
       // add item to basket
       this.axios({
         method: 'put',
         url: '/basket/user/' + this.$store.state.user.users_id,
         data: {
           'product': id,
-          'quantity': 1
+          'quantity': 1,
+          'size': size
         }
       })
       .then((response) => {

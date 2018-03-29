@@ -17,25 +17,20 @@
               </p>
               <b-tag rounded>categoryname</b-tag>
             </section>
-
             <section class="section">
-              <form>
-                <b-dropdown v-model="currentProduct.selectedSize">
-                  <button class="button is-primary" slot="trigger">
-                    <span>{{ textSize }}</span>
-                    <b-icon icon="angle-down"></b-icon>
-                  </button>
-                  <b-dropdown-item v-for="size in productData.products_size" :key="size" :value="size">{{ size }}</b-dropdown-item>
-                </b-dropdown>
-                <section class="section">
-                  <a class="button is-primary is-rounded" @click="openWishlistSelector">
-                    <b-icon icon="heart"></b-icon>
-                  </a>
-                  <a class="button is-primary is-rounded" @click="addToBasket">
-                    <b-icon icon="cart-plus"></b-icon>
-                  </a>
-                </section>
-              </form>
+              <b-select placeholder="Taille" v-model="currentProduct.selectedSize">
+                <option v-for="size in productData.products_size" :key="size">
+                  {{ size }}
+                </option>
+              </b-select>
+              <section class="section">
+                <a class="button is-primary is-rounded" @click="openWishlistSelector">
+                  <b-icon icon="heart"></b-icon>
+                </a>
+                <a class="button is-primary is-rounded" @click="addToBasket">
+                  <b-icon icon="cart-plus"></b-icon>
+                </a>
+              </section>
             </section>
           </div>
         </div>
@@ -57,7 +52,7 @@ export default {
     return {
       productData: [],
       currentProduct: {
-        selectedSize: ''
+        selectedSize: null
       },
       loaded: false
     }
@@ -84,13 +79,8 @@ export default {
         hasModalCard: true
       })
     },
-    checkSelection () {
-      return this.currentProduct.selectedSize !== ''
-    },
     addToBasket () {
-      if (this.checkSelection()) {
-        this.addProductToBasket(this.productId)
-      }
+      this.addProductToBasket(this.$route.params.id, this.currentProduct.selectedSize)
     }
   },
   watch: {
