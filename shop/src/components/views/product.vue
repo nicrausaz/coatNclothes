@@ -15,7 +15,7 @@
               <p>
                 <i>{{productData.products_description}}</i>
               </p>
-              <b-tag rounded>categoryname</b-tag>
+              <b-tag>categoryname</b-tag>
             </section>
             <section class="section">
               <b-select placeholder="Taille" v-model="currentProduct.selectedSize">

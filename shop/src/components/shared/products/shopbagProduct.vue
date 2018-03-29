@@ -101,11 +101,13 @@ export default {
           'quantity': this.infos.basket_quantity
         }
       })
-      .then((response) => {
-        console.log(response)
-      })
       .catch((err) => {
-        console.log(err)
+        this.$toast.open({
+          duration: 2000,
+          message: err.response.data.message,
+          position: 'is-top',
+          type: 'is-success'
+        })
       })
     },
     removeProductFromShopBag () {
