@@ -19,7 +19,7 @@
       <a class="card-footer-item" @click="addAllToBasket" v-if="hasProducts">Tout ajouter au panier <b-icon icon="cart-plus"></b-icon></a>
     </footer>
     <b-modal :active.sync="isEditing" has-modal-card>
-      <wishlist-edit-modal :name="infos.wishlist_name" :description="infos.wishlist_description"></wishlist-edit-modal>
+      <wishlist-edit-modal :id="infos.wishlist_id" :name="infos.wishlist_name" :description="infos.wishlist_description"></wishlist-edit-modal>
     </b-modal>
   </b-collapse>
 </template>
@@ -57,7 +57,7 @@ export default {
             url: 'wishlist/' + this.infos.wishlist_id + '/user/' + this.$store.state.user.users_id
           })
           .then((response) => {
-            this.$toast.open('Liste de souhaits supprimée !')
+            this.$toast.open(response.data.message)
             this.$emit('delete')
           })
         }
