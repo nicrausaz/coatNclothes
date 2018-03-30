@@ -10,7 +10,7 @@
       <div class="content">
         <i>{{ infos.wishlist_description }}</i>
         <hr>
-        <wishllistproductlist :products="infos.ordersContent"></wishllistproductlist>
+        <wishllistproductlist :id="infos.wishlist_id" :products="infos.ordersContent"></wishllistproductlist>
       </div>
     </div>
     <footer class="card-footer">
@@ -67,8 +67,7 @@ export default {
       this.infos.ordersContent.forEach(product => {
         this.addProductToBasket(product.fk_products_id)
       })
-    },
-    addListToBasket () {}
+    }
   },
   computed: {
     hasProducts () {

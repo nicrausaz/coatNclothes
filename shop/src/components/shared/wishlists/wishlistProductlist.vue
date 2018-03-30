@@ -41,7 +41,7 @@
 import productshelpers from '@/mixins/productsHelpers'
 
 export default {
-  props: ['products'],
+  props: ['id', 'products'],
   mixins: [productshelpers],
   data () {
     return {
@@ -49,18 +49,21 @@ export default {
     }
   },
   created () {
-    this.products.forEach((product) => {
-      let id = product.fk_products_id
-      this.axios({
-        method: 'get',
-        url: 'product/' + id
-      })
-      .then((response) => {
-        this.productList.push(response.data)
-      })
-    })
+    this.getProducts()
   },
   methods: {
+    getProducts () {
+      this.products.forEach((product) => {
+        let id = product.fk_products_id
+        this.axios({
+          method: 'get',
+          url: 'product/' + id
+        })
+        .then((response) => {
+          this.productList.push(response.data)
+        })
+      })
+    },
     formatedPrice (price) {
       return price.toFixed(2) + ' CHF'
     },
@@ -73,8 +76,18 @@ export default {
     addToBasket (id) {
       this.addProductToBasket(id)
     },
-    deleteItem (id) {
-      console.log(id)
+    deleteItem (productId) {
+      this.axios({
+        method: 'delete',
+        url: '/wishlist/' + this.id + '/user/' + this.$store.state.user.users_id + '/content',
+        data: {
+          'product': productId
+        }
+      })
+      .then((response) => {
+        this.$toast.open(response.data.message)
+        this.getProducts()
+      })
     }
   }
 }

@@ -21,11 +21,10 @@
 
 <script>
 export default {
-  props: ['active'],
+  props: ['productId'],
   data () {
     return {
-      wishlists: [],
-      chosenWishlist: ''
+      wishlists: []
     }
   },
   created () {
@@ -38,10 +37,19 @@ export default {
     })
   },
   methods: {
-    choose (id) {
-      console.log('add to wishlist' + id)
-      // API: add product-Id to wishlist_id
+    choose (wishlistId) {
       this.$parent.close()
+      this.axios({
+        method: 'put',
+        url: '/wishlist/' + wishlistId + '/user/' + this.$store.state.user.users_id + '/content',
+        data: {
+          product: this.productId
+        }
+        // TODO: check if working
+      })
+      .then((response) => {
+        this.$toast.open(response.data.message)
+      })
     },
     createNew () {
       this.$parent.close()

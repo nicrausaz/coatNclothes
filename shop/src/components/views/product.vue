@@ -37,6 +37,9 @@
       </div>
       <suggestedproducts v-if="loaded" :category="productData.fk_category_id"></suggestedproducts>
     </section>
+    <b-modal :active.sync="wishlistselect">
+      <wishListChooseModal :productId="productData.products_id"></wishListChooseModal>
+    </b-modal>
   </div>
 </template>
 
@@ -54,7 +57,8 @@ export default {
       currentProduct: {
         selectedSize: null
       },
-      loaded: false
+      loaded: false,
+      wishlistselect: false
     }
   },
   methods: {
@@ -73,11 +77,7 @@ export default {
       this.currentProduct.selectedSize = size
     },
     openWishlistSelector () {
-      this.$modal.open({
-        parent: this,
-        component: wishListChooseModal,
-        hasModalCard: true
-      })
+      this.wishlistselect = true
     },
     addToBasket () {
       this.addProductToBasket(this.$route.params.id, this.currentProduct.selectedSize)
