@@ -7,7 +7,7 @@
       </div>
       <div class="column" id="filtersDiv">
         <filters @filter="setFilters"></filters>
-        <div v-if="hasFilteredArticle">
+        <div v-if="hasFilteredProducts">
           <div id="cardedproducts" class="columns is-multiline is-mobile" v-if="isCardedView">
             <cardedproduct v-for="product in filterProducts" :key="product.product_id" :infos="product"></cardedproduct>
           </div>
@@ -35,7 +35,6 @@ export default {
   data () {
     return {
       filters: [],
-      categories: [],
       products_list: []
     }
   },
@@ -50,7 +49,12 @@ export default {
       })
       .then((response) => {
         this.products_list = response.data
+        // TODO : get children products
+        // this.getCategoryChildrenProducts(this.$route.params.id)
       })
+    },
+    getCategoryChildrenProducts (categoryId) {
+      console.log(this.products_list)
     }
   },
   watch: {
@@ -72,7 +76,7 @@ export default {
       })
       return filteredProducts
     },
-    hasFilteredArticle () {
+    hasFilteredProducts () {
       return this.filterProducts.length > 0
     }
   },
