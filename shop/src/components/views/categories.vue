@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <subtitle :name="'Catégories'" :text="''"></subtitle>
+    <subtitle :name="'Magasin'" :text="'Consulter les produits'"></subtitle>
     <div class="columns">
       <div class="column is-3">
         <sidebarproduct></sidebarproduct>
@@ -12,7 +12,7 @@
             <cardedproduct v-for="product in filterProducts" :key="product.product_id" :infos="product"></cardedproduct>
           </div>
           <div id="linedproducts" v-else>
-            <linedproduct v-for="product in products_list" :key="product.product_id" :infos="product"></linedproduct>
+            <linedproduct v-for="product in filterProducts" :key="product.product_id" :infos="product"></linedproduct>
           </div>
         </div>
         <div class="has-text-centered subtitle is-3" style="padding-top: 50px;" v-else>
@@ -42,23 +42,22 @@ export default {
   methods: {
     setFilters (filters) {
       this.filters = filters
+    },
+    getCategoryProducts () {
+      this.axios({
+        method: 'get',
+        url: '/category/' + this.$route.params.id + '/products'
+      })
+      .then((response) => {
+        this.products_list = response.data
+      })
     }
   },
+  watch: {
+    $route () { this.getCategoryProducts() }
+  },
   created () {
-    this.axios({
-      method: 'get',
-      url: '/products'
-    })
-    .then((response) => {
-      this.products_list = response.data
-    })
-    this.axios({
-      method: 'get',
-      url: '/categories'
-    })
-    .then((response) => {
-      this.categories = response.data
-    })
+    this.getCategoryProducts()
   },
   computed: {
     isCardedView () {

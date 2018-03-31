@@ -8,10 +8,16 @@
           <b-icon pack="fas" icon="plus" type="is-primary" style="float: right;"></b-icon>
         </div>
       </div>
-      <wishlistCard v-for="wishlist in wishlists" :key="wishlist.wishlist_id" :infos="wishlist"></wishlistCard>
+      <div v-if="hasWishLists">
+        <wishlistCard v-for="wishlist in wishlists" :key="wishlist.wishlist_id" :infos="wishlist" @delete="getWishlists"></wishlistCard>
+      </div>
+      <div class="has-text-centered subtitle is-3" style="margin-top: 150px;" v-else>
+        <b-icon icon="inbox" size="is-large"></b-icon>
+        <p>Aucune liste de souhait ...</p>
+      </div>
     </section>
     <b-modal :active.sync="isCreating">
-      <wishlistNewModal></wishlistNewModal>
+      <wishlistNewModal @new="getWishlists"></wishlistNewModal>
     </b-modal>
   </div>
 </template>
@@ -31,19 +37,26 @@ export default {
     }
   },
   methods: {
+    getWishlists () {
+      this.axios({
+        method: 'get',
+        url: 'wishlists/user/' + this.$store.state.user.users_id + '/contents'
+      })
+      .then((response) => {
+        this.wishlists = response.data
+      })
+    },
     createNewWishlist () {
       this.isCreating = true
     }
   },
   created () {
-    this.axios({
-      headers: {'Authorization': 'Bearer' + this.$store.state.user.token},
-      method: 'get',
-      url: 'wishlists/user/' + this.$store.state.user.users_id + '/contents'
-    })
-    .then((response) => {
-      this.wishlists = response.data
-    })
+    this.getWishlists()
+  },
+  computed: {
+    hasWishLists () {
+      return this.wishlists.length > 0
+    }
   },
   components: {
     subtitle,

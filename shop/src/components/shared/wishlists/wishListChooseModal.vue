@@ -4,8 +4,9 @@
       <p class="modal-card-title">Choisir la liste</p>
     </header>
     <section class="modal-card-body">
-      <div v-for="wishlist in wishlists" class="choices" :key="wishlist.id" @click="choose(wishlist.id)">
-        {{wishlist.name}}
+      <div v-for="wishlist in wishlists" class="choices" :key="wishlist.wishlist_id" @click="choose(wishlist.wishlist_id)">
+        {{wishlist.wishlist_name}}
+        <span class="actions"><b-icon icon="plus" type="is-primary"></b-icon></span>
       </div>
       <hr>
       <div class="choices" @click="createNew">
@@ -20,21 +21,35 @@
 
 <script>
 export default {
-  props: ['active'],
+  props: ['productId'],
   data () {
     return {
-      wishlists: [
-        { id: 1, name: 'liste1' },
-        { id: 2, name: 'liste2' }
-      ],
-      chosenWishlist: ''
+      wishlists: []
     }
   },
+  created () {
+    this.axios({
+      method: 'get',
+      url: 'wishlists/user/' + this.$store.state.user.users_id
+    })
+    .then((response) => {
+      this.wishlists = response.data
+    })
+  },
   methods: {
-    choose (id) {
-      console.log('add to wishlist' + id)
-      // API: add product-Id to wishlist_id
+    choose (wishlistId) {
       this.$parent.close()
+      this.axios({
+        method: 'put',
+        url: '/wishlist/' + wishlistId + '/user/' + this.$store.state.user.users_id + '/content',
+        data: {
+          product: this.productId
+        }
+        // TODO: check if working
+      })
+      .then((response) => {
+        this.$toast.open(response.data.message)
+      })
     },
     createNew () {
       this.$parent.close()
@@ -54,6 +69,9 @@ export default {
   margin-bottom: 10px;
   border: 1px solid lightgray;
   cursor: pointer;
+}
+.choices:hover {
+  background-color: lightgray;
 }
 .actions {
   float: right;

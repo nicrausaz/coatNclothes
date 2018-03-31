@@ -8,6 +8,7 @@ import Shopbag from '@/components/views/shopbag'
 import checkLogin from '@/components/views/checkLogin'
 import product from '@/components/views/product'
 import orders from '@/components/views/orders'
+import orderconfirm from '@/components/views/orderconfirm'
 
 import admin from '@/components/views/admin/admin'
 import adminProducts from '@/components/shared/admin/products/productsTable'
@@ -25,11 +26,6 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
-    },
-    {
-      path: '/categories/',
-      name: 'Categories',
-      component: Categories
     },
     {
       path: '/category/:id',
@@ -62,6 +58,11 @@ export default new Router({
       component: orders
     },
     {
+      path: '/orderconfirm',
+      name: 'orderconfirm',
+      component: orderconfirm
+    },
+    {
       path: '/order/:id',
       name: 'order',
       component: orders
@@ -88,6 +89,10 @@ export default new Router({
           component: adminUsers
         }
       ]
+    },
+    {
+      path: '/error',
+      component: NotFound
     },
     {
       path: '*',

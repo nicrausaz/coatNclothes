@@ -5,33 +5,35 @@
       <b-table :data="orders" :opened-detailed="[requestedOrder]" detailed detail-key="orders_id">
         <template slot-scope="props">
             <b-table-column label="Numéro" width="40" numeric>
-                {{ props.row.orders_id }}
+              {{ props.row.orders_id }}
             </b-table-column>
-
             <b-table-column label="Paiement">
-                {{ paymentStatus(props.row.orders_paid) }}
+              {{ paymentStatus(props.row.orders_paid) }}
             </b-table-column>
-
             <b-table-column label="Date de paiement">
-                {{ props.row.orders_paidDate }}
+              {{ props.row.orders_paidDate }}
             </b-table-column>
-
             <b-table-column label="État" >
-                {{ props.row.orders_status}}
+              {{ props.row.orders_status}}
             </b-table-column>
-
             <b-table-column label="Date">
-                {{ props.row.orders_createdDate }}
+              {{ props.row.orders_createdDate }}
             </b-table-column>
         </template>
-
         <template slot="detail" slot-scope="props">
           <div class="columns is-multiline">
-            <orderProduct v-for="i in 4" :key="i"></orderProduct>
+            <orderProduct v-for="product in props.row.ordersContent" :key="product.products_id" :data="product"></orderProduct>
           </div>
-          <!-- <orderProduct v-for="product in props.row.orders_content" :key="product.products_id"></orderProduct> -->
         </template>
-    </b-table>
+         <template slot="empty">
+            <section class="section">
+              <div class="content has-text-centered has-text-centered subtitle is-3">
+                <p><b-icon icon="inbox" size="is-large"> </b-icon></p>
+                <p>Vous n'avez effectué aucune commande ...</p>
+              </div>
+            </section>
+         </template>
+      </b-table>
     </section>
   </div>
 </template>
@@ -43,12 +45,17 @@ import orderProduct from '@/components/shared/orders/orderProduct'
 export default {
   data () {
     return {
-      orders: [
-        { 'orders_id': 1, 'orders_paid': false, 'orders_paidDate': '', 'orders_status': 'En cours', 'orders_createdDate': '2016/10/15 13:43:27', 'orders_content': {} },
-        { 'orders_id': 2, 'orders_paid': false, 'orders_paidDate': '', 'orders_status': 'En cours', 'orders_createdDate': '2016/10/15 13:43:27', 'orders_content': {} },
-        { 'orders_id': 3, 'orders_paid': false, 'orders_paidDate': '', 'orders_status': 'En cours', 'orders_createdDate': '2016/10/15 13:43:27', 'orders_content': {} }
-      ]
+      orders: []
     }
+  },
+  created () {
+    this.axios({
+      method: 'get',
+      url: 'orders/user/' + this.$store.state.user.users_id + '/contents'
+    })
+    .then((response) => {
+      this.orders = response.data
+    })
   },
   methods: {
     paymentStatus (value) {

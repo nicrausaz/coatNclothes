@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  props: ['name', 'description'],
+  props: ['id', 'name', 'description'],
   data () {
     return {
       editedName: '',
@@ -33,7 +33,19 @@ export default {
   },
   methods: {
     update () {
-      console.log('update wishlist')
+      this.axios({
+        method: 'patch',
+        url: 'wishlist/' + this.id + '/user/' + this.$store.state.user.users_id,
+        data: {
+          'name': this.editedName,
+          'description': this.editedDescription
+        }
+      })
+      .then((response) => {
+        this.$parent.close()
+        this.$toast.open(response.data.message)
+        // TODO: Update view on edit
+      })
     }
   }
 }

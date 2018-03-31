@@ -3,7 +3,7 @@
     <div class="card" @mouseover="hover = true" @mouseout="hover = false">
       <div class="card-image" @click="isImageModalActive = true">
         <figure class="image is-square">
-          <img :src="getImage(infos.productsPics_path)" :alt="infos.productsPics_altName" draggable="false">
+          <img :src="picture" :alt="altName" draggable="false">
         </figure>
       </div>
       <div class="card-content">
@@ -19,27 +19,34 @@
         </div>
         <div v-if="hover">
           <router-link :to="/product/ + infos.products_id">
+          <b-tooltip label="Voir le produit" position="is-bottom">
             <button class="button is-outlined">
               <b-icon icon="info" size="is-small"></b-icon>
             </button>
+          </b-tooltip>
           </router-link>
-          <button class="button is-primary is-outlined" @click="addToWishlist(infos.products_name)">
-            <b-icon icon="heart" size="is-small"></b-icon>
-          </button>
+          <b-tooltip label="Ajouter au panier" position="is-bottom">
+            <button class="button is-primary is-outlined" @click="addToBasket">
+              <b-icon icon="shopping-cart" size="is-small"></b-icon>
+            </button>
+          </b-tooltip>
         </div>
       </div>
     </div>
     <b-modal :active.sync="isImageModalActive">
       <p class="image is-4by4">
-        <img :src="getImage(infos.productsPics_path)">
+        <img :src="picture">
       </p>
     </b-modal>
   </div>
 </template>
 
 <script>
+import productshelpers from '@/mixins/productsHelpers'
+
 export default {
   props: ['infos'],
+  mixins: [productshelpers],
   data () {
     return {
       isImageModalActive: false,
@@ -47,11 +54,16 @@ export default {
     }
   },
   methods: {
-    addToWishlist (product) {
-      this.$toast.open(product + ' ajouté au la liste de souhait: test!')
+    addToBasket () {
+      this.addProductToBasket(this.infos.products_id)
+    }
+  },
+  computed: {
+    picture () {
+      return this.infos.productsPics_path === null ? 'static/noImgAvailable.png' : this.infos.productsPics_path
     },
-    getImage (picture) {
-      return picture === '' ? 'static/noImgAvailable.png' : picture
+    altName (altName) {
+      return this.infos.productsPics_altName === null ? 'noimg' : this.infos.productsPics_altName
     }
   }
 }

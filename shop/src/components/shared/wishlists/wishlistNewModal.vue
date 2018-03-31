@@ -28,8 +28,32 @@ export default {
   },
   methods: {
     create () {
-      console.log('create wishlist')
-      // TO API
+      this.axios({
+        method: 'put',
+        url: 'wishlist/user/' + this.$store.state.user.users_id,
+        data: {
+          'name': this.name,
+          'description': this.description
+        }
+      })
+      .then((response) => {
+        this.$parent.close()
+        this.$toast.open({
+          duration: 2000,
+          message: response.data.message,
+          position: 'is-top',
+          type: 'is-success'
+        })
+        this.$emit('new')
+      })
+      .catch((err) => {
+        this.$toast.open({
+          duration: 2000,
+          message: err.message,
+          position: 'is-top',
+          type: 'is-danger'
+        })
+      })
     }
   }
 }

@@ -4,16 +4,16 @@
     Genre
   </p>
   <ul class="menu-list">
-    <li><a>Hommes</a></li>
-    <li><a>Femmes</a></li>
+    <li><router-link to="/category/6">Hommes</router-link></li>
+    <li><router-link to="/category/1">Femmes</router-link></li>
   </ul>
   <p class="menu-label">
     Catégories
   </p>
   <ul class="menu-list">
-    <li><a>Categorie 1</a></li>
+    <li><router-link to="/category/5">5</router-link></li>
     <li>
-      <a class="is-active">Categorie 2</a>
+      <router-link class="is-active" to="/category/2">2</router-link>
       <ul>
         <li><a>Sous cat 1</a></li>
         <li><a>Sous cat 2</a></li>

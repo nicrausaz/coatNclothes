@@ -4,18 +4,31 @@
       Statistiques
     </h2>
     <hr>
-    Dashboard
-    Nombres de commandes par mois,
-    ce mois ci,
+    <div class="graphs">
+      <p>État global des commandes</p>
+      <pie-chart :data="globalOrdersData"></pie-chart>
+    </div>
+    <div class="graphs">
+      <p>Commandes par mois</p>
+      <column-chart :data="monthlyOrdersData"></column-chart>
+    </div>
+
   </div>
 </template>
 
 <script>
 export default {
-
+  data () {
+    return {
+      globalOrdersData: [['En attente', 1], ['En traitement', 2], ['En livraison', 10], ['Terminée', 5]],
+      monthlyOrdersData: [['Janvier', 4], ['Fevrier', 2], ['Mars', 10], ['Avril', 5], ['Mai', 3], ['Juin', 4], ['Juillet', 2], ['Août', 8], ['Septembre', 5], ['Octobre', 3], ['Novembre', 5], ['Decembre', 3]]
+    }
+  }
 }
 </script>
 
-<style>
-
+<style scoped>
+.graphs {
+  margin-bottom: 50px;
+}
 </style>
