@@ -8,6 +8,9 @@
         {{wishlist.wishlist_name}}
         <span class="actions"><b-icon icon="plus" type="is-primary"></b-icon></span>
       </div>
+      <div v-if="wishlists.length == 0">
+        <p>Vous n'avez créé aucune liste de souhaits...</p>
+      </div>
       <hr>
       <div class="choices" @click="createNew">
         Créer une nouvelle liste
@@ -45,10 +48,17 @@ export default {
         data: {
           product: this.productId
         }
-        // TODO: check if working
       })
       .then((response) => {
         this.$toast.open(response.data.message)
+      })
+      .catch((err) => {
+        this.$toast.open({
+          duration: 2000,
+          message: err.response.data.message,
+          position: 'is-top',
+          type: 'is-danger'
+        })
       })
     },
     createNew () {

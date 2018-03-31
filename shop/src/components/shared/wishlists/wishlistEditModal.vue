@@ -44,6 +44,7 @@ export default {
       .then((response) => {
         this.$parent.close()
         this.$toast.open(response.data.message)
+        this.$emit('updateInfo')
         // TODO: Update view on edit
       })
     }

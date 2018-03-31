@@ -29,7 +29,7 @@
             <p>
               <b-icon icon="inbox" size="is-large"></b-icon>
             </p>
-            <p>La liste est vide, ajoutez-y des products !</p>
+            <p>La liste est vide, ajoutez-y des produits !</p>
           </div>
         </section>
       </template>
@@ -86,7 +86,7 @@ export default {
       })
       .then((response) => {
         this.$toast.open(response.data.message)
-        this.getProducts()
+        this.productList = this.productList.filter((product) => { return product.products_id !== productId })
       })
     }
   }

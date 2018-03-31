@@ -9,7 +9,7 @@
         </div>
       </div>
       <div v-if="hasWishLists">
-        <wishlistCard v-for="wishlist in wishlists" :key="wishlist.wishlist_id" :infos="wishlist" @delete="getWishlists"></wishlistCard>
+        <wishlistCard v-for="wishlist in wishlists" :key="wishlist.wishlist_id" :infos="wishlist" @delete="getWishlists" @update="getWishlists"></wishlistCard>
       </div>
       <div class="has-text-centered subtitle is-3" style="margin-top: 150px;" v-else>
         <b-icon icon="inbox" size="is-large"></b-icon>

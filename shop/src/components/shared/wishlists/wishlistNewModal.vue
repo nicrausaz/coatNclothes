@@ -49,7 +49,7 @@ export default {
       .catch((err) => {
         this.$toast.open({
           duration: 2000,
-          message: err.message,
+          message: err.response.data.message,
           position: 'is-top',
           type: 'is-danger'
         })
