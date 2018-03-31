@@ -29,7 +29,7 @@ require __DIR__.'/vendor/autoload.php';
  * Add headers
  */
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: PUT, POST, GET, OPTIONS, HEADER");
+header("Access-Control-Allow-Methods: PUT, PATCH, DELETE, POST, GET, OPTIONS, HEADER");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization");
 
 

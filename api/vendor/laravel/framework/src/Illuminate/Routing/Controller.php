@@ -3,6 +3,7 @@
 namespace Illuminate\Routing;
 
 use BadMethodCallException;
+use Lang;
 
 abstract class Controller
 {
@@ -71,7 +72,7 @@ abstract class Controller
         $tokennedId = \Auth::user()->users_id;
         if($id != $tokennedId){
             \Log::error("ID: ($tokennedId) tried to access an unauthorized users ressource User ID:($id)");
-            abort(403, 'Action non autorisée.');
+            abort(403, lang::get('errors.notAuthorized'));
         }
     }
 }

@@ -5,7 +5,7 @@ use Dingo\Api\Contract\Http\Request;
 use Dingo\Api\Http\Response;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Routing\Controller;
-
+use Lang;
 
 class productsController extends Controller
 {
@@ -13,6 +13,7 @@ class productsController extends Controller
     use Helpers;
 
     private $categories;
+    private $categoriesStored;
 
     public function getAllProducts(){
         $products = \DB::select('select prod.products_id, prod.products_name, prod.products_price, pic.productsPics_altName, pic.productsPics_path from TB_Products prod LEFT JOIN TB_ProductsPics pic ON pic.fk_products_id = prod.products_id GROUP BY prod.products_id', array(1));
@@ -28,6 +29,9 @@ class productsController extends Controller
     {
         $gotProduct = \DB::select('select * from TB_Products WHERE products_id = ?', [$id]);
         $gotProduct=json_decode(json_encode($gotProduct[0]), true);
+        //print_r($gotProduct);
+        $gotProduct['products_description']=$this->getTranslation($gotProduct, 'products_description');
+
         $id=$gotProduct['products_id'];
 
 
@@ -56,47 +60,32 @@ class productsController extends Controller
 
         return json_encode($gotProduct);
     }
-
-    public function getCategory(){
-
-
-        //Categories
-        $category=$gotProduct['fk_category_id'];
-        unset($gotProduct['fk_category_id']);
-        while(!empty($category)){
-            $feedback=$this->checkCategoryUpTo($category);
-            $gotProduct[$feedback['name']]= $gotProduct;
-            $category= $feedback['id'];
-        }
-    }
     public function getAllCategories(){
-        $array=array();
-        $categories = \DB::select('SELECT category_name, category_id FROM `TB_Category` WHERE `fk_category_id` IS NULL');
-        $categories=json_decode(json_encode($categories), true);
+        $category = \DB::select('SELECT category_name as name, category_id as id, fk_category_id as parent FROM `TB_Category` ');
+        $arr=json_decode(json_encode($category), true);
 
-        foreach($categories as $key => $value) {
-            $this->categories=array($value['category_name']=>1);
-            print_r('<br/>---<br/><br/><pre>');
-            if ($this->checkIfCategoryBelow($value['category_id'])) {
-            $array['category_name']=$this->getCategoryBelow($value['category_id']);
-            print_r($array);
-            } else{
-
-            }
+        $new = array();
+        foreach ($arr as $a){
+            $new[$a['parent']][] = $a;
         }
-        //cat
+        $parent=($new[NULL]);
+        $data = self::createaTree($new, $parent);
+        return $data;
     }
-    public function getAllCategories2(){
-        $array= array('Homme'=>array('JeanLewis'=> array('jeans slim', 'jeans Stretch'), 'T-shirt'), 'Femme'=>array('Top', 'Débardeur'));
-        return json_encode($array);
+    private function createaTree(&$list, $parent){
+        $tree = array();
+        foreach ($parent as $k=>$l){
+            if(isset($list[$l['id']])){
+                $l['children'] = self::createaTree($list, $list[$l['id']]);
+            }
+            $tree[] = $l;
+        }
+        return $tree;
     }
-	
 	public function getCategroyName(Request $request, $id){
 		$gotProduct = \DB::select('select category_name from TB_Category WHERE category_id = ?', [$id]);
 		$gotProduct = json_decode(json_encode($gotProduct), true);
 		return $gotProduct;
-	
-	
 	
 	}
 
@@ -113,29 +102,9 @@ class productsController extends Controller
 	/*
      * Private function (notusable from api.php)
      */
-    private function checkIfCategoryBelow($id){
-        if(\DB::select('SELECT * FROM `TB_Category` WHERE `fk_category_id` = ?',[$id])){
-            return true;
-        }else{
-            return false;
-        }
-    }
-    private function checkCategoryUpTo($catId){
-        $category= \DB::select('select category_name, fk_category_id from TB_Category WHERE category_id = ?', [$catId]);
-        return array('name'=>$category[0]->category_name, 'id'=>$category[0]->fk_category_id);
-    }
-    private function getCategoryBelow($id){
-        $dbfeedback=\DB::select('SELECT * FROM `TB_Category` WHERE `fk_category_id` = ?',[$id]);
-        $dbfeedback=json_decode(json_encode($dbfeedback), true);
-        print_r($dbfeedback);
-            foreach($dbfeedback as $key => $value){
-                if($this->checkIfCategoryBelow($value['category_id'])){
-                    $array['category_name']=$this->getCategoryBelow($value['category_id']);
-                }else{
-                    print_r('top');
-                    $array= array($value['category_name']);
-                }
-            }
-        return $array;
+    private function getTranslation($array, $translatedKey){
+        $description=json_decode($array[$translatedKey], true);
+        if(key_exists(\App::getLocale(), $description))$description=$description[\App::getLocale()];else $description = NULL;
+        return $description;
     }
 }
