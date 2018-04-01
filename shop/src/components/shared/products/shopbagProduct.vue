@@ -14,14 +14,13 @@
                 <li><small>{{product.products_brand}}</small></li>
                 <li><b>{{product.products_name}}</b></li>
                 <li class="has-text-right">{{formatedprice}}</li>
-              {{selectedSize}}
               </ul>
             </div>
           </div>
         </div>
         <div class="actions columns">
           <div class="column">
-            <b-select placeholder="Taille" :v-model="infos.fk_productsSize_id">
+            <b-select placeholder="Taille" v-model="selectedSize" @select="updateBasket">
               <option v-for="size in product.products_size" :key="size">
                 {{ size }}
               </option>
