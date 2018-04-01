@@ -70,9 +70,7 @@ export default {
           this.$store.commit('setUser', response.data)
           location.reload()
           this.$toast.open({
-            duration: 2000,
             message: response.data.message,
-            position: 'is-top',
             type: 'is-success'
           })
         })
@@ -82,9 +80,7 @@ export default {
         })
       } else {
         this.$toast.open({
-          duration: 2000,
           message: 'Les mots de passe ne correspondent pas !',
-          position: 'is-top',
           type: 'is-danger'
         })
       }
@@ -94,9 +90,7 @@ export default {
       let errors = Object.keys(this.errors).map(function (key) { return self.errors[key].toString() })
       errors.forEach((error) => {
         this.$toast.open({
-          duration: 2000,
           message: error,
-          position: 'is-top',
           type: 'is-danger'
         })
       })

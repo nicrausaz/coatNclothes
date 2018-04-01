@@ -31,15 +31,26 @@ export default {
     }
   },
   created () {
-    this.axios({
-      method: 'get',
-      url: 'wishlists/user/' + this.$store.state.user.users_id
-    })
-    .then((response) => {
-      this.wishlists = response.data
-    })
+    if (this.$store.state.user.users_id) {
+      this.getUserWishlists()
+    } else {
+      this.$toast.open({
+        message: 'Connectez-vous ou créez un compte pour accéder à cette page!',
+        type: 'is-warning'
+      })
+      this.$router.push('/user')
+    }
   },
   methods: {
+    getUserWishlists () {
+      this.axios({
+        method: 'get',
+        url: 'wishlists/user/' + this.$store.state.user.users_id
+      })
+      .then((response) => {
+        this.wishlists = response.data
+      })
+    },
     choose (wishlistId) {
       this.$parent.close()
       this.axios({
@@ -54,9 +65,7 @@ export default {
       })
       .catch((err) => {
         this.$toast.open({
-          duration: 2000,
           message: err.response.data.message,
-          position: 'is-top',
           type: 'is-danger'
         })
       })

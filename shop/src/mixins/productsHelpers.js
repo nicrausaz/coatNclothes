@@ -13,17 +13,13 @@ export default {
       })
       .then((response) => {
         this.$toast.open({
-          duration: 2000,
           message: response.data.message,
-          position: 'is-top',
           type: 'is-success'
         })
       })
       .catch((err) => {
         this.$toast.open({
-          duration: 2000,
           message: err.response.data.message,
-          position: 'is-top',
           type: 'is-warning'
         })
       })

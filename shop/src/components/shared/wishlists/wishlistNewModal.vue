@@ -39,18 +39,14 @@ export default {
       .then((response) => {
         this.$parent.close()
         this.$toast.open({
-          duration: 2000,
           message: response.data.message,
-          position: 'is-top',
           type: 'is-success'
         })
         this.$emit('new')
       })
       .catch((err) => {
         this.$toast.open({
-          duration: 2000,
           message: err.response.data.message,
-          position: 'is-top',
           type: 'is-danger'
         })
       })

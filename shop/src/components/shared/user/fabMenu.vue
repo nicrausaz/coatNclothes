@@ -67,9 +67,7 @@ export default {
     logoff () {
       this.$store.commit('detroyUser')
       this.$toast.open({
-        duration: 2000,
         message: 'Déconnecté !',
-        position: 'is-top',
         type: 'is-success'
       })
     }
