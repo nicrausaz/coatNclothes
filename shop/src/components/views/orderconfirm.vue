@@ -11,7 +11,7 @@
           <paymentCard @confirm="setConfirmed"></paymentCard>
         </div>
       </div>
-      <button class="button is-primary is-large is-pulled-right" :disabled="!fullConfirmed" >Terminer</button>
+      <button class="button is-primary is-large is-pulled-right" :disabled="!fullConfirmed" @click="finishOrder">Terminer</button>
     </section>
   </div>
 </template>
@@ -39,8 +39,25 @@ export default {
   },
   methods: {
     setConfirmed (item) {
-      console.log(this.confirmed)
       this.confirmed[item] = true
+    },
+    finishOrder () {
+      this.axios({
+        method: 'put',
+        url: 'orders/user/' + this.$store.state.user.users_id,
+        headers: {
+          'Content-type': 'application/json'
+        },
+        data: this.orderContent
+      })
+      .then((response) => {
+        this.$router.push('/orders') // add id to open the orders on this new
+        this.$toast.open({
+          message: response.data.message,
+          type: 'is-success',
+          duration: 5000
+        })
+      })
     }
   },
   components: {

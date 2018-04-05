@@ -2,7 +2,6 @@
   <aside class="menu">
   <p class="menu-label">Résumé du panier</p>
   <ul class="menu-list">
-    <!-- {{number}} -->
     <li v-for="(product, index) in productsData" :key="product.products_id">
       <a>
         <span class="has-text-left">{{products[index].basket_quantity}}x</span>
@@ -40,8 +39,8 @@ export default {
   computed: {
     totalPrice () {
       let total = 0
-      this.productsData.forEach(product => {
-        total += product.products_price
+      this.productsData.forEach((product, i) => {
+        total += this.products[i].basket_quantity * product.products_price
       })
       return 'Total ' + total + ' CHF'
     }

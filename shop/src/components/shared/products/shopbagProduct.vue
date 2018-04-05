@@ -19,8 +19,8 @@
           </div>
         </div>
         <div class="actions columns">
-          <div class="column">
-            <b-select placeholder="Taille" v-model="selectedSize" @select="updateBasket">
+          <div class="column" @change="updateBasket">
+            <b-select placeholder="Taille" v-model="selectedSize">
               <option v-for="size in product.products_size" :key="size">
                 {{ size }}
               </option>
@@ -103,7 +103,7 @@ export default {
       .catch((err) => {
         this.$toast.open({
           message: err.response.data.message,
-          type: 'is-success'
+          type: 'is-danger'
         })
       })
     },
@@ -116,10 +116,7 @@ export default {
         }
       })
       .then((response) => {
-        this.$toast.open({
-          message: response.data.message,
-          type: 'is-success'
-        })
+        this.$toast.open(response.data.message)
       })
       this.$emit('delete')
     }

@@ -58,14 +58,14 @@ export default new Router({
       component: orders
     },
     {
-      path: '/orderconfirm',
-      name: 'orderconfirm',
-      component: orderconfirm
-    },
-    {
       path: '/order/:id',
       name: 'order',
       component: orders
+    },
+    {
+      path: '/orderconfirm',
+      name: 'orderconfirm',
+      component: orderconfirm
     },
     {
       path: '/admin',
