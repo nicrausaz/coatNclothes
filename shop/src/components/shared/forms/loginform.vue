@@ -2,7 +2,7 @@
   <div class="columns is-centered">
     <div class="column is-half">
       <div class="card">
-        <div class="card-content">
+        <form class="card-content">
           <b-field label="Nom d'utilisateur ou email">
               <b-input v-model="credentials.users_login" placeholder="Nom d'utilisateur ou email" icon="user" required></b-input>
           </b-field>
@@ -13,7 +13,7 @@
           <div class="level-right">
             <button class="button is-primary" @click="connect">Connexion</button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
@@ -31,6 +31,7 @@ export default {
   },
   methods: {
     connect () {
+      event.preventDefault()
       this.axios({
         method: 'post',
         url: '/login',

@@ -2,8 +2,7 @@
  <div class="columns is-centered">
     <div class="column is-half">
       <div class="card">
-        <div class="card-content">
-          <section>
+        <form class="card-content">
             <b-field label="Nom d'utilisateur">
                 <b-input v-model="infos.users_login" icon="user" placeholder="Nom d'utilisateur" required></b-input>
             </b-field>
@@ -27,8 +26,7 @@
             <div class="level-right">
               <button class="button is-primary" @click="createUser">Créer le compte</button>
             </div>
-          </section>
-        </div>
+        </form>
       </div>
     </div>
   </div>
@@ -60,6 +58,7 @@ export default {
       return true
     },
     createUser () {
+      event.preventDefault()
       if (this.doublePasswordIsValid() && this.validData()) {
         this.axios({
           method: 'post',

@@ -62,6 +62,17 @@ export default {
         })
       })
     },
+    clearBasket () {
+      this.basketproducts.forEach((product) => {
+        this.axios({
+          method: 'delete',
+          url: '/basket/user/' + this.$store.state.user.users_id,
+          data: {
+            'product': product.products_id
+          }
+        })
+      })
+    },
     finishOrder () {
       this.formatOrderContentData()
       this.axios({
@@ -73,6 +84,7 @@ export default {
         data: this.orderContentFormatedData
       })
       .then((response) => {
+        this.clearBasket()
         this.$router.push('/orders') // add id to open the orders on this new
         this.$toast.open({
           message: response.data.message,
