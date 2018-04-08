@@ -55,6 +55,5 @@ export default {
   border: none;
   margin: 0px;
   padding-left: 20px;
-  border: 2px solid black;
 }
 </style>

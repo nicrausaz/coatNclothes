@@ -21,20 +21,11 @@
 import orderContentProduct from '@/components/shared/orders/confirm/orderContentProduct'
 
 export default {
+  props: ['basketproducts'],
   data () {
     return {
-      isConfirmed: false,
-      basketproducts: []
+      isConfirmed: false
     }
-  },
-  created () {
-    this.axios({
-      method: 'get',
-      url: 'basket/user/' + this.$store.state.user.users_id
-    })
-    .then((response) => {
-      this.basketproducts = response.data
-    })
   },
   methods: {
     valid () {

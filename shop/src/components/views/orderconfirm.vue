@@ -2,7 +2,7 @@
   <div class="container">
     <subtitle :name="'Confirmation'" :text="'Confirmez votre commande pour terminer'"></subtitle>
     <section class="section">
-      <orderContentCard @confirm="setConfirmed"></orderContentCard>
+      <orderContentCard @confirm="setConfirmed" :basketproducts="basketproducts"></orderContentCard>
       <div class="columns">
         <div class="column">
           <addressCard @confirm="setConfirmed"></addressCard>
@@ -29,8 +29,20 @@ export default {
         orderContent: false,
         address: false,
         payment: false
-      }
+      },
+      orderContentFormatedData: [],
+      basketproducts: []
     }
+  },
+  created () {
+    this.axios({
+      method: 'get',
+      url: 'basket/user/' + this.$store.state.user.users_id
+    })
+    .then((response) => {
+      this.basketproducts = response.data
+      this.formatOrderContentData()
+    })
   },
   computed: {
     fullConfirmed () {
@@ -41,14 +53,24 @@ export default {
     setConfirmed (item) {
       this.confirmed[item] = true
     },
+    formatOrderContentData () {
+      this.basketproducts.forEach((product) => {
+        this.orderContentFormatedData.push({
+          'product': product.products_id,
+          'quantity': product.basket_quantity,
+          'size': product.fk_productsSize_id
+        })
+      })
+    },
     finishOrder () {
+      this.formatOrderContentData()
       this.axios({
         method: 'put',
         url: 'orders/user/' + this.$store.state.user.users_id,
         headers: {
           'Content-type': 'application/json'
         },
-        data: this.orderContent
+        data: this.orderContentFormatedData
       })
       .then((response) => {
         this.$router.push('/orders') // add id to open the orders on this new
