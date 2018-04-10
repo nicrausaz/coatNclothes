@@ -7,15 +7,17 @@
     <li v-for="mainCategory in categories" :key="mainCategory.id">
       <router-link :class="{'is-active': isSelected(mainCategory.id)}" :to="/category/ + mainCategory.id">{{mainCategory.name}}</router-link>
       <ul>
-        <li v-for="subCategory in mainCategory.children" :key="subCategory.id" class="is-active">
+        <li v-for="subCategory in mainCategory.children" :key="subCategory.id">
           <router-link :class="{'is-active': isSelected(subCategory.id)}" :to="/category/ + subCategory.id">{{subCategory.name}}</router-link>
-          <!-- TODO: show children (if exists) -->
-          <!-- TODO: show all children products -->
+          <ul>
+            <li v-for="child in subCategory.children" :key="child.id">
+              <router-link :class="{'is-active': isSelected(child.id)}" :to="/category/ + child.id">{{child.name}}</router-link>
+            </li>
+          </ul>
         </li>
       </ul>
     </li>
   </ul>
-  <!-- {{allProducts}} -->
 </aside>
 </template>
 
@@ -34,8 +36,12 @@ export default {
     })
     .then((response) => {
       this.categories = response.data
-      // this.getChildrenProducts(this.categories[this.$route.params.id])
     })
+  },
+  watch: {
+    $route () {
+      this.getCategoryProducts(this.$route.params.id)
+    }
   },
   methods: {
     getChildrenProducts (category) {
@@ -55,6 +61,8 @@ export default {
       .then((response) => {
         if (response.data.length > 0) {
           this.allProducts.push(response.data)
+          console.dir(this.allProducts)
+          // this.$emit('products', this.allProducts)
         }
       })
     },

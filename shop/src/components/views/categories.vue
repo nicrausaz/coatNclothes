@@ -3,7 +3,7 @@
     <subtitle :name="'Magasin'" :text="'Consulter les produits'"></subtitle>
     <div class="columns">
       <div class="column is-3">
-        <sidebarproduct></sidebarproduct>
+        <sidebarproduct @products="setProducts"></sidebarproduct>
       </div>
       <div class="column" id="filtersDiv">
         <filters @filter="setFilters"></filters>
@@ -38,30 +38,18 @@ export default {
       products_list: []
     }
   },
+  watch: {
+    $route () {
+      this.products_list.length = 0
+    }
+  },
   methods: {
     setFilters (filters) {
       this.filters = filters
     },
-    getCategoryProducts () {
-      this.axios({
-        method: 'get',
-        url: '/category/' + this.$route.params.id + '/products'
-      })
-      .then((response) => {
-        this.products_list = response.data
-        // TODO : get children products
-        // this.getCategoryChildrenProducts(this.$route.params.id)
-      })
-    },
-    getCategoryChildrenProducts (categoryId) {
-      console.log(this.products_list)
+    setProducts (products) {
+      this.products_list = products
     }
-  },
-  watch: {
-    $route () { this.getCategoryProducts() }
-  },
-  created () {
-    this.getCategoryProducts()
   },
   computed: {
     isCardedView () {
@@ -70,9 +58,11 @@ export default {
     filterProducts () {
       let filteredProducts = []
       this.products_list.forEach(product => {
-        if (product.products_price >= this.filters.price[0] && product.products_price <= this.filters.price[1]) {
-          filteredProducts.push(product)
-        }
+        product.forEach(prod => {
+          if (prod.products_price >= this.filters.price[0] && prod.products_price <= this.filters.price[1]) {
+            filteredProducts.push(prod)
+          }
+        })
       })
       return filteredProducts
     },
