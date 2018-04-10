@@ -38,11 +38,6 @@ export default {
       products_list: []
     }
   },
-  watch: {
-    $route () {
-      this.products_list.length = 0
-    }
-  },
   methods: {
     setFilters (filters) {
       this.filters = filters

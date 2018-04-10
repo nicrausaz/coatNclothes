@@ -40,7 +40,9 @@ export default {
   },
   watch: {
     $route () {
+      this.allProducts = []
       this.getCategoryProducts(this.$route.params.id)
+      this.$emit('products', this.allProducts)
     }
   },
   methods: {
@@ -61,8 +63,6 @@ export default {
       .then((response) => {
         if (response.data.length > 0) {
           this.allProducts.push(response.data)
-          console.dir(this.allProducts)
-          // this.$emit('products', this.allProducts)
         }
       })
     },
