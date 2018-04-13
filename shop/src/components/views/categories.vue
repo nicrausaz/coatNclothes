@@ -3,7 +3,7 @@
     <subtitle :name="'Magasin'" :text="'Consulter les produits'"></subtitle>
     <div class="columns">
       <div class="column is-3">
-        <sidebarproduct @products="setProducts"></sidebarproduct>
+        <sidebarproduct></sidebarproduct>
       </div>
       <div class="column" id="filtersDiv">
         <filters @filter="setFilters"></filters>
@@ -38,12 +38,26 @@ export default {
       products_list: []
     }
   },
+  watch: {
+    $route () {
+      this.products_list = []
+      this.getCategoryProducts(this.$route.params.id)
+    }
+  },
   methods: {
     setFilters (filters) {
       this.filters = filters
     },
-    setProducts (products) {
-      this.products_list = products
+    getCategoryProducts (id) {
+      this.axios({
+        method: 'get',
+        url: '/category/' + id + '/subs/products'
+      })
+      .then((response) => {
+        if (response.data.length > 0) {
+          this.products_list.push(response.data)
+        }
+      })
     }
   },
   computed: {

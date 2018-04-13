@@ -38,34 +38,7 @@ export default {
       this.categories = response.data
     })
   },
-  watch: {
-    $route () {
-      this.allProducts = []
-      this.getCategoryProducts(this.$route.params.id)
-      this.$emit('products', this.allProducts)
-    }
-  },
   methods: {
-    getChildrenProducts (category) {
-      if (category.children !== undefined && category.children.length > 0) {
-        category.children.forEach((cat) => {
-          this.getChildrenProducts(cat)
-        })
-      } else {
-        this.getCategoryProducts(category.id)
-      }
-    },
-    getCategoryProducts (id) {
-      this.axios({
-        method: 'get',
-        url: '/category/' + id + '/products'
-      })
-      .then((response) => {
-        if (response.data.length > 0) {
-          this.allProducts.push(response.data)
-        }
-      })
-    },
     isSelected (id) {
       return parseInt(this.$route.params.id) === id
     }
