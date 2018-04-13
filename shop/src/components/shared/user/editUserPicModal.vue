@@ -45,3 +45,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.modal-card {
+  width: 500px;
+}
+</style>

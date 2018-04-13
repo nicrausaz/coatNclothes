@@ -2,20 +2,25 @@
   <div class="container">
     <subtitle :name="'Votre profil'" :text="'Consultez et modifiez vos informations'"></subtitle>
     <section class="section">
-      <div class="tile is-12">
-        <b-tooltip label="Cliquer pour éditer" position="is-bottom">
-          <figure class="image" @click="editUserPic" style="cursor: pointer;">
-            <img src="static/noImgAvailable.png" alt="userpic">
-          </figure>
-        </b-tooltip>
-        <div id="infos">
-          <h1 class="title">{{$store.state.user.users_fsname}} {{$store.state.user.users_name}}</h1>
-          <h2>{{$store.state.user.users_email}}</h2>
-          <h2>{{$store.state.user.users_login}}</h2>
-          {{userStatus}}
+      <div class="columns">
+        <div class="column is-6">
+          <b-tooltip label="Cliquer pour éditer" position="is-bottom">
+            <figure class="image" @click="editUserPic" style="cursor: pointer;">
+              <img src="static/noImgAvailable.png" alt="userpic">
+            </figure>
+          </b-tooltip>
+          <div id="infos">
+            <h1 class="title">{{$store.state.user.users_fsname}} {{$store.state.user.users_name}}</h1>
+            <h2>{{$store.state.user.users_email}}</h2>
+            <h2>{{$store.state.user.users_login}}</h2>
+            {{userStatus}}
+          </div>
         </div>
-        <fabmenu v-if="!isEditingPhoto && !isEditingInfos" :isAdmin="$store.state.user.users_admin" @editInfos="editInfos"></fabmenu>
+        <div class="column is-6">
+          <userAdresses></userAdresses>
+        </div>
       </div>
+      <fabmenu v-if="!isEditingPhoto && !isEditingInfos" :isAdmin="$store.state.user.users_admin" @editInfos="editInfos"></fabmenu>
     </section>
     <b-modal :active.sync="isEditingPhoto">
       <editpicmodal></editpicmodal>
@@ -30,6 +35,7 @@
 import subtitle from '@/components/templates/subtitle'
 import editpicmodal from '@/components/shared/user/editUserPicModal'
 import editinfosmodal from '@/components/shared/user/editUserInfosModal'
+import userAdresses from '@/components/shared/user/userAdresses'
 import fabmenu from '@/components/shared/user/fabMenu'
 
 export default {
@@ -56,6 +62,7 @@ export default {
     subtitle,
     editpicmodal,
     editinfosmodal,
+    userAdresses,
     fabmenu
   }
 }
