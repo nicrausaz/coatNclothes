@@ -19,6 +19,9 @@
             <b-table-column label="Date">
               {{ props.row.orders_createdDate }}
             </b-table-column>
+            <b-table-column centered>
+              <a><b-icon icon="print"></b-icon></a>
+            </b-table-column>
         </template>
         <template slot="detail" slot-scope="props">
           <div class="columns is-multiline">

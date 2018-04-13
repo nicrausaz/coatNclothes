@@ -38,6 +38,8 @@ export default {
         data: this.credentials
       })
       .then((response) => {
+        delete response.data.message
+        delete response.data.status_code
         this.$store.commit('setUser', response.data)
         location.reload()
         this.$toast.open({
