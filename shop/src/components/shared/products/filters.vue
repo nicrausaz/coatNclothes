@@ -10,7 +10,7 @@
     <div class="column is-4">
       <b-field label="Marques">
         <b-select placeholder="Choisir des marques" v-model="search.brands">
-          <option v-for="i in 4" :value="i" :key="i">
+          <option v-for="brand in namedBrands" :value="brand" :key="brand">
             {{ i }}
           </option>
         </b-select>
@@ -34,6 +34,7 @@
 import vueSlider from 'vue-slider-component'
 
 export default {
+  props: ['brands'],
   data () {
     return {
       sliderConfig: {
@@ -54,11 +55,18 @@ export default {
         price: [0, 500],
         brands: [],
         selectedView: 'cardedView'
-      }
+      },
+      namedBrands: []
     }
   },
   created () {
     this.$emit('filter', this.search)
+    this.getBrandsNames()
+  },
+  methods: {
+    getBrandsNames () {
+      // get this.brands names from ids
+    }
   },
   computed: {
     hightestPrice () {

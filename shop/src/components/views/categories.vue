@@ -6,8 +6,9 @@
         <sidebarproduct></sidebarproduct>
       </div>
       <div class="column" id="filtersDiv">
-        <filters @filter="setFilters"></filters>
+        <filters @filter="setFilters" :brands="filterableBrands"></filters>
         <div v-if="hasFilteredProducts">
+        {{filterableBrands}}
           <div id="cardedproducts" class="columns is-multiline is-mobile" v-if="isCardedView">
             <cardedproduct v-for="product in filterProducts" :key="product.product_id" :infos="product"></cardedproduct>
           </div>
@@ -77,6 +78,15 @@ export default {
     },
     hasFilteredProducts () {
       return this.filterProducts.length > 0
+    },
+    filterableBrands () {
+      let brands = []
+      this.products_list.forEach(product => {
+        product.forEach(prod => {
+          brands.push(prod.fk_brand_id)
+        })
+      })
+      return brands
     }
   },
   components: {
