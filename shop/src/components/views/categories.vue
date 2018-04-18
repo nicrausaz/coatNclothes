@@ -6,9 +6,8 @@
         <sidebarproduct></sidebarproduct>
       </div>
       <div class="column" id="filtersDiv">
-        <filters @filter="setFilters" :brands="filterableBrands"></filters>
+        <filters @filter="setFilters" :brands="filterableBrands" :maxprice="biggestPrice"></filters>
         <div v-if="hasFilteredProducts">
-        {{filterableBrands}}
           <div id="cardedproducts" class="columns is-multiline is-mobile" v-if="isCardedView">
             <cardedproduct v-for="product in filterProducts" :key="product.product_id" :infos="product"></cardedproduct>
           </div>
@@ -87,6 +86,17 @@ export default {
         })
       })
       return brands
+    },
+    biggestPrice () {
+      let biggestPrice = 0
+      this.products_list.forEach(product => {
+        product.forEach(prod => {
+          if (prod.products_price > biggestPrice) {
+            biggestPrice = prod.products_price
+          }
+        })
+        return biggestPrice
+      })
     }
   },
   components: {

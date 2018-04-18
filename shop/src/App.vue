@@ -32,7 +32,6 @@ export default {
 $primary: #da0f68;
 $primary-invert: findColorInvert($primary);
 
-
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: (
     "white": ($white, $black),
