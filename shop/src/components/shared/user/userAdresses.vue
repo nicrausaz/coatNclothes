@@ -6,10 +6,10 @@
           Mes adresses
         </p>
           <nav class="panel">
-              <a v-for="adress in adresses" :key="adress.adresses_id" class="panel-block" @click="editAdress(adress)">
+              <a v-for="adress in adresses" :key="adress.adresses_id" class="panel-block" @click="editAdress(adress)" :class="{'is-active': isMainAdress(adress.adresses_main)}">
                 <b-tooltip label="Cliquer pour éditer" position="is-right">
                   <span class="panel-icon"><b-icon icon="home" size="is-small"></b-icon></span>
-                  {{adress.adresses_street}} {{adress.adresses_main}} {{adress.adresses_npa}} {{adress.adresses_locality}}
+                  {{adress.adresses_street}} {{adress.adresses_npa}} {{adress.adresses_locality}}
                 </b-tooltip>
               </a>
           </nav>
@@ -63,6 +63,9 @@ export default {
     },
     newAdress () {
       this.isCreatingAdress = true
+    },
+    isMainAdress (isMain) {
+      return isMain
     }
   },
   components: {

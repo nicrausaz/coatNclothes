@@ -4,11 +4,8 @@
       <p class="modal-card-title">Modifier votre addresse</p>
     </header>
     <section class="modal-card-body">
-      <b-field label="Rue">
+      <b-field label="Rue n0">
         <b-input v-model="newData.adresses_street"></b-input>
-      </b-field>
-      <b-field label="No">
-        <b-input v-model="newData.adresses_main"></b-input>
       </b-field>
       <b-field label="NPA">
         <b-input v-model="newData.adresses_npa"></b-input>

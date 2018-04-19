@@ -9,7 +9,6 @@ import store from './store/store.js'
 import axios from 'axios'
 
 import Buefy from 'buefy'
-// import 'buefy/lib/buefy.css'
 import VueCarousel from 'vue-carousel'
 
 import Chartkick from 'chartkick'
