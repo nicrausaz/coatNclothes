@@ -12,14 +12,14 @@
   </ul>
   <p class="menu-label has-text-right">{{totalPrice}}</p>
   <router-link to="/orderconfirm">
-    <button class="button is-primary is-large is-pulled-right">Commander</button>
+    <button class="button is-primary is-large is-pulled-right" :disabled="!canconfirm">Commander</button>
   </router-link>
 </aside>
 </template>
 
 <script>
 export default {
-  props: ['products', 'number'],
+  props: ['products', 'number', 'canconfirm'],
   data () {
     return {
       productsData: []

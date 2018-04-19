@@ -13,6 +13,7 @@
       <b-field label="Localité">
         <b-input v-model="newData.adresses_locality"></b-input>
       </b-field>
+      <!-- ajouter checkbox main -->
     </section>
     <footer class="modal-card-foot">
       <button class="button" type="button" @click="this.$parent.close">Annuler</button>

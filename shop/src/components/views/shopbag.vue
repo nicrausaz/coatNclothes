@@ -7,7 +7,7 @@
           <shopBagProduct v-for="product in products" :key="product.products_id" :infos="product" @delete="getBasket"></shopBagProduct>
         </div>
         <div class="column is-one-quarter">
-          <sidebarShopbag :products="products" :number="articlesNumberText"></sidebarShopbag>
+          <sidebarShopbag :products="products" :number="articlesNumberText" :canconfirm="validSizes"></sidebarShopbag>
         </div>
       </div>
       <div class="has-text-centered subtitle is-3" v-else>
@@ -32,6 +32,12 @@ export default {
       loaded: false
     }
   },
+  watch: {
+    products () {
+      console.log('upodate')
+      this.validSizes()
+    }
+  },
   created () {
     this.getBasket()
   },
@@ -44,6 +50,15 @@ export default {
       .then((response) => {
         this.products = response.data
       })
+    },
+    validSizes () {
+      let valid = true
+      this.products.forEach(product => {
+        if (product.fk_productsSize_id === null) {
+          valid = false
+        }
+      })
+      return valid
     }
   },
   computed: {

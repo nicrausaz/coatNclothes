@@ -15,22 +15,26 @@
               <p>
                 <i>{{productData.products_description}}</i>
               </p>
-              <b-tag>categoryname</b-tag>
-            </section>
-            <section class="section">
+              <br>
               <b-select placeholder="Taille" v-model="currentProduct.selectedSize">
                 <option v-for="size in productData.products_size" :key="size">
                   {{ size }}
                 </option>
               </b-select>
-              <section class="section">
-                <a class="button is-primary is-rounded" @click="openWishlistSelector">
+              <br>
+              <a class="button is-medium" @click="openWishlistSelector">
+                <span class="icon">
                   <b-icon icon="heart"></b-icon>
-                </a>
-                <a class="button is-primary is-rounded" @click="addToBasket">
+                </span>
+                <span>Ajouter dans une liste de souhait</span>
+              </a>
+              <br>
+              <a class="button is-medium is-primary" @click="addToBasket">
+                <span class="icon">
                   <b-icon icon="cart-plus"></b-icon>
-                </a>
-              </section>
+                </span>
+                <span>Ajouter dans le panier</span>
+              </a>
             </section>
           </div>
         </div>

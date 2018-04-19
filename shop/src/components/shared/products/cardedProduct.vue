@@ -56,6 +56,8 @@ export default {
   methods: {
     addToBasket () {
       this.addProductToBasket(this.infos.products_id)
+      // loginModalOn = true
+      // open modal login
     }
   },
   computed: {
