@@ -5,28 +5,26 @@
         <p class="subtitle">
           Mes adresses
         </p>
-          <nav class="panel">
-              <a v-for="adress in adresses" :key="adress.adresses_id" class="panel-block" @click="editAdress(adress)" :class="{'is-active': isMainAdress(adress.adresses_main)}">
-                <b-tooltip label="Cliquer pour éditer" position="is-right">
-                  <span class="panel-icon"><b-icon icon="home" size="is-small"></b-icon></span>
-                  {{adress.adresses_street}} {{adress.adresses_npa}} {{adress.adresses_locality}}
-                </b-tooltip>
-              </a>
-          </nav>
+        <nav class="panel">
+          <a v-for="adress in adresses" :key="adress.adresses_id" class="panel-block" @click="editAdress(adress)" :class="{'is-active': adress.adresses_main}">
+            <b-tooltip label="Cliquer pour éditer" position="is-right">
+              <span class="panel-icon"><b-icon icon="home" size="is-small"></b-icon></span>
+              {{adress.adresses_street}} {{adress.adresses_npa}} {{adress.adresses_locality}}
+            </b-tooltip>
+          </a>
+        </nav>
       </div>
       <footer class="card-footer">
         <a class="card-footer-item" @click="newAdress">
-          <span>
-            Nouvelle
-          </span>
+          <span>Nouvelle</span>
         </a>
       </footer>
     </div>
     <b-modal :active.sync="isEditingAdress">
-      <editAdressModal :adress="editingAdress"></editAdressModal>
+      <editAdressModal :adress="editingAdress" @update="getUserAdresses"></editAdressModal>
     </b-modal>
     <b-modal :active.sync="isCreatingAdress">
-      <createAdressModal :adress="editAdress"></createAdressModal>
+      <createAdressModal :adress="editAdress" @new="getUserAdresses"></createAdressModal>
     </b-modal>
   </div>
 </template>
@@ -63,9 +61,6 @@ export default {
     },
     newAdress () {
       this.isCreatingAdress = true
-    },
-    isMainAdress (isMain) {
-      return isMain
     }
   },
   components: {

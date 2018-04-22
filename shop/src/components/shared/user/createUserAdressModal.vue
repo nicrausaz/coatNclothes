@@ -1,23 +1,23 @@
 <template>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Créer une addresse</p>
+      <p class="modal-card-title">Créer une adresse</p>
     </header>
     <section class="modal-card-body">
       <b-field label="Rue n0">
-        <b-input v-model="newData.adresses_street" placeholder="Rue"></b-input>
+        <b-input v-model="newData.adresses_street" placeholder="Rue" required></b-input>
       </b-field>
       <b-field label="NPA">
-        <b-input v-model="newData.adresses_npa" placeholder="NPA"></b-input>
+        <b-input v-model="newData.adresses_npa" placeholder="NPA" required></b-input>
       </b-field>
       <b-field label="Localité">
-        <b-input v-model="newData.adresses_locality" placeholder="Localité"></b-input>
+        <b-input v-model="newData.adresses_locality" placeholder="Localité" required></b-input>
       </b-field>
-      <div class="field">
-        <b-checkbox v-model="newData.adresses_main" size="is-small" true-value="true" false-value="false">
+      <b-field>
+        <b-checkbox v-model="newData.adresses_main" size="is-small" :checked="newData.adresses_main">
           Adresse par défaut ?
         </b-checkbox>
-      </div>
+      </b-field>
     </section>
     <footer class="modal-card-foot">
       <button class="button" type="button" @click="this.$parent.close">Annuler</button>
@@ -41,13 +41,22 @@ export default {
         data: {
           adresses_locality: this.newData.adresses_locality,
           adresses_npa: this.newData.adresses_npa,
-          adresses_street: this.newData.adresses_street
+          adresses_street: this.newData.adresses_street,
+          adresses_main: this.newData.adresses_main
         }
       })
       .then(response => {
         this.$toast.open({
           message: response.data.message,
           type: 'is-success'
+        })
+        this.$emit('new')
+        this.$parent.close()
+      })
+      .catch(err => {
+        this.$toast.open({
+          message: err.response.data.message,
+          type: 'is-danger'
         })
       })
     }
