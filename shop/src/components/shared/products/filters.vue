@@ -50,7 +50,7 @@ export default {
         }
       },
       search: {
-        price: [0, 500],
+        price: [0, this.maxprice],
         brands: [],
         selectedView: 'cardedView'
       },
@@ -68,8 +68,8 @@ export default {
   },
   computed: {
     hightestPrice () {
-      // check if not empty
-      return this.maxPrice
+      console.log(this.maxprice)
+      return this.maxprice > 0 ? this.maxprice : 100
     }
   },
   components: {
