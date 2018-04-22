@@ -30,7 +30,7 @@ export default {
     }
   },
   methods: {
-    connect () {
+    connect (event) {
       event.preventDefault()
       this.axios({
         method: 'post',
@@ -38,17 +38,16 @@ export default {
         data: this.credentials
       })
       .then((response) => {
-        delete response.data.message
-        delete response.data.status_code
-        this.$store.commit('setUser', response.data)
-        location.reload()
         this.$toast.open({
           message: response.data.message,
           type: 'is-success'
         })
+        delete response.data.message
+        delete response.data.status_code
+        this.$store.commit('setUser', response.data)
+        location.reload()
       })
-      .catch((error) => {
-        console.log(error)
+      .catch(() => {
         this.$toast.open({
           message: 'Nom de compte, email ou mot passe erroné !',
           type: 'is-danger'

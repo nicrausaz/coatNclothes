@@ -51,15 +51,9 @@ export default {
     doublePasswordIsValid () {
       return this.infos.users_pass === this.passwordConfirm && this.infos.users_pass !== ''
     },
-    validData () {
-      Object.keys(this.infos).forEach((key) => {
-        // console.log(key, this.infos[key])
-      })
-      return true
-    },
-    createUser () {
+    createUser (event) {
       event.preventDefault()
-      if (this.doublePasswordIsValid() && this.validData()) {
+      if (this.doublePasswordIsValid()) {
         this.axios({
           method: 'post',
           url: '/register',

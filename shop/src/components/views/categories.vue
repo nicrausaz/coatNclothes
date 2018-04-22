@@ -44,6 +44,10 @@ export default {
       this.getCategoryProducts(this.$route.params.id)
     }
   },
+  created () {
+    this.products_list = []
+    this.getCategoryProducts(this.$route.params.id)
+  },
   methods: {
     setFilters (filters) {
       this.filters = filters
