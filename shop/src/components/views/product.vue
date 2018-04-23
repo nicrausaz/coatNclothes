@@ -44,6 +44,9 @@
     <b-modal :active.sync="wishlistselect">
       <wishListChooseModal :productId="productData.products_id"></wishListChooseModal>
     </b-modal>
+    <!-- <b-modal :active.sync="loginModalOn">
+      <loginModal></loginModal>
+    </b-modal> -->
   </div>
 </template>
 
@@ -52,6 +55,7 @@ import pictureCarousel from '@/components/shared/pictureCarousel'
 import wishListChooseModal from '@/components/shared/wishlists/wishListChooseModal'
 import suggestedproducts from '@/components/shared/products/suggestedProducts'
 import productshelpers from '@/mixins/productsHelpers'
+// import loginModal from '@/components/shared/forms/loginModal'
 
 export default {
   mixins: [productshelpers],
@@ -62,7 +66,8 @@ export default {
         selectedSize: null
       },
       loaded: false,
-      wishlistselect: false
+      wishlistselect: false,
+      loginModalOn: false
     }
   },
   methods: {
@@ -102,6 +107,7 @@ export default {
     pictureCarousel,
     wishListChooseModal,
     suggestedproducts
+    // loginModal
   }
 }
 </script>

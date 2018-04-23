@@ -9,10 +9,10 @@
         <filters @filter="setFilters" :brands="filterableBrands" :maxprice="maxPrice"></filters>
         <div v-if="hasFilteredProducts">
           <div id="cardedproducts" class="columns is-multiline is-mobile" v-if="isCardedView">
-            <cardedproduct v-for="product in filterProducts" :key="product.product_id" :infos="product"></cardedproduct>
+            <cardedproduct v-for="product in filterProducts" :key="product.product_id" :infos="product" @notloged="openLogin"></cardedproduct>
           </div>
           <div id="linedproducts" v-else>
-            <linedproduct v-for="product in filterProducts" :key="product.product_id" :infos="product"></linedproduct>
+            <linedproduct v-for="product in filterProducts" :key="product.product_id" :infos="product" @notloged="openLogin"></linedproduct>
           </div>
         </div>
         <div class="has-text-centered subtitle is-3" style="padding-top: 50px;" v-else>
@@ -21,6 +21,9 @@
         </div>
       </div>
     </div>
+    <b-modal :active.sync="loginModalOn">
+      <loginModal></loginModal>
+    </b-modal>
   </div>
 </template>
 
@@ -30,12 +33,14 @@ import sidebarproduct from '@/components/shared/products/sidebarProducts'
 import cardedproduct from '@/components/shared/products/cardedProduct'
 import linedproduct from '@/components/shared/products/linedProduct'
 import filters from '@/components/shared/products/filters'
+import loginModal from '@/components/shared/forms/loginModal'
 
 export default {
   data () {
     return {
       filters: [],
-      products_list: []
+      products_list: [],
+      loginModalOn: false
     }
   },
   watch: {
@@ -62,6 +67,9 @@ export default {
           this.products_list.push(response.data)
         }
       })
+    },
+    openLogin () {
+      this.loginModalOn = true
     }
   },
   computed: {
@@ -108,7 +116,8 @@ export default {
     sidebarproduct,
     cardedproduct,
     linedproduct,
-    filters
+    filters,
+    loginModal
   }
 }
 </script>

@@ -20,7 +20,7 @@
               {{ props.row.orders_createdDate }}
             </b-table-column>
             <b-table-column centered>
-              <a><b-icon icon="print"></b-icon></a>
+              <a @click="printOrder(props.row.orders_id)"><b-icon icon="print"></b-icon></a>
             </b-table-column>
         </template>
         <template slot="detail" slot-scope="props">
@@ -63,6 +63,9 @@ export default {
   methods: {
     paymentStatus (value) {
       return value ? 'Confirmé' : 'En attente'
+    },
+    printOrder (id) {
+      window.print()
     }
   },
   computed: {
