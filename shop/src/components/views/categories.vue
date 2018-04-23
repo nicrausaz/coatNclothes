@@ -5,17 +5,17 @@
       <div class="column is-3">
         <sidebarproduct></sidebarproduct>
       </div>
-      <div class="column" id="filtersDiv">
+      <div class="column">
         <filters @filter="setFilters" :brands="filterableBrands" :maxprice="maxPrice"></filters>
         <div v-if="hasFilteredProducts">
-          <div id="cardedproducts" class="columns is-multiline is-mobile" v-if="isCardedView">
+          <div id="cardedproducts" class="columns is-multiline is-mobile productsDiv" v-if="isCardedView">
             <cardedproduct v-for="product in filterProducts" :key="product.product_id" :infos="product" @notloged="openLogin"></cardedproduct>
           </div>
-          <div id="linedproducts" v-else>
+          <div id="linedproducts" class="productsDiv" v-else>
             <linedproduct v-for="product in filterProducts" :key="product.product_id" :infos="product" @notloged="openLogin"></linedproduct>
           </div>
         </div>
-        <div class="has-text-centered subtitle is-3" style="padding-top: 50px;" v-else>
+        <div class="has-text-centered subtitle is-3" style="padding-top: 100px;" v-else>
           <b-icon icon="inbox" size="is-large"></b-icon>
           <p>Aucun produit correspondant aux filtres n'a été trouvé ...</p>
         </div>
@@ -123,7 +123,7 @@ export default {
 </script>
 
 <style scoped>
-#filtersDiv {
-  margin-top: 20px;
+.productsDiv {
+  padding-top: 30px;
 }
 </style>

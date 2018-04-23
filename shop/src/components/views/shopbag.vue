@@ -14,6 +14,7 @@
         <b-icon icon="inbox" size="is-large"></b-icon>
         <p>Votre panier est vide ... Ajoutez-y des produits ! </p>
       </div>
+      {{validSizes}}
     </section>
   </div>
 </template>
@@ -28,14 +29,7 @@ export default {
   mixins: [checkAccess],
   data () {
     return {
-      products: [],
-      loaded: false
-    }
-  },
-  watch: {
-    products () {
-      console.log('upodate')
-      this.validSizes()
+      products: []
     }
   },
   created () {
@@ -50,15 +44,6 @@ export default {
       .then((response) => {
         this.products = response.data
       })
-    },
-    validSizes () {
-      let valid = true
-      this.products.forEach(product => {
-        if (product.fk_productsSize_id === null) {
-          valid = false
-        }
-      })
-      return valid
     }
   },
   computed: {
@@ -81,6 +66,15 @@ export default {
         totalPrice += product.products_price
       })
       return totalPrice
+    },
+    validSizes () {
+      let valid = true
+      this.products.forEach(product => {
+        if (product.fk_productsSize_id === null) {
+          valid = false
+        }
+      })
+      return valid
     }
   },
   components: {

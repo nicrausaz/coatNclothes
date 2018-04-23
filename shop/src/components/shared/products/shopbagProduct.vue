@@ -19,8 +19,8 @@
           </div>
         </div>
         <div class="actions columns">
-          <div class="column" @change="updateBasket">
-            <b-select placeholder="Taille" v-model="selectedSize">
+          <div class="column">
+            <b-select placeholder="Taille" v-model="selectedSize" >
               <option v-for="size in product.products_size" :key="size">
                 {{ size }}
               </option>
@@ -50,6 +50,11 @@ export default {
       product: [],
       loaded: false,
       selectedSize: null
+    }
+  },
+  watch: {
+    selectedSize () {
+      this.updateBasket()
     }
   },
   created () {

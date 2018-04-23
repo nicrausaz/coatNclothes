@@ -18,6 +18,12 @@ export default {
             type: 'is-success'
           })
         })
+        .catch(err => {
+          this.$toast.open({
+            message: err.response.data.message,
+            type: 'is-danger'
+          })
+        })
       } else {
         this.$emit('notloged')
       }

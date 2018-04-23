@@ -12,7 +12,7 @@
     <div class="navbar-menu" id="navMenu" :class="{'is-active': navIsActive}">
       <div class="navbar-start" @click="toggleMenu">
         <router-link to="/" class="navbar-item">Accueil</router-link>
-        <router-link to="/category/12" class="navbar-item">Magasin</router-link>
+        <router-link to="/category/2" class="navbar-item">Magasin</router-link>
       </div>
 
       <div class="navbar-end">
