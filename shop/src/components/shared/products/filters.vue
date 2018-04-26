@@ -7,11 +7,13 @@
         </b-field>
       </div>
     </div>
+    {{brands}}
     <div class="column is-7">
       <b-field label="Marques">
         <b-select placeholder="Choisir des marques" v-model="search.brands">
-          <option v-for="brand in namedBrands" :value="brand" :key="brand">{{i}}</option>
+          <option v-for="brand in namedBrands" :value="brand" :key="brand">{{brand}}</option>
         </b-select>
+        {{namedBrands}}
       </b-field>
     </div>
     <div class="column is-4">
@@ -51,7 +53,7 @@ export default {
         }
       },
       search: {
-        price: [0, this.maxprice],
+        price: [0, 200],
         brands: [],
         selectedView: 'cardedView'
       },
@@ -62,9 +64,22 @@ export default {
     this.$emit('filter', this.search)
     this.getBrandsNames()
   },
+  watch: {
+    $route () {
+      this.getBrandsNames()
+    }
+  },
   methods: {
     getBrandsNames () {
-      // get this.brands names from ids
+      this.brands.forEach(brand => {
+        this.axios({
+          method: 'get',
+          url: '/brand/' + brand
+        })
+        .then(response => {
+          this.namedBrands.push(response.data.brand_name)
+        })
+      })
     }
   },
   computed: {

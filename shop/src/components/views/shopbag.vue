@@ -7,14 +7,13 @@
           <shopBagProduct v-for="product in products" :key="product.products_id" :infos="product" @delete="getBasket"></shopBagProduct>
         </div>
         <div class="column is-one-quarter">
-          <sidebarShopbag :products="products" :number="articlesNumberText" :canconfirm="validSizes"></sidebarShopbag>
+          <sidebarShopbag :products="products" :number="articlesNumberText" :canconfirm="sizesValid"></sidebarShopbag>
         </div>
       </div>
       <div class="has-text-centered subtitle is-3" v-else>
         <b-icon icon="inbox" size="is-large"></b-icon>
         <p>Votre panier est vide ... Ajoutez-y des produits ! </p>
       </div>
-      {{validSizes}}
     </section>
   </div>
 </template>
@@ -29,11 +28,19 @@ export default {
   mixins: [checkAccess],
   data () {
     return {
-      products: []
+      products: [],
+      sizesValid: false
     }
   },
   created () {
-    this.getBasket()
+    this.sizesValid = this.getBasket()
+  },
+  watch: {
+    products () {
+      console.log(this.products)
+      this.sizesValid = this.validSizes() // doesnt work
+      // TODO: Update sidebar
+    }
   },
   methods: {
     getBasket () {
@@ -44,6 +51,15 @@ export default {
       .then((response) => {
         this.products = response.data
       })
+    },
+    validSizes () {
+      let valid = true
+      this.products.forEach(product => {
+        if (product.fk_productsSize_id === null) {
+          valid = false
+        }
+      })
+      return valid
     }
   },
   computed: {
@@ -66,15 +82,6 @@ export default {
         totalPrice += product.products_price
       })
       return totalPrice
-    },
-    validSizes () {
-      let valid = true
-      this.products.forEach(product => {
-        if (product.fk_productsSize_id === null) {
-          valid = false
-        }
-      })
-      return valid
     }
   },
   components: {

@@ -97,6 +97,9 @@ export default {
           brands.push(prod.fk_brand_id)
         })
       })
+      brands = brands.filter((item, pos) => {
+        return brands.indexOf(item) === pos
+      })
       return brands
     },
     maxPrice () {
