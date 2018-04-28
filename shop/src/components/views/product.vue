@@ -39,14 +39,14 @@
           </div>
         </div>
       </div>
-      <suggestedproducts v-if="loaded" :category="productData.fk_category_id"></suggestedproducts>
+      <div class="columns">
+        <suggestedproducts v-if="loaded" :category="productData.fk_category_id" class="column"></suggestedproducts>
+        <reviews class="column"></reviews>
+      </div>
     </section>
     <b-modal :active.sync="wishlistselect">
       <wishListChooseModal :productId="productData.products_id"></wishListChooseModal>
     </b-modal>
-    <!-- <b-modal :active.sync="loginModalOn">
-      <loginModal></loginModal>
-    </b-modal> -->
   </div>
 </template>
 
@@ -54,8 +54,8 @@
 import pictureCarousel from '@/components/shared/pictureCarousel'
 import wishListChooseModal from '@/components/shared/wishlists/wishListChooseModal'
 import suggestedproducts from '@/components/shared/products/suggestedProducts'
+import reviews from '@/components/shared/products/productReviews'
 import productshelpers from '@/mixins/productsHelpers'
-// import loginModal from '@/components/shared/forms/loginModal'
 
 export default {
   mixins: [productshelpers],
@@ -66,8 +66,7 @@ export default {
         selectedSize: null
       },
       loaded: false,
-      wishlistselect: false,
-      loginModalOn: false
+      wishlistselect: false
     }
   },
   methods: {
@@ -106,8 +105,8 @@ export default {
   components: {
     pictureCarousel,
     wishListChooseModal,
-    suggestedproducts
-    // loginModal
+    suggestedproducts,
+    reviews
   }
 }
 </script>

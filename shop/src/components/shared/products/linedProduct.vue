@@ -7,14 +7,7 @@
       </p>
     </figure>
     <div class="media-content">
-      <div class="content">
-        <p>
-          <strong>{{ infos.products_name }}</strong> <small>{{infos.products_price}} CHF</small>
-          <br>
-          <br>
-          <!-- fix this -->
-        </p>
-      </div>
+      <strong>{{ infos.products_name }}</strong> <small>{{infos.products_price}} CHF</small>
       <nav class="level is-mobile">
         <div class="media-right">
           <router-link :to="/product/ + infos.products_id">
@@ -75,6 +68,9 @@ export default {
 }
 .media-left {
   cursor: pointer;
+}
+img {
+  max-height: 60px;
 }
 </style>
 

@@ -7,7 +7,7 @@
       </p>
     </figure>
     <div class="media-content">
-      <strong>{{ product.products_name }}</strong> <small>20 CHF</small>
+      <strong>{{ product.products_name }}</strong> <small>{{ product.products_price }} CHF</small>
     </div>
   </article>
 </div>

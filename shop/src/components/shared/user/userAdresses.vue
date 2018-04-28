@@ -24,7 +24,7 @@
       <editAdressModal :adress="editingAdress" @update="getUserAdresses"></editAdressModal>
     </b-modal>
     <b-modal :active.sync="isCreatingAdress">
-      <createAdressModal :adress="editAdress" @new="getUserAdresses"></createAdressModal>
+      <createAdressModal @new="getUserAdresses"></createAdressModal>
     </b-modal>
   </div>
 </template>
