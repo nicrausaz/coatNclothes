@@ -37,9 +37,7 @@ export default {
   },
   watch: {
     products () {
-      console.log(this.products)
-      this.sizesValid = this.validSizes() // doesnt work
-      // TODO: Update sidebar
+      this.sizesValid = this.validSizes()
     }
   },
   methods: {
@@ -53,13 +51,13 @@ export default {
       })
     },
     validSizes () {
-      let valid = true
+      let valid = []
       this.products.forEach(product => {
         if (product.fk_productsSize_id === null) {
-          valid = false
+          valid.push('empty')
         }
       })
-      return valid
+      return valid.length === 0
     }
   },
   computed: {

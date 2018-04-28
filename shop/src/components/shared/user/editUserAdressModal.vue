@@ -17,13 +17,11 @@
         <b-checkbox v-model="newData.adresses_main" size="is-small" true-value="1" false-value="0" :disabled="isMain">
           Adresse par défaut ?
         </b-checkbox>
-        <div style="float: right;">
-          <a class="button is-danger is-outlined" @click.stop="deleteAdress()">
-            <span>Supprimer</span>
-            <b-icon icon="trash" size="is-small"></b-icon>
-          </a>
-        </div>
       </b-field>
+        <a class="button is-danger is-outlined is-pulled-right" @click.stop="deleteAdress()">
+          <span>Supprimer</span>
+          <b-icon icon="trash" size="is-small"></b-icon>
+        </a>
     </section>
     <footer class="modal-card-foot">
       <button class="button" type="button" @click="this.$parent.close">Annuler</button>
