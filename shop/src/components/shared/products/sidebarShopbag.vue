@@ -27,7 +27,6 @@ export default {
   },
   watch: {
     products () {
-      console.log('products changed child')
       this.productsData = []
       this.getProductData()
     }

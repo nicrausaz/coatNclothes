@@ -56,16 +56,14 @@ export default {
   methods: {
     addToBasket () {
       this.addProductToBasket(this.infos.products_id)
-      // loginModalOn = true
-      // open modal login
     }
   },
   computed: {
     picture () {
-      return this.infos.productsPics_path === null ? 'static/noImgAvailable.png' : this.infos.productsPics_path
+      return this.infos.productsPics_path || 'static/noImgAvailable.png'
     },
     altName (altName) {
-      return this.infos.productsPics_altName === null ? 'noimg' : this.infos.productsPics_altName
+      return this.infos.productsPics_altName || 'noimg'
     }
   }
 }

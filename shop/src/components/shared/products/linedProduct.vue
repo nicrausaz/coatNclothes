@@ -9,9 +9,10 @@
     <div class="media-content">
       <div class="content">
         <p>
-          <strong>{{ infos.products_name }}</strong> <small>20 CHF</small>
+          <strong>{{ infos.products_name }}</strong> <small>{{infos.products_price}} CHF</small>
           <br>
-          Description
+          <br>
+          <!-- fix this -->
         </p>
       </div>
       <nav class="level is-mobile">
@@ -50,10 +51,10 @@ export default {
   },
   computed: {
     picture () {
-      return this.infos.productsPics_path === null ? 'static/noImgAvailable.png' : this.infos.productsPics_path
+      return this.infos.productsPics_path || 'static/noImgAvailable.png'
     },
     altName (altName) {
-      return this.infos.productsPics_altName === null ? 'noimg' : this.infos.productsPics_altName
+      return this.infos.productsPics_altName || 'noimg'
     }
   },
   methods: {
