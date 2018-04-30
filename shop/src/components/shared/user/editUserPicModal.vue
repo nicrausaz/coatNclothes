@@ -5,7 +5,7 @@
     </header>
     <section class="modal-card-body">
       <div class="columns">
-      <img :src="img" class="image is-128x128" />
+      <img :src="img" class="image is-128x128" alt="userpic"/>
         <div class="column">
           <b-field>
             <a class="button is-primary" @click="deletePic">
@@ -52,24 +52,41 @@ export default {
       })
       .then(response => {
         this.$toast.open(response.data.message)
+        this.$parent.close()
+        this.$emit('edit')
       })
     },
     updatePic () {
       // check if patch or post
-      console.dir(this.files[0])
       this.postPic()
     },
     postPic () {
+      let formData = new FormData()
+      formData.append('users_pic', this.files[0])
       this.axios({
         method: 'post',
         url: '/user/' + this.$store.state.user.users_id + '/pic',
-        data: {
-          users_pic: this.files[0]
-        }
+        data: formData
+      })
+      .then(response => {
+        this.$toast.open(response.data.message)
+        this.$parent.close()
+        this.$emit('edit')
       })
     },
     update () {
-      // update pic patch
+      let formData = new FormData()
+      formData.append('users_pic', this.files[0])
+      this.axios({
+        method: 'patch',
+        url: '/user/' + this.$store.state.user.users_id + '/pic',
+        data: formData
+      })
+      .then(response => {
+        this.$toast.open(response.data.message)
+        this.$parent.close()
+        this.$emit('edit')
+      })
     }
   }
 }

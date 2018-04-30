@@ -5,7 +5,7 @@
       <div class="columns">
         <div class="column is-6">
           <b-tooltip label="Cliquer pour éditer" position="is-bottom">
-            <figure class="image" @click="editUserPic" style="cursor: pointer;">
+            <figure class="image" @click="editUserPic" alt="userpic" style="cursor: pointer;">
               <img :src="userPic">
             </figure>
           </b-tooltip>
@@ -23,10 +23,10 @@
       <fabmenu v-if="!isEditingPhoto && !isEditingInfos" :isAdmin="$store.state.user.users_admin" @editInfos="editInfos"></fabmenu>
     </section>
     <b-modal :active.sync="isEditingPhoto">
-      <editpicmodal :img="userPic"></editpicmodal>
+      <editpicmodal :img="userPic" @edit="getUserInfos"></editpicmodal>
     </b-modal>
     <b-modal :active.sync="isEditingInfos">
-      <editinfosmodal></editinfosmodal>
+      <editinfosmodal @edit="getUserInfos"></editinfosmodal>
     </b-modal>
   </div>
 </template>
