@@ -6,7 +6,7 @@
         <div class="column is-6">
           <b-tooltip label="Cliquer pour éditer" position="is-bottom">
             <figure class="image" @click="editUserPic" style="cursor: pointer;">
-              <img src="static/noImgAvailable.png" alt="userpic">
+              <img :src="userPic">
             </figure>
           </b-tooltip>
           <div id="infos">
@@ -23,7 +23,7 @@
       <fabmenu v-if="!isEditingPhoto && !isEditingInfos" :isAdmin="$store.state.user.users_admin" @editInfos="editInfos"></fabmenu>
     </section>
     <b-modal :active.sync="isEditingPhoto">
-      <editpicmodal></editpicmodal>
+      <editpicmodal :img="userPic"></editpicmodal>
     </b-modal>
     <b-modal :active.sync="isEditingInfos">
       <editinfosmodal></editinfosmodal>
@@ -42,15 +42,31 @@ export default {
   data () {
     return {
       isEditingPhoto: false,
-      isEditingInfos: false
+      isEditingInfos: false,
+      userFullInfos: []
     }
+  },
+  created () {
+    this.getUserInfos()
   },
   computed: {
     userStatus () {
       return this.$store.state.user.users_admin ? 'Administrateur' : 'Client'
+    },
+    userPic () {
+      return this.userFullInfos.users_pic || 'static/noImgAvailable.png'
     }
   },
   methods: {
+    getUserInfos () {
+      this.axios({
+        method: 'get',
+        url: '/user/' + this.$store.state.user.users_id
+      })
+      .then(response => {
+        this.userFullInfos = response.data
+      })
+    },
     editUserPic () {
       this.isEditingPhoto = true
     },

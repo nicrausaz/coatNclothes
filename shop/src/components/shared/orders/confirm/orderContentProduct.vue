@@ -35,12 +35,12 @@ export default {
   computed: {
     picture () {
       if (this.loaded) {
-        return this.product.products_pictures[0].path || 'static/noImgAvailable.png'
+        return this.product.products_pictures.length ? this.product.products_pictures[0].path : 'static/noImgAvailable.png'
       }
     },
     altName (altName) {
       if (this.loaded) {
-        return this.product.products_pictures[0].altName || 'noimg'
+        return this.product.products_pictures.length ? this.product.products_pictures[0].altName : 'noimg'
       }
     }
   }

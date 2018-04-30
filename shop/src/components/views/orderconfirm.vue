@@ -5,13 +5,16 @@
       <orderContentCard @confirm="setConfirmed" :basketproducts="basketproducts"></orderContentCard>
       <div class="columns">
         <div class="column">
-          <addressCard @confirm="setConfirmed"></addressCard>
+          <addressCard @confirm="setConfirmed" @address="setAdress"></addressCard>
         </div>
         <div class="column">
           <paymentCard @confirm="setConfirmed"></paymentCard>
         </div>
       </div>
-      <button class="button is-primary is-large is-pulled-right" :disabled="!fullConfirmed" @click="finishOrder">Terminer</button>
+      {{orderContentFormatedData}}
+      <b-tooltip class="is-pulled-right" label="Confirmez les étapes pour continuer" position="is-bottom" :active="!fullConfirmed">
+        <button class="button is-primary is-large is-pulled-right" :disabled="!fullConfirmed" @click="finishOrder">Terminer</button>
+      </b-tooltip>
     </section>
   </div>
 </template>
@@ -30,8 +33,12 @@ export default {
         address: false,
         payment: false
       },
-      orderContentFormatedData: [],
-      basketproducts: []
+      orderContentFormatedData: {
+        adresses_id: null,
+        data: []
+      },
+      basketproducts: [],
+      selectedAdress: null
     }
   },
   created () {
@@ -46,16 +53,20 @@ export default {
   },
   computed: {
     fullConfirmed () {
-      return Object.keys(this.confirmed).every((k) => { return this.confirmed[k] })
+      return Object.keys(this.confirmed).every(k => { return this.confirmed[k] })
     }
   },
   methods: {
     setConfirmed (item) {
       this.confirmed[item] = true
     },
+    setAdress (adress) {
+      this.selectedAdress = adress
+      this.orderContentFormatedData.adresses_id = this.selectedAdress
+    },
     formatOrderContentData () {
       this.basketproducts.forEach((product) => {
-        this.orderContentFormatedData.push({
+        this.orderContentFormatedData.data.push({
           'product': product.products_id,
           'quantity': product.basket_quantity,
           'size': product.fk_productsSize_id
@@ -74,6 +85,7 @@ export default {
       })
     },
     finishOrder () {
+      // cehck for dup article on click
       this.formatOrderContentData()
       this.axios({
         method: 'put',

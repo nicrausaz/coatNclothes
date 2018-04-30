@@ -49,6 +49,7 @@ export default {
       if (this.selectedAdress) {
         this.isConfirmed = true
         this.$emit('confirm', 'address')
+        this.$emit('address', this.selectedAdress)
       } else {
         this.$toast.open('Chosissez d\'abord une adresse')
       }

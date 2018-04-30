@@ -6,14 +6,16 @@
         <a>
           <span class="has-text-left">{{products[index].basket_quantity}}x</span>
           <span class="has-text-centered">{{product.products_name}}</span>
-          <span class="has-text-right">{{product.products_price}}</span>
+          <span class="has-text-right"><small>{{product.products_price}} CHF</small></span>
         </a>
       </li>
     </ul>
     <p class="menu-label has-text-right">{{totalPrice}}</p>
-    <router-link to="/orderconfirm">
-      <button class="button is-primary is-large is-pulled-right" :disabled="!canconfirm">Commander</button>
-    </router-link>
+    <b-tooltip class="is-pulled-right" label="Choisissez une taille pour tous les articles" position="is-bottom" :active="!canconfirm">
+      <router-link to="/orderconfirm">
+        <button class="button is-primary is-large is-pulled-right" :disabled="!canconfirm">Commander</button>
+      </router-link>
+    </b-tooltip>
   </aside>
 </template>
 
