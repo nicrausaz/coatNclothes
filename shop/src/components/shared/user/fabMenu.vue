@@ -4,6 +4,7 @@
     :position="fabConfig.position"
     :bg-color="fabConfig.bgColor"
     position-type="absolute"
+    :z-index="1"
     main-icon="settings"
     main-tooltip="Actions"
     @infos="infos"

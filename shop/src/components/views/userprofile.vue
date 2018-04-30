@@ -16,11 +16,11 @@
             {{userStatus}}
           </div>
         </div>
-        <div class="column is-6">
+        <div class="column is-6" style="position: relative;">
           <userAdresses></userAdresses>
         </div>
       </div>
-      <fabmenu v-if="!isEditingPhoto && !isEditingInfos" :isAdmin="$store.state.user.users_admin" @editInfos="editInfos"></fabmenu>
+    <fabmenu :isAdmin="$store.state.user.users_admin" @editInfos="editInfos"></fabmenu>
     </section>
     <b-modal :active.sync="isEditingPhoto">
       <editpicmodal :img="userPic" @edit="getUserInfos"></editpicmodal>
