@@ -10,9 +10,9 @@
             </figure>
           </b-tooltip>
           <div id="infos">
-            <h1 class="title">{{$store.state.user.users_fsname}} {{$store.state.user.users_name}}</h1>
-            <h2>{{$store.state.user.users_email}}</h2>
-            <h2>{{$store.state.user.users_login}}</h2>
+            <h1 class="title">{{userFullInfos.users_fsname}} {{userFullInfos.users_name}}</h1>
+            <h2>{{userFullInfos.users_email}}</h2>
+            <h2>{{userFullInfos.users_login}}</h2>
             {{userStatus}}
           </div>
         </div>
@@ -51,7 +51,7 @@ export default {
   },
   computed: {
     userStatus () {
-      return this.$store.state.user.users_admin ? 'Administrateur' : 'Client'
+      return this.userFullInfos.users_admin ? 'Administrateur' : 'Client'
     },
     userPic () {
       return this.userFullInfos.users_pic || 'static/noImgAvailable.png'

@@ -5,7 +5,10 @@
         <p class="subtitle">
           Mes adresses
         </p>
-        <nav class="panel">
+        <nav v-if="adresses.length === 0">
+          Aucune adresse...
+        </nav>
+        <nav class="panel" v-else>
           <a v-for="adress in adresses" :key="adress.adresses_id" class="panel-block" @click="editAdress(adress)" :class="{'is-active': adress.adresses_main}">
             <b-tooltip label="Cliquer pour éditer" position="is-right">
               <span class="panel-icon"><b-icon icon="home" size="is-small"></b-icon></span>

@@ -32,6 +32,7 @@
     <footer class="modal-card-foot">
       <button class="button" type="button" @click="this.$parent.close">Annuler</button>
       <button class="button is-primary" @click="updatePic">Confirmer le changement</button>
+      <!--  disable if no img selected -->
     </footer>
   </div>
 </template>

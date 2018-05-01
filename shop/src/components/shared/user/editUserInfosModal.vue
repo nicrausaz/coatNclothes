@@ -17,10 +17,12 @@
         <b-input v-model="newData.users_email"></b-input>
       </b-field>
       <p class="has-text-right">Changer de mot de passe ?</p>
+      <!-- edit on click -->
     </section>
+    <!-- ajouter le genre -->
     <footer class="modal-card-foot">
       <button class="button" type="button" @click="this.$parent.close">Annuler</button>
-      <button class="button is-primary">Confirmer</button>
+      <button class="button is-primary" @click="changeInfos">Confirmer</button>
     </footer>
   </div>
 </template>
@@ -29,11 +31,49 @@
 export default {
   data () {
     return {
-      newData: []
+      newData: [],
+      editPassword: false
     }
   },
   created () {
-    this.newData = this.$store.state.user
+    this.getUserInfos()
+  },
+  methods: {
+    changeInfos () {
+      this.axios({
+        method: 'patch',
+        url: '/user/' + this.newData.users_id,
+        data: {
+          'users_name': this.newData.users_name,
+          'users_fsname': this.newData.users_fsname,
+          'users_email': this.newData.users_email,
+          'users_login': this.newData.users_login
+        }
+      })
+      .then(response => {
+        this.$toast.open({
+          message: response.data.message,
+          type: 'is-success'
+        })
+        this.$emit('edit')
+        this.$parent.close()
+      })
+      .catch(err => {
+        this.$toast.open({
+          message: err.response.data.message,
+          type: 'is-danger'
+        })
+      })
+    },
+    getUserInfos () {
+      this.axios({
+        method: 'get',
+        url: '/user/' + this.$store.state.user.users_id
+      })
+      .then((response) => {
+        this.newData = response.data
+      })
+    }
   }
 }
 </script>
