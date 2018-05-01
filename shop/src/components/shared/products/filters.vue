@@ -57,6 +57,7 @@ export default {
         brands: [],
         selectedView: 'cardedView'
       },
+      brandsId: [],
       namedBrands: []
     }
   },
@@ -71,6 +72,7 @@ export default {
   },
   methods: {
     getBrandsNames () {
+      // does not work !
       this.brands.forEach(brand => {
         this.axios({
           method: 'get',
@@ -84,6 +86,7 @@ export default {
   },
   computed: {
     hightestPrice () {
+      // TODO: make this work
       console.log(this.maxprice)
       return this.maxprice > 0 ? this.maxprice : 100
     }
