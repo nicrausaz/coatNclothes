@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Api\V1;
 use Dingo\Api\Contract\Http\Request;
 use Dingo\Api\Http\Response;
 use Dingo\Api\Routing\Helpers;
-use Illuminate\Routing\Controller;
 use Lang;
 
 
 class ordersController extends Controller
 {
-    //use Lang;
     use Helpers;
 
     /*****************************
@@ -22,8 +20,12 @@ class ordersController extends Controller
     public function getAllOrders(Request $request, $id){
         $this->checkTokenFromId($id);
 
-        $orders = \DB::select('SELECT * FROM TB_Orders WHERE fk_users_id = ?', [$id]);
-        return json_encode($orders);
+        $orders = \DB::select('SELECT * FROM `TB_Orders` o INNER JOIN TB_OrdersStatus os ON os.ordersStatus_id = o.fk_ordersStatus_id where o.fk_users_id = ?', [$id]);
+        foreach ($orders as $key=>$value){
+            $orders[$key]->ordersStatus_name=$this->getTranslation($value->ordersStatus_name);
+        }
+
+        return $orders;
     }
 
     public function getOrderContent(Request $request, $id){
@@ -51,10 +53,30 @@ class ordersController extends Controller
             \Log::error('Bad arg type for order input | user: '.$id);
             abort(403, lang::get('errors.notAuthorized'));
         }
+
+        if(empty($input['data'])){
+            \Log::error('command with an empty array | user: '.$id);
+            abort(403, lang::get('orders.emtpyOrder'));
+        }
         //Create new order
+        if(isset($input['adresses_id'])) {
+            if ((is_numeric($input['adresses_id'])) AND (!empty($input['adresses_id']))) {
+                $back = \DB::select('SELECT count(adresses_id) AS count FROM TB_Adresses WHERE fk_users_id = ? AND adresses_id = ? AND adresses_dlDate IS NULL', [$id, $input['adresses_id']]);
+                if($back[0]->count != 1){
+                    \Log::error('command with a non existent adresse | user: '.$id);
+                    abort(403, lang::get('errors.notAuthorized'));
+                }
+            }else{
+                \Log::error('command with empty adresse | user: '.$id);
+                abort(403, lang::get('orders.emptyAdress'));
+            }
+        }else{
+            \Log::error('command with empty adresse | user: '.$id);
+            abort(403, lang::get('orders.emptyAdress'));
+        }
         try {
             $orderID = \DB::table('TB_Orders')->insertGetId(
-                ['fk_users_id' => $id]
+                ['fk_users_id' => $id, 'fk_adresses_id' => $input['adresses_id']]
             );
         }
         catch (\PDOException $e) {
@@ -62,7 +84,7 @@ class ordersController extends Controller
             abort(403, lang::get('errors.uknError'));
         }
 
-        foreach ($input as $key => $value){
+        foreach ($input['data'] as $key => $value){
 
             if(empty($value['quantity'])OR empty($value['product'])){
                 \Log::error('missing argument for basket put | user: '.$id);
@@ -74,7 +96,7 @@ class ordersController extends Controller
                 self::deleteOrderAndSub($orderID);
                 abort(403, lang::get('errors.notAuthorized'));
             }
-            if((isset($value['size']))OR(!empty($value['size']))){
+            if(!empty($value['size'])){
                 if(!is_numeric($value['size'])){
                     $getSizeId= \DB::select('SELECT productsSize_id FROM `TB_ProductsSize` WHERE `productsSize_value` LIKE ? AND `fk_products_id` = ?', [$value['size'], $value['product']]);
                     if(!empty($getSizeId[0]->productsSize_id)){
@@ -410,7 +432,7 @@ class ordersController extends Controller
         $number = \DB::select('SELECT count(wishlistContent_id) as number FROM `TB_WishlistContent` WHERE fk_products_id = ? AND fk_wishlist_id = ?', [$input['product'], $wishID]);
 
         if($number[0]->number >= 1){
-            abort(409, lang::get('orders.alreadinIn'));
+            abort(409, lang::get('orders.alreadinInWish'));
         }
 
         try {

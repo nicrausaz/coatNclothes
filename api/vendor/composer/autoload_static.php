@@ -99,7 +99,6 @@ class ComposerStaticInitd9538b135dc6f4ef079edab24f75946f
         'C' => 
         array (
             'Cron\\' => 5,
-            'Carbon\\' => 7,
         ),
         'A' => 
         array (
@@ -264,14 +263,14 @@ class ComposerStaticInitd9538b135dc6f4ef079edab24f75946f
         array (
             0 => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron',
         ),
-        'Carbon\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
-        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),
+    );
+
+    public static $fallbackDirsPsr4 = array (
+        0 => __DIR__ . '/..' . '/nesbot/carbon/src',
     );
 
     public static $prefixesPsr0 = array (
@@ -320,11 +319,10 @@ class ComposerStaticInitd9538b135dc6f4ef079edab24f75946f
         'App\\Article' => __DIR__ . '/../..' . '/app/Article.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
-        'App\\Http\\Controllers\\ApiUsersController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApiUsersController.php',
-        'App\\Http\\Controllers\\Api\\UsersController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/UsersController.php',
-        'App\\Http\\Controllers\\Api\\V1\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/V1/UserController.php',
+        'App\\Http\\Controllers\\Api\\V1\\adminController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/V1/adminController.php',
+        'App\\Http\\Controllers\\Api\\V1\\ordersController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/V1/ordersController.php',
         'App\\Http\\Controllers\\Api\\V1\\productsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/V1/productsController.php',
-        'App\\Http\\Controllers\\Api\\V1\\testController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/V1/testController.php',
+        'App\\Http\\Controllers\\Api\\V1\\usersController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/V1/usersController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
@@ -348,6 +346,7 @@ class ComposerStaticInitd9538b135dc6f4ef079edab24f75946f
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonInterval' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
         'Carbon\\Exceptions\\InvalidDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
+        'Carbon\\Translator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Translator.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/CronExpression.php',
         'Cron\\DayOfMonthField' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/DayOfMonthField.php',
@@ -1843,6 +1842,7 @@ class ComposerStaticInitd9538b135dc6f4ef079edab24f75946f
         'Illuminate\\View\\ViewFinderInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewFinderInterface.php',
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
+        'JsonSerializable' => __DIR__ . '/..' . '/nesbot/carbon/src/JsonSerializable.php',
         'Lcobucci\\JWT\\Builder' => __DIR__ . '/..' . '/lcobucci/jwt/src/Builder.php',
         'Lcobucci\\JWT\\Claim' => __DIR__ . '/..' . '/lcobucci/jwt/src/Claim.php',
         'Lcobucci\\JWT\\Claim\\Basic' => __DIR__ . '/..' . '/lcobucci/jwt/src/Claim/Basic.php',
@@ -3536,6 +3536,7 @@ class ComposerStaticInitd9538b135dc6f4ef079edab24f75946f
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitd9538b135dc6f4ef079edab24f75946f::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitd9538b135dc6f4ef079edab24f75946f::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInitd9538b135dc6f4ef079edab24f75946f::$fallbackDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInitd9538b135dc6f4ef079edab24f75946f::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitd9538b135dc6f4ef079edab24f75946f::$classMap;
 

@@ -15,5 +15,16 @@ return [
 
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'missingArgument'=>'Missing argument for request',
+    'addadresseSuccess'=>'Adresse added successfully',
+    'updateAdressSuccess'=>'Adresse successfully updated',
+    'remAdressSuccess'=>'Adresse successfully removed',
+    'updatePicSuccess'=> 'Picture upload successfully',
+    'remPicSuccess'=>'Picture successfully removed',
+    'noContentToDelete'=>'No picture to delete',
+    'genderChangedSuccess'=>'Gender changed successfully !',
+    'infoChangedSuccess'=>'User informations updated !',
+    'passChangedSuccess'=>'Password changed successfully !'
+
 
 ];
