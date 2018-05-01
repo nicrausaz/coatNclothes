@@ -71,14 +71,17 @@ export default {
       })
       .then(response => {
         this.$toast.open(response.data)
-        this.newComment.commentsAndOpinions_note = 0
-        this.newComment.commentsAndOpinions_comment = null
-        this.$emit('new')
-        this.getComments()
+        this.reset()
       })
       .catch(err => {
         this.$toast.open(err.response.data)
       })
+    },
+    reset () {
+      this.newComment.commentsAndOpinions_note = 0
+      this.newComment.commentsAndOpinions_comment = null
+      this.$emit('new')
+      this.getComments()
     }
   },
   components: {

@@ -85,8 +85,6 @@ export default {
       })
     },
     finishOrder () {
-      // cehck for dup article on click
-      this.formatOrderContentData()
       this.axios({
         method: 'put',
         url: 'orders/user/' + this.$store.state.user.users_id,
