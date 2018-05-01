@@ -15,6 +15,8 @@
               <p>
                 <i>{{productData.products_description}}</i>
               </p>
+              <star-rating :star-size="20" :show-rating="false" :read-only="true" v-model="noteToInt" :inline="true"></star-rating>
+              ({{productNote.number}})
               <br>
               <b-select placeholder="Taille" v-model="currentProduct.selectedSize">
                 <option v-for="size in productData.products_size" :key="size">
@@ -41,7 +43,7 @@
       </div>
       <div class="columns">
         <suggestedproducts v-if="loaded" :category="productData.fk_category_id" class="column"></suggestedproducts>
-        <reviews class="column"></reviews>
+        <reviews class="column" @new="getProductNote"></reviews>
       </div>
     </section>
     <b-modal :active.sync="wishlistselect">
@@ -56,12 +58,14 @@ import wishListChooseModal from '@/components/shared/wishlists/wishListChooseMod
 import suggestedproducts from '@/components/shared/products/suggestedProducts'
 import reviews from '@/components/shared/products/productReviews'
 import productshelpers from '@/mixins/productsHelpers'
+import StarRating from 'vue-star-rating'
 
 export default {
   mixins: [productshelpers],
   data () {
     return {
       productData: [],
+      productNote: {},
       currentProduct: {
         selectedSize: null
       },
@@ -81,6 +85,15 @@ export default {
       })
       .catch(() => { this.$router.push('/error') })
     },
+    getProductNote () {
+      this.axios({
+        method: 'get',
+        url: 'product/' + this.$route.params.id + '/notes'
+      })
+      .then(response => {
+        this.productNote = response.data
+      })
+    },
     setSize (size) {
       this.currentProduct.selectedSize = size
     },
@@ -92,21 +105,29 @@ export default {
     }
   },
   watch: {
-    $route () { this.getProductData() }
+    $route () {
+      this.getProductData()
+      this.getProductNote()
+    }
   },
   computed: {
     textSize () {
       return this.currentProduct.selectedSize === '' ? 'Choisir la taille' : this.currentProduct.selectedSize
+    },
+    noteToInt () {
+      return parseFloat(this.productNote.average)
     }
   },
   created () {
     this.getProductData()
+    this.getProductNote()
   },
   components: {
     pictureCarousel,
     wishListChooseModal,
     suggestedproducts,
-    reviews
+    reviews,
+    StarRating
   }
 }
 </script>

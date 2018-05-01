@@ -67,6 +67,7 @@ export default {
           this.products_list.push(response.data)
         }
       })
+      .catch(() => { this.$router.push('/error') })
     },
     openLogin () {
       this.loginModalOn = true

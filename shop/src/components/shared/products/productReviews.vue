@@ -1,11 +1,88 @@
 <template>
   <div>
     <h1 class="subtitle">Avis</h1>
+    <article class="media" v-for="comment in comments" :key="comment.commentsAndOpinions_id">
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <strong>{{comment.users_login}}</strong>
+            <br>
+            {{comment.commentsAndOpinions_comment}}
+            <star-rating :star-size="20" :show-rating="false" :read-only="true" v-model="comment.commentsAndOpinions_note"></star-rating>
+          </p>
+        </div>
+      </div>
+    </article>
+    <article class="media">
+      <div class="media-content">
+        <div class="field">
+          <p class="control">
+            <textarea class="textarea" placeholder="Add a comment..." v-model="newComment.commentsAndOpinions_comment"></textarea>
+          </p>
+        </div>
+        <div class="field" style="padding: 10px;">
+          <p class="control">
+            <star-rating :increment="0.5" :star-size="25" :show-rating="false" v-model="newComment.commentsAndOpinions_note" :inline="true"></star-rating>
+            <button class="button is-pulled-right" @click="postComment">Commenter</button>
+          </p>
+        </div>
+      </div>
+    </article>
   </div>
 </template>
 
 <script>
-export default {
+import StarRating from 'vue-star-rating'
 
+export default {
+  data () {
+    return {
+      comments: [],
+      newComment: {
+        commentsAndOpinions_note: 0,
+        commentsAndOpinions_comment: null
+      }
+    }
+  },
+  watch: {
+    $route () { this.getComments() }
+  },
+  created () {
+    this.getComments()
+  },
+  methods: {
+    getComments () {
+      this.axios({
+        method: 'get',
+        url: '/product/' + this.$route.params.id + '/comments'
+      })
+      .then(response => {
+        this.comments = response.data
+      })
+    },
+    postComment () {
+      this.axios({
+        method: 'put',
+        url: '/user/' + this.$store.state.user.users_id + '/product/' + this.$route.params.id,
+        data: {
+          commentsAndOpinions_note: this.newComment.commentsAndOpinions_note * 2,
+          commentsAndOpinions_comment: this.newComment.commentsAndOpinions_comment
+        }
+      })
+      .then(response => {
+        this.$toast.open(response.data)
+        this.newComment.commentsAndOpinions_note = 0
+        this.newComment.commentsAndOpinions_comment = null
+        this.$emit('new')
+        this.getComments()
+      })
+      .catch(err => {
+        this.$toast.open(err.response.data)
+      })
+    }
+  },
+  components: {
+    StarRating
+  }
 }
 </script>
