@@ -50,9 +50,9 @@ export default {
         this.$store.commit('setUser', response.data)
         location.reload()
       })
-      .catch(() => {
+      .catch(err => {
         this.$toast.open({
-          message: 'Nom de compte, email ou mot passe erroné !',
+          message: err.response.data.message,
           type: 'is-danger'
         })
       })

@@ -22,10 +22,10 @@
 
     <section class="modal-card-body" v-else>
       <b-field label="Mot de passe actuel">
-        <b-input type="password" v-model="newPassword.actual" placeholder="Mot de passe" password-reveal icon="key" required></b-input>
+        <b-input type="password" v-model="newPassword.actual" placeholder="Mot de passe actuel" password-reveal icon="key" required></b-input>
       </b-field>
       <b-field label="Nouveau mot de passe">
-        <b-input type="password" v-model="newPassword.new" placeholder="Mot de passe" password-reveal icon="key" required></b-input>
+        <b-input type="password" v-model="newPassword.new" placeholder="Nouveau mot de passe" password-reveal icon="key" required></b-input>
       </b-field>
       <a class="is-pulled-right" @click="editPassword = false">Éditer vos infos ?</a>
     </section>
@@ -82,14 +82,23 @@ export default {
     changePassword () {
       this.axios({
         method: 'post',
-        url: '/user/' + this.$store.state.user.users_id,
+        url: '/user/' + this.newData.users_id + '/pass',
         data: {
           users_pass: this.newPassword.actual,
           users_newpass: this.newPassword.new
         }
       })
       .then(response => {
-        console.log(response)
+        this.$toast.open({
+          message: response.data.message,
+          type: 'is-success'
+        })
+      })
+      .catch(err => {
+        this.$toast.open({
+          message: err.response.data.message,
+          type: 'is-danger'
+        })
       })
     },
     getUserInfos () {
@@ -100,11 +109,6 @@ export default {
       .then((response) => {
         this.newData = response.data
       })
-    }
-  },
-  computed: {
-    doublePasswordIsValid () {
-      return this.newPassword.new === this.newPassword.confirm && this.newPassword.new !== ''
     }
   }
 }
