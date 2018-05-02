@@ -21,19 +21,18 @@
     </section>
 
     <section class="modal-card-body" v-else>
+      <b-field label="Mot de passe actuel">
+        <b-input type="password" v-model="newPassword.actual" placeholder="Mot de passe" password-reveal icon="key" required></b-input>
+      </b-field>
       <b-field label="Nouveau mot de passe">
         <b-input type="password" v-model="newPassword.new" placeholder="Mot de passe" password-reveal icon="key" required></b-input>
       </b-field>
-      <b-field label="Confirmation">
-        <b-input type="password" v-model="newPassword.confirm" placeholder="Confirmation" password-reveal icon="key" required></b-input>
-      </b-field>
-      {{doublePasswordIsValid}}
       <a class="is-pulled-right" @click="editPassword = false">Éditer vos infos ?</a>
     </section>
     <footer class="modal-card-foot">
       <button class="button" type="button" @click="this.$parent.close">Annuler</button>
-      <button class="button is-primary" @click="changeInfos">Confirmer</button>
-      <!-- switch if password  -->
+      <button class="button is-primary" v-if="!editPassword" @click="changeInfos">Changer les infos</button>
+      <button class="button is-primary" v-else @click="changePassword">Changer le mot de passe</button>
     </footer>
   </div>
 </template>
@@ -44,8 +43,8 @@ export default {
     return {
       newData: [],
       newPassword: {
-        new: '',
-        confirm: ''
+        actual: '',
+        new: ''
       },
       editPassword: false
     }
@@ -78,6 +77,19 @@ export default {
           message: err.response.data.message,
           type: 'is-danger'
         })
+      })
+    },
+    changePassword () {
+      this.axios({
+        method: 'post',
+        url: '/user/' + this.$store.state.user.users_id,
+        data: {
+          users_pass: this.newPassword.actual,
+          users_newpass: this.newPassword.new
+        }
+      })
+      .then(response => {
+        console.log(response)
       })
     },
     getUserInfos () {

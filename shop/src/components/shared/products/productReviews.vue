@@ -17,7 +17,7 @@
       <div class="media-content">
         <div class="field">
           <p class="control">
-            <textarea class="textarea" placeholder="Add a comment..." v-model="newComment.commentsAndOpinions_comment"></textarea>
+            <textarea class="textarea" placeholder="Ajouter un commentaire (optionel)" v-model="newComment.commentsAndOpinions_comment"></textarea>
           </p>
         </div>
         <div class="field" style="padding: 10px;">
