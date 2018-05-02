@@ -16,8 +16,14 @@
       <b-field label="Email">
         <b-input v-model="newData.users_email"></b-input>
       </b-field>
+      <b-field label="Genre">
+        <div class="block">
+          <b-radio v-model="newData.fk_gender_id" native-value="1">Homme</b-radio>
+          <b-radio v-model="newData.fk_gender_id" native-value="2">Femme</b-radio>
+          <b-radio v-model="newData.fk_gender_id" native-value="3">Transexuel</b-radio>
+        </div>
+      </b-field>
       <a class="is-pulled-right" @click="editPassword = true">Changer de mot de passe ?</a>
-    <!-- ajouter le genre -->
     </section>
 
     <section class="modal-card-body" v-else>
@@ -31,7 +37,7 @@
     </section>
     <footer class="modal-card-foot">
       <button class="button" type="button" @click="this.$parent.close">Annuler</button>
-      <button class="button is-primary" v-if="!editPassword" @click="changeInfos">Changer les infos</button>
+      <button class="button is-primary" v-if="!editPassword" @click="updateInfos">Changer les infos</button>
       <button class="button is-primary" v-else @click="changePassword">Changer le mot de passe</button>
     </footer>
   </div>
@@ -53,6 +59,10 @@ export default {
     this.getUserInfos()
   },
   methods: {
+    updateInfos () {
+      this.changeInfos()
+      this.changeGender()
+    },
     changeInfos () {
       this.axios({
         method: 'patch',
@@ -99,6 +109,12 @@ export default {
           message: err.response.data.message,
           type: 'is-danger'
         })
+      })
+    },
+    changeGender () {
+      this.axios({
+        method: 'patch',
+        url: '/user/' + this.newData.users_id + '/gender/' + this.newData.fk_gender_id
       })
     },
     getUserInfos () {

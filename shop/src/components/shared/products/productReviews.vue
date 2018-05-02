@@ -58,6 +58,9 @@ export default {
       })
       .then(response => {
         this.comments = response.data
+        this.comments.forEach(comment => {
+          comment.commentsAndOpinions_note /= 2
+        })
       })
     },
     postComment () {

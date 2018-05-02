@@ -15,8 +15,7 @@
               <p>
                 <i>{{productData.products_description}}</i>
               </p>
-              <star-rating :star-size="20" :show-rating="false" :read-only="true" v-model="noteToInt" :inline="true"></star-rating>
-              ({{productNote.number}})
+              <star-rating :star-size="20" :show-rating="false" :read-only="true" v-model="noteToInt" :inline="true"></star-rating> ({{productNote.number}})
               <br>
               <b-select placeholder="Taille" v-model="currentProduct.selectedSize">
                 <option v-for="size in productData.products_size" :key="size">
@@ -42,8 +41,8 @@
         </div>
       </div>
       <div class="columns">
-        <suggestedproducts v-if="loaded" :category="productData.fk_category_id" class="column"></suggestedproducts>
         <reviews class="column" @new="getProductNote"></reviews>
+        <suggestedproducts v-if="loaded" :category="productData.fk_category_id" class="column"></suggestedproducts>
       </div>
     </section>
     <b-modal :active.sync="wishlistselect">
@@ -115,7 +114,7 @@ export default {
       return this.currentProduct.selectedSize === '' ? 'Choisir la taille' : this.currentProduct.selectedSize
     },
     noteToInt () {
-      return parseFloat(this.productNote.average)
+      return parseFloat(this.productNote.average / 2)
     }
   },
   created () {
