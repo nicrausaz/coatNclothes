@@ -1,19 +1,17 @@
 <template>
-  <article class="media column is-6">
-    <figure class="media-left image is-64x64">
-      <img :src="getPicture(product.products_pictures)" :alt="getAltName(product.products_pictures)">
-    </figure>
-    <div class="media-content">
-      <div class="content">
-        <p>
-          <br>
-          <small>{{product.products_brand}}</small>
-          <strong>{{product.products_name}}</strong>
-          <small>{{product.products_price}} CHF</small>
+  <div class="card column is-6">
+    <article class="media">
+      <figure class="media-left">
+        <p class="image is-64x64">
+          <img :src="getPicture(product.products_pictures)" :alt="getAltName(product.products_pictures)">
         </p>
+      </figure>
+      <div class="media-content">
+        <strong>{{ product.products_name }}</strong> <small>{{ product.products_price }} CHF</small>
       </div>
-    </div>
-  </article>
+      <b>{{data.ordersContent_quantity}}x</b>
+    </article>
+  </div>
 </template>
 
 <script>
@@ -55,5 +53,8 @@ export default {
   border: none;
   margin: 0px;
   padding-left: 20px;
+}
+img {
+  max-height: 60px;
 }
 </style>

@@ -20,7 +20,7 @@
         </div>
         <div class="actions columns">
           <div class="column">
-            <b-select placeholder="Taille" v-model="selectedSize" >
+            <b-select placeholder="Taille" v-model="selectedSize" style="padding-left: 5px;">
               <option v-for="size in product.products_size" :key="size">
                 {{ size }}
               </option>
@@ -131,7 +131,7 @@ export default {
 
 <style scoped>
 .card {
-  height: 380px;
+  height: 390px;
   width: 200px;
   margin-bottom: 10px;
 }

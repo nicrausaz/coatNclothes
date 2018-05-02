@@ -1,16 +1,19 @@
 <template>
   <div class="card column is-6">
-  <article class="media">
-    <figure class="media-left">
-      <p class="image is-64x64">
-        <img :src="picture" :alt="altName" draggable="false">
-      </p>
-    </figure>
-    <div class="media-content">
-      <strong>{{ product.products_name }}</strong> <small>{{ product.products_price }} CHF</small>
-    </div>
-  </article>
-</div>
+    <article class="media">
+      <figure class="media-left">
+        <p class="image is-64x64">
+          <img :src="picture" :alt="altName" draggable="false">
+        </p>
+      </figure>
+      <div class="media-content">
+        <strong>{{ product.products_name }}</strong> <small>{{ product.products_price }} CHF</small>
+        <br>
+        Taille: {{data.fk_productsSize_id}}
+      </div>
+      <b>{{data.basket_quantity}}x</b>
+    </article>
+  </div>
 </template>
 
 <script>

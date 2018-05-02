@@ -11,7 +11,6 @@
           <paymentCard @confirm="setConfirmed"></paymentCard>
         </div>
       </div>
-      {{orderContentFormatedData}}
       <b-tooltip class="is-pulled-right" label="Confirmez les étapes pour continuer" position="is-bottom" :active="!fullConfirmed">
         <button class="button is-primary is-large is-pulled-right" :disabled="!fullConfirmed" @click="finishOrder">Terminer</button>
       </b-tooltip>
