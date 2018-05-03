@@ -1,34 +1,24 @@
 <template>
-<div class="card">
-  <article class="media">
-    <figure class="media-left" @click="isImageModalActive = true">
-      <p class="image is-64x64">
-        <img :src="picture" :alt="altName" draggable="false">
-      </p>
-    </figure>
-    <div class="media-content">
-      <strong>{{ infos.products_name }}</strong> <small>{{infos.products_price}} CHF</small>
-      <nav class="level is-mobile">
-        <div class="media-right">
-          <router-link :to="/product/ + infos.products_id">
-            <button class="button is-outlined is-small">
-              <b-icon icon="info" size="is-small"></b-icon>
+  <div class="card" @click.stop="showProduct">
+    <article class="media">
+      <figure class="media-left">
+        <p class="image is-64x64">
+          <img :src="picture" :alt="altName" draggable="false">
+        </p>
+      </figure>
+      <div class="media-content">
+        <strong>{{ infos.products_name }}</strong> <small>{{infos.products_price}} CHF</small>
+        <nav class="level is-mobile">
+          <div class="media-right">
+            <button class="button is-primary is-outlined is-small" @click.stop="addToBasket" style="margin-top: 10px;">
+              <b-icon icon="shopping-cart" size="is-small"></b-icon>
+              <span>Ajouter</span>
             </button>
-          </router-link>
-            <button class="button is-outlined is-primary is-small" @click="addToBasket">
-            <b-icon icon="shopping-cart" size="is-small"></b-icon>
-          </button>
-        </div>
-      </nav>
-    </div>
-  </article>
-
-  <b-modal :active.sync="isImageModalActive">
-    <p class="image is-4by4">
-      <img :src="picture">
-    </p>
-  </b-modal>
-</div>
+          </div>
+        </nav>
+      </div>
+    </article>
+  </div>
 </template>
 
 <script>
@@ -37,11 +27,6 @@ import productshelpers from '@/mixins/productsHelpers'
 export default {
   props: ['infos'],
   mixins: [productshelpers],
-  data () {
-    return {
-      isImageModalActive: false
-    }
-  },
   computed: {
     picture () {
       return this.infos.productsPics_path || 'static/noImgAvailable.png'
@@ -53,6 +38,9 @@ export default {
   methods: {
     addToBasket () {
       this.addProductToBasket(this.infos.products_id)
+    },
+    showProduct () {
+      this.$router.push('/product/' + this.infos.products_id)
     }
   }
 }
@@ -62,12 +50,10 @@ export default {
 .card {
   padding: 10px;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 .box:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-.media-left {
-  cursor: pointer;
 }
 img {
   max-height: 60px;

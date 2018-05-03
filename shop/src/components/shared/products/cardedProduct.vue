@@ -1,7 +1,7 @@
 <template>
   <div class="column is-one-quarter">
-    <div class="card" @mouseover="hover = true" @mouseout="hover = false">
-      <div class="card-image" @click="isImageModalActive = true">
+    <div class="card" @click.stop="showProduct">
+      <div class="card-image">
         <figure class="image is-square">
           <img :src="picture" :alt="altName" draggable="false">
         </figure>
@@ -12,32 +12,19 @@
             <ul>
               <li>{{ infos.products_name }}</li>
               <li class="has-text-right">
-                <small>{{infos.products_price}} CHF</small>
+                <small><b>{{infos.products_price}} CHF</b></small>
               </li>
             </ul>
           </div>
         </div>
-        <div v-if="hover">
-          <router-link :to="/product/ + infos.products_id">
-          <b-tooltip label="Voir le produit" position="is-bottom">
-            <button class="button is-outlined">
-              <b-icon icon="info" size="is-small"></b-icon>
-            </button>
-          </b-tooltip>
-          </router-link>
-          <b-tooltip label="Ajouter au panier" position="is-bottom">
-            <button class="button is-primary is-outlined" @click="addToBasket">
-              <b-icon icon="shopping-cart" size="is-small"></b-icon>
-            </button>
-          </b-tooltip>
-        </div>
+        <b-tooltip label="Ajouter au panier" position="is-bottom">
+          <button class="button is-primary is-outlined" @click.stop="addToBasket" style="margin-top: 10px;">
+            <b-icon icon="shopping-cart" size="is-small"></b-icon>
+            <span>Ajouter</span>
+          </button>
+        </b-tooltip>
       </div>
     </div>
-    <b-modal :active.sync="isImageModalActive">
-      <p class="image is-4by4">
-        <img :src="picture">
-      </p>
-    </b-modal>
   </div>
 </template>
 
@@ -49,13 +36,15 @@ export default {
   mixins: [productshelpers],
   data () {
     return {
-      isImageModalActive: false,
       hover: false
     }
   },
   methods: {
     addToBasket () {
       this.addProductToBasket(this.infos.products_id)
+    },
+    showProduct () {
+      this.$router.push('/product/' + this.infos.products_id)
     }
   },
   computed: {
@@ -71,10 +60,8 @@ export default {
 
 <style scoped>
 .card {
-  height: 350px;
+  height: 320px;
   width: 200px;
-}
-.card-image {
   cursor: pointer;
 }
 .card:hover {
