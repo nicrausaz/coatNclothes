@@ -60,7 +60,7 @@ export default {
 
 <style scoped>
 .card {
-  height: 320px;
+  height: 350px;
   width: 200px;
   cursor: pointer;
 }

@@ -4,7 +4,7 @@
       <p class="modal-card-title">Créer une adresse</p>
     </header>
     <section class="modal-card-body">
-      <b-field label="Rue n0">
+      <b-field label="Adresse">
         <b-input v-model="newData.adresses_street" placeholder="Rue" required></b-input>
       </b-field>
       <b-field label="NPA">
@@ -12,6 +12,9 @@
       </b-field>
       <b-field label="Localité">
         <b-input v-model="newData.adresses_locality" placeholder="Localité" required></b-input>
+      </b-field>
+      <b-field label="Pays">
+        <b-input v-model="newData.adresses_state" placeholder="Pays" required></b-input>
       </b-field>
       <b-field>
         <b-checkbox v-model="newData.adresses_main" size="is-small" :checked="newData.adresses_main">
@@ -30,7 +33,7 @@
 export default {
   data () {
     return {
-      newData: []
+      newData: {}
     }
   },
   methods: {
@@ -42,7 +45,8 @@ export default {
           adresses_locality: this.newData.adresses_locality,
           adresses_npa: this.newData.adresses_npa,
           adresses_street: this.newData.adresses_street,
-          adresses_main: this.newData.adresses_main
+          adresses_main: this.newData.adresses_main,
+          adresses_state: this.newData.adresses_state
         }
       })
       .then(response => {

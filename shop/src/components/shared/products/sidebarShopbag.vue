@@ -1,6 +1,6 @@
 <template>
   <aside class="menu">
-    <p class="menu-label">Résumé du panier</p>
+    <p class="menu-label">Résumé du panier - {{articlesNumberText}}</p>
     <ul class="menu-list">
       <li v-for="(product, index) in productsData" :key="product.products_id">
         <a>
@@ -56,6 +56,16 @@ export default {
         total += this.products[i].basket_quantity * product.products_price
       })
       return 'Total ' + total + ' CHF'
+    },
+    articlesNumberText () {
+      switch (this.productsData.length) {
+        case 0:
+          return 'Aucun article'
+        case 1:
+          return '1 article'
+        default:
+          return this.productsData.length + ' articles'
+      }
     }
   }
 }

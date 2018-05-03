@@ -4,7 +4,7 @@
       <p class="modal-card-title">Modifier votre adresse</p>
     </header>
     <section class="modal-card-body">
-      <b-field label="Rue n0">
+      <b-field label="Adresse">
         <b-input v-model="newData.adresses_street"></b-input>
       </b-field>
       <b-field label="NPA">
@@ -12,6 +12,9 @@
       </b-field>
       <b-field label="Localité">
         <b-input v-model="newData.adresses_locality"></b-input>
+      </b-field>
+      <b-field label="Pays">
+        <b-input v-model="newData.adresses_state" required></b-input>
       </b-field>
       <b-field>
         <b-checkbox v-model="newData.adresses_main" size="is-small" true-value="1" false-value="0" :disabled="isMain">
@@ -35,7 +38,7 @@ export default {
   props: ['adress'],
   data () {
     return {
-      newData: []
+      newData: {}
     }
   },
   created () {
@@ -51,7 +54,8 @@ export default {
       let data = {
         adresses_locality: this.newData.adresses_locality,
         adresses_npa: this.newData.adresses_npa,
-        adresses_street: this.newData.adresses_street
+        adresses_street: this.newData.adresses_street,
+        adresses_state: this.newData.adresses_state
       }
       if (this.newData.adresses_main) {
         data.adresses_main = 1
