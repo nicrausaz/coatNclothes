@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1 class="subtitle">Avis</h1>
     <article class="media" v-for="comment in comments" :key="comment.commentsAndOpinions_id">
       <div class="media-content">
         <div class="content">

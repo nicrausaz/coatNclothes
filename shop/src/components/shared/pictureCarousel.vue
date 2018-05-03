@@ -1,14 +1,22 @@
 <template>
-  <carousel :perPage="1" :navigationEnabled="true" paginationActiveColor="#da0f68" paginationColor="#f5f5f5">
-    <slide v-for="pic in pictures" :key="pic.altName">
-      <img :src="pic.path">
-    </slide>
-  </carousel>
+  <div>
+    <carousel :perPage="1" :navigationEnabled="true" paginationActiveColor="#da0f68" paginationColor="#f5f5f5" v-if="hasPictures">
+      <slide v-for="pic in pictures" :key="pic.altName">
+        <img :src="pic.path">
+      </slide>
+    </carousel>
+    <img src="/static/noImgAvailable.png" v-else>
+  </div>
 </template>
 
 <script>
 export default {
-  props: ['pictures']
+  props: ['pictures'],
+  computed: {
+    hasPictures () {
+      return this.pictures.length > 0
+    }
+  }
 }
 </script>
 
