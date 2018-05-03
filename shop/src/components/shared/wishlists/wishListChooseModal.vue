@@ -3,7 +3,7 @@
     <header class="modal-card-head">
       <p class="modal-card-title">Choisir la liste</p>
     </header>
-    <section class="modal-card-body">
+    <section class="modal-card-body" v-if="!isCreatingNew">
       <div v-for="wishlist in wishlists" class="choices" :key="wishlist.wishlist_id" @click="choose(wishlist.wishlist_id)">
         {{wishlist.wishlist_name}}
         <span class="actions"><b-icon icon="plus" type="is-primary"></b-icon></span>
@@ -16,8 +16,17 @@
         Créer une nouvelle liste
       </div>
     </section>
+    <section class="modal-card-body" v-else>
+       <b-field label="Nom">
+        <b-input type="text" v-model="newWishlist.name" required></b-input>
+      </b-field>
+      <b-field label="Description">
+        <b-input type="textarea" v-model="newWishlist.description" maxlength="100"></b-input>
+      </b-field>
+    </section>
     <footer class="modal-card-foot">
       <button class="button" type="button" @click="this.$parent.close">Annuler</button>
+      <button class="button is-primary" type="button" v-if="isCreatingNew" @click="createAndAdd">Confirmer</button>
     </footer>
   </div>
 </template>
@@ -27,7 +36,12 @@ export default {
   props: ['productId'],
   data () {
     return {
-      wishlists: []
+      wishlists: [],
+      isCreatingNew: false,
+      newWishlist: {
+        name: '',
+        description: ''
+      }
     }
   },
   created () {
@@ -70,10 +84,24 @@ export default {
         })
       })
     },
-    createNew () {
-      this.$parent.close()
-      this.$router.push('/wishlists')
-    }
+    createAndAdd () {
+      this.axios({
+        method: 'put',
+        url: 'wishlist/user/' + this.$store.state.user.users_id,
+        data: {
+          'name': this.newWishlist.name,
+          'description': this.newWishlist.description
+        }
+      })
+      .then((response) => {
+        this.$toast.open({
+          message: response.data.message,
+          type: 'is-success'
+        })
+        this.choose(response.data.wishlist_id)
+      })
+    },
+    createNew () { this.isCreatingNew = true }
   }
 }
 </script>

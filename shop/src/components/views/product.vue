@@ -40,10 +40,8 @@
           </div>
         </div>
       </div>
-      <div class="columns">
-        <reviews class="column" @new="getProductNote"></reviews>
-        <suggestedproducts v-if="loaded" :category="productData.fk_category_id" class="column"></suggestedproducts>
-      </div>
+      <reviews class="column" @new="getProductNote"></reviews>
+      <suggestedproducts v-if="loaded" :category="productData.fk_category_id" class="column"></suggestedproducts>
     </section>
     <b-modal :active.sync="wishlistselect">
       <wishListChooseModal :productId="productData.products_id"></wishListChooseModal>
