@@ -4,7 +4,7 @@
       <div class="tile is-ancestor">
         <div class="tile is-parent">
           <div class="tile is-child">
-            <pictureCarousel :pictures="productData.products_pictures"></pictureCarousel>
+            <pictureCarousel v-if="loaded" :pictures="productData.products_pictures"></pictureCarousel>
           </div>
         </div>
         <div class="tile is-parent is-vertical">

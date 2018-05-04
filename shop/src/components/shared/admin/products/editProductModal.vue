@@ -14,26 +14,51 @@
         <b-input v-model="newData.products_price" type="number" step="1"></b-input>
       </b-field>
       <b-field label="Catégories">
-        <b-taginput v-model="newData.products_categories" :data="filteredCategories" autocomplete :allowNew="true" field="category_name" icon="tag" placeholder="Choisir une catégorie" @typing="getFilteredCategories"></b-taginput>
+        {{newData.fk_category_id}}
+        <b-autocomplete
+                v-model="newData.products_category"
+                :data="filteredCategories"
+                placeholder="e.g. tamer"
+                icon="tag"
+                field="brand_name"
+                @select="option => selected = option">
+                <template slot="empty">Aucune marque trouvée</template>
+            </b-autocomplete>
+        <!-- <b-taginput v-model="newData.products_categories" :data="filteredCategories" autocomplete :allowNew="true" field="category_name" icon="tag" placeholder="Choisir une catégorie" @typing="getFilteredCategories"></b-taginput> -->
       </b-field>
+      {{categories}}
+
        <b-field label="Marque">
-         <b-input v-model="newData.products_brand"></b-input>
+         <!-- <b-autocomplete
+                v-model="newData.products_brand"
+                :data="filteredBrands"
+                placeholder="e.g. tamer"
+                icon="tag"
+                field="brand_name"
+                @select="option => selected = option">
+                <template slot="empty">Aucune marque trouvée</template>
+            </b-autocomplete> -->
          <!-- make this searchable -->
         </b-field>
-
       <b-field label="Tailles disponibles">
-         <b-checkbox-button v-model="newData.products_size" native-value="S">
-            <span>S</span>
-          </b-checkbox-button>
-          <b-checkbox-button v-model="newData.products_size" native-value="M">
-            <span>M</span>
-          </b-checkbox-button>
-          <b-checkbox-button v-model="newData.products_size" native-value="L">
-            <span>L</span>
-          </b-checkbox-button>
-          <b-checkbox-button v-model="newData.products_size" native-value="XL">
-            <span>XL</span>
-          </b-checkbox-button>
+        <b-checkbox-button v-model="newData.products_size" native-value="XS">
+          <span>XS</span>
+        </b-checkbox-button>
+        <b-checkbox-button v-model="newData.products_size" native-value="S">
+          <span>S</span>
+        </b-checkbox-button>
+        <b-checkbox-button v-model="newData.products_size" native-value="M">
+          <span>M</span>
+        </b-checkbox-button>
+        <b-checkbox-button v-model="newData.products_size" native-value="L">
+          <span>L</span>
+        </b-checkbox-button>
+        <b-checkbox-button v-model="newData.products_size" native-value="XL">
+          <span>XL</span>
+        </b-checkbox-button>
+        <b-checkbox-button v-model="newData.products_size" native-value="XXL">
+          <span>XXL</span>
+        </b-checkbox-button>
       </b-field>
 
       <b-field label="Images">
@@ -60,39 +85,47 @@ export default {
   props: ['id'],
   data () {
     return {
-      categories: [
-        { category_id: 2, category_name: 'Jeans' }
-      ],
-      brands: [
-        { brand_id: 1, brand_name: 'Lewi\'s' }
-      ],
+      categories: [],
+      brands: [],
       newData: {},
-      filteredCategories: [],
-      filteredBrands: [],
-      loaded: false
+      loaded: false,
+      selected: null
     }
   },
   created () {
-    this.axios({
-      method: 'get',
-      url: '/product/' + this.id
-    })
-    .then((response) => {
-      this.newData = response.data
-      this.loaded = true
-    })
-
-    // this.axios({
-    //   method: 'get',
-    //   url: '/categories'
-    // })
-    // .then((response) => {
-    //   console.log(response)
-    // })
-
-    // get brands
+    this.getProduct()
+    this.getBrands()
+    this.getCategories()
   },
   methods: {
+    getProduct () {
+      this.axios({
+        method: 'get',
+        url: '/product/' + this.id
+      })
+      .then(response => {
+        this.newData = response.data
+        this.loaded = true
+      })
+    },
+    getCategories () {
+      this.axios({
+        method: 'get',
+        url: '/categories'
+      })
+      .then(response => {
+        this.categories = response.data
+      })
+    },
+    getBrands () {
+      this.axios({
+        method: 'get',
+        url: '/brands'
+      })
+      .then(response => {
+        this.brands = response.data
+      })
+    },
     getFilteredCategories (text) {
       this.filteredCategories = this.categories.filter((option) => {
         return option.toString().toLowerCase().indexOf(text.toLowerCase()) >= 0
@@ -104,7 +137,33 @@ export default {
       })
     },
     update () {
-      console.log('update product')
+      this.axios({
+        method: 'patch',
+        url: '/admin/product/' + this.id,
+        data: {
+          products_lang: 'fr',
+          products_name: this.newData.products_name,
+          products_description: this.newData.products_description,
+          products_category: this.newData.fk_category_id,
+          products_price: this.newData.products_price,
+          products_brand: null,
+          products_size: [] // this.newData.products_size
+        }
+      })
+      .then(response => {
+        this.$toast.open({
+          message: response.data.message,
+          type: 'is-success'
+        })
+        this.$emit('update')
+        this.$parent.close()
+      })
+      .catch(err => {
+        this.$toast.open({
+          message: err.response.data.message,
+          type: 'is-danger'
+        })
+      })
     }
   },
   computed: {
@@ -112,6 +171,14 @@ export default {
       if (this.loaded) {
         return this.newData.products_pictures.length > 0
       }
+    },
+    filteredBrands () {
+      return this.brands.filter((option) => {
+        return option.brand_id
+          .toString()
+          .toLowerCase()
+          .indexOf(this.newData.products_brand.toLowerCase()) >= 0
+      })
     }
   }
 }

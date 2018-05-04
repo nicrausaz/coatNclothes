@@ -36,7 +36,7 @@
       </template>
     </b-table>
     <b-modal :active.sync="isEditing" has-modal-card>
-      <productEditModal :id="productId"></productEditModal>
+      <productEditModal @update="getProducts" :id="productId"></productEditModal>
     </b-modal>
   </section>
 </template>
@@ -60,6 +60,15 @@ export default {
     editProduct (id) {
       this.productId = id
       this.isEditing = true
+    },
+    getProducts () {
+      this.axios({
+        method: 'get',
+        url: '/products'
+      })
+      .then((response) => {
+        this.products = response.data
+      })
     }
   },
   computed: {
@@ -74,13 +83,7 @@ export default {
     }
   },
   created () {
-    this.axios({
-      method: 'get',
-      url: '/products'
-    })
-    .then((response) => {
-      this.products = response.data
-    })
+    this.getProducts()
   },
   components: {
     productEditModal

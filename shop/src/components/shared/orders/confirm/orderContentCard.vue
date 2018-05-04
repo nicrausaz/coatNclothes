@@ -7,7 +7,7 @@
       </a>
     </div>
     <div class="card-content">
-      <div class="content columns">
+      <div class="content columns is-multiline">
         <orderContentProduct v-for="product in basketproducts" :key="product.products_id" :data="product"></orderContentProduct>
       </div>
     </div>

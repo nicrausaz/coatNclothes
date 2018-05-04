@@ -4,10 +4,10 @@
     <section class="section">
       <div v-if="!isShopBagEmpty" class="columns">
         <div class="columns column is-multiline is-three-quarter is-mobile">
-          <shopBagProduct v-for="product in products" :key="product.products_id" :infos="product" @delete="getBasket"></shopBagProduct>
+          <shopBagProduct v-for="product in products" :key="product.products_id" :infos="product" @update="getBasket" @delete="getBasket"></shopBagProduct>
         </div>
         <div class="column is-one-quarter">
-          <sidebarShopbag :products="products" :number="articlesNumberText" :canconfirm="sizesValid"></sidebarShopbag>
+          <sidebarShopbag :products="products" :canconfirm="sizesValid"></sidebarShopbag>
         </div>
       </div>
       <div class="has-text-centered subtitle is-3" v-else>
@@ -63,16 +63,6 @@ export default {
   computed: {
     isShopBagEmpty () {
       return this.products.length === 0
-    },
-    articlesNumberText () {
-      switch (this.products.length) {
-        case 0:
-          return 'Aucun article'
-        case 1:
-          return '1 article'
-        default:
-          return this.articleNumber + ' articles'
-      }
     },
     totalPrice () {
       let totalPrice = 0
