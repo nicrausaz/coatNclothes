@@ -77,8 +77,7 @@ export default {
       categories: [],
       brands: [],
       newData: {},
-      loaded: false,
-      selected: null
+      loaded: false
     }
   },
   created () {
@@ -93,6 +92,9 @@ export default {
       })
       .then(response => {
         this.categories = response.data
+        this.categories.forEach(category => {
+          console.log()
+        })
       })
     },
     getBrands () {

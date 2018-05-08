@@ -25,7 +25,7 @@
       </b-field>
       <b-field label="Marque">
         <div class="field is-grouped">
-          <b-select placeholder="Choisir une marque" v-model="newData.products_brand" expanded>
+          <b-select placeholder="Choisir une marque" v-model="newData.fk_brand_id" expanded>
             <option v-for="brand in brands" :value="brand.brand_id" :key="brand.brand_id"> {{ brand.brand_name }} </option>
           </b-select>
           <button class="button is-primary" @click="addBrand">
@@ -35,6 +35,7 @@
       </b-field>
       <b-field label="Tailles disponibles">
         <b-field>
+          {{newData.products_size}}
           <b-checkbox-button v-model="newData.products_size" native-value="XS">
             <span>XS</span>
           </b-checkbox-button>
@@ -121,16 +122,6 @@ export default {
         this.brands = response.data
       })
     },
-    getFilteredCategories (text) {
-      this.filteredCategories = this.categories.filter((option) => {
-        return option.toString().toLowerCase().indexOf(text.toLowerCase()) >= 0
-      })
-    },
-    getFilteredBrands (text) {
-      this.filteredBrands = this.brands.filter((option) => {
-        return option.toString().toLowerCase().indexOf(text.toLowerCase()) >= 0
-      })
-    },
     update () {
       this.axios({
         method: 'patch',
@@ -141,7 +132,7 @@ export default {
           products_description: this.newData.products_description,
           products_category: this.newData.fk_category_id,
           products_price: this.newData.products_price,
-          products_brand: this.newData.products_brand, // must be id
+          products_brand: this.newData.fk_brand_id,
           products_size: [] // this.newData.products_size
         }
       })
@@ -160,22 +151,43 @@ export default {
         })
       })
     },
-    addBrand () {},
-    addCategory () {}
+    addBrand () {
+      this.$dialog.prompt({
+        message: `Nouvelle marque`,
+        cancelText: 'Annuler',
+        confirmText: 'Confirmer',
+        onConfirm: (value) => {
+          this.axios({
+            method: 'put',
+            url: '/admin/brand',
+            data: {
+              brand_name: value
+            }
+          })
+          .then(response => {
+            this.$toast.open({
+              message: response.data.message,
+              type: 'is-success'
+            })
+            this.getBrands()
+          })
+        }
+      })
+    },
+    addCategory () {
+      this.$dialog.prompt({
+        message: `Nouvelle catégorie`,
+        cancelText: 'Annuler',
+        confirmText: 'Confirmer',
+        onConfirm: (value) => this.$toast.open(`Your name is: ${value}`)
+      })
+    }
   },
   computed: {
     hasPicture () {
       if (this.loaded) {
         return this.newData.products_pictures.length > 0
       }
-    },
-    filteredBrands () {
-      return this.brands.filter((option) => {
-        return option.brand_id
-          .toString()
-          .toLowerCase()
-          .indexOf(this.newData.products_brand.toLowerCase()) >= 0
-      })
     }
   }
 }
