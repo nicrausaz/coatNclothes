@@ -11,6 +11,10 @@
         <option value="20">20 par page</option>
       </b-select>
       <b-input placeholder="Rechercher..." type="search" icon-pack="fas" icon="search" v-model="searchContent"></b-input>
+        <a class="button is-primary is-pulled-right" @click="createProduct">
+          <b-icon icon="plus"></b-icon>
+          <span>Nouveau produit</span>
+        </a>
     </b-field>
     <b-table :data="filteredProducts" :per-page="filter.perPage" default-sort="products_id" :mobile-cards="false">
       <template slot-scope="props">
@@ -38,11 +42,15 @@
     <b-modal :active.sync="isEditing" has-modal-card>
       <productEditModal @update="getProducts" :id="productId"></productEditModal>
     </b-modal>
+    <b-modal :active.sync="isCreating" has-modal-card>
+      <newProductModal @create="getProducts"></newProductModal>
+    </b-modal>
   </section>
 </template>
 
 <script>
 import productEditModal from '@/components/shared/admin/products/editProductModal'
+import newProductModal from '@/components/shared/admin/products/newProductModal'
 
 export default {
   data () {
@@ -51,6 +59,7 @@ export default {
         perPage: 20
       },
       isEditing: false,
+      isCreating: false,
       searchContent: '',
       products: [],
       productId: 0
@@ -69,6 +78,9 @@ export default {
       .then((response) => {
         this.products = response.data
       })
+    },
+    createProduct () {
+      this.isCreating = true
     }
   },
   computed: {
@@ -86,7 +98,8 @@ export default {
     this.getProducts()
   },
   components: {
-    productEditModal
+    productEditModal,
+    newProductModal
   }
 }
 </script>

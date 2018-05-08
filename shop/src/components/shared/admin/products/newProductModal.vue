@@ -44,23 +44,17 @@
             <span>XXL</span>
           </b-checkbox-button>
         </b-field>
+        {{newData.products_size}}
       </b-field>
 
       <b-field label="Images">
-        <div v-if="hasPicture" class="columns is-multiline is-mobile">
-          <figure class="image is-128x128 column" v-for="pic in newData.products_pictures" :key="pic.altName">
-            <img :src="pic.path" draggable="false">
-          </figure>
-        </div>
-        <div v-else>
-          No pictures
-        </div>
         <!-- upload button -->
+        {{newData}}
       </b-field>
     </section>
     <footer class="modal-card-foot">
       <button class="button" @click="this.$parent.close">Annuler</button>
-      <button class="button is-primary" @click="update">Confirmer</button>
+      <button class="button is-primary" @click="createProduct">Confirmer</button>
     </footer>
   </div>
 </template>
@@ -78,21 +72,10 @@ export default {
     }
   },
   created () {
-    this.getProduct()
     this.getBrands()
     this.getCategories()
   },
   methods: {
-    getProduct () {
-      this.axios({
-        method: 'get',
-        url: '/product/' + this.id
-      })
-      .then(response => {
-        this.newData = response.data
-        this.loaded = true
-      })
-    },
     getCategories () {
       this.axios({
         method: 'get',
@@ -111,28 +94,18 @@ export default {
         this.brands = response.data
       })
     },
-    getFilteredCategories (text) {
-      this.filteredCategories = this.categories.filter((option) => {
-        return option.toString().toLowerCase().indexOf(text.toLowerCase()) >= 0
-      })
-    },
-    getFilteredBrands (text) {
-      this.filteredBrands = this.brands.filter((option) => {
-        return option.toString().toLowerCase().indexOf(text.toLowerCase()) >= 0
-      })
-    },
-    update () {
+    createProduct () {
       this.axios({
-        method: 'patch',
-        url: '/admin/product/' + this.id,
+        method: 'put',
+        url: '/admin/product',
         data: {
           products_lang: 'fr',
           products_name: this.newData.products_name,
           products_description: this.newData.products_description,
-          products_category: this.newData.fk_category_id,
+          products_category: this.newData.fk_category_id, // category id
           products_price: this.newData.products_price,
-          products_brand: this.newData.products_brand, // must be id
-          products_size: [] // this.newData.products_size
+          products_brand: this.newData.products_brand, // Brand id
+          products_size: ['S'] // this.newData.products_size
         }
       })
       .then(response => {
@@ -140,7 +113,7 @@ export default {
           message: response.data.message,
           type: 'is-success'
         })
-        this.$emit('update')
+        this.$emit('create')
         this.$parent.close()
       })
       .catch(err => {
