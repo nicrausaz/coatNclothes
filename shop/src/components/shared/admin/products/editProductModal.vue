@@ -14,14 +14,24 @@
         <b-input v-model="newData.products_price" type="number" step="1"></b-input>
       </b-field>
       <b-field label="Catégorie">
-        <b-select placeholder="Choisir une catégorie" v-model="newData.fk_category_id" expanded>
+        <div class="field is-grouped">
+          <b-select placeholder="Choisir une catégorie" v-model="newData.fk_category_id" expanded>
           <option v-for="category in categories" :value="category.id" :key="category.id"> {{ category.name }} </option>
         </b-select>
+          <button class="button is-primary" @click="addCategory">
+            <b-icon icon="plus" size="is-small"></b-icon>
+          </button>
+        </div>
       </b-field>
       <b-field label="Marque">
-        <b-select placeholder="Choisir une marque" v-model="newData.products_brand" expanded>
-          <option v-for="brand in brands" :value="brand.brand_id" :key="brand.brand_id"> {{ brand.brand_name }} </option>
-        </b-select>
+        <div class="field is-grouped">
+          <b-select placeholder="Choisir une marque" v-model="newData.products_brand" expanded>
+            <option v-for="brand in brands" :value="brand.brand_id" :key="brand.brand_id"> {{ brand.brand_name }} </option>
+          </b-select>
+          <button class="button is-primary" @click="addBrand">
+            <b-icon icon="plus" size="is-small"></b-icon>
+          </button>
+        </div>
       </b-field>
       <b-field label="Tailles disponibles">
         <b-field>
@@ -149,7 +159,9 @@ export default {
           type: 'is-danger'
         })
       })
-    }
+    },
+    addBrand () {},
+    addCategory () {}
   },
   computed: {
     hasPicture () {
