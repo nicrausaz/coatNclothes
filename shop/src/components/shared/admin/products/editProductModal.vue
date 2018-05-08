@@ -35,7 +35,6 @@
       </b-field>
       <b-field label="Tailles disponibles">
         <b-field>
-          {{newData.products_size}}
           <b-checkbox-button v-model="newData.products_size" native-value="XS">
             <span>XS</span>
           </b-checkbox-button>
@@ -133,7 +132,7 @@ export default {
           products_category: this.newData.fk_category_id,
           products_price: this.newData.products_price,
           products_brand: this.newData.fk_brand_id,
-          products_size: [] // this.newData.products_size
+          products_size: JSON.stringify(this.newData.products_size)
         }
       })
       .then(response => {
