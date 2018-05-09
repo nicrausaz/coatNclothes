@@ -1,7 +1,7 @@
 <template>
   <section>
     <h2 class="subtitle">
-      Éditer les commandes
+      Éditer les utilisateur
     </h2>
     <hr>
     <b-field grouped group-multiline>
@@ -12,25 +12,26 @@
       </b-select>
       <b-input placeholder="Rechercher..." type="search" icon-pack="fas" icon="search" v-model="searchContent"></b-input>
     </b-field>
-    <b-table :data="orders" :per-page="filter.perPage" default-sort="orders_id" :mobile-cards="false">
+    <b-table :data="users" :per-page="filter.perPage" default-sort="users_id" :mobile-cards="false">
       <template slot-scope="props">
-        <b-table-column field="orders_id" label="No" width="40" sortable numeric>
-          {{ props.row.orders_id }}
+        <b-table-column field="users_id" label="No" width="40" sortable numeric>
+          {{ props.row.users_id }}
         </b-table-column>
 
-        <b-table-column field="orders_paid" label="Payé" sortable>
-          {{ props.row.orders_paid }}
+        <b-table-column field="users_name" label="Nom Prénom" sortable>
+          {{ props.row.users_name }}
+          {{ props.row.users_fsname }}
         </b-table-column>
 
-        <b-table-column field="orders_paidDate" label="Date de paiement" sortable>
-          {{ props.row.orders_paidDate }}
+        <b-table-column field="users_login" label="Pseudo" sortable>
+          {{ props.row.users_login }}
         </b-table-column>
 
-        <b-table-column field="orders_createdDate" label="Date de commande" sortable>
-          {{ props.row.orders_createdDate }}
+        <b-table-column field="users_createDate" label="Date d'inscription" sortable>
+          {{ props.row.users_createDate }}
         </b-table-column>
-        <b-table-column field="ordersStatus_name" label="Status" sortable>
-          {{ props.row.ordersStatus_name }}
+        <b-table-column field="users_admin" label="Admin" sortable>
+          {{ props.row.users_admin }}
         </b-table-column>
 
         <b-table-column label="Actions" centered>
@@ -45,13 +46,13 @@
       </template>
     </b-table>
     <b-modal :active.sync="isEditing" has-modal-card>
-      <productEditModal :id="orderId" @create="getOrders"></productEditModal>
+      <!-- <productEditModal :id="userId" @create="getOrders"></productEditModal> -->
     </b-modal>
   </section>
 </template>
 
 <script>
-import productEditModal from '@/components/shared/admin/orders/orderEditModal'
+// import productEditModal from '@/components/shared/admin/orders/orderEditModal'
 
 export default {
   data () {
@@ -61,8 +62,8 @@ export default {
       },
       isEditing: false,
       searchContent: '',
-      orders: [],
-      orderId: 0
+      users: [],
+      userId: 0
     }
   },
   created () {
@@ -72,19 +73,19 @@ export default {
     getOrders () {
       this.axios({
         method: 'get',
-        url: '/admin/orders'
+        url: '/admin/users'
       })
       .then(response => {
-        this.orders = response.data
+        this.users = response.data
       })
     },
     editOrder (id) {
-      this.orderId = id
+      this.userId = id
       this.isEditing = true
     }
   },
   components: {
-    productEditModal
+    // productEditModal
   }
 }
 </script>

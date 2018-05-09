@@ -4,6 +4,7 @@
       <p class="modal-card-title">Info & édition de commande</p>
     </header>
     <section class="modal-card-body">
+      contenu, dates, status
       <!-- <b-field label="Nom">
         <b-input></b-input>
       </b-field> -->
@@ -24,9 +25,18 @@ export default {
     }
   },
   created () {
-
+    this.getOrder()
   },
   methods: {
+    getOrder () {
+      this.axios({
+        method: 'get',
+        url: '/order/' + this.id
+      })
+      .then(response => {
+        this.orderData = response.data
+      })
+    },
     updateOrder () {}
   }
 }
