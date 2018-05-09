@@ -35,7 +35,7 @@
 
         <b-table-column label="Actions" centered>
           <b-tooltip label="Détails et édition" position="is-left">
-            <a @click="showOrder(props.row.orders_id)">
+            <a @click="editOrder(props.row.orders_id)">
               <span class="icon is-small">
                 <b-icon icon="edit"></b-icon>
               </span>
@@ -44,18 +44,14 @@
         </b-table-column>
       </template>
     </b-table>
-    <!-- <b-modal :active.sync="isEditing" has-modal-card>
-      <productEditModal @update="getProducts" :id="productId"></productEditModal>
+    <b-modal :active.sync="isEditing" has-modal-card>
+      <productEditModal @create="getOrders"></productEditModal>
     </b-modal>
-    <b-modal :active.sync="isCreating" has-modal-card>
-      <newProductModal @create="getProducts"></newProductModal>
-    </b-modal> -->
   </section>
 </template>
 
 <script>
-// import productEditModal from '@/components/shared/admin/products/editProductModal'
-// import newProductModal from '@/components/shared/admin/products/newProductModal'
+import productEditModal from '@/components/shared/admin/orders/orderEditModal'
 
 export default {
   data () {
@@ -64,7 +60,6 @@ export default {
         perPage: 20
       },
       isEditing: false,
-      isCreating: false,
       searchContent: '',
       orders: [],
       orderId: 0
@@ -84,7 +79,13 @@ export default {
       })
     },
     showOrder () {},
-    editOrder () {}
+    editOrder (id) {
+      this.orderId = id
+      this.isEditing = true
+    }
+  },
+  components: {
+    productEditModal
   }
 }
 </script>
