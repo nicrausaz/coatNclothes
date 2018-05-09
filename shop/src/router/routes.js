@@ -11,7 +11,7 @@ import admin from '@/components/views/admin/admin'
 import adminProducts from '@/components/shared/admin/products/productsTable'
 import adminDashboard from '@/components/shared/admin/dashboard'
 import adminUsers from '@/components/shared/admin/users/users'
-import adminOrders from '@/components/shared/admin/orders/orders'
+import adminOrders from '@/components/shared/admin/orders/ordersTable'
 
 import NotFound from '@/components/views/404'
 
