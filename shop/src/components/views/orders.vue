@@ -14,7 +14,7 @@
               {{ props.row.orders_paidDate }}
             </b-table-column>
             <b-table-column label="État" >
-              {{ props.row.orders_status}}
+              {{ props.row.ordersStatus_name}}
             </b-table-column>
             <b-table-column label="Date">
               {{ props.row.orders_createdDate }}
@@ -48,13 +48,14 @@ import orderProduct from '@/components/shared/orders/orderProduct'
 export default {
   data () {
     return {
-      orders: []
+      orders: [],
+      ordersStatusAvailable: []
     }
   },
   created () {
     this.axios({
       method: 'get',
-      url: 'orders/user/' + this.$store.state.user.users_id + '/contents'
+      url: 'orders/user/' + this.$store.state.user.users_id
     })
     .then((response) => {
       this.orders = response.data
@@ -66,6 +67,15 @@ export default {
     },
     printOrder (id) {
       window.print()
+    },
+    getOrdersStatusAvailable () {
+      this.axios({
+        method: 'get',
+        url: '/admin/orders/status/available'
+      })
+      .then(response => {
+        this.ordersStatusAvailable = response.data
+      })
     }
   },
   computed: {

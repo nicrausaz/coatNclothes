@@ -33,8 +33,7 @@ export default {
   },
   computed: {
     hasEnoughtSugestions () {
-      return this.suggestedproducts.length >= 1
-      // set to 4
+      return this.suggestedproducts.length >= 3
     }
   }
 }

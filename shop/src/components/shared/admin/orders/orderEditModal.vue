@@ -6,7 +6,12 @@
     <section class="modal-card-body">
       <h1 class="subtitle">Infos</h1>
       <p><b>Date de commande:</b> {{orderBaseInfos.orders_createdDate}}</p>
-      <p><b>Client:</b> ?? ?? (#{{orderBaseInfos.fk_users_id}})</p>
+      <p><b>Client:</b>
+        {{userData.users_name}}
+        {{userData.users_fsname}},
+        {{userData.users_email}}
+        (#{{orderBaseInfos.fk_users_id}})
+      </p>
       <p><b>Adresse:</b> {{orderBaseInfos.fk_adresses_id}}</p>
       <b-table :data="orderData" default-sort="ordersContent_id" :mobile-cards="false">
         <template slot-scope="props">
@@ -14,7 +19,6 @@
             {{ props.row.ordersContent_quantity }}
           </b-table-column>
           <b-table-column field="ordersContent_quantity" label="Produit">
-            {{orderProducts}}
             {{ props.row.fk_products_id }}
           </b-table-column>
           <b-table-column field="ordersContent_quantity" label="Taille">
@@ -23,13 +27,10 @@
         </template>
       </b-table>
       <br>
-      <h1 class="subtitle">Edition</h1>
 
-      <b-field label="Payée ?">
-        <b-checkbox v-model="orderBaseInfos.orders_paid" ></b-checkbox>
-      </b-field>
+      <h1 class="subtitle">Edition</h1>
       <b-field>
-        <!-- <b-datepicker placeholder="Date de paiement" icon="calendar-alt" v-model="paymentDate"></b-datepicker> -->
+        <b-checkbox v-model="orderBaseInfos.orders_paid" :disabled="orderIsPaid" true-value="1" false-value="0">Paiement reçu {{orderPaidDate}}</b-checkbox>
       </b-field>
       <b-field label="Etat de la commande">
         <b-select placeholder="Etat de la commande" v-model="orderBaseInfos.fk_ordersStatus_id" expanded>
@@ -52,10 +53,8 @@ export default {
     return {
       orderBaseInfos: {},
       orderData: [],
-      ordersStatusAvailable: {},
-      newData: {
-        orderStatus: null
-      }
+      userData: {},
+      ordersStatusAvailable: []
     }
   },
   created () {
@@ -63,7 +62,15 @@ export default {
     this.getOrder()
     this.getOrdersStatusAvailable()
     this.getUser()
-    this.getProducts()
+    // this.getProducts()
+  },
+  computed: {
+    orderIsPaid () {
+      return this.orderBaseInfos.orders_paid === 1
+    },
+    orderPaidDate () {
+      return this.orderBaseInfos.orders_paid === 1 ? 'le ' + this.orderBaseInfos.orders_paidDate : ''
+    }
   },
   methods: {
     getOrder () {
@@ -93,7 +100,21 @@ export default {
         this.userData = response.data
       })
     },
-    updateOrder () {}
+    updateOrder () {
+      // if paid: patch /admin/order/id/paid
+      this.axios({
+        method: 'patch',
+        url: '/admin/order/' + this.orderBaseInfos.orders_id + '/status/' + this.orderBaseInfos.fk_ordersStatus_id
+      })
+      .then(response => {
+        this.$toast.open({
+          message: response.data.message,
+          type: 'is-success'
+        })
+        this.$emit('update')
+        this.$parent.close()
+      })
+    }
   }
 }
 </script>

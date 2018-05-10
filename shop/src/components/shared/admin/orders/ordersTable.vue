@@ -45,13 +45,13 @@
       </template>
     </b-table>
     <b-modal :active.sync="isEditing" has-modal-card>
-      <productEditModal :orderInfos="orderInfos" @create="getOrders"></productEditModal>
+      <orderEditModal :orderInfos="orderInfos" @update="getOrders"></orderEditModal>
     </b-modal>
   </section>
 </template>
 
 <script>
-import productEditModal from '@/components/shared/admin/orders/orderEditModal'
+import orderEditModal from '@/components/shared/admin/orders/orderEditModal'
 
 export default {
   data () {
@@ -84,7 +84,7 @@ export default {
     }
   },
   components: {
-    productEditModal
+    orderEditModal
   }
 }
 </script>
