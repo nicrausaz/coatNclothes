@@ -12,7 +12,7 @@
       </b-select>
       <b-input placeholder="Rechercher..." type="search" icon-pack="fas" icon="search" v-model="searchContent"></b-input>
     </b-field>
-    <b-table :data="orders" :per-page="filter.perPage" default-sort="orders_id" :mobile-cards="false">
+    <b-table :data="orders" :per-page="filter.perPage" :paginated="true" :pagination-simple="true" default-sort="orders_id" :mobile-cards="false">
       <template slot-scope="props">
         <b-table-column field="orders_id" label="No" width="40" sortable numeric>
           {{ props.row.orders_id }}
@@ -57,7 +57,7 @@ export default {
   data () {
     return {
       filter: {
-        perPage: 20
+        perPage: 10
       },
       isEditing: false,
       searchContent: '',

@@ -16,7 +16,7 @@
           <span>Nouveau produit</span>
         </a>
     </b-field>
-    <b-table :data="filteredProducts" :per-page="filter.perPage" default-sort="products_id" :mobile-cards="false">
+    <b-table :data="filteredProducts" :per-page="filter.perPage" :paginated="true" :pagination-simple="true" default-sort="products_id" :mobile-cards="false">
       <template slot-scope="props">
         <b-table-column field="products_id" label="No" width="40" sortable numeric>
           {{ props.row.products_id }}
