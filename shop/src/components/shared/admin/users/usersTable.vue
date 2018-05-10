@@ -46,7 +46,7 @@
       </template>
     </b-table>
     <b-modal :active.sync="isEditing" has-modal-card>
-      <userModal :id="userId" @create="getUsers"></userModal>
+      <userModal :id="userId" @update="getUsers"></userModal>
     </b-modal>
   </section>
 </template>

@@ -2,6 +2,10 @@
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">Modifier votre adresse</p>
+      <a class="button is-danger is-outlined is-pulled-right" @click.stop="deleteAdress()">
+        <span>Supprimer</span>
+        <b-icon icon="trash" size="is-small"></b-icon>
+      </a>
     </header>
     <section class="modal-card-body">
       <b-field label="Adresse">
@@ -21,10 +25,6 @@
           Adresse par défaut ?
         </b-checkbox>
       </b-field>
-        <a class="button is-danger is-outlined is-pulled-right" @click.stop="deleteAdress()">
-          <span>Supprimer</span>
-          <b-icon icon="trash" size="is-small"></b-icon>
-        </a>
     </section>
     <footer class="modal-card-foot">
       <button class="button" type="button" @click="this.$parent.close">Annuler</button>

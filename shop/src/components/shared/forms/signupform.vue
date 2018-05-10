@@ -10,14 +10,13 @@
               <b-input v-model="infos.users_email" icon="at" placeholder="Email" type="email" required></b-input>
             </b-field>
             <b-field label="Mot de passe">
-                <b-input type="password" v-model="infos.users_pass" icon="key" placeholder="Mot de passe" minlength="6" password-reveal required>
-                </b-input>
+              <b-input type="password" v-model="infos.users_pass" icon="key" placeholder="Mot de passe" minlength="6" password-reveal required></b-input>
             </b-field>
             <b-field label="Prénom">
-                <b-input v-model="infos.users_fsname" icon="address-card" placeholder="Prénom" required></b-input>
+              <b-input v-model="infos.users_fsname" icon="address-card" placeholder="Prénom" required></b-input>
             </b-field>
             <b-field label="Nom">
-                <b-input v-model="infos.users_name" icon="address-card" placeholder="Nom" required></b-input>
+              <b-input v-model="infos.users_name" icon="address-card" placeholder="Nom" required></b-input>
             </b-field>
             <div class="level-right">
               <button class="button is-primary" @click="createUser">Créer le compte</button>

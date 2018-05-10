@@ -66,6 +66,10 @@ export default {
       this.$router.push('/admin/dashboard')
     },
     logoff () {
+      this.axios({
+        method: 'patch',
+        url: '/logout'
+      })
       this.$store.commit('detroyUser')
       this.$toast.open({
         message: 'Déconnecté !',

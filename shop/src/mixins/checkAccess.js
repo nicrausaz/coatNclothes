@@ -14,12 +14,12 @@ export default {
         url: '/token'
       })
       .catch(() => {
+        this.$store.commit('detroyUser')
+        this.$router.push('/user')
         this.$toast.open({
           message: 'Session expirée, veuillez vous connecter à nouveau',
           type: 'is-warning'
         })
-        this.$store.commit('detroyUser')
-        this.$router.push('/user')
       })
     }
   }
