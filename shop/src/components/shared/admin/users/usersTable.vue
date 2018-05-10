@@ -36,7 +36,7 @@
 
         <b-table-column label="Actions" centered>
           <b-tooltip label="Détails et édition" position="is-left">
-            <a @click="editOrder(props.row.orders_id)">
+            <a @click="editUser(props.row.users_id)">
               <span class="icon is-small">
                 <b-icon icon="edit"></b-icon>
               </span>
@@ -46,13 +46,13 @@
       </template>
     </b-table>
     <b-modal :active.sync="isEditing" has-modal-card>
-      <!-- <productEditModal :id="userId" @create="getOrders"></productEditModal> -->
+      <userModal :id="userId" @create="getUsers"></userModal>
     </b-modal>
   </section>
 </template>
 
 <script>
-// import productEditModal from '@/components/shared/admin/orders/orderEditModal'
+import userModal from '@/components/shared/admin/users/userModal'
 
 export default {
   data () {
@@ -67,10 +67,10 @@ export default {
     }
   },
   created () {
-    this.getOrders()
+    this.getUsers()
   },
   methods: {
-    getOrders () {
+    getUsers () {
       this.axios({
         method: 'get',
         url: '/admin/users'
@@ -79,13 +79,13 @@ export default {
         this.users = response.data
       })
     },
-    editOrder (id) {
+    editUser (id) {
       this.userId = id
       this.isEditing = true
     }
   },
   components: {
-    // productEditModal
+    userModal
   }
 }
 </script>

@@ -16,6 +16,9 @@
     <ul class="menu-list">
       <router-link to="/admin/users" :class="{'is-active' : isActive('/admin/users')}">Utilisateurs</router-link>
     </ul>
+    <ul class="menu-list">
+      <router-link to="/admin/categories" :class="{'is-active' : isActive('/admin/categories')}">Catégories</router-link>
+    </ul>
   </aside>
 </template>
 

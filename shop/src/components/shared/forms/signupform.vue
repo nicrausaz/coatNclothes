@@ -13,10 +13,6 @@
                 <b-input type="password" v-model="infos.users_pass" icon="key" placeholder="Mot de passe" minlength="6" password-reveal required>
                 </b-input>
             </b-field>
-            <b-field label="Confirmer mot de passe">
-                <b-input type="password" v-model="passwordConfirm" icon="key" placeholder="Confirmer le mot de passe" password-reveal required>
-                </b-input>
-            </b-field>
             <b-field label="Prénom">
                 <b-input v-model="infos.users_fsname" icon="address-card" placeholder="Prénom" required></b-input>
             </b-field>
@@ -43,42 +39,31 @@ export default {
         users_name: '',
         users_fsname: ''
       },
-      passwordConfirm: '',
       errors: []
     }
   },
   methods: {
-    doublePasswordIsValid () {
-      return this.infos.users_pass === this.passwordConfirm && this.infos.users_pass !== ''
-    },
     createUser (event) {
       event.preventDefault()
-      if (this.doublePasswordIsValid()) {
-        this.axios({
-          method: 'post',
-          url: '/register',
-          data: this.infos
-        })
-        .then(response => {
-          delete response.data.message
-          delete response.data.status_code
-          this.$store.commit('setUser', response.data)
-          location.reload()
-          this.$toast.open({
-            message: response.data.message,
-            type: 'is-success'
-          })
-        })
-        .catch(errors => {
-          this.errors = errors.response.data.errors
-          this.toastErrors()
-        })
-      } else {
+      this.axios({
+        method: 'post',
+        url: '/register',
+        data: this.infos
+      })
+      .then(response => {
+        delete response.data.message
+        delete response.data.status_code
+        this.$store.commit('setUser', response.data)
+        location.reload()
         this.$toast.open({
-          message: 'Les mots de passe ne correspondent pas !',
-          type: 'is-danger'
+          message: response.data.message,
+          type: 'is-success'
         })
-      }
+      })
+      .catch(errors => {
+        this.errors = errors.response.data.errors
+        this.toastErrors()
+      })
     },
     toastErrors () {
       let self = this

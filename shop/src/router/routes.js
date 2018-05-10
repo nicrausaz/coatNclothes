@@ -12,6 +12,7 @@ import adminProducts from '@/components/shared/admin/products/productsTable'
 import adminDashboard from '@/components/shared/admin/dashboard'
 import adminUsers from '@/components/shared/admin/users/usersTable'
 import adminOrders from '@/components/shared/admin/orders/ordersTable'
+import adminCategories from '@/components/shared/admin/categories/categoriesTable'
 
 import NotFound from '@/components/views/404'
 
@@ -82,6 +83,10 @@ export default {
         {
           path: 'users',
           component: adminUsers
+        },
+        {
+          path: 'categories',
+          component: adminCategories
         }
       ]
     },

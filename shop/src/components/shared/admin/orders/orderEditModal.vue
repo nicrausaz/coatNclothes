@@ -4,10 +4,19 @@
       <p class="modal-card-title">Info & édition de commande</p>
     </header>
     <section class="modal-card-body">
-      contenu, dates, status
-      <!-- <b-field label="Nom">
-        <b-input></b-input>
-      </b-field> -->
+      Contenu
+      
+      dates
+      
+      status
+      {{orderData}}
+      <!-- <b-table :data="orders" :per-page="filter.perPage" default-sort="orders_id" :mobile-cards="false">
+      <template slot-scope="props">
+        <b-table-column field="orders_id" label="No" width="40" sortable numeric>
+          {{ props.row.orders_id }}
+        </b-table-column>
+      </template>
+    </b-table> -->
     </section>
     <footer class="modal-card-foot">
       <button class="button" @click="this.$parent.close">Annuler</button>
@@ -31,7 +40,7 @@ export default {
     getOrder () {
       this.axios({
         method: 'get',
-        url: '/order/' + this.id
+        url: '/admin/order/' + this.id
       })
       .then(response => {
         this.orderData = response.data
