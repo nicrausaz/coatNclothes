@@ -30,8 +30,8 @@
         <b-table-column field="users_createDate" label="Date d'inscription" sortable>
           {{ props.row.users_createDate }}
         </b-table-column>
-        <b-table-column field="users_admin" label="Admin" sortable>
-          {{ props.row.users_admin }}
+        <b-table-column field="users_admin" label="Admin" sortable centered>
+          <b-icon size="is-small" :icon="isAdminIcon(props.row.users_admin)"></b-icon>
         </b-table-column>
 
         <b-table-column label="Actions" centered>
@@ -93,6 +93,9 @@ export default {
     editUser (id) {
       this.userId = id
       this.isEditing = true
+    },
+    isAdminIcon (isAdmin) {
+      return isAdmin ? 'check' : 'times'
     }
   },
   components: {

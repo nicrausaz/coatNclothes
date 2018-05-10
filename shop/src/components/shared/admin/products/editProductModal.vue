@@ -181,6 +181,7 @@ export default {
       })
       .then(response => {
         this.$parent.close()
+        this.$emit('update')
         this.$toast.open({
           message: response.data.message,
           type: 'is-success'

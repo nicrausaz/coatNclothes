@@ -11,14 +11,14 @@
         <option value="20">20 par page</option>
       </b-select>
     </b-field>
-    <b-table :data="orders" :per-page="filter.perPage" :paginated="true" :pagination-simple="true" default-sort="orders_id" :mobile-cards="false">
+    <b-table :data="orders" :per-page="filter.perPage" :paginated="true" :pagination-simple="true" default-sort="orders_createdDate" :default-sort-direction="'desc'" :mobile-cards="false">
       <template slot-scope="props">
         <b-table-column field="orders_id" label="No" width="40" sortable numeric>
           {{ props.row.orders_id }}
         </b-table-column>
 
         <b-table-column field="orders_paid" label="Payé" sortable>
-          {{ props.row.orders_paid }}
+           <b-icon size="is-small" :icon="isPaidIcon(props.row.orders_paid)"></b-icon>
         </b-table-column>
 
         <b-table-column field="orders_paidDate" label="Date de paiement" sortable>
@@ -79,6 +79,9 @@ export default {
     editOrder (orderInfos) {
       this.orderInfos = orderInfos
       this.isEditing = true
+    },
+    isPaidIcon (isAdmin) {
+      return isAdmin ? 'check' : 'times'
     }
   },
   components: {

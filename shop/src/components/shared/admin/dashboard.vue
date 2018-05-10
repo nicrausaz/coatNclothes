@@ -6,13 +6,12 @@
     <hr>
     <div class="graphs">
       <p>État global des commandes</p>
-      <pie-chart :data="globalOrdersData"></pie-chart>
+      <pie-chart :data="compactOrders"></pie-chart>
     </div>
     <div class="graphs">
       <p>Commandes par mois</p>
       <column-chart :data="monthlyOrdersData"></column-chart>
     </div>
-
   </div>
 </template>
 
@@ -20,8 +19,38 @@
 export default {
   data () {
     return {
-      globalOrdersData: [['En attente', 1], ['En traitement', 2], ['En livraison', 10], ['Terminée', 5]],
+      orders: [],
+      globalOrdersData: [],
       monthlyOrdersData: [['Janvier', 4], ['Fevrier', 2], ['Mars', 10], ['Avril', 5], ['Mai', 3], ['Juin', 4], ['Juillet', 2], ['Août', 8], ['Septembre', 5], ['Octobre', 3], ['Novembre', 5], ['Decembre', 3]]
+    }
+  },
+  created () { this.getOrders() },
+  computed: {
+    compactOrders () {
+      let result = {}
+      this.orders.forEach(obj => {
+        for (var key in obj) {
+          if (key === 'ordersStatus_name') {
+            if (result[obj[key]]) {
+              result[obj[key]] ++
+            } else {
+              result[obj[key]] = 1
+            }
+          }
+        }
+      })
+      return Object.entries(result)
+    }
+  },
+  methods: {
+    getOrders () {
+      this.axios({
+        method: 'get',
+        url: '/admin/orders'
+      })
+      .then(response => {
+        this.orders = response.data
+      })
     }
   }
 }
