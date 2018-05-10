@@ -35,7 +35,7 @@
 
         <b-table-column label="Actions" centered>
           <b-tooltip label="Détails et édition" position="is-left">
-            <a @click="editOrder(props.row.orders_id)">
+            <a @click="editOrder(props.row)">
               <span class="icon is-small">
                 <b-icon icon="edit"></b-icon>
               </span>
@@ -45,7 +45,7 @@
       </template>
     </b-table>
     <b-modal :active.sync="isEditing" has-modal-card>
-      <productEditModal :id="orderId" @create="getOrders"></productEditModal>
+      <productEditModal :orderInfos="orderInfos" @create="getOrders"></productEditModal>
     </b-modal>
   </section>
 </template>
@@ -62,7 +62,7 @@ export default {
       isEditing: false,
       searchContent: '',
       orders: [],
-      orderId: 0
+      orderInfos: {}
     }
   },
   created () {
@@ -78,8 +78,8 @@ export default {
         this.orders = response.data
       })
     },
-    editOrder (id) {
-      this.orderId = id
+    editOrder (orderInfos) {
+      this.orderInfos = orderInfos
       this.isEditing = true
     }
   },

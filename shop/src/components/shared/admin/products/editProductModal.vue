@@ -2,6 +2,10 @@
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">Modifier le produit</p>
+      <button class="button is-danger is-outlined" @click="deleteProduct">
+        <span>Supprimer</span>
+        <b-icon icon="trash" size="is-small"></b-icon>
+      </button>
     </header>
     <section class="modal-card-body">
       <b-field label="Nom">
@@ -16,11 +20,8 @@
       <b-field label="Catégorie">
         <div class="field is-grouped">
           <b-select placeholder="Choisir une catégorie" v-model="newData.fk_category_id" expanded>
-          <option v-for="category in categories" :value="category.id" :key="category.id"> {{ category.name }} </option>
+          <option v-for="category in categories" :value="category.category_id" :key="category.category_id"> {{ category.category_name }} </option>
         </b-select>
-          <button class="button is-primary" @click="addCategory">
-            <b-icon icon="plus" size="is-small"></b-icon>
-          </button>
         </div>
       </b-field>
       <b-field label="Marque">
@@ -106,7 +107,7 @@ export default {
     getCategories () {
       this.axios({
         method: 'get',
-        url: '/categories'
+        url: '/categories/list'
       })
       .then(response => {
         this.categories = response.data
@@ -173,12 +174,17 @@ export default {
         }
       })
     },
-    addCategory () {
-      this.$dialog.prompt({
-        message: `Nouvelle catégorie`,
-        cancelText: 'Annuler',
-        confirmText: 'Confirmer',
-        onConfirm: (value) => this.$toast.open(`Your name is: ${value}`)
+    deleteProduct () {
+      this.axios({
+        method: 'delete',
+        url: '/admin/product/' + this.id
+      })
+      .then(response => {
+        this.$parent.close()
+        this.$toast.open({
+          message: response.data.message,
+          type: 'is-success'
+        })
       })
     }
   },
