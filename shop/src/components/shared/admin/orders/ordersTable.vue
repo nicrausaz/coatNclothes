@@ -10,7 +10,6 @@
         <option value="10">10 par page</option>
         <option value="20">20 par page</option>
       </b-select>
-      <b-input placeholder="Rechercher..." type="search" icon-pack="fas" icon="search" v-model="searchContent"></b-input>
     </b-field>
     <b-table :data="orders" :per-page="filter.perPage" :paginated="true" :pagination-simple="true" default-sort="orders_id" :mobile-cards="false">
       <template slot-scope="props">
@@ -60,7 +59,6 @@ export default {
         perPage: 10
       },
       isEditing: false,
-      searchContent: '',
       orders: [],
       orderInfos: {}
     }
