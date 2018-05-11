@@ -10,8 +10,11 @@
         <option value="10">10 par page</option>
         <option value="20">20 par page</option>
       </b-select>
+      <b-select v-model="filter.orderStatus" placeholder="Recherche par status">
+        <option v-for="orderStatus in ordersStatusAvailable" :key="orderStatus.ordersStatus_id" :value="orderStatus.ordersStatus_id">{{orderStatus.ordersStatus_name}}</option>
+      </b-select>
     </b-field>
-    <b-table :data="orders" :per-page="filter.perPage" :paginated="true" :pagination-simple="true" default-sort="orders_createdDate" :default-sort-direction="'desc'" :mobile-cards="false">
+    <b-table :data="filteredOrders" :per-page="filter.perPage" :paginated="true" :pagination-simple="true" default-sort="orders_createdDate" :default-sort-direction="'desc'" :mobile-cards="false">
       <template slot-scope="props">
         <b-table-column field="orders_id" label="No" width="40" sortable numeric>
           {{ props.row.orders_id }}
@@ -56,15 +59,33 @@ export default {
   data () {
     return {
       filter: {
-        perPage: 10
+        perPage: 10,
+        orderStatus: null
       },
       isEditing: false,
       orders: [],
-      orderInfos: {}
+      orderInfos: {},
+      ordersStatusAvailable: []
     }
   },
   created () {
     this.getOrders()
+    this.getOrdersStatusAvailable()
+  },
+  computed: {
+    filteredOrders () {
+      let results = []
+      if (!this.filter.orderStatus) {
+        return this.orders
+      } else {
+        this.orders.forEach(order => {
+          if (order.fk_ordersStatus_id === this.filter.orderStatus) {
+            results.push(order)
+          }
+        })
+      }
+      return results
+    }
   },
   methods: {
     getOrders () {
@@ -74,6 +95,15 @@ export default {
       })
       .then(response => {
         this.orders = response.data
+      })
+    },
+    getOrdersStatusAvailable () {
+      this.axios({
+        method: 'get',
+        url: '/admin/orders/status/available'
+      })
+      .then(response => {
+        this.ordersStatusAvailable = response.data
       })
     },
     editOrder (orderInfos) {

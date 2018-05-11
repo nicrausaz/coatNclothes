@@ -64,8 +64,21 @@ export default {
       })
     },
     addAllToBasket () {
-      this.infos.ordersContent.forEach(product => {
-        this.addProductToBasket(product.fk_products_id)
+      this.axios({
+        method: 'put',
+        url: '/wishlist/' + this.infos.wishlist_id + '/addToBasket'
+      })
+      .then(response => {
+        this.$toast.open({
+          message: response.data.message,
+          type: 'is-success'
+        })
+      })
+      .catch(err => {
+        this.$toast.open({
+          message: err.response.data.message,
+          type: 'is-danger'
+        })
       })
     }
   },

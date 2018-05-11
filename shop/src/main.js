@@ -7,6 +7,7 @@ import router from './router'
 import Vuex from 'vuex'
 import store from './store/store.js'
 import axios from 'axios'
+import VueAnalytics from 'vue-analytics'
 
 import Buefy from 'buefy'
 import VueCarousel from 'vue-carousel'
@@ -21,6 +22,10 @@ Vue.use(Buefy, {
 Vue.use(VueCarousel)
 Vue.use(Vuex)
 Vue.use(VueChartkick, { Chartkick })
+
+Vue.use(VueAnalytics, {
+  id: 'UA-119016799-1'
+})
 
 Vue.config.productionTip = false
 

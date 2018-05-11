@@ -54,11 +54,13 @@ export default {
       orderBaseInfos: {},
       orderData: [],
       userData: {},
-      ordersStatusAvailable: []
+      ordersStatusAvailable: [],
+      originalPaidState: false
     }
   },
   created () {
     this.orderBaseInfos = this.orderInfos
+    this.originalPaidState = this.orderBaseInfos.orders_paid
     this.getOrder()
     this.getOrdersStatusAvailable()
     this.getUser()
@@ -102,6 +104,9 @@ export default {
     },
     updateOrder () {
       // if paid: patch /admin/order/id/paid
+      if (!this.originalPaidState && this.orderBaseInfos.orders_paid) {
+        console.log('need to pay')
+      }
       this.axios({
         method: 'patch',
         url: '/admin/order/' + this.orderBaseInfos.orders_id + '/status/' + this.orderBaseInfos.fk_ordersStatus_id
