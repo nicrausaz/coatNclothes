@@ -103,9 +103,11 @@ export default {
       })
     },
     updateOrder () {
-      // if paid: patch /admin/order/id/paid
       if (!this.originalPaidState && this.orderBaseInfos.orders_paid) {
-        console.log('need to pay')
+        this.axios({
+          method: 'patch',
+          url: '/admin/order/' + this.orderBaseInfos.orders_id + '/paid'
+        })
       }
       this.axios({
         method: 'patch',

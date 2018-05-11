@@ -6,14 +6,15 @@
         <a>
           <span class="has-text-left">{{products[index].basket_quantity}}x</span>
           <span class="has-text-centered">{{product.products_name}}</span>
+          <span class="has-text-centered">{{products[index].fk_productsSize_id}}</span>
           <span class="has-text-right"><small>{{product.products_price}} CHF</small></span>
         </a>
       </li>
     </ul>
     <p class="menu-label has-text-right">{{totalPrice}}</p>
-    <b-tooltip class="is-pulled-right" label="Choisissez une taille pour tous les articles" position="is-bottom" :active="!canconfirm">
+    <b-tooltip class="is-pulled-right" label="Choisissez une taille pour tous les articles" position="is-bottom" :active="!validSizes">
       <router-link to="/orderconfirm">
-        <button class="button is-primary is-large is-pulled-right" :disabled="!canconfirm">Commander</button>
+        <button class="button is-primary is-large is-pulled-right" :disabled="!validSizes">Commander</button>
       </router-link>
     </b-tooltip>
   </aside>
@@ -21,20 +22,23 @@
 
 <script>
 export default {
-  props: ['products', 'canconfirm'],
+  props: ['products'],
   data () {
     return {
-      productsData: []
+      productsData: [],
+      sizesValid: false
     }
   },
   watch: {
     products () {
       this.productsData = []
       this.getProductData()
+      // this.sizesValid = this.validSizes()
     }
   },
   created () {
     this.getProductData()
+    // this.sizesValid = this.validSizes()
   },
   methods: {
     getProductData () {
@@ -66,6 +70,15 @@ export default {
         default:
           return this.productsData.length + ' articles'
       }
+    },
+    validSizes () {
+      let valid = []
+      this.products.forEach(product => {
+        if (product.fk_productsSize_id === null) {
+          valid.push('empty')
+        }
+      })
+      return valid.length === 0
     }
   }
 }

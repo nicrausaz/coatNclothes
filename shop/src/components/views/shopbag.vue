@@ -7,7 +7,7 @@
           <shopBagProduct v-for="product in products" :key="product.products_id" :infos="product" @update="getBasket" @delete="getBasket"></shopBagProduct>
         </div>
         <div class="column is-one-quarter">
-          <sidebarShopbag :products="products" :canconfirm="sizesValid"></sidebarShopbag>
+          <sidebarShopbag :products="products"></sidebarShopbag>
         </div>
       </div>
       <div class="has-text-centered subtitle is-3" v-else>
@@ -28,19 +28,16 @@ export default {
   mixins: [checkAccess],
   data () {
     return {
-      products: [],
-      sizesValid: false
+      products: []
     }
   },
   created () {
-    this.sizesValid = this.getBasket()
-  },
-  watch: {
-    products () {
-      this.sizesValid = this.validSizes()
-    }
+    this.getBasket()
   },
   methods: {
+    test () {
+      setTimeout(this.getBasket(), 1000)
+    },
     getBasket () {
       this.axios({
         method: 'get',
@@ -49,15 +46,6 @@ export default {
       .then((response) => {
         this.products = response.data
       })
-    },
-    validSizes () {
-      let valid = []
-      this.products.forEach(product => {
-        if (product.fk_productsSize_id === null) {
-          valid.push('empty')
-        }
-      })
-      return valid.length === 0
     }
   },
   computed: {

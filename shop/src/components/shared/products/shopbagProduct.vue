@@ -20,7 +20,7 @@
         </div>
         <div class="actions columns">
           <div class="column">
-            <b-select placeholder="Taille" v-model="selectedSize" style="padding-left: 5px;">
+            <b-select placeholder="Taille" v-model="infos.fk_productsSize_id" style="padding-left: 5px;">
               <option v-for="size in product.products_size" :key="size">
                 {{ size }}
               </option>
@@ -48,17 +48,10 @@ export default {
   data () {
     return {
       product: [],
-      loaded: false,
-      selectedSize: null
-    }
-  },
-  watch: {
-    selectedSize () {
-      this.updateBasket()
+      loaded: false
     }
   },
   created () {
-    this.selectedSize = this.infos.fk_productsSize_id
     this.axios({
       method: 'get',
       url: 'product/' + this.infos.products_id
@@ -101,7 +94,7 @@ export default {
         url: '/basket/user/' + this.$store.state.user.users_id,
         data: {
           'basketItemID': this.infos.basket_id,
-          'size': this.selectedSize,
+          'size': this.infos.fk_productsSize_id,
           'quantity': this.infos.basket_quantity
         }
       })
