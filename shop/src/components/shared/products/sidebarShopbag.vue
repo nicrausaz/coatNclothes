@@ -33,12 +33,10 @@ export default {
     products () {
       this.productsData = []
       this.getProductData()
-      // this.sizesValid = this.validSizes()
     }
   },
   created () {
     this.getProductData()
-    // this.sizesValid = this.validSizes()
   },
   methods: {
     getProductData () {

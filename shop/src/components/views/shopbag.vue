@@ -35,9 +35,6 @@ export default {
     this.getBasket()
   },
   methods: {
-    test () {
-      setTimeout(this.getBasket(), 1000)
-    },
     getBasket () {
       this.axios({
         method: 'get',

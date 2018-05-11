@@ -20,10 +20,11 @@
           </p>
         </div>
         <div class="field" style="padding: 10px;">
-          <p class="control">
+          <form class="control">
             <star-rating :increment="0.5" :star-size="25" :show-rating="false" v-model="newComment.commentsAndOpinions_note" :inline="true"></star-rating>
             <button class="button is-pulled-right" @click="postComment">Commenter</button>
-          </p>
+            <div class="g-recaptcha" data-sitekey="6Lc1x04UAAAAAAWPvivexwqoJVCtWA4_rywlbppX"></div>
+          </form>
         </div>
       </div>
     </article>
@@ -84,6 +85,18 @@ export default {
       this.newComment.commentsAndOpinions_comment = null
       this.$emit('new')
       this.getComments()
+    },
+    onSubmit () {
+      this.$refs.invisibleRecaptcha.execute()
+    },
+    onVerify (response) {
+      console.log('Verify: ' + response)
+    },
+    onExpired () {
+      console.log('Expired')
+    },
+    resetRecaptcha () {
+      this.$refs.recaptcha.reset()
     }
   },
   components: {
