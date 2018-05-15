@@ -164,6 +164,30 @@ export default {
       })
     },
     updateProductPictures () {
+      // productsPics
+      if (this.newfiles.length > 0) {
+        let formData = new FormData()
+        this.newfiles.forEach(file => {
+          formData.append('product_pic', file)
+          // formData.append('productsPics_altName', file.name.replace(/\.[^/.]+$/, ''))
+          this.axios({
+            method: 'post',
+            url: '/admin/product/' + this.id + '/pic',
+            data: formData
+          })
+          .then(response => {
+            console.log(response.data)
+          })
+        })
+        // this.axios({
+        //   method: 'post',
+        //   url: '/admin/product/' + this.id + '/pic',
+        //   data: {
+        //     'products_pic': formData,
+        //     'productsPics_altName': ''
+        //   }
+        // })
+      }
       // post new pictures
     },
     update () {

@@ -5,7 +5,7 @@
       <div class="columns">
         <div class="column is-6">
           <b-tooltip label="Cliquer pour éditer" position="is-bottom">
-            <figure class="image" @click="editUserPic" alt="userpic" style="cursor: pointer;">
+            <figure class="image" @click="editUserPic" alt="userpic" id="userpic" style="cursor: pointer;">
               <img :src="userPic">
             </figure>
           </b-tooltip>
@@ -83,3 +83,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#userpic {
+  max-width: 300px;
+}
+</style>

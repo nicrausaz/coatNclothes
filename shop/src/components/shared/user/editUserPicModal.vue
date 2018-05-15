@@ -31,8 +31,7 @@
     </section>
     <footer class="modal-card-foot">
       <button class="button" type="button" @click="this.$parent.close">Annuler</button>
-      <button class="button is-primary" @click="updatePic">Confirmer le changement</button>
-      <!--  disable if no img selected -->
+      <button class="button is-primary" @click="updatePic" :disabled="!canPost">Confirmer le changement</button>
     </footer>
   </div>
 </template>
@@ -80,6 +79,9 @@ export default {
         this.$toast.open(err.response.data.message)
       })
     }
+  },
+  computed: {
+    canPost () { return this.files.length > 0 }
   }
 }
 </script>
