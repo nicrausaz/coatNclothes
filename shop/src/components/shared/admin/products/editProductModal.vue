@@ -58,15 +58,26 @@
       </b-field>
 
       <b-field label="Images">
-        <div v-if="hasPicture" class="columns is-multiline is-mobile">
-          <figure class="image is-128x128 column" v-for="pic in newData.products_pictures" :key="pic.altName">
+        <div v-if="hasPicture" style="display: flex;">
+          <figure class="image is-128x128" v-for="pic in newData.products_pictures" :key="pic.altName">
+            <button id="delete" class="delete" @click="deletePicture(pic.id)"></button>
             <img :src="pic.path" draggable="false">
           </figure>
         </div>
-        <div v-else>
-          No pictures
+      </b-field>
+      <b-field class="file">
+        <b-upload v-model="newfiles" multiple drag-drop accept="image/*">
+            <div class="content has-text-centered">
+              <p><b-icon icon="upload" size="is-large"></b-icon></p>
+              <p>Cliquer ou déposer des fichiers</p>
+            </div>
+        </b-upload>
+        <div class="tags">
+          <span v-for="(file, index) in newfiles" :key="index" class="tag is-primary">
+            {{file.name}}
+            <button class="delete is-small" type="button" @click="deleteFile(index)"></button>
+          </span>
         </div>
-        <!-- upload button -->
       </b-field>
     </section>
     <footer class="modal-card-foot">
@@ -84,6 +95,7 @@ export default {
       categories: [],
       brands: [],
       newData: {},
+      newfiles: [],
       loaded: false,
       selected: null
     }
@@ -122,7 +134,7 @@ export default {
         this.brands = response.data
       })
     },
-    update () {
+    updateProductInfos () {
       this.axios({
         method: 'patch',
         url: '/admin/product/' + this.id,
@@ -150,6 +162,13 @@ export default {
           type: 'is-danger'
         })
       })
+    },
+    updateProductPictures () {
+      // post new pictures
+    },
+    update () {
+      this.updateProductInfos()
+      this.updateProductPictures()
     },
     addBrand () {
       this.$dialog.prompt({
@@ -187,6 +206,17 @@ export default {
           type: 'is-success'
         })
       })
+    },
+    deleteFile (index) { this.newfiles.splice(index, 1) },
+    deletePicture (id) {
+      this.axios({
+        method: 'delete',
+        url: '/admin/pic/' + id
+      })
+      .then(response => {
+        this.newData.products_pictures = this.newData.products_pictures.filter(el => { return el.id !== id })
+        this.$toast.open(response.data.message)
+      })
     }
   },
   computed: {
@@ -198,3 +228,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+#delete {
+  position: absolute;
+  margin-left: 10px;
+  z-index: 1;
+}
+</style>
