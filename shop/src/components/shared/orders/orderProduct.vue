@@ -1,39 +1,61 @@
 <template>
   <div class="card column is-6">
-    <article class="media">
+    <article class="media" v-for="product in products" :key="product.fk_products_id">
       <figure class="media-left">
         <p class="image is-64x64">
-          <img :src="getPicture(product.products_pictures)" :alt="getAltName(product.products_pictures)">
+          <img :src="getPicture(product.fullData.products_pictures)" :alt="getAltName(product.fullData.products_pictures)">
         </p>
       </figure>
       <div class="media-content">
-        <strong>{{ product.products_name }}</strong> <small>{{ product.products_price }} CHF</small>
+        <strong>{{ product.fullData.products_name }}</strong> <small>{{ product.fullData.products_price }} CHF</small>
+        <br>
+        Taille: {{product.productsSize_value}}
       </div>
-      <b>{{data.ordersContent_quantity}}x</b>
+      <b>{{product.ordersContent_quantity}}x</b>
     </article>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['data'],
+  props: ['orderId'],
   data () {
     return {
-      product: [],
+      productsData: [],
+      products: [],
       loaded: false
     }
   },
   created () {
-    this.axios({
-      method: 'get',
-      url: 'product/' + this.data.fk_products_id
-    })
-    .then((response) => {
-      this.product = response.data
-      this.loaded = true
-    })
+    this.getOrderProducts()
   },
   methods: {
+    getProduct (id, size, quantity) {
+      this.axios({
+        method: 'get',
+        url: 'product/' + id
+      })
+      .then(response => {
+        this.products.push({
+          fullData: response.data,
+          productsSize_value: size,
+          ordersContent_quantity: quantity
+        })
+        this.loaded = true
+      })
+    },
+    getOrderProducts () {
+      this.axios({
+        method: 'get',
+        url: 'order/' + this.orderId
+      })
+      .then((response) => {
+        this.productsData = response.data
+        this.productsData.forEach(product => {
+          this.getProduct(product.fk_products_id, product.productsSize_value, product.ordersContent_quantity)
+        })
+      })
+    },
     getPicture (pictures) {
       if (this.loaded) {
         return pictures.length === 0 ? 'static/noImgAvailable.png' : pictures[0].path

@@ -7,13 +7,13 @@
             <b-table-column label="Numéro" width="40" numeric>
               {{ props.row.orders_id }}
             </b-table-column>
-            <b-table-column label="Paiement">
-              {{ paymentStatus(props.row.orders_paid) }}
+            <b-table-column label="Payé">
+              <b-icon size="is-small" :icon="isPaidIcon(props.row.orders_paid)"></b-icon>
             </b-table-column>
             <b-table-column label="Date de paiement">
               {{ props.row.orders_paidDate }}
             </b-table-column>
-            <b-table-column label="État" >
+            <b-table-column label="État">
               {{ props.row.ordersStatus_name}}
             </b-table-column>
             <b-table-column label="Date">
@@ -25,7 +25,7 @@
         </template>
         <template slot="detail" slot-scope="props">
           <div class="columns is-multiline">
-            <orderProduct v-for="product in props.row.ordersContent" :key="product.products_id" :data="product"></orderProduct>
+            <orderProduct :orderId="props.row.orders_id"></orderProduct>
           </div>
         </template>
          <template slot="empty">
@@ -53,17 +53,17 @@ export default {
     }
   },
   created () {
-    this.axios({
-      method: 'get',
-      url: 'orders/user/' + this.$store.state.user.users_id
-    })
-    .then((response) => {
-      this.orders = response.data
-    })
+    this.getOrders()
   },
   methods: {
-    paymentStatus (value) {
-      return value ? 'Confirmé' : 'En attente'
+    getOrders () {
+      this.axios({
+        method: 'get',
+        url: 'orders/user/' + this.$store.state.user.users_id
+      })
+      .then(response => {
+        this.orders = response.data
+      })
     },
     printOrder (id) {
       window.print()
@@ -76,6 +76,9 @@ export default {
       .then(response => {
         this.ordersStatusAvailable = response.data
       })
+    },
+    isPaidIcon (isAdmin) {
+      return isAdmin ? 'check' : 'times'
     }
   },
   computed: {

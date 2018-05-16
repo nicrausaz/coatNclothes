@@ -21,7 +21,7 @@
         </b-table-column>
 
         <b-table-column field="orders_paid" label="Payé" sortable>
-           <b-icon size="is-small" :icon="isPaidIcon(props.row.orders_paid)"></b-icon>
+          <b-icon size="is-small" :icon="isPaidIcon(props.row.orders_paid)"></b-icon>
         </b-table-column>
 
         <b-table-column field="orders_paidDate" label="Date de paiement" sortable>
