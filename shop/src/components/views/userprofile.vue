@@ -66,7 +66,7 @@ export default {
       .then(response => {
         this.userFullInfos = response.data
       })
-      .then(() => {
+      .catch(() => {
         this.$store.commit('detroyUser')
         this.$router.push('/user')
         this.$toast.open({
