@@ -66,6 +66,14 @@ export default {
       .then(response => {
         this.userFullInfos = response.data
       })
+      .then(() => {
+        this.$store.commit('detroyUser')
+        this.$router.push('/user')
+        this.$toast.open({
+          message: 'Session expirée, veuillez vous connecter à nouveau',
+          type: 'is-warning'
+        })
+      })
     },
     editUserPic () {
       this.isEditingPhoto = true
