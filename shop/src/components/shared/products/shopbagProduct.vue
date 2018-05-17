@@ -51,6 +51,9 @@ export default {
       loaded: false
     }
   },
+  watch: {
+    'infos.fk_productsSize_id' () { this.updateBasket() }
+  },
   created () {
     this.axios({
       method: 'get',

@@ -1,18 +1,20 @@
 <template>
-  <div class="card column is-6">
-    <article class="media" v-for="product in products" :key="product.fk_products_id">
-      <figure class="media-left">
-        <p class="image is-64x64">
-          <img :src="getPicture(product.fullData.products_pictures)" :alt="getAltName(product.fullData.products_pictures)">
-        </p>
-      </figure>
-      <div class="media-content">
-        <strong>{{ product.fullData.products_name }}</strong> <small>{{ product.fullData.products_price }} CHF</small>
-        <br>
-        Taille: {{product.productsSize_value}}
-      </div>
-      <b>{{product.ordersContent_quantity}}x</b>
-    </article>
+  <div class="column is-12">
+    <div v-for="product in products" :key="product.fk_products_id">
+      <article class="media">
+        <figure class="media-left">
+          <p class="image is-64x64">
+            <img :src="getPicture(product.fullData.products_pictures)" :alt="getAltName(product.fullData.products_pictures)">
+          </p>
+        </figure>
+        <div class="media-content">
+          <strong>{{ product.fullData.products_name }}</strong> <small>{{ product.fullData.products_price }} CHF</small>
+          <br>
+          Taille: {{product.productsSize_value}}
+        </div>
+        <b>{{product.ordersContent_quantity}}x</b>
+      </article>
+    </div>
   </div>
 </template>
 

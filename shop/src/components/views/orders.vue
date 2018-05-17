@@ -20,12 +20,14 @@
               {{ props.row.orders_createdDate }}
             </b-table-column>
             <b-table-column centered>
-              <a @click="printOrder(props.row.orders_id)"><b-icon icon="print"></b-icon></a>
+              <b-tooltip label="Télécharger la commande" position="is-bottom">
+                <a @click="printOrder(props.row.orders_id)"><b-icon icon="file-pdf"></b-icon></a>
+              </b-tooltip>
             </b-table-column>
         </template>
         <template slot="detail" slot-scope="props">
-          <div class="columns is-multiline">
-            <orderProduct :orderId="props.row.orders_id"></orderProduct>
+          <div class="columns">
+            <orderProduct :orderId="props.row.orders_id" class="column is-6"></orderProduct>
           </div>
         </template>
          <template slot="empty">
@@ -66,7 +68,20 @@ export default {
       })
     },
     printOrder (id) {
-      window.print()
+      this.axios({
+        method: 'get',
+        url: '/order/' + id + '/pdf',
+        responseType: 'arraybuffer'
+      })
+      .then(response => {
+        let blob = new Blob([response.data], { type: 'application/pdf' })
+        let url = window.URL.createObjectURL(blob)
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', 'file.pdf')
+        document.body.appendChild(link)
+        link.click()
+      })
     },
     getOrdersStatusAvailable () {
       this.axios({

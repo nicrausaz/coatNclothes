@@ -26,14 +26,19 @@ export default {
     }
   },
   created () {
-    this.axios({
-      method: 'get',
-      url: 'product/' + this.data.products_id
-    })
-    .then((response) => {
-      this.product = response.data
-      this.loaded = true
-    })
+    this.getProduct()
+  },
+  methods: {
+    getProduct () {
+      this.axios({
+        method: 'get',
+        url: 'product/' + this.data.products_id
+      })
+      .then((response) => {
+        this.product = response.data
+        this.loaded = true
+      })
+    }
   },
   computed: {
     picture () {

@@ -14,6 +14,7 @@
       <b-tooltip class="is-pulled-right" label="Confirmez les étapes pour continuer" position="is-bottom" :active="!fullConfirmed">
         <button class="button is-primary is-large is-pulled-right" :disabled="!fullConfirmed" @click="finishOrder">Terminer</button>
       </b-tooltip>
+      {{orderContentFormatedData}}
     </section>
   </div>
 </template>
@@ -64,7 +65,7 @@ export default {
       this.orderContentFormatedData.adresses_id = this.selectedAdress
     },
     formatOrderContentData () {
-      this.basketproducts.forEach((product) => {
+      this.basketproducts.forEach(product => {
         this.orderContentFormatedData.data.push({
           'product': product.products_id,
           'quantity': product.basket_quantity,
