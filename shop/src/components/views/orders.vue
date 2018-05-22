@@ -20,7 +20,7 @@
               {{ props.row.orders_createdDate }}
             </b-table-column>
             <b-table-column centered>
-              <b-tooltip label="Télécharger la commande" position="is-bottom">
+              <b-tooltip label="Télécharger la facture" position="is-bottom">
                 <a @click="printOrder(props.row.orders_id)"><b-icon icon="file-pdf"></b-icon></a>
               </b-tooltip>
             </b-table-column>

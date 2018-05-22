@@ -16,7 +16,7 @@
             {{userStatus}}
           </div>
         </div>
-        <div class="column is-6" style="position: relative;">
+        <div class="column is-6">
           <userAdresses></userAdresses>
         </div>
       </div>
