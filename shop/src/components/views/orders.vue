@@ -76,9 +76,10 @@ export default {
       .then(response => {
         let blob = new Blob([response.data], { type: 'application/pdf' })
         let url = window.URL.createObjectURL(blob)
+        let filename = 'order' + id
         const link = document.createElement('a')
         link.href = url
-        link.setAttribute('download', 'file.pdf')
+        link.setAttribute('download', filename)
         document.body.appendChild(link)
         link.click()
       })
