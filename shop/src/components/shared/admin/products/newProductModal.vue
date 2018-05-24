@@ -17,7 +17,9 @@
       <b-field label="Catégorie">
         <div class="field is-grouped">
           <b-select placeholder="Choisir une catégorie" v-model="newData.fk_category_id" expanded>
-            <option v-for="category in categories" :value="category.category_id" :key="category.category_id"> {{ category.category_name }} </option>
+            <optgroup v-for="category in categories" :key="category.id" :label="category.name">
+              <option v-for="cat in category.children" :key="cat.id" :value="cat.id" > {{ cat.name }} </option>
+            </optgroup>
           </b-select>
         </div>
       </b-field>
@@ -91,7 +93,7 @@ export default {
     getCategories () {
       this.axios({
         method: 'get',
-        url: '/categories/list'
+        url: '/categories'
       })
       .then(response => {
         this.categories = response.data

@@ -12,7 +12,7 @@
         <b-input v-model="newData.adresses_street"></b-input>
       </b-field>
       <b-field label="NPA">
-        <b-input v-model="newData.adresses_npa"></b-input>
+        <b-input v-model="newData.adresses_npa" max-length="6"></b-input>
       </b-field>
       <b-field label="Localité">
         <b-input v-model="newData.adresses_locality"></b-input>

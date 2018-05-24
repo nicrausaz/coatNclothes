@@ -8,7 +8,7 @@
         <b-input v-model="newData.adresses_street" placeholder="Rue" required></b-input>
       </b-field>
       <b-field label="NPA">
-        <b-input v-model="newData.adresses_npa" placeholder="NPA" required></b-input>
+        <b-input v-model="newData.adresses_npa" placeholder="NPA" max-length="6" required></b-input>
       </b-field>
       <b-field label="Localité">
         <b-input v-model="newData.adresses_locality" placeholder="Localité" required></b-input>

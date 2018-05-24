@@ -9,10 +9,10 @@
     </header>
     <section class="modal-card-body">
       <b-field label="Nom">
-         <b-input v-model="newData.products_name"></b-input>
+        <b-input v-model="newData.products_name"></b-input>
       </b-field>
       <b-field label="Description">
-         <b-input v-model="newData.products_description" maxlength="300" type="textarea"></b-input>
+        <b-input v-model="newData.products_description" maxlength="300" type="textarea"></b-input>
       </b-field>
       <b-field label="Prix">
         <b-input v-model="newData.products_price" type="number" step="1"></b-input>
@@ -20,8 +20,10 @@
       <b-field label="Catégorie">
         <div class="field is-grouped">
           <b-select placeholder="Choisir une catégorie" v-model="newData.fk_category_id" expanded>
-          <option v-for="category in categories" :value="category.category_id" :key="category.category_id"> {{ category.category_name }} </option>
-        </b-select>
+            <optgroup v-for="category in categories" :key="category.id" :label="category.name">
+              <option v-for="cat in category.children" :key="cat.id" :value="cat.id" > {{ cat.name }} </option>
+            </optgroup>
+          </b-select>
         </div>
       </b-field>
       <b-field label="Marque">
@@ -119,7 +121,7 @@ export default {
     getCategories () {
       this.axios({
         method: 'get',
-        url: '/categories/list'
+        url: '/categories'
       })
       .then(response => {
         this.categories = response.data
@@ -168,8 +170,8 @@ export default {
       if (this.newfiles.length > 0) {
         let formData = new FormData()
         this.newfiles.forEach(file => {
-          formData.append('product_pic', file)
-          // formData.append('productsPics_altName', file.name.replace(/\.[^/.]+$/, ''))
+          formData.append('products_pic', file)
+          formData.append('productsPics_altName', file.name.replace(/\.[^/.]+$/, ''))
           this.axios({
             method: 'post',
             url: '/admin/product/' + this.id + '/pic',
@@ -177,18 +179,10 @@ export default {
           })
           .then(response => {
             console.log(response.data)
+            // toast
           })
         })
-        // this.axios({
-        //   method: 'post',
-        //   url: '/admin/product/' + this.id + '/pic',
-        //   data: {
-        //     'products_pic': formData,
-        //     'productsPics_altName': ''
-        //   }
-        // })
       }
-      // post new pictures
     },
     update () {
       this.updateProductInfos()
