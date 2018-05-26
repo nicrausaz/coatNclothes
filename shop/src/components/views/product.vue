@@ -16,26 +16,27 @@
                 <i>{{productData.products_description}}</i>
               </p>
               <star-rating :star-size="20" :show-rating="false" :read-only="true" v-model="noteToInt" :inline="true"></star-rating> ({{productNote.number}})
-              <br>
-              <b-select placeholder="Taille" v-model="currentProduct.selectedSize">
-                <option v-for="size in productData.products_size" :key="size">
-                  {{ size }}
-                </option>
-              </b-select>
-              <br>
-              <a class="button is-medium" @click="openWishlistSelector">
+
+              <a class="button" style="margin-bottom: 20px; margin-top: 50px;" @click="openWishlistSelector">
                 <span class="icon">
                   <b-icon icon="heart"></b-icon>
                 </span>
                 <span>Ajouter dans une liste de souhait</span>
               </a>
               <br>
-              <a class="button is-medium is-primary" @click="addToBasket">
-                <span class="icon">
-                  <b-icon icon="cart-plus"></b-icon>
-                </span>
-                <span>Ajouter dans le panier</span>
-              </a>
+              <div class="field is-grouped">
+                <b-select placeholder="Taille" v-model="currentProduct.selectedSize">
+                  <option v-for="size in productData.products_size" :key="size">
+                    {{ size }}
+                  </option>
+                </b-select>
+                <a class="button is-primary" @click="addToBasket">
+                  <span class="icon">
+                    <b-icon icon="cart-plus"></b-icon>
+                  </span>
+                  <span>Ajouter dans le panier</span>
+                </a>
+              </div>
             </section>
           </div>
         </div>

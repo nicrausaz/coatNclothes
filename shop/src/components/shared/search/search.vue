@@ -1,5 +1,5 @@
 <template>
-<b-dropdown position="is-bottom-left">
+<b-dropdown position="is-bottom-left" id="test">
   <a class="navbar-item" slot="trigger">
     <b-icon icon="search" size="is-medium"></b-icon>
   </a>
@@ -64,6 +64,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

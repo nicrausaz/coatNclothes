@@ -30,7 +30,7 @@ Vue.use(VueAnalytics, {
 Vue.config.productionTip = false
 
 Vue.prototype.axios = axios.create({
-  baseURL: 'https://api.coatandclothes.shop/fr/',
+  baseURL: 'https://api.coatandclothes.shop/' + store.state.language,
   headers: {
     'Authorization': 'Bearer' + store.state.user.token
   }
