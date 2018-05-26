@@ -37,8 +37,7 @@ export default {
         users_pass: '',
         users_name: '',
         users_fsname: ''
-      },
-      errors: []
+      }
     }
   },
   methods: {
@@ -59,17 +58,9 @@ export default {
           type: 'is-success'
         })
       })
-      .catch(errors => {
-        this.errors = errors.response.data.errors
-        this.toastErrors()
-      })
-    },
-    toastErrors () {
-      let self = this
-      let errors = Object.keys(this.errors).map(function (key) { return self.errors[key].toString() })
-      errors.forEach((error) => {
+      .catch(err => {
         this.$toast.open({
-          message: error,
+          message: err.response.data.message,
           type: 'is-danger'
         })
       })

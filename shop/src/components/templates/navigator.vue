@@ -22,7 +22,7 @@
           </a>
           <div class="navbar-dropdown">
             <a class="navbar-item" :class="{'is-active': isLangSelected('fr')}" @click="$store.commit('setLanguage', 'fr')">Français</a>
-            <a class="navbar-item" :class="{'is-active': isLangSelected('en')}" @click="$store.commit('setLanguage', 'en')">English</a>
+            <a class="navbar-item" :class="{'is-active': isLangSelected('en')}" @click="$store.commit('setLanguage', 'en')">English (partial)</a>
           </div>
         </div>
         <router-link to="/wishlists" class="navbar-item" ><b-icon icon="heart" size="is-medium"></b-icon></router-link>
