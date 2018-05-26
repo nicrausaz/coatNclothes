@@ -166,23 +166,26 @@ export default {
       })
     },
     updateProductPictures () {
-      // productsPics
       if (this.newfiles.length > 0) {
         let formData = new FormData()
         this.newfiles.forEach(file => {
+          console.log(file)
           formData.append('products_pic', file)
           formData.append('productsPics_altName', file.name.replace(/\.[^/.]+$/, ''))
-          this.axios({
-            method: 'post',
-            url: '/admin/product/' + this.id + '/pic',
-            data: formData
-          })
-          .then(response => {
-            console.log(response.data)
-            // toast
-          })
+          this.postPicture(formData)
         })
       }
+    },
+    postPicture (formData) {
+      this.axios({
+        method: 'post',
+        url: '/admin/product/' + this.id + '/pic',
+        data: formData
+      })
+      .then(response => {
+        console.log(response.data)
+        // toast
+      })
     },
     update () {
       this.updateProductInfos()

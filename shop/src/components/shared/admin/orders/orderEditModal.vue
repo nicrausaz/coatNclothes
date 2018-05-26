@@ -12,22 +12,19 @@
         {{userData.users_email}}
         (#{{orderBaseInfos.fk_users_id}})
       </p>
-      <p><b>Adresse:</b> {{orderBaseInfos.fk_adresses_id}}</p>
-      <b-table :data="orderData" default-sort="ordersContent_id" :mobile-cards="false">
-        <template slot-scope="props">
-          <b-table-column field="ordersContent_quantity" label="Quantité" width="40" numeric>
-            {{ props.row.ordersContent_quantity }}
-          </b-table-column>
-          <b-table-column field="ordersContent_quantity" label="Produit">
-            {{ props.row.fk_products_id }}
-          </b-table-column>
-          <b-table-column field="ordersContent_quantity" label="Taille">
-            {{ props.row.fk_productsSize_id }}
-          </b-table-column>
-        </template>
-      </b-table>
-      <br>
+      <p><b>Adresse:</b> {{orderAddress.adresses_street}}, {{orderAddress.adresses_npa}} {{orderAddress.adresses_locality}}, {{orderAddress.adresses_state}}</p>
 
+      <div v-if="loaded">
+      <b>Contenu:</b>
+        <ul>
+          <li v-for="(info, index) in orderData" :key="info.ordersContent_id">
+            {{info.ordersContent_quantity}}x
+            <span>{{orderProducts[index].products_name}}</span>
+            {{info.productsSize_value}}
+          </li>
+        </ul>
+      </div>
+      <br>
       <h1 class="subtitle">Edition</h1>
       <b-field>
         <b-checkbox v-model="orderBaseInfos.orders_paid" :disabled="orderIsPaid" true-value="1" false-value="0">Paiement reçu {{orderPaidDate}}</b-checkbox>
@@ -54,8 +51,11 @@ export default {
       orderBaseInfos: {},
       orderData: [],
       userData: {},
+      orderAddress: {},
+      orderProducts: [],
       ordersStatusAvailable: [],
-      originalPaidState: false
+      originalPaidState: false,
+      loaded: false
     }
   },
   created () {
@@ -64,7 +64,7 @@ export default {
     this.getOrder()
     this.getOrdersStatusAvailable()
     this.getUser()
-    // this.getProducts()
+    this.getAddress(this.orderBaseInfos.fk_adresses_id)
   },
   computed: {
     orderIsPaid () {
@@ -82,6 +82,8 @@ export default {
       })
       .then(response => {
         this.orderData = response.data
+        this.getProducts()
+        this.loaded = true
       })
     },
     getOrdersStatusAvailable () {
@@ -100,6 +102,26 @@ export default {
       })
       .then(response => {
         this.userData = response.data
+      })
+    },
+    getAddress (id) {
+      this.axios({
+        method: 'get',
+        url: '/admin/address/' + id
+      })
+      .then(response => {
+        this.orderAddress = response.data
+      })
+    },
+    getProducts () {
+      this.orderData.forEach(item => {
+        this.axios({
+          method: 'get',
+          url: '/product/' + item.fk_products_id + '/unrestricted'
+        })
+        .then(response => {
+          this.orderProducts.push(response.data)
+        })
       })
     },
     updateOrder () {
