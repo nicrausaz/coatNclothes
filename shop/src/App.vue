@@ -11,6 +11,16 @@ import navigator from '@/components/templates/navigator'
 import footbar from '@/components/templates/footbar'
 export default {
   name: 'app',
+  created () {
+    this.axios({
+      method: 'get',
+      url: '/lang/interface'
+    })
+    .then(response => {
+      this.$store.commit('setInterfaceTranslation', response.data.interface[0])
+      console.log(this.$store.state.interface)
+    })
+  },
   components: {
     navigator,
     footbar

@@ -9,11 +9,15 @@ const store = new Vuex.Store({
   plugins: [createPersistedState()],
   state: {
     language: 'fr',
+    interface: [],
     user: {}
   },
   mutations: {
     setUser (state, user) {
       this.state.user = user
+    },
+    setInterfaceTranslation (state, translation) {
+      this.state.interface = translation
     },
     detroyUser () {
       this.state.user = {}
