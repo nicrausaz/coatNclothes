@@ -21,11 +21,11 @@
                 <span class="icon">
                   <b-icon icon="heart"></b-icon>
                 </span>
-                <span>Ajouter dans une liste de souhait</span>
+                <span>{{$store.state.interface.addToWishlist}}</span>
               </a>
               <br>
               <div class="field is-grouped">
-                <b-select placeholder="Taille" v-model="currentProduct.selectedSize">
+                <b-select :placeholder="$store.state.interface.size" v-model="currentProduct.selectedSize">
                   <option v-for="size in productData.products_size" :key="size">
                     {{ size }}
                   </option>
@@ -34,7 +34,7 @@
                   <span class="icon">
                     <b-icon icon="cart-plus"></b-icon>
                   </span>
-                  <span>Ajouter dans le panier</span>
+                  <span>{{$store.state.interface.addToBasket}}</span>
                 </a>
               </div>
             </section>

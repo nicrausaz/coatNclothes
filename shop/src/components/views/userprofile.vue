@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <subtitle :name="'Votre profil'" :text="'Consultez et modifiez vos informations'"></subtitle>
+    <subtitle :name="$store.state.interface.yourProfile" :text="$store.state.interface.seeAndEditInformations"></subtitle>
     <section class="section">
       <div class="columns">
         <div class="column is-6">
-          <b-tooltip label="Cliquer pour éditer" position="is-bottom">
+          <b-tooltip :label="$store.state.interface.clickToEdit" position="is-bottom">
             <figure class="image" @click="editUserPic" alt="userpic" id="userpic" style="cursor: pointer;">
               <img :src="userPic">
             </figure>
@@ -51,7 +51,7 @@ export default {
   },
   computed: {
     userStatus () {
-      return this.userFullInfos.users_admin ? 'Administrateur' : 'Client'
+      return this.userFullInfos.users_admin ? this.$store.state.interface.admin : this.$store.state.interface.customer
     },
     userPic () {
       return this.userFullInfos.users_pic || 'static/noImgAvailable.png'

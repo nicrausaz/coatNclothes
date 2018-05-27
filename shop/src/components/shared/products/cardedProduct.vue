@@ -17,10 +17,10 @@
             </ul>
           </div>
         </div>
-        <b-tooltip label="Ajouter au panier" position="is-bottom">
+        <b-tooltip :label="$store.state.interface.addToBasket" position="is-bottom">
           <button class="button is-primary is-outlined" @click.stop="addToBasket" style="margin-top: 10px;">
             <b-icon icon="shopping-cart" size="is-small"></b-icon>
-            <span>Ajouter</span>
+            <span>{{$store.state.interface.add}}</span>
           </button>
         </b-tooltip>
       </div>

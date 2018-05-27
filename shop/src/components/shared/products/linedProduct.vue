@@ -12,7 +12,7 @@
           <div class="media-right">
             <button class="button is-primary is-outlined is-small" @click.stop="addToBasket" style="margin-top: 10px;">
               <b-icon icon="shopping-cart" size="is-small"></b-icon>
-              <span>Ajouter</span>
+              <span>{{$store.state.interface.add}}</span>
             </button>
           </div>
         </nav>

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <subtitle :name="'Magasin'" :text="'Consulter les produits'"></subtitle>
+    <subtitle :name="$store.state.interface.shop" :text="$store.state.interface.viewProduct"></subtitle>
     <div class="columns">
       <div class="column is-3">
         <sidebarproduct></sidebarproduct>

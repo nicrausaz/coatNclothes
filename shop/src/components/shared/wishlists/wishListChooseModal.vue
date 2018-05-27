@@ -9,24 +9,24 @@
         <span class="actions"><b-icon icon="plus" type="is-primary"></b-icon></span>
       </div>
       <div v-if="wishlists.length == 0">
-        <p>Vous n'avez créé aucune liste de souhaits...</p>
+        <p>{{$store.state.interface.noWishlist}}</p>
       </div>
       <hr>
       <div class="choices" @click="createNew">
-        Créer une nouvelle liste
+        {{$store.state.interface.CreateNewWishlist}}
       </div>
     </section>
     <section class="modal-card-body" v-else>
-       <b-field label="Nom">
+       <b-field :label="$store.state.interface.name">
         <b-input type="text" v-model="newWishlist.name" required></b-input>
       </b-field>
-      <b-field label="Description">
+      <b-field :label="$store.state.interface.description">
         <b-input type="textarea" v-model="newWishlist.description" maxlength="100"></b-input>
       </b-field>
     </section>
     <footer class="modal-card-foot">
-      <button class="button" type="button" @click="this.$parent.close">Annuler</button>
-      <button class="button is-primary" type="button" v-if="isCreatingNew" @click="createAndAdd">Confirmer</button>
+      <button class="button" type="button" @click="this.$parent.close">{{$store.state.interface.cancel}}</button>
+      <button class="button is-primary" type="button" v-if="isCreatingNew" @click="createAndAdd">{{$store.state.interface.confirm}}</button>
     </footer>
   </div>
 </template>

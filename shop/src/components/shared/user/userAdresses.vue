@@ -3,14 +3,14 @@
     <div class="card">
       <div class="card-content">
         <p class="subtitle">
-          Mes adresses
+          {{$store.state.interface.myAddresses}}
         </p>
         <nav v-if="adresses.length === 0">
           Aucune adresse...
         </nav>
         <nav class="panel" v-else>
           <a v-for="adress in adresses" :key="adress.adresses_id" class="panel-block" @click="editAdress(adress)" :class="{'is-active': adress.adresses_main}">
-            <b-tooltip label="Cliquer pour éditer" position="is-right">
+            <b-tooltip :label="$store.state.interface.clickToEdit" position="is-right">
               <span class="panel-icon"><b-icon icon="home" size="is-small"></b-icon></span>
               {{adress.adresses_street}} {{adress.adresses_npa}} {{adress.adresses_locality}}
             </b-tooltip>
@@ -19,7 +19,7 @@
       </div>
       <footer class="card-footer">
         <a class="card-footer-item" @click="newAdress">
-          <span>Nouvelle</span>
+          <span>{{$store.state.interface.new}}</span>
         </a>
       </footer>
     </div>

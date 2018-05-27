@@ -1,7 +1,7 @@
 <template>
   <aside class="menu">
   <p class="menu-label">
-    Catégories
+    {{$store.state.interface.categories}}
   </p>
   <ul class="menu-list">
     <li v-for="mainCategory in categories" :key="mainCategory.id">

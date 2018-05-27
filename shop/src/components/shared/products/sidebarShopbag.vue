@@ -1,6 +1,6 @@
 <template>
   <aside class="menu">
-    <p class="menu-label">Résumé du panier - {{articlesNumberText}}</p>
+    <p class="menu-label">{{$store.state.interface.summaryBasket}} - {{productsData.length}} {{$store.state.interface.items}}</p>
     <ul class="menu-list">
       <li v-for="(product, index) in productsData" :key="product.products_id">
         <a>
@@ -12,9 +12,9 @@
       </li>
     </ul>
     <p class="menu-label has-text-right">{{totalPrice}}</p>
-    <b-tooltip class="is-pulled-right" label="Choisissez une taille pour tous les articles" position="is-bottom" :active="!validSizes">
+    <b-tooltip class="is-pulled-right" label="Choisissez une taille pour tous les produits" position="is-bottom" :active="!validSizes">
       <router-link to="/orderconfirm">
-        <button class="button is-primary is-large is-pulled-right" :disabled="!validSizes">Commander</button>
+        <button class="button is-primary is-large is-pulled-right" :disabled="!validSizes">{{$store.state.interface.order}}</button>
       </router-link>
     </b-tooltip>
   </aside>
@@ -57,9 +57,10 @@ export default {
       this.productsData.forEach((product, i) => {
         total += this.products[i].basket_quantity * product.products_price
       })
-      return 'Total ' + total + ' CHF'
+      return this.$store.state.interface.total + ' ' + total + ' CHF'
     },
     articlesNumberText () {
+      // DEPRECATED
       switch (this.productsData.length) {
         case 0:
           return 'Aucun article'

@@ -20,7 +20,7 @@
         </div>
         <div class="actions columns">
           <div class="column">
-            <b-select placeholder="Taille" v-model="infos.fk_productsSize_id" style="padding-left: 5px;">
+            <b-select :placeholder="$store.state.interface.size" v-model="infos.fk_productsSize_id" style="padding-left: 5px;">
               <option v-for="size in product.products_size" :key="size">
                 {{ size }}
               </option>

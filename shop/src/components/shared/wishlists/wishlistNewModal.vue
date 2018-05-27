@@ -1,19 +1,19 @@
 <template>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Nouvelle liste de souhait</p>
+      <p class="modal-card-title">{{$store.state.interface.newWishlist}}</p>
     </header>
     <section class="modal-card-body">
-      <b-field label="Nom">
+      <b-field :label="$store.state.interface.name">
         <b-input type="text" v-model="name" required></b-input>
       </b-field>
-      <b-field label="Description">
+      <b-field :label="$store.state.interface.description">
         <b-input type="textarea" v-model="description" maxlength="100"></b-input>
       </b-field>
     </section>
     <footer class="modal-card-foot">
-      <button class="button" type="button" @click="this.$parent.close">Annuler</button>
-      <button class="button is-primary" @click="create">Confirmer</button>
+      <button class="button" type="button" @click="this.$parent.close">{{$store.state.interface.cancel}}</button>
+      <button class="button is-primary" @click="create">{{$store.state.interface.confirm}}</button>
     </footer>
   </div>
 </template>

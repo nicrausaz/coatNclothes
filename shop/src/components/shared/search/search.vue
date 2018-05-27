@@ -9,7 +9,7 @@
       <div class="modal-card" style="width: 400px;">
         <section class="modal-card-body">
           <b-field>
-            <b-input placeholder="Chercher un article..." type="search" icon="search" v-model="searchContent"></b-input>
+            <b-input :placeholder="$store.state.interface.search" type="search" icon="search" v-model="searchContent"></b-input>
           </b-field>
           <div id="searchResults" v-if="isFilterValid">
             <searchResult v-for="product in filteredProducts" :key="product.product_id" :data="product"></searchResult>

@@ -49,8 +49,8 @@ export default {
         type: 'is-danger',
         hasIcon: true,
         icon: 'times-circle',
-        confirmText: 'Confirmer',
-        cancelText: 'Annuler',
+        confirmText: this.$store.state.interface.confirm,
+        cancelText: this.$store.state.interface.cancel,
         onConfirm: () => {
           this.axios({
             method: 'delete',

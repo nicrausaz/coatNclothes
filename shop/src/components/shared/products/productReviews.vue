@@ -16,14 +16,14 @@
       <div class="media-content">
         <div class="field">
           <p class="control">
-            <textarea class="textarea" placeholder="Ajouter un commentaire (optionel)" v-model="newComment.commentsAndOpinions_comment"></textarea>
+            <textarea class="textarea" :placeholder="$store.state.interface.addComment" v-model="newComment.commentsAndOpinions_comment"></textarea>
           </p>
         </div>
         <div class="field" style="padding: 10px;">
           <form class="control">
             <star-rating :increment="0.5" :star-size="25" :show-rating="false" v-model="newComment.commentsAndOpinions_note" :inline="true"></star-rating>
-            <button class="button is-pulled-right" @click="postComment">Commenter</button>
-            <div class="g-recaptcha" data-sitekey="6Lc1x04UAAAAAAWPvivexwqoJVCtWA4_rywlbppX"></div>
+            <button class="button is-pulled-right" @click="postComment">{{$store.state.interface.comment}}</button>
+            <!-- <div class="g-recaptcha" data-sitekey="6Lc1x04UAAAAAAWPvivexwqoJVCtWA4_rywlbppX"></div> -->
           </form>
         </div>
       </div>

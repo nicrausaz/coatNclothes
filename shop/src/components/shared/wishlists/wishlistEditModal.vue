@@ -4,16 +4,16 @@
       <p class="modal-card-title">Modifier la liste de souhait</p>
     </header>
     <section class="modal-card-body">
-      <b-field label="Nom">
+      <b-field :label="$store.state.interface.name">
         <b-input type="text" v-model="editedName" required></b-input>
       </b-field>
-      <b-field label="Description">
+      <b-field :label="$store.state.interface.description">
         <b-input type="textarea" v-model="editedDescription" maxlength="100"></b-input>
       </b-field>
     </section>
     <footer class="modal-card-foot">
-      <button class="button" @click="this.$parent.close">Annuler</button>
-      <button class="button is-primary" @click="update">Confirmer</button>
+      <button class="button" @click="this.$parent.close">{{$store.state.interface.cancel}}</button>
+      <button class="button is-primary" @click="update">{{$store.state.interface.confirm}}</button>
     </footer>
   </div>
 </template>

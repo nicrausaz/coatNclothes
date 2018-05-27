@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <subtitle :name="'Panier'" :text="'Voir votre panier d\'achats'"></subtitle>
+    <subtitle :name="$store.state.interface.basket" :text="$store.state.interface.watchBasket"></subtitle>
     <section class="section">
       <div v-if="!isShopBagEmpty" class="columns">
         <div class="columns column is-multiline is-three-quarter is-mobile">
@@ -12,7 +12,7 @@
       </div>
       <div class="has-text-centered subtitle is-3" v-else>
         <b-icon icon="inbox" size="is-large"></b-icon>
-        <p>Votre panier est vide ... Ajoutez-y des produits ! </p>
+        <p>{{$store.state.interface.emptyBasket}}</p>
       </div>
     </section>
   </div>

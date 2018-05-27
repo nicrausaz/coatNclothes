@@ -18,7 +18,6 @@ export default {
     })
     .then(response => {
       this.$store.commit('setInterfaceTranslation', response.data.interface[0])
-      console.log(this.$store.state.interface)
     })
   },
   components: {

@@ -1,6 +1,6 @@
 <template>
   <div v-if="hasEnoughtSugestions">
-    <h1>D'autres produits semblables qui pourraient vous intéresser !</h1>
+    <h1>{{$store.state.interface.similarProduct}}</h1>
     <br>
     <carousel :perPage="4" :navigationEnabled="true" paginationActiveColor="#da0f68" paginationColor="#f5f5f5">
       <slide v-for="product in suggestedproducts" :key="product.products_id">
@@ -33,7 +33,7 @@ export default {
   },
   computed: {
     hasEnoughtSugestions () {
-      return this.suggestedproducts.length >= 3
+      return this.suggestedproducts.length >= 2
     }
   }
 }

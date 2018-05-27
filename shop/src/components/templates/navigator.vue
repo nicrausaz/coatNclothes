@@ -11,8 +11,8 @@
 
     <div class="navbar-menu" id="navMenu" :class="{'is-active': navIsActive}">
       <div class="navbar-start" @click="toggleMenu">
-        <router-link to="/" class="navbar-item">Accueil</router-link>
-        <router-link to="/category/2" class="navbar-item">Magasin</router-link>
+        <router-link to="/" class="navbar-item">{{$store.state.interface.home}}</router-link>
+        <router-link to="/category/2" class="navbar-item">{{$store.state.interface.shop}}</router-link>
       </div>
       <div class="navbar-end">
         <search></search>
@@ -22,7 +22,7 @@
           </a>
           <div class="navbar-dropdown">
             <a class="navbar-item" :class="{'is-active': isLangSelected('fr')}" @click="$store.commit('setLanguage', 'fr')">Français</a>
-            <a class="navbar-item" :class="{'is-active': isLangSelected('en')}" @click="$store.commit('setLanguage', 'en')">English (partial)</a>
+            <a class="navbar-item" :class="{'is-active': isLangSelected('en')}" @click="$store.commit('setLanguage', 'en')">English</a>
           </div>
         </div>
         <router-link to="/wishlists" class="navbar-item" ><b-icon icon="heart" size="is-medium"></b-icon></router-link>

@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <subtitle :name="'Listes de souhaits'" :text="'Voir vos listes de souhaits'"></subtitle>
+    <subtitle :name="$store.state.interface.wishlists" :text="$store.state.interface.watchWishList"></subtitle>
     <section class="section">
       <div class="card" id="newWLButton">
         <div class="card-content" @click="createNewWishlist">
-          <strong>Créer une nouvelle liste</strong>
+          <strong>{{$store.state.interface.CreateNewWishlist}}</strong>
           <b-icon pack="fas" icon="plus" type="is-primary" style="float: right;"></b-icon>
         </div>
       </div>
@@ -13,7 +13,7 @@
       </div>
       <div class="has-text-centered subtitle is-3" style="margin-top: 150px;" v-else>
         <b-icon icon="inbox" size="is-large"></b-icon>
-        <p>Aucune liste de souhait ...</p>
+        <p>{{$store.state.interface.noWishlists}}</p>
       </div>
     </section>
     <b-modal :active.sync="isCreating">
