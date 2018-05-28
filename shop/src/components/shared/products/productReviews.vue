@@ -20,11 +20,8 @@
           </p>
         </div>
         <div class="field" style="padding: 10px;">
-          <form class="control">
-            <star-rating :increment="0.5" :star-size="25" :show-rating="false" v-model="newComment.commentsAndOpinions_note" :inline="true"></star-rating>
-            <button class="button is-pulled-right" @click="postComment">{{$store.state.interface.comment}}</button>
-            <!-- <div class="g-recaptcha" data-sitekey="6Lc1x04UAAAAAAWPvivexwqoJVCtWA4_rywlbppX"></div> -->
-          </form>
+          <star-rating :increment="0.5" :star-size="25" :show-rating="false" v-model="newComment.commentsAndOpinions_note" :inline="true"></star-rating>
+          <button class="button is-pulled-right" @click="postComment">{{$store.state.interface.comment}}</button>
         </div>
       </div>
     </article>
@@ -45,7 +42,9 @@ export default {
     }
   },
   watch: {
-    $route () { this.getComments() }
+    $route () {
+      this.getComments()
+    }
   },
   created () {
     this.getComments()
@@ -74,7 +73,6 @@ export default {
       })
       .then(response => {
         this.$toast.open(response.data)
-        this.reset()
       })
       .catch(err => {
         this.$toast.open(err.response.data)
@@ -85,18 +83,6 @@ export default {
       this.newComment.commentsAndOpinions_comment = null
       this.$emit('new')
       this.getComments()
-    },
-    onSubmit () {
-      this.$refs.invisibleRecaptcha.execute()
-    },
-    onVerify (response) {
-      console.log('Verify: ' + response)
-    },
-    onExpired () {
-      console.log('Expired')
-    },
-    resetRecaptcha () {
-      this.$refs.recaptcha.reset()
     }
   },
   components: {

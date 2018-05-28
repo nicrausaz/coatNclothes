@@ -62,4 +62,8 @@ $link-focus-border: $primary;
 // Import Bulma and Buefy styles
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
+
+::selection, ::-moz-selection {
+  background: #da0f68;
+}
 </style>

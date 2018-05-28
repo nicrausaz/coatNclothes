@@ -4,7 +4,7 @@
       <div class="card">
         <form class="card-content">
             <b-field :label="$store.state.interface.username">
-                <b-input v-model="infos.users_login" icon="user" :placeholder="$store.state.interface.username" required></b-input>
+              <b-input v-model="infos.users_login" icon="user" :placeholder="$store.state.interface.username" required></b-input>
             </b-field>
             <b-field :label="$store.state.interface.email">
               <b-input v-model="infos.users_email" icon="at" :placeholder="$store.state.interface.email" type="email" required></b-input>
@@ -49,14 +49,14 @@ export default {
         data: this.infos
       })
       .then(response => {
-        delete response.data.message
-        delete response.data.status_code
-        this.$store.commit('setUser', response.data)
-        location.reload()
         this.$toast.open({
           message: response.data.message,
           type: 'is-success'
         })
+        delete response.data.message
+        delete response.data.status_code
+        this.$store.commit('setUser', response.data)
+        location.reload()
       })
       .catch(err => {
         this.$toast.open({

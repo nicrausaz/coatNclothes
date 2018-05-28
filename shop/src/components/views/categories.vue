@@ -8,7 +8,7 @@
       <div class="column">
         <filters @filter="setFilters" :brands="filterableBrands" :maxprice="maxPrice"></filters>
         <div v-if="hasFilteredProducts">
-          <div id="cardedproducts" class="columns is-multiline is-mobile productsDiv" v-if="isCardedView">
+          <div id="cardedproducts" class="columns is-multiline productsDiv" v-if="isCardedView">
             <cardedproduct v-for="product in filterProducts" :key="product.product_id" :infos="product" @notloged="openLogin"></cardedproduct>
           </div>
           <div id="linedproducts" class="productsDiv" v-else>
