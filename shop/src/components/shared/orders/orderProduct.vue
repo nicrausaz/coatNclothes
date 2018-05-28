@@ -4,7 +4,7 @@
       <article class="media">
         <figure class="media-left">
           <p class="image is-64x64">
-            <img :src="getPicture(product.fullData.products_pictures)" :alt="getAltName(product.fullData.products_pictures)">
+            <img :src="getPicture(product.fullData.productsPics_path)" :alt="getAltName(product.fullData.productsPics_altName)">
           </p>
         </figure>
         <div class="media-content">
@@ -35,7 +35,7 @@ export default {
     getProduct (id, size, quantity) {
       this.axios({
         method: 'get',
-        url: 'product/' + id
+        url: 'product/' + id + '/unrestricted'
       })
       .then(response => {
         this.products.push({
@@ -58,14 +58,14 @@ export default {
         })
       })
     },
-    getPicture (pictures) {
+    getPicture (picture) {
       if (this.loaded) {
-        return pictures.length === 0 ? '/static/noImgAvailable.png' : pictures[0].path
+        return picture || '/static/noImgAvailable.png'
       }
     },
-    getAltName (pictures) {
+    getAltName (picture) {
       if (this.loaded) {
-        return pictures.length === 0 ? 'noimg' : pictures[0].altName
+        return picture || 'noimg'
       }
     }
   }
