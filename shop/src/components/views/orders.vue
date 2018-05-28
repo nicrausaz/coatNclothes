@@ -1,26 +1,26 @@
 <template>
   <div class="container">
-    <subtitle :name="'Commandes'" :text="'Liste de vos commandes'"></subtitle>
+    <subtitle :name="$store.state.interface.orders" :text="$store.state.interface.watchOrders"></subtitle>
     <section class="section">
       <b-table :data="orders" :opened-detailed="[requestedOrder]" detailed detail-key="orders_id">
         <template slot-scope="props">
-            <b-table-column label="Numéro" width="40" numeric>
+            <b-table-column :label="$store.state.interface.number" width="40" numeric>
               {{ props.row.orders_id }}
             </b-table-column>
-            <b-table-column label="Payé">
+            <b-table-column :label="$store.state.interface.paid">
               <b-icon size="is-small" :icon="isPaidIcon(props.row.orders_paid)"></b-icon>
             </b-table-column>
-            <b-table-column label="Date de paiement">
+            <b-table-column :label="$store.state.interface.paidDate">
               {{ props.row.orders_paidDate }}
             </b-table-column>
-            <b-table-column label="État">
+            <b-table-column :label="$store.state.interface.state">
               {{ props.row.ordersStatus_name}}
             </b-table-column>
-            <b-table-column label="Date">
+            <b-table-column :label="$store.state.interface.date">
               {{ props.row.orders_createdDate }}
             </b-table-column>
             <b-table-column centered>
-              <b-tooltip label="Télécharger la facture" position="is-bottom">
+              <b-tooltip :label="$store.state.interface.downloadBill" position="is-bottom">
                 <a @click="printOrder(props.row.orders_id)"><b-icon icon="file-pdf"></b-icon></a>
               </b-tooltip>
             </b-table-column>
@@ -34,7 +34,7 @@
             <section class="section">
               <div class="content has-text-centered has-text-centered subtitle is-3">
                 <p><b-icon icon="inbox" size="is-large"> </b-icon></p>
-                <p>Vous n'avez effectué aucune commande ...</p>
+                <p>{{$store.state.interface.noOrders}}</p>
               </div>
             </section>
          </template>

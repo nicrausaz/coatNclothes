@@ -1,7 +1,7 @@
 <template>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Modifier vos informations</p>
+      <p class="modal-card-title">{{$store.state.interface.editYourInformations}}</p>
     </header>
     <section class="modal-card-body" v-if="!editPassword">
       <b-field :label="$store.state.interface.name">
@@ -18,6 +18,7 @@
       </b-field>
       <b-field :label="$store.state.interface.gender">
         <div class="block">
+          <!-- TODO: get this from api -->
           <b-radio v-model="newData.fk_gender_id" native-value="1">Homme</b-radio>
           <b-radio v-model="newData.fk_gender_id" native-value="2">Femme</b-radio>
           <b-radio v-model="newData.fk_gender_id" native-value="3">Transexuel</b-radio>
@@ -27,13 +28,13 @@
     </section>
 
     <section class="modal-card-body" v-else>
-      <b-field label="Mot de passe actuel">
-        <b-input type="password" v-model="newPassword.actual" placeholder="Mot de passe actuel" password-reveal icon="key" required></b-input>
+      <b-field :label="$store.state.interface.actualPass">
+        <b-input type="password" v-model="newPassword.actual" :placeholder="$store.state.interface.actualPass" password-reveal icon="key" required></b-input>
       </b-field>
-      <b-field label="Nouveau mot de passe">
-        <b-input type="password" v-model="newPassword.new" placeholder="Nouveau mot de passe" password-reveal icon="key" required></b-input>
+      <b-field :label="$store.state.interface.newPass">
+        <b-input type="password" v-model="newPassword.new" :placeholder="$store.state.interface.newPass" password-reveal icon="key" required></b-input>
       </b-field>
-      <a class="is-pulled-right" @click="editPassword = false">Éditer vos infos ?</a>
+      <a class="is-pulled-right" @click="editPassword = false">{{$store.state.interface.editYourInformations}} ?</a>
     </section>
     <footer class="modal-card-foot">
       <button class="button" type="button" @click="this.$parent.close">{{$store.state.interface.cancel}}</button>
@@ -110,6 +111,9 @@ export default {
           type: 'is-danger'
         })
       })
+    },
+    getGenders () {
+
     },
     changeGender () {
       this.axios({

@@ -6,7 +6,7 @@
           {{$store.state.interface.myAddresses}}
         </p>
         <nav v-if="adresses.length === 0">
-          Aucune adresse...
+          {{$store.state.interface.noAddress}}
         </nav>
         <nav class="panel" v-else>
           <a v-for="adress in adresses" :key="adress.adresses_id" class="panel-block" @click="editAdress(adress)" :class="{'is-active': adress.adresses_main}">

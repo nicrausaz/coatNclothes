@@ -10,7 +10,7 @@
         <div class="media-content">
           <strong>{{ product.fullData.products_name }}</strong> <small>{{ product.fullData.products_price }} CHF</small>
           <br>
-          Taille: {{product.productsSize_value}}
+          {{$store.state.interface.size}}: {{product.productsSize_value}}
         </div>
         <b>{{product.ordersContent_quantity}}x</b>
       </article>
