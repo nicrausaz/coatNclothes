@@ -73,6 +73,7 @@ export default {
       })
       .then(response => {
         this.$toast.open(response.data)
+        this.reset()
       })
       .catch(err => {
         this.$toast.open(err.response.data)
