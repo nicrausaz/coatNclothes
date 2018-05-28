@@ -14,7 +14,6 @@
       <b-tooltip class="is-pulled-right" label="Confirmez les étapes pour continuer" position="is-bottom" :active="!fullConfirmed">
         <button class="button is-primary is-large is-pulled-right" :disabled="!fullConfirmed" @click="finishOrder">Terminer</button>
       </b-tooltip>
-      {{orderContentFormatedData}}
     </section>
   </div>
 </template>
@@ -95,7 +94,7 @@ export default {
       })
       .then((response) => {
         this.clearBasket()
-        this.$router.push('/orders') // add id to open the orders on this new
+        this.$router.push('/order/' + response.data.orders_id)
         this.$toast.open({
           message: response.data.message,
           type: 'is-success',
