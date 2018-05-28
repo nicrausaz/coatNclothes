@@ -18,10 +18,7 @@
       </b-field>
       <b-field :label="$store.state.interface.gender">
         <div class="block">
-          <!-- TODO: get this from api -->
-          <b-radio v-model="newData.fk_gender_id" native-value="1">Homme</b-radio>
-          <b-radio v-model="newData.fk_gender_id" native-value="2">Femme</b-radio>
-          <b-radio v-model="newData.fk_gender_id" native-value="3">Transexuel</b-radio>
+          <b-radio v-for="gender in genders" :key="gender.gender_id" v-model="newData.fk_gender_id" :native-value="gender.gender_id">{{gender.gender_sex}}</b-radio>
         </div>
       </b-field>
       <a class="is-pulled-right" @click="editPassword = true">{{$store.state.interface.changePassword}}</a>
@@ -49,6 +46,7 @@ export default {
   data () {
     return {
       newData: [],
+      genders: [],
       newPassword: {
         actual: '',
         new: ''
@@ -58,6 +56,7 @@ export default {
   },
   created () {
     this.getUserInfos()
+    this.getGenders()
   },
   methods: {
     updateInfos () {
@@ -113,7 +112,13 @@ export default {
       })
     },
     getGenders () {
-
+      this.axios({
+        method: 'get',
+        url: '/genders/available'
+      })
+      .then(response => {
+        this.genders = response.data
+      })
     },
     changeGender () {
       this.axios({
@@ -126,7 +131,7 @@ export default {
         method: 'get',
         url: '/user/' + this.$store.state.user.users_id
       })
-      .then((response) => {
+      .then(response => {
         this.newData = response.data
       })
     }
