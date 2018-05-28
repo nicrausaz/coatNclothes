@@ -67,7 +67,7 @@ export default {
   computed: {
     picture () {
       if (this.loaded) {
-        return this.product.products_pictures.length === 0 ? 'static/noImgAvailable.png' : this.product.products_pictures[0].path
+        return this.product.products_pictures.length === 0 ? '/static/noImgAvailable.png' : this.product.products_pictures[0].path
       }
     },
     altName () {

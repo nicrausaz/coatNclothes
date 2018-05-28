@@ -5,21 +5,21 @@
         <b-table-column width="20" label="">
           <a @click="deleteItem(props.row.products_id)"><b-icon icon="times" size="is-small"></b-icon></a>
         </b-table-column>
-        <b-table-column width="100" label="Image">
+        <b-table-column width="100" :label="$store.state.interface.pic">
           <img :src="getPicture(props.row.products_pictures)" :alt="getAltName(props.row.products_pictures)">
         </b-table-column>
-        <b-table-column label="Nom">
+        <b-table-column :label="$store.state.interface.name">
           {{ props.row.products_name }}
         </b-table-column>
-        <b-table-column label="Marque">
+        <b-table-column :label="$store.state.interface.brand">
           {{ props.row.products_brand }}
         </b-table-column>
-        <b-table-column label="Prix">
+        <b-table-column :label="$store.state.interface.price">
           {{ formatedPrice(props.row.products_price) }}
         </b-table-column>
-        <b-table-column label="Actions" width="110">
-          <b-tooltip label="Voir le produit" position="is-top"><router-link class="button" :to="/product/ + props.row.products_id" ><b-icon icon="info" size="is-small"></b-icon></router-link></b-tooltip>
-          <b-tooltip label="Ajouter au panier" position="is-top"><a class="button is-primary" @click="addToBasket(props.row.products_id)"><b-icon icon="shopping-cart" size="is-small"></b-icon></a></b-tooltip>
+        <b-table-column :label="$store.state.interface.actions" width="110">
+          <b-tooltip :label="$store.state.interface.watchProduct" position="is-top"><router-link class="button" :to="/product/ + props.row.products_id" ><b-icon icon="info" size="is-small"></b-icon></router-link></b-tooltip>
+          <b-tooltip :label="$store.state.interface.addToBasket" position="is-top"><a class="button is-primary" @click="addToBasket(props.row.products_id)"><b-icon icon="shopping-cart" size="is-small"></b-icon></a></b-tooltip>
         </b-table-column>
       </template>
 
@@ -68,7 +68,7 @@ export default {
       return price.toFixed(2) + ' CHF'
     },
     getPicture (pictures) {
-      return pictures.length === 0 ? 'static/noImgAvailable.png' : pictures[0].path
+      return pictures.length === 0 ? '/static/noImgAvailable.png' : pictures[0].path
     },
     getAltName (pictures) {
       return pictures.length === 0 ? 'noimg' : pictures[0].altName

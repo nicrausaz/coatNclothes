@@ -13,7 +13,7 @@
           </b-field>
           <div id="searchResults" v-if="isFilterValid">
             <searchResult v-for="product in filteredProducts" :key="product.product_id" :data="product"></searchResult>
-            <p v-if="!resultHasContent">Aucun article trouvé</p>
+            <p v-if="!resultHasContent">{{$store.state.interface.NoProductFound}}</p>
           </div>
         </section>
       </div>

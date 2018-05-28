@@ -14,9 +14,9 @@
       </div>
     </div>
     <footer class="card-footer">
-      <a class="card-footer-item" @click="deleteWishlist">Supprimer la liste<b-icon icon="trash-alt"></b-icon></a>
-      <a class="card-footer-item" @click="edit">Modifier<b-icon icon="pencil-alt"></b-icon></a>
-      <a class="card-footer-item" @click="addAllToBasket" v-if="hasProducts">Tout ajouter au panier <b-icon icon="cart-plus"></b-icon></a>
+      <a class="card-footer-item" @click="deleteWishlist">{{$store.state.interface.delete}}<b-icon icon="trash-alt"></b-icon></a>
+      <a class="card-footer-item" @click="edit">{{$store.state.interface.editWishlist}}<b-icon icon="pencil-alt"></b-icon></a>
+      <a class="card-footer-item" @click="addAllToBasket" v-if="hasProducts">{{$store.state.interface.addAllToBasket}}<b-icon icon="cart-plus"></b-icon></a>
     </footer>
     <b-modal :active.sync="isEditing" has-modal-card>
       <wishlist-edit-modal :id="infos.wishlist_id" :name="infos.wishlist_name" :description="infos.wishlist_description" @updateInfo="$emit('update')"></wishlist-edit-modal>
@@ -44,8 +44,8 @@ export default {
     },
     deleteWishlist () {
       this.$dialog.confirm({
-        title: 'Supprimer la liste de souhait',
-        message: 'Êtes-vous sûr de vouloir supprimer la liste de souhait <b>' + this.infos.wishlist_name + '</b> ?',
+        title: this.$store.state.interface.delete,
+        message: this.$store.state.interface.confirmDeleteWishlist + '?',
         type: 'is-danger',
         hasIcon: true,
         icon: 'times-circle',

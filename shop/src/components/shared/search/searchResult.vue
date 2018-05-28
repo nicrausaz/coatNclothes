@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     picture () {
-      return this.data.productsPics_path === null ? 'static/noImgAvailable.png' : this.data.productsPics_path
+      return this.data.productsPics_path === null ? '/static/noImgAvailable.png' : this.data.productsPics_path
     },
     altName (altName) {
       return this.data.productsPics_altName === null ? 'noimg' : this.data.productsPics_altName

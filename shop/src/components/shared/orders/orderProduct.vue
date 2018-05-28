@@ -60,7 +60,7 @@ export default {
     },
     getPicture (pictures) {
       if (this.loaded) {
-        return pictures.length === 0 ? 'static/noImgAvailable.png' : pictures[0].path
+        return pictures.length === 0 ? '/static/noImgAvailable.png' : pictures[0].path
       }
     },
     getAltName (pictures) {

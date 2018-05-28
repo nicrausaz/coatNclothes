@@ -6,7 +6,7 @@
     position-type="absolute"
     :z-index="1"
     main-icon="settings"
-    main-tooltip="Actions"
+    :main-tooltip="this.$store.state.interface.actions"
     @infos="infos"
     @admin="admin"
     @orders="orders"
@@ -27,22 +27,22 @@ export default {
           {
             name: 'infos',
             icon: 'mode_edit',
-            tooltip: 'Éditer mes infos'
+            tooltip: this.$store.state.interface.seeAndEditInformations
           },
           {
             name: 'orders',
             icon: 'shop_two',
-            tooltip: 'Voir mes commandes'
+            tooltip: this.$store.state.interface.orders
           },
           {
             name: 'admin',
             icon: 'lock_open',
-            tooltip: 'Administration'
+            tooltip: this.$store.state.interface.administration
           },
           {
             name: 'logoff',
             icon: 'exit_to_app',
-            tooltip: 'Déconnexion'
+            tooltip: this.$store.state.interface.logout
           }
         ]
       }

@@ -1,7 +1,7 @@
 <template>
 <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Choisir la liste</p>
+      <p class="modal-card-title">{{$store.state.interface.chooseList}}</p>
     </header>
     <section class="modal-card-body" v-if="!isCreatingNew">
       <div v-for="wishlist in wishlists" class="choices" :key="wishlist.wishlist_id" @click="choose(wishlist.wishlist_id)">

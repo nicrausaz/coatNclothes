@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar is-primary is-fixed-top">
     <div class="navbar-brand">
-      <router-link to="/" class="navbar-item"><img src="static/favicon.png"></router-link>
+      <router-link to="/" class="navbar-item"><img src="/static/favicon.png"></router-link>
       <button class="button navbar-burger is-primary" @click="toggleMenu" :class="{'is-active': navIsActive}" data-target="navMenu">
         <span></span>
         <span></span>

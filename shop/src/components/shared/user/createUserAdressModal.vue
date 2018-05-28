@@ -1,30 +1,30 @@
 <template>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Créer une adresse</p>
+      <p class="modal-card-title">{{$store.state.interface.createAnAddress}}</p>
     </header>
     <section class="modal-card-body">
-      <b-field label="Adresse">
-        <b-input v-model="newData.adresses_street" placeholder="Rue" required></b-input>
+      <b-field :label="$store.state.interface.address">
+        <b-input v-model="newData.adresses_street" :placeholder="$store.state.interface.address" required></b-input>
       </b-field>
-      <b-field label="NPA">
-        <b-input v-model="newData.adresses_npa" placeholder="NPA" max-length="6" required></b-input>
+      <b-field :label="$store.state.interface.ZIP">
+        <b-input v-model="newData.adresses_npa" :placeholder="$store.state.interface.ZIP" max-length="6" required></b-input>
       </b-field>
-      <b-field label="Localité">
-        <b-input v-model="newData.adresses_locality" placeholder="Localité" required></b-input>
+      <b-field :label="$store.state.interface.locality">
+        <b-input v-model="newData.adresses_locality" :placeholder="$store.state.interface.locality" required></b-input>
       </b-field>
-      <b-field label="Pays">
-        <b-input v-model="newData.adresses_state" placeholder="Pays" required></b-input>
+      <b-field :label="$store.state.interface.country">
+        <b-input v-model="newData.adresses_state" :placeholder="$store.state.interface.country" required></b-input>
       </b-field>
       <b-field>
         <b-checkbox v-model="newData.adresses_main" size="is-small" :checked="newData.adresses_main">
-          Adresse par défaut ?
+          {{$store.state.interface.defaultAddress}}
         </b-checkbox>
       </b-field>
     </section>
     <footer class="modal-card-foot">
-      <button class="button" type="button" @click="this.$parent.close">Annuler</button>
-      <button class="button is-primary" @click="create">Confirmer</button>
+      <button class="button" type="button" @click="this.$parent.close">{{$store.state.interface.cancel}}</button>
+      <button class="button is-primary" @click="create">{{$store.state.interface.confirm}}</button>
     </footer>
   </div>
 </template>

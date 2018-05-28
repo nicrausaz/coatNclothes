@@ -5,19 +5,19 @@
     </header>
     <section class="modal-card-body">
       <form>
-        <b-field label="Nom d'utilisateur ou email">
-            <b-input v-model="credentials.users_login" placeholder="Nom d'utilisateur ou email" icon="user" required></b-input>
+        <b-field :label="$store.state.interface.usernameOrEmail">
+            <b-input v-model="credentials.users_login" :placeholder="$store.state.interface.usernameOrEmail" icon="user" required></b-input>
         </b-field>
-        <b-field label="Mot de passe">
-            <b-input type="password" v-model="credentials.users_pass" placeholder="Mot de passe" password-reveal icon="key" required>
+        <b-field :label="$store.state.interface.password">
+            <b-input type="password" v-model="credentials.users_pass" :placeholder="$store.state.interface.password" password-reveal icon="key" required>
             </b-input>
         </b-field>
-      <router-link to="/user">Pas de compte ?</router-link>
+      <router-link to="/user">{{$store.state.interface.NoAccountYet}}</router-link>
       </form>
     </section>
     <footer class="modal-card-foot">
-      <button class="button" @click="this.$parent.close">Annuler</button>
-      <button class="button is-primary" @click="connect">Confirmer</button>
+      <button class="button" @click="this.$parent.close">{{$store.state.interface.cancel}}</button>
+      <button class="button is-primary" @click="connect">{{$store.state.interface.connect}}</button>
     </footer>
   </div>
 </template>

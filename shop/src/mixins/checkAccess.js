@@ -3,7 +3,7 @@ export default {
     if (Object.keys(this.$store.state.user).length === 0) {
       // User try to access a restricted page, redirection to login
       this.$toast.open({
-        message: 'Connectez-vous ou créez un compte pour accéder à cette page!',
+        message: this.$store.state.interface.signinOrSignupToAccess,
         type: 'is-warning'
       })
       this.$router.push('/user')
@@ -17,7 +17,7 @@ export default {
         this.$store.commit('detroyUser')
         this.$router.push('/user')
         this.$toast.open({
-          message: 'Session expirée, veuillez vous connecter à nouveau',
+          message: this.$store.state.interface.expiredSession,
           type: 'is-warning'
         })
       })

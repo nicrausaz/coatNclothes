@@ -12,7 +12,7 @@
       </li>
     </ul>
     <p class="menu-label has-text-right">{{totalPrice}}</p>
-    <b-tooltip class="is-pulled-right" label="Choisissez une taille pour tous les produits" position="is-bottom" :active="!validSizes">
+    <b-tooltip class="is-pulled-right" :label="$store.state.interface.chooseSizeAllProducts" position="is-bottom" :active="!validSizes">
       <router-link to="/orderconfirm">
         <button class="button is-primary is-large is-pulled-right" :disabled="!validSizes">{{$store.state.interface.order}}</button>
       </router-link>

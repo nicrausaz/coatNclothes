@@ -3,14 +3,14 @@
     <div class="column is-half">
       <div class="card">
         <form class="card-content">
-          <b-field label="Nom d'utilisateur ou email">
-            <b-input v-model="credentials.users_login" placeholder="Nom d'utilisateur ou email" icon="user" required></b-input>
+          <b-field :label="$store.state.interface.usernameOrEmail">
+            <b-input v-model="credentials.users_login" :placeholder="$store.state.interface.usernameOrEmail" icon="user" required></b-input>
           </b-field>
-          <b-field label="Mot de passe">
-            <b-input type="password" v-model="credentials.users_pass" placeholder="Mot de passe" password-reveal icon="key" required></b-input>
+          <b-field :label="$store.state.interface.password">
+            <b-input type="password" v-model="credentials.users_pass" :placeholder="$store.state.interface.password" password-reveal icon="key" required></b-input>
           </b-field>
           <div class="level-right">
-            <button class="button is-primary" @click="connect">Connexion</button>
+            <button class="button is-primary" @click="connect">{{$store.state.interface.connect}}</button>
           </div>
         </form>
       </div>

@@ -29,7 +29,7 @@ export default {
   mixins: [productshelpers],
   computed: {
     picture () {
-      return this.infos.productsPics_path || 'static/noImgAvailable.png'
+      return this.infos.productsPics_path || '/static/noImgAvailable.png'
     },
     altName (altName) {
       return this.infos.productsPics_altName || 'noimg'

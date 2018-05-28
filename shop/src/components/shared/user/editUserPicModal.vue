@@ -1,7 +1,7 @@
 <template>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Modifier votre photo</p>
+      <p class="modal-card-title">{{$store.state.interface.editYourPic}}</p>
     </header>
     <section class="modal-card-body">
       <div class="columns">
@@ -11,7 +11,7 @@
             <b-upload v-model="files" accept="image/*">
               <a class="button is-primary">
                 <b-icon icon="upload"></b-icon>
-                <span>Choisir une photo</span>
+                <span>{{$store.state.interface.chooseaPic}}</span>
               </a>
             </b-upload>
             <div v-if="files && files.length">
@@ -23,15 +23,15 @@
           <b-field>
             <a class="button is-danger is-outlined" @click="deletePic">
               <b-icon icon="trash-alt"></b-icon>
-              <span>Supprimer la photo</span>
+              <span>{{$store.state.interface.remPic}}</span>
             </a>
           </b-field>
         </div>
       </div>
     </section>
     <footer class="modal-card-foot">
-      <button class="button" type="button" @click="this.$parent.close">Annuler</button>
-      <button class="button is-primary" @click="updatePic" :disabled="!canPost">Confirmer le changement</button>
+      <button class="button" type="button" @click="this.$parent.close">{{$store.state.interface.cancel}}</button>
+      <button class="button is-primary" @click="updatePic" :disabled="!canPost">{{$store.state.interface.confirm}}</button>
     </footer>
   </div>
 </template>

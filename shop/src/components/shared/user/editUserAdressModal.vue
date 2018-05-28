@@ -1,34 +1,34 @@
 <template>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Modifier votre adresse</p>
+      <p class="modal-card-title">{{$store.state.interface.editYourAddress}}</p>
       <a class="button is-danger is-outlined is-pulled-right" @click.stop="deleteAdress()">
-        <span>Supprimer</span>
+        <span>{{$store.state.interface.delete}}</span>
         <b-icon icon="trash" size="is-small"></b-icon>
       </a>
     </header>
     <section class="modal-card-body">
-      <b-field label="Adresse">
+      <b-field :label="$store.state.interface.address">
         <b-input v-model="newData.adresses_street"></b-input>
       </b-field>
-      <b-field label="NPA">
+      <b-field :label="$store.state.interface.ZIP">
         <b-input v-model="newData.adresses_npa" max-length="6"></b-input>
       </b-field>
-      <b-field label="Localité">
+      <b-field :label="$store.state.interface.locality">
         <b-input v-model="newData.adresses_locality"></b-input>
       </b-field>
-      <b-field label="Pays">
+      <b-field :label="$store.state.interface.country">
         <b-input v-model="newData.adresses_state" required></b-input>
       </b-field>
       <b-field>
         <b-checkbox v-model="newData.adresses_main" size="is-small" true-value="1" false-value="0" :disabled="isMain">
-          Adresse par défaut ?
+          {{$store.state.interface.defaultAddress}}
         </b-checkbox>
       </b-field>
     </section>
     <footer class="modal-card-foot">
-      <button class="button" type="button" @click="this.$parent.close">Annuler</button>
-      <button class="button is-primary" @click="updateAdress">Confirmer</button>
+      <button class="button" type="button" @click="this.$parent.close">{{$store.state.interface.cancel}}</button>
+      <button class="button is-primary" @click="updateAdress">{{$store.state.interface.confirm}}</button>
     </footer>
   </div>
 </template>

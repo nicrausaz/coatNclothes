@@ -17,7 +17,7 @@
         </div>
         <div class="has-text-centered subtitle is-3" style="padding-top: 100px;" v-else>
           <b-icon icon="inbox" size="is-large"></b-icon>
-          <p>Aucun produit correspondant aux filtres n'a été trouvé ...</p>
+          <p>{{$store.state.interface.NoProductCoresponding}}</p>
         </div>
       </div>
     </div>

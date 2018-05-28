@@ -1,11 +1,11 @@
 <template>
   <div id="logsign" class="container">
-    <subtitle :name="''" :text="'Connectez-vous ou créez un compte'"></subtitle>
+    <subtitle :name="''" :text="$store.state.interface.signinOrSignup"></subtitle>
     <b-tabs v-model="activeTab" position="is-centered">
-      <b-tab-item label="Connexion" icon="sign-in-alt">
+      <b-tab-item :label="$store.state.interface.signin" icon="sign-in-alt">
         <loginform></loginform>
       </b-tab-item>
-      <b-tab-item label="Créer un compte" icon="user-plus">
+      <b-tab-item :label="$store.state.interface.signup" icon="user-plus">
         <signupform></signupform>
       </b-tab-item>
     </b-tabs>

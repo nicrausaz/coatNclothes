@@ -17,6 +17,7 @@ import adminCategories from '@/components/shared/admin/categories/categoriesTabl
 import NotFound from '@/components/views/404'
 
 export default {
+  mode: 'history',
   routes: [
     {
       path: '/',

@@ -4,26 +4,26 @@
       <p class="modal-card-title">Modifier vos informations</p>
     </header>
     <section class="modal-card-body" v-if="!editPassword">
-      <b-field label="Nom">
+      <b-field :label="$store.state.interface.name">
         <b-input v-model="newData.users_name"></b-input>
       </b-field>
-      <b-field label="Prénom">
+      <b-field :label="$store.state.interface.fsname">
         <b-input v-model="newData.users_fsname"></b-input>
       </b-field>
-      <b-field label="Nom de compte">
+      <b-field :label="$store.state.interface.username">
         <b-input v-model="newData.users_login"></b-input>
       </b-field>
-      <b-field label="Email">
+      <b-field :label="$store.state.interface.email">
         <b-input v-model="newData.users_email"></b-input>
       </b-field>
-      <b-field label="Genre">
+      <b-field :label="$store.state.interface.gender">
         <div class="block">
           <b-radio v-model="newData.fk_gender_id" native-value="1">Homme</b-radio>
           <b-radio v-model="newData.fk_gender_id" native-value="2">Femme</b-radio>
           <b-radio v-model="newData.fk_gender_id" native-value="3">Transexuel</b-radio>
         </div>
       </b-field>
-      <a class="is-pulled-right" @click="editPassword = true">Changer de mot de passe ?</a>
+      <a class="is-pulled-right" @click="editPassword = true">{{$store.state.interface.changePassword}}</a>
     </section>
 
     <section class="modal-card-body" v-else>
@@ -36,9 +36,9 @@
       <a class="is-pulled-right" @click="editPassword = false">Éditer vos infos ?</a>
     </section>
     <footer class="modal-card-foot">
-      <button class="button" type="button" @click="this.$parent.close">Annuler</button>
-      <button class="button is-primary" v-if="!editPassword" @click="updateInfos">Changer les infos</button>
-      <button class="button is-primary" v-else @click="changePassword">Changer le mot de passe</button>
+      <button class="button" type="button" @click="this.$parent.close">{{$store.state.interface.cancel}}</button>
+      <button class="button is-primary" v-if="!editPassword" @click="updateInfos">{{$store.state.interface.confirm}}</button>
+      <button class="button is-primary" v-else @click="changePassword">{{$store.state.interface.confirm}}</button>
     </footer>
   </div>
 </template>

@@ -54,7 +54,7 @@ export default {
       return this.userFullInfos.users_admin ? this.$store.state.interface.admin : this.$store.state.interface.customer
     },
     userPic () {
-      return this.userFullInfos.users_pic || 'static/noImgAvailable.png'
+      return this.userFullInfos.users_pic || '/static/noImgAvailable.png'
     }
   },
   methods: {
