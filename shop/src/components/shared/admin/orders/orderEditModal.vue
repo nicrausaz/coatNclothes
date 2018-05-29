@@ -5,14 +5,14 @@
     </header>
     <section class="modal-card-body">
       <h1 class="subtitle">Infos</h1>
-      <p><b>Date de commande:</b> {{orderBaseInfos.orders_createdDate}}</p>
-      <p><b>Client:</b>
+      <p><b>{{$store.state.interface.orderDate}}:</b> {{orderBaseInfos.orders_createdDate}}</p>
+      <p><b>{{$store.state.interface.customer}}:</b>
         {{userData.users_name}}
         {{userData.users_fsname}},
         {{userData.users_email}}
         (#{{orderBaseInfos.fk_users_id}})
       </p>
-      <p><b>Adresse:</b> {{orderAddress.adresses_street}}, {{orderAddress.adresses_npa}} {{orderAddress.adresses_locality}}, {{orderAddress.adresses_state}}</p>
+      <p><b>{{$store.state.interface.address}}:</b> {{orderAddress.adresses_street}}, {{orderAddress.adresses_npa}} {{orderAddress.adresses_locality}}, {{orderAddress.adresses_state}}</p>
 
       <div v-if="loaded">
       <b>Contenu:</b>
@@ -27,9 +27,9 @@
       <br>
       <h1 class="subtitle">Edition</h1>
       <b-field>
-        <b-checkbox v-model="orderBaseInfos.orders_paid" :disabled="orderIsPaid" true-value="1" false-value="0">Paiement reçu {{orderPaidDate}}</b-checkbox>
+        <b-checkbox v-model="orderBaseInfos.orders_paid" :disabled="orderIsPaid" true-value="1" false-value="0">{{$store.state.interface.paid}} {{orderPaidDate}}</b-checkbox>
       </b-field>
-      <b-field label="Etat de la commande">
+      <b-field :label="$store.state.interface.status">
         <b-select placeholder="Etat de la commande" v-model="orderBaseInfos.fk_ordersStatus_id" expanded>
           <option v-for="status in ordersStatusAvailable" :value="status.ordersStatus_id" :key="status.ordersStatus_id"> {{ status.ordersStatus_name }} </option>
         </b-select>
@@ -37,8 +37,8 @@
 
     </section>
     <footer class="modal-card-foot">
-      <button class="button" @click="this.$parent.close">Annuler</button>
-      <button class="button is-primary" @click="updateOrder">Confirmer</button>
+      <button class="button" @click="this.$parent.close">{{$store.state.interface.cancel}}</button>
+      <button class="button is-primary" @click="updateOrder">{{$store.state.interface.confirm}}</button>
     </footer>
   </div>
 </template>
@@ -125,7 +125,7 @@ export default {
       })
     },
     updateOrder () {
-      if (!this.originalPaidState && this.orderBaseInfos.orders_paid) {
+      if (this.originalPaidState === 0 && this.orderBaseInfos.orders_paid === '1') {
         this.axios({
           method: 'patch',
           url: '/admin/order/' + this.orderBaseInfos.orders_id + '/paid'

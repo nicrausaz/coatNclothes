@@ -1,7 +1,7 @@
 <template>
   <section>
     <h2 class="subtitle">
-      Éditer les utilisateur
+      {{$store.state.interface.editUsers}}
     </h2>
     <hr>
     <b-field grouped group-multiline>
@@ -10,7 +10,7 @@
         <option value="10">10 par page</option>
         <option value="20">20 par page</option>
       </b-select>
-      <b-input placeholder="Rechercher par nom ..." type="search" icon-pack="fas" icon="search" v-model="searchContent"></b-input>
+      <b-input :placeholder="$store.state.interface.nameSearch" type="search" icon-pack="fas" icon="search" v-model="searchContent"></b-input>
     </b-field>
     <b-table :data="filteredUsers" :per-page="filter.perPage" :paginated="true" :pagination-simple="true" default-sort="users_id" :mobile-cards="false">
       <template slot-scope="props">

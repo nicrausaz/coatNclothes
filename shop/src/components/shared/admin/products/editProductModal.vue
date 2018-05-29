@@ -1,34 +1,34 @@
 <template>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Modifier le produit</p>
+      <p class="modal-card-title">{{$store.state.interface.editProduct}}</p>
       <button class="button is-danger is-outlined" @click="deleteProduct">
-        <span>Supprimer</span>
+        <span>{{$store.state.interface.delete}}</span>
         <b-icon icon="trash" size="is-small"></b-icon>
       </button>
     </header>
     <section class="modal-card-body">
-      <b-field label="Nom">
+      <b-field :label="$store.state.interface.name">
         <b-input v-model="newData.products_name"></b-input>
       </b-field>
-      <b-field label="Description">
+      <b-field :label="$store.state.interface.description">
         <b-input v-model="newData.products_description" maxlength="300" type="textarea"></b-input>
       </b-field>
-      <b-field label="Prix">
+      <b-field :label="$store.state.interface.price">
         <b-input v-model="newData.products_price" type="number" step="1"></b-input>
       </b-field>
-      <b-field label="Catégorie">
+      <b-field :label="$store.state.interface.category">
         <div class="field is-grouped">
-          <b-select placeholder="Choisir une catégorie" v-model="newData.fk_category_id" expanded>
+          <b-select :placeholder="$store.state.interface.chooseCategory" v-model="newData.fk_category_id" expanded>
             <optgroup v-for="category in categories" :key="category.id" :label="category.name">
               <option v-for="cat in category.children" :key="cat.id" :value="cat.id" > {{ cat.name }} </option>
             </optgroup>
           </b-select>
         </div>
       </b-field>
-      <b-field label="Marque">
+      <b-field :label="$store.state.interface.brand">
         <div class="field is-grouped">
-          <b-select placeholder="Choisir une marque" v-model="newData.fk_brand_id" expanded>
+          <b-select :placeholder="$store.state.interface.chooseBrand" v-model="newData.fk_brand_id" expanded>
             <option v-for="brand in brands" :value="brand.brand_id" :key="brand.brand_id"> {{ brand.brand_name }} </option>
           </b-select>
           <button class="button is-primary" @click="addBrand">
@@ -36,7 +36,7 @@
           </button>
         </div>
       </b-field>
-      <b-field label="Tailles disponibles">
+      <b-field :label="$store.state.interface.sizeAvailable">
         <b-field>
           <b-checkbox-button v-model="newData.products_size" native-value="XS">
             <span>XS</span>
@@ -59,7 +59,7 @@
         </b-field>
       </b-field>
 
-      <b-field label="Images">
+      <b-field :label="$store.state.interface.pics">
         <div v-if="hasPicture" style="display: flex;">
           <figure class="image is-128x128" v-for="pic in newData.products_pictures" :key="pic.altName">
             <button id="delete" class="delete" @click="deletePicture(pic.id)"></button>
@@ -71,7 +71,7 @@
         <b-upload v-model="newfiles" multiple drag-drop accept="image/*">
             <div class="content has-text-centered">
               <p><b-icon icon="upload" size="is-large"></b-icon></p>
-              <p>Cliquer ou déposer des fichiers</p>
+              <p>{{$store.state.interface.clicAndDropFile}}</p>
             </div>
         </b-upload>
         <div class="tags">
@@ -83,8 +83,8 @@
       </b-field>
     </section>
     <footer class="modal-card-foot">
-      <button class="button" @click="this.$parent.close">Annuler</button>
-      <button class="button is-primary" @click="update">Confirmer</button>
+      <button class="button" @click="this.$parent.close">{{$store.state.interface.cancel}}</button>
+      <button class="button is-primary" @click="update">{{$store.state.interface.confirm}}</button>
     </footer>
   </div>
 </template>
@@ -193,9 +193,9 @@ export default {
     },
     addBrand () {
       this.$dialog.prompt({
-        message: `Nouvelle marque`,
-        cancelText: 'Annuler',
-        confirmText: 'Confirmer',
+        message: this.$store.state.interface.newBrand,
+        cancelText: this.$store.state.interface.cancel,
+        confirmText: this.$store.state.interface.confirm,
         onConfirm: (value) => {
           this.axios({
             method: 'put',

@@ -2,7 +2,7 @@
   <div class="container">
     <subtitle :name="$store.state.interface.orders" :text="$store.state.interface.watchOrders"></subtitle>
     <section class="section">
-      <b-table :data="orders" :opened-detailed="[requestedOrder]" detailed detail-key="orders_id">
+      <b-table :data="orders" :opened-detailed="[requestedOrder]" detailed detail-key="orders_id" default-sort="orders_id">
         <template slot-scope="props">
             <b-table-column :label="$store.state.interface.number" width="40" numeric>
               {{ props.row.orders_id }}

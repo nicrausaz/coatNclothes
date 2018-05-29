@@ -16,6 +16,7 @@
           <span>Nouvelle catégorie</span>
         </a>
     </b-field>
+    TODO: CHANGE THIS VIEW
     <b-table :data="filteredCategories" :per-page="filter.perPage" :paginated="true" :pagination-simple="true" default-sort="category_id" :mobile-cards="false">
       <template slot-scope="props">
         <b-table-column field="category_id" label="No" width="60" sortable numeric>

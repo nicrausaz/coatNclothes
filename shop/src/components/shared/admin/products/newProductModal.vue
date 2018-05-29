@@ -4,7 +4,7 @@
       <p class="modal-card-title">{{$store.state.interface.addProduct}}</p>
     </header>
     <section class="modal-card-body">
-      TODO: Création du produit en anglais !
+      <i>TODO: Création du produit en anglais !</i>
       <b-field :label="$store.state.interface.name">
          <b-input v-model="newData.products_name"></b-input>
       </b-field>
@@ -57,8 +57,8 @@
       </b-field>
     </section>
     <footer class="modal-card-foot">
-      <button class="button" @click="this.$parent.close">Annuler</button>
-      <button class="button is-primary" @click="createProduct">Confirmer</button>
+      <button class="button" @click="this.$parent.close">{{$store.state.interface.cancel}}</button>
+      <button class="button is-primary" @click="createProduct">{{$store.state.interface.confirm}}</button>
     </footer>
   </div>
 </template>
