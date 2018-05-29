@@ -56,6 +56,7 @@ export default {
         delete response.data.message
         delete response.data.status_code
         this.$store.commit('setUser', response.data)
+        this.$store.commit('setTokenExpirationDate')
         location.reload()
       })
       .catch(err => {
