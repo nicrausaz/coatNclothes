@@ -16,14 +16,14 @@
                 <i>{{productData.products_description}}</i>
               </p>
               <star-rating :star-size="20" :show-rating="false" :read-only="true" v-model="noteToInt" :inline="true"></star-rating> ({{productNote.number}})
-
-              <a class="button" style="margin-bottom: 20px; margin-top: 50px;" @click="openWishlistSelector">
-                <span class="icon">
-                  <b-icon icon="heart"></b-icon>
-                </span>
-                <span>{{$store.state.interface.addToWishlist}}</span>
-              </a>
-              <br>
+              <div class="field">
+                <a class="button" style="margin-top: 50px;" @click="openWishlistSelector">
+                  <span class="icon">
+                    <b-icon icon="heart"></b-icon>
+                  </span>
+                  <span>{{$store.state.interface.addToWishlist}}</span>
+                </a>
+              </div>
               <div class="field is-grouped">
                 <b-select :placeholder="$store.state.interface.size" v-model="currentProduct.selectedSize">
                   <option v-for="size in productData.products_size" :key="size">

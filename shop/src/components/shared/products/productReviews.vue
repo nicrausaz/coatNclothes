@@ -12,17 +12,20 @@
         </div>
       </div>
     </article>
-    <article class="media">
+    <article class="media" id="newCommentZone">
       <div class="media-content">
         <div class="field">
+          <p class="control">
+            <span class="subtitle">Notez cet article</span>
+            <star-rating :increment="0.5" :star-size="25" :show-rating="false" v-model="newComment.commentsAndOpinions_note" :inline="false"></star-rating>
+          </p>
+        </div>
+        <div class="field" v-if="hasNoted">
           <p class="control">
             <textarea class="textarea" :placeholder="$store.state.interface.addComment" v-model="newComment.commentsAndOpinions_comment"></textarea>
           </p>
         </div>
-        <div class="field" style="padding: 10px;">
-          <star-rating :increment="0.5" :star-size="25" :show-rating="false" v-model="newComment.commentsAndOpinions_note" :inline="true"></star-rating>
-          <button class="button is-pulled-right" @click="postComment">{{$store.state.interface.comment}}</button>
-        </div>
+        <button class="button is-pulled-right" @click="postComment" :disabled="!hasNoted">{{$store.state.interface.comment}}</button>
       </div>
     </article>
   </div>
@@ -48,6 +51,11 @@ export default {
   },
   created () {
     this.getComments()
+  },
+  computed: {
+    hasNoted () {
+      return this.newComment.commentsAndOpinions_note > 0
+    }
   },
   methods: {
     getComments () {
@@ -91,3 +99,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#newCommentZone {
+  border-top: 1px solid lightgray;
+}
+</style>
+
