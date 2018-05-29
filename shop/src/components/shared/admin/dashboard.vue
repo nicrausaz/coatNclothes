@@ -1,16 +1,16 @@
 <template>
   <div>
     <h2 class="subtitle">
-      Statistiques
+      {{$store.state.interface.stats}}
     </h2>
     <hr>
     <div class="graphs">
-      <p>État global des commandes</p>
+      <p>{{$store.state.interface.orderStatus}}</p>
       <pie-chart :data="compactOrders"></pie-chart>
     </div>
     <div class="graphs">
-      <p>Commandes par mois</p>
-      <column-chart :data="monthlyOrdersData"></column-chart>
+      <!-- <p>Commandes par mois</p>
+      <column-chart :data="monthlyOrdersData"></column-chart> -->
     </div>
   </div>
 </template>

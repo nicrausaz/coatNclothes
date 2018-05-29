@@ -1,31 +1,31 @@
 <template>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Ajouter un produit</p>
+      <p class="modal-card-title">{{$store.state.interface.addProduct}}</p>
     </header>
-    Création du produit en anglais !
     <section class="modal-card-body">
-      <b-field label="Nom">
+      TODO: Création du produit en anglais !
+      <b-field :label="$store.state.interface.name">
          <b-input v-model="newData.products_name"></b-input>
       </b-field>
-      <b-field label="Description">
+      <b-field :label="$store.state.interface.description">
          <b-input v-model="newData.products_description" maxlength="300" type="textarea"></b-input>
       </b-field>
-      <b-field label="Prix">
+      <b-field :label="$store.state.interface.price">
         <b-input v-model="newData.products_price" type="number" step="1"></b-input>
       </b-field>
-      <b-field label="Catégorie">
+      <b-field :label="$store.state.interface.category">
         <div class="field is-grouped">
-          <b-select placeholder="Choisir une catégorie" v-model="newData.fk_category_id" expanded>
+          <b-select :placeholder="$store.state.interface.chooseCategory" v-model="newData.fk_category_id" expanded>
             <optgroup v-for="category in categories" :key="category.id" :label="category.name">
               <option v-for="cat in category.children" :key="cat.id" :value="cat.id" > {{ cat.name }} </option>
             </optgroup>
           </b-select>
         </div>
       </b-field>
-      <b-field label="Marque">
+      <b-field :label="$store.state.interface.brand">
         <div class="field is-grouped">
-          <b-select placeholder="Choisir une marque" v-model="newData.fk_brand_id" expanded>
+          <b-select :placeholder="$store.state.interface.chooseBrand" v-model="newData.fk_brand_id" expanded>
             <option v-for="brand in brands" :value="brand.brand_id" :key="brand.brand_id"> {{ brand.brand_name }} </option>
           </b-select>
           <button class="button is-primary" @click="addBrand">
@@ -33,7 +33,7 @@
           </button>
         </div>
       </b-field>
-      <b-field label="Tailles disponibles">
+      <b-field :label="$store.state.interface.sizeAvailable">
         <b-field>
           <b-checkbox-button v-model="newData.products_size" native-value="XS">
             <span>XS</span>
@@ -54,10 +54,6 @@
             <span>XXL</span>
           </b-checkbox-button>
         </b-field>
-      </b-field>
-
-      <b-field label="Images">
-        <!-- upload button -->
       </b-field>
     </section>
     <footer class="modal-card-foot">
@@ -138,9 +134,9 @@ export default {
     },
     addBrand () {
       this.$dialog.prompt({
-        message: `Nouvelle marque`,
-        cancelText: 'Annuler',
-        confirmText: 'Confirmer',
+        message: this.$store.state.interface.newBrand,
+        cancelText: this.$store.state.interface.cancel,
+        confirmText: this.$store.state.interface.confirm,
         onConfirm: (value) => {
           this.axios({
             method: 'put',

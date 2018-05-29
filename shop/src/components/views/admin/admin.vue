@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <subtitle :name="'Administration'" :text="'Administration de Coat&Clothes'"></subtitle>
+    <subtitle :name="$store.state.interface.administration" :text="''"></subtitle>
     <section class="section">
       <div class="columns">
         <div class="column is-3">

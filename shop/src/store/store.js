@@ -9,6 +9,7 @@ const store = new Vuex.Store({
   plugins: [createPersistedState()],
   state: {
     language: 'fr',
+    tokenExpirationDate: null,
     interface: [],
     user: {}
   },
@@ -21,10 +22,17 @@ const store = new Vuex.Store({
     },
     detroyUser () {
       this.state.user = {}
+      this.state.tokenExpirationDate = ''
     },
     setLanguage (state, lang) {
       this.state.language = lang
       location.reload()
+    },
+    setTokenExpirationDate (state, date) {
+      console.log('tamer')
+      // if (this.state.tokenExpirationDate < date) {
+      this.state.tokenExpirationDate = date
+      // }
     }
   }
 })
