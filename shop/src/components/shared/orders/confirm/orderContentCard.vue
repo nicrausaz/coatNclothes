@@ -1,7 +1,7 @@
 <template>
   <b-collapse class="card">
     <div class="card-header">
-      <p class="card-header-title">Produits</p>
+      <p class="card-header-title">{{$store.state.interface.products}}</p>
       <a class="card-header-icon">
         <b-icon :icon="isConfirmed ? 'check' : 'times'" :class="{'confirmed': isConfirmed}"></b-icon>
       </a>
@@ -12,7 +12,7 @@
       </div>
     </div>
     <footer class="card-footer">
-      <a class="card-footer-item" @click="valid">Confirmer</a>
+      <a class="card-footer-item" @click="valid">{{$store.state.interface.confirm}}</a>
     </footer>
   </b-collapse>
 </template>

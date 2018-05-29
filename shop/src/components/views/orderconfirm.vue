@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <subtitle :name="'Confirmation'" :text="'Confirmez votre commande pour terminer'"></subtitle>
+    <subtitle :name="$store.state.interface.confirmation" :text="$store.state.interface.ConfirmOrder"></subtitle>
     <section class="section">
       <orderContentCard @confirm="setConfirmed" :basketproducts="basketproducts"></orderContentCard>
       <div class="columns">
@@ -11,8 +11,8 @@
           <paymentCard @confirm="setConfirmed"></paymentCard>
         </div>
       </div>
-      <b-tooltip class="is-pulled-right" label="Confirmez les étapes pour continuer" position="is-bottom" :active="!fullConfirmed">
-        <button class="button is-primary is-large is-pulled-right" :disabled="!fullConfirmed" @click="finishOrder">Terminer</button>
+      <b-tooltip class="is-pulled-right" :label="$store.state.interface.ConfirmOrder" position="is-bottom" :active="!fullConfirmed">
+        <button class="button is-primary is-large is-pulled-right" :disabled="!fullConfirmed" @click="finishOrder">{{$store.state.interface.confirm}}</button>
       </b-tooltip>
     </section>
   </div>

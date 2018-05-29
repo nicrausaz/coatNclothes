@@ -1,7 +1,7 @@
 <template>
   <b-collapse class="card">
     <div class="card-header">
-      <p class="card-header-title">Adresse</p>
+      <p class="card-header-title">{{$store.state.interface.address}}</p>
       <a class="card-header-icon">
         <b-icon :icon="isConfirmed ? 'check' : 'times'" :class="{'confirmed': isConfirmed}"></b-icon>
       </a>
@@ -15,13 +15,13 @@
           </a>
           <a class="panel-block" @click="isCreatingAdress = true">
             <span class="panel-icon"><b-icon icon="plus" size="is-small"></b-icon></span>
-            Nouvelle adresse
+            {{$store.state.interface.createAnAddress}}
           </a>
         </nav>
       </div>
     </div>
     <footer class="card-footer">
-      <a class="card-footer-item" @click="valid">Confirmer</a>
+      <a class="card-footer-item" @click="valid">{{$store.state.interface.confirm}}</a>
     </footer>
     <b-modal :active.sync="isCreatingAdress">
       <createAdressModal @new="getUserAdresses"></createAdressModal>

@@ -9,7 +9,7 @@
       <div class="media-content">
         <strong>{{ product.products_name }}</strong> <small>{{ product.products_price }} CHF</small>
         <br>
-        Taille: {{data.fk_productsSize_id}}
+        {{$store.state.interface.size}}: {{data.fk_productsSize_id}}
       </div>
       <b>{{data.basket_quantity}}x</b>
     </article>
