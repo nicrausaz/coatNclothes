@@ -46,8 +46,10 @@
 <script>
 import subtitle from '@/components/templates/subtitle'
 import orderProduct from '@/components/shared/orders/orderProduct'
+import checkAccess from '@/mixins/checkAccess'
 
 export default {
+  mixins: [checkAccess],
   data () {
     return {
       orders: [],

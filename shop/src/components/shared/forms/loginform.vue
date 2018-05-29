@@ -36,7 +36,7 @@ export default {
         url: '/login',
         data: this.credentials
       })
-      .then((response) => {
+      .then(response => {
         this.$toast.open({
           message: response.data.message,
           type: 'is-success'
@@ -44,8 +44,7 @@ export default {
         delete response.data.message
         delete response.data.status_code
         this.$store.commit('setUser', response.data)
-        console.log(new Date().now())
-        // this.$store.commit('setTokenExpirationDate', new Date().now() + 86400000)
+        this.$store.commit('setTokenExpirationDate')
         location.reload()
       })
       .catch(err => {

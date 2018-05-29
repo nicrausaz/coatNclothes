@@ -8,12 +8,15 @@ export default {
       })
       this.$router.push('/user')
     } else {
-      // check 24h token
-      // if (this.$store.state.tokenExpirationDate < Date.now()) {
-      //   console.log('expired')
-      //   this.$store.commit('detroyUser')
-      //   this.$router.push('/user')
-      // }
+      // check 24h token validity
+      if (this.$store.state.tokenExpirationDate < Date.now()) {
+        this.$store.commit('detroyUser')
+        this.$router.push('/user')
+        this.$toast.open({
+          message: this.$store.state.interface.expiredSession,
+          type: 'is-warning'
+        })
+      }
     }
   }
 }

@@ -23,8 +23,7 @@ import checkAdmin from '@/mixins/checkAdmin'
 export default {
   mixins: [checkAccess, checkAdmin],
   data () {
-    return {
-    }
+    return {}
   },
   components: {
     subtitle,

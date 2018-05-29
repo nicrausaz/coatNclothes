@@ -37,8 +37,10 @@ import editpicmodal from '@/components/shared/user/editUserPicModal'
 import editinfosmodal from '@/components/shared/user/editUserInfosModal'
 import userAdresses from '@/components/shared/user/userAdresses'
 import fabmenu from '@/components/shared/user/fabMenu'
+import checkAccess from '@/mixins/checkAccess'
 
 export default {
+  mixins: [checkAccess],
   data () {
     return {
       isEditingPhoto: false,

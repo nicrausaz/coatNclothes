@@ -22,17 +22,16 @@ const store = new Vuex.Store({
     },
     detroyUser () {
       this.state.user = {}
-      this.state.tokenExpirationDate = ''
     },
     setLanguage (state, lang) {
       this.state.language = lang
       location.reload()
     },
-    setTokenExpirationDate (state, date) {
-      console.log('tamer')
-      // if (this.state.tokenExpirationDate < date) {
-      this.state.tokenExpirationDate = date
-      // }
+    setTokenExpirationDate (state) {
+      let now = Date.now()
+      if (this.state.tokenExpirationDate < now) {
+        this.state.tokenExpirationDate = now + 86400000
+      }
     }
   }
 })
