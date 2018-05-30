@@ -1,7 +1,8 @@
 <template>
 <b-dropdown position="is-bottom-left" id="test">
-  <a class="navbar-item" slot="trigger">
-    <b-icon icon="search" size="is-medium"></b-icon>
+  <a class="navbar-item" slot="trigger" id="searchItem">
+    <b-icon icon="search" style="padding-right: 5px;"></b-icon>
+    Search
   </a>
 
   <b-dropdown-item custom paddingless>
@@ -65,5 +66,15 @@ export default {
 </script>
 
 <style scoped>
-
+#searchItem {
+  color: white;
+}
+#searchItem:hover {
+  background-color: #c20d5d;
+}
+@media screen and (max-width: 640px) {
+  #searchItem {
+    color: #4a4a4a;
+  }
+}
 </style>
