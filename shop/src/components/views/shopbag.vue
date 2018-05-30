@@ -36,7 +36,6 @@ export default {
   },
   methods: {
     getBasket () {
-      this.products = []
       this.axios({
         method: 'get',
         url: '/basket/user/' + this.$store.state.user.users_id

@@ -118,8 +118,8 @@ export default {
       })
       .then((response) => {
         this.$toast.open(response.data.message)
+        this.$emit('delete')
       })
-      this.$emit('delete')
     }
   }
 }
