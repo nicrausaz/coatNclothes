@@ -40,7 +40,8 @@ export default {
     return {
       filters: [],
       products_list: [],
-      loginModalOn: false
+      loginModalOn: false,
+      loaded: false
     }
   },
   watch: {
@@ -66,6 +67,7 @@ export default {
         if (response.data.length > 0) {
           this.products_list.push(response.data)
         }
+        this.loaded = true
       })
       .catch(() => { this.$router.push('/error') })
     },
@@ -108,15 +110,17 @@ export default {
       return brands
     },
     maxPrice () {
-      let biggestPrice = 0
-      this.products_list.forEach(product => {
-        product.forEach(prod => {
-          if (prod.products_price > biggestPrice) {
-            biggestPrice = prod.products_price
-          }
+      if (this.loaded) {
+        let biggestPrice = 0
+        this.products_list.forEach(product => {
+          product.forEach(prod => {
+            if (prod.products_price > biggestPrice) {
+              biggestPrice = prod.products_price
+            }
+          })
         })
-      })
-      return biggestPrice
+        return biggestPrice
+      }
     }
   },
   components: {

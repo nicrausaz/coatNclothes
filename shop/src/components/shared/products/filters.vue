@@ -3,6 +3,7 @@
     <div class="column is-3">
       <div class="field">
         <b-field :label="$store.state.interface.price">
+          <!-- {{hightestPrice}} -->
           <vueSlider v-model="search.price" :max="300" :formatter="sliderConfig.formatter" :bgStyle="sliderConfig.bgStyle" :processStyle="sliderConfig.processStyle" :tooltipStyle="sliderConfig.tooltipStyle" :tooltip="'hover'"></vueSlider>
         </b-field>
       </div>
@@ -57,7 +58,7 @@ export default {
         }
       },
       search: {
-        price: [0, 200],
+        price: [0, 300],
         brands: null,
         selectedView: 'cardedView'
       },
@@ -67,6 +68,7 @@ export default {
   },
   created () {
     this.$emit('filter', this.search)
+    console.log(this.maxprice)
   },
   methods: {
     resetBrands () { this.search.brands = null }
@@ -74,8 +76,8 @@ export default {
   computed: {
     hightestPrice () {
       // TODO: make this work
-      console.log(this.maxprice)
-      return this.maxprice > 0 ? this.maxprice : 100
+      // console.log(this.maxprice)
+      return this.maxprice === 0 ? 300 : this.maxprice
     },
     brandsNames () {
       this.namedBrands = []
