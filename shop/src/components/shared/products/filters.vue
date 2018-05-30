@@ -7,13 +7,18 @@
         </b-field>
       </div>
     </div>
-    {{brands}}
     <div class="column is-7">
-      <b-field :label="$store.state.interface.brands">
-        <b-select placeholder="Choisir des marques" v-model="search.brands">
-          <option v-for="brand in namedBrands" :value="brand" :key="brand">{{brand}}</option>
+      <b style="color: #363636;">{{$store.state.interface.brands}}</b>
+      <b-field class="has-addons">
+        {{brandsNames}}
+        <b-select :placeholder="$store.state.interface.chooseBrand" v-model="search.brands">
+          <option v-for="brand in namedBrands" :value="brand.id" :key="brand.id">{{brand.name}}</option>
         </b-select>
-        {{namedBrands}}
+        <b-tooltip :label="$store.state.interface.reset" position="is-right" v-if="search.brands">
+          <button class="button" @click="resetBrands">
+            <b-icon icon="times" size="is-small"></b-icon>
+          </button>
+        </b-tooltip>
       </b-field>
     </div>
     <div class="column is-4">
@@ -27,7 +32,6 @@
         </b-radio-button>
       </b-field>
     </div>
-
   </div>
 </template>
 
@@ -54,7 +58,7 @@ export default {
       },
       search: {
         price: [0, 200],
-        brands: [],
+        brands: null,
         selectedView: 'cardedView'
       },
       brandsId: [],
@@ -63,32 +67,27 @@ export default {
   },
   created () {
     this.$emit('filter', this.search)
-    this.getBrandsNames()
-  },
-  watch: {
-    $route () {
-      this.getBrandsNames()
-    }
   },
   methods: {
-    getBrandsNames () {
-      // does not work !
-      this.brands.forEach(brand => {
-        this.axios({
-          method: 'get',
-          url: '/brand/' + brand
-        })
-        .then(response => {
-          this.namedBrands.push(response.data.brand_name)
-        })
-      })
-    }
+    resetBrands () { this.search.brands = null }
   },
   computed: {
     hightestPrice () {
       // TODO: make this work
       console.log(this.maxprice)
       return this.maxprice > 0 ? this.maxprice : 100
+    },
+    brandsNames () {
+      this.namedBrands = []
+      this.brands.forEach(brand => {
+        this.axios({
+          method: 'get',
+          url: '/brand/' + brand
+        })
+        .then(response => {
+          this.namedBrands.push({id: brand, name: response.data.brand_name})
+        })
+      })
     }
   },
   components: {

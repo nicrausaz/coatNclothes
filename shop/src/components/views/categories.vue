@@ -81,8 +81,12 @@ export default {
       let filteredProducts = []
       this.products_list.forEach(product => {
         product.forEach(prod => {
+          // check in price interval
           if (prod.products_price >= this.filters.price[0] && prod.products_price <= this.filters.price[1]) {
-            filteredProducts.push(prod)
+            // check selected brand
+            if (!this.filters.brands || prod.fk_brand_id === this.filters.brands) {
+              filteredProducts.push(prod)
+            }
           }
         })
       })
