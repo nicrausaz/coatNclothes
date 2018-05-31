@@ -1,10 +1,9 @@
 <template>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Info & édition de commande</p>
+      <p class="modal-card-title">{{$store.state.interface.detailAndEditOrder}}</p>
     </header>
     <section class="modal-card-body">
-      <h1 class="subtitle">Infos</h1>
       <p><b>{{$store.state.interface.orderDate}}:</b> {{orderBaseInfos.orders_createdDate}}</p>
       <p><b>{{$store.state.interface.customer}}:</b>
         {{userData.users_name}}
@@ -15,7 +14,7 @@
       <p><b>{{$store.state.interface.address}}:</b> {{orderAddress.adresses_street}}, {{orderAddress.adresses_npa}} {{orderAddress.adresses_locality}}, {{orderAddress.adresses_state}}</p>
 
       <div v-if="loaded">
-      <b>Contenu:</b>
+      <b>{{$store.state.interface.content}}:</b>
         <ul>
           <li v-for="(info, index) in orderData" :key="info.ordersContent_id">
             {{info.ordersContent_quantity}}x
@@ -25,7 +24,6 @@
         </ul>
       </div>
       <br>
-      <h1 class="subtitle">Edition</h1>
       <b-field>
         <b-checkbox v-model="orderBaseInfos.orders_paid" :disabled="orderIsPaid" true-value="1" false-value="0">{{$store.state.interface.paid}} {{orderPaidDate}}</b-checkbox>
       </b-field>

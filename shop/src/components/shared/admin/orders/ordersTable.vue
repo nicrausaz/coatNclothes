@@ -36,7 +36,7 @@
         </b-table-column>
 
         <b-table-column :label="$store.state.interface.actions" centered>
-          <b-tooltip label="Détails et édition" position="is-left">
+          <b-tooltip :label="$store.state.interface.detailsAndEdit" position="is-left">
             <a @click="editOrder(props.row)">
               <span class="icon is-small">
                 <b-icon icon="edit"></b-icon>

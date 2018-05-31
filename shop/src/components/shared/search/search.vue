@@ -2,7 +2,7 @@
 <b-dropdown position="is-bottom-left" id="test">
   <a class="navbar-item" slot="trigger" id="searchItem">
     <b-icon icon="search" style="padding-right: 5px;"></b-icon>
-    Search
+    {{$store.state.interface.search}}
   </a>
 
   <b-dropdown-item custom paddingless>
@@ -10,7 +10,7 @@
       <div class="modal-card" style="width: 400px;">
         <section class="modal-card-body">
           <b-field>
-            <b-input :placeholder="$store.state.interface.search" type="search" icon="search" v-model="searchContent"></b-input>
+            <b-input :placeholder="$store.state.interface.searchProduct" type="search" icon="search" v-model="searchContent"></b-input>
           </b-field>
           <div id="searchResults" v-if="isFilterValid">
             <searchResult v-for="product in filteredProducts" :key="product.product_id" :data="product"></searchResult>

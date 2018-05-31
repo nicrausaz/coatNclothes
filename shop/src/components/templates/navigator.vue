@@ -19,7 +19,7 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
             <b-icon icon="globe" style="padding-right: 5px;"></b-icon>
-            <span>Language</span>
+            <span>{{$store.state.interface.lang}}</span>
           </a>
           <div class="navbar-dropdown">
             <a class="navbar-item" :class="{'is-active': isLangSelected('fr')}" @click="$store.commit('setLanguage', 'fr')">Français</a>
@@ -27,7 +27,7 @@
           </div>
         </div>
 
-        <router-link to="/wishlists" class="navbar-item"><b-icon icon="heart" style="padding-right: 5px;"></b-icon>{{$store.state.interface.home}}</router-link>
+        <router-link to="/wishlists" class="navbar-item"><b-icon icon="heart" style="padding-right: 5px;"></b-icon>{{$store.state.interface.wishlists}}</router-link>
         <router-link to="/shopbag" class="navbar-item" ><b-icon icon="shopping-cart" style="padding-right: 5px;"></b-icon>{{$store.state.interface.basket}}</router-link>
         <router-link to="/user" class="navbar-item" ><b-icon icon="user" style="padding-right: 5px;"></b-icon>{{$store.state.interface.yourProfile}}</router-link>
       </div>
