@@ -68,7 +68,7 @@ export default {
   },
   created () {
     this.$emit('filter', this.search)
-    console.log(this.maxprice)
+    // console.log(this.maxprice)
   },
   methods: {
     resetBrands () { this.search.brands = null }

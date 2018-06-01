@@ -4,25 +4,25 @@
       <p class="modal-card-title">Edition d'utilisateur</p>
     </header>
     <section class="modal-card-body">
-      <b-field label="Nom d'utilisateur">
-        <b-input v-model="userData.users_login" icon="user" placeholder="Nom d'utilisateur" required></b-input>
+      <b-field :label="$store.state.interface.username">
+        <b-input v-model="userData.users_login" icon="user" :placeholder="$store.state.interface.username" required></b-input>
       </b-field>
-      <b-field label="Email">
-        <b-input v-model="userData.users_email" icon="at" placeholder="Email" type="email" required></b-input>
+      <b-field :label="$store.state.interface.email">
+        <b-input v-model="userData.users_email" icon="at" :placeholder="$store.state.interface.email" type="email" required></b-input>
       </b-field>
-      <b-field label="Prénom">
-        <b-input v-model="userData.users_fsname" icon="address-card" placeholder="Prénom" required></b-input>
+      <b-field :label="$store.state.interface.fsname">
+        <b-input v-model="userData.users_fsname" icon="address-card" :placeholder="$store.state.interface.fsname" required></b-input>
       </b-field>
-      <b-field label="Nom">
-        <b-input v-model="userData.users_name" icon="address-card" placeholder="Nom" required></b-input>
+      <b-field :label="$store.state.interface.name">
+        <b-input v-model="userData.users_name" icon="address-card" :placeholder="$store.state.interface.name" required></b-input>
       </b-field>
       <b-field>
-        <b-checkbox v-model="userData.users_admin">Administrateur</b-checkbox>
+        <b-checkbox v-model="userData.users_admin">{{$store.state.interface.admin}}</b-checkbox>
       </b-field>
     </section>
     <footer class="modal-card-foot">
-      <button class="button" @click="this.$parent.close">Annuler</button>
-      <button class="button is-primary" @click="updateUser">Confirmer</button>
+      <button class="button" @click="this.$parent.close">{{$store.state.interface.cancel}}</button>
+      <button class="button is-primary" @click="updateUser">{{$store.state.interface.confirm}}</button>
     </footer>
   </div>
 </template>

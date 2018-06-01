@@ -6,35 +6,35 @@
     <hr>
     <b-field grouped group-multiline>
       <b-select v-model="filter.perPage">
-        <option value="5">5 par page</option>
-        <option value="10">10 par page</option>
-        <option value="20">20 par page</option>
+        <option value="5">5 {{$store.state.interface.perPage}}</option>
+        <option value="10">10 {{$store.state.interface.perPage}}</option>
+        <option value="20">20 {{$store.state.interface.perPage}}</option>
       </b-select>
       <b-input :placeholder="$store.state.interface.nameSearch" type="search" icon-pack="fas" icon="search" v-model="searchContent"></b-input>
     </b-field>
     <b-table :data="filteredUsers" :per-page="filter.perPage" :paginated="true" :pagination-simple="true" default-sort="users_id" :mobile-cards="false">
       <template slot-scope="props">
-        <b-table-column field="users_id" label="No" width="40" sortable numeric>
+        <b-table-column field="users_id" :label="$store.state.interface.No" width="40" sortable numeric>
           {{ props.row.users_id }}
         </b-table-column>
 
-        <b-table-column field="users_name" label="Nom Prénom" sortable>
+        <b-table-column field="users_name" :label="$store.state.interface.name" sortable>
           {{ props.row.users_name }}
           {{ props.row.users_fsname }}
         </b-table-column>
 
-        <b-table-column field="users_login" label="Pseudo" sortable>
+        <b-table-column field="users_login" :label="$store.state.interface.username" sortable>
           {{ props.row.users_login }}
         </b-table-column>
 
-        <b-table-column field="users_createDate" label="Date d'inscription" sortable>
+        <b-table-column field="users_createDate" :label="$store.state.interface.signupDate" sortable>
           {{ props.row.users_createDate }}
         </b-table-column>
-        <b-table-column field="users_admin" label="Admin" sortable centered>
+        <b-table-column field="users_admin" :label="$store.state.interface.admin" sortable centered>
           <b-icon size="is-small" :icon="isAdminIcon(props.row.users_admin)"></b-icon>
         </b-table-column>
 
-        <b-table-column label="Actions" centered>
+        <b-table-column :label="$store.state.interface.actions" centered>
           <b-tooltip label="Détails et édition" position="is-left">
             <a @click="editUser(props.row.users_id)">
               <span class="icon is-small">
