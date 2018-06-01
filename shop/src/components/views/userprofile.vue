@@ -11,9 +11,9 @@
           </b-tooltip>
           <div id="infos">
             <h1 class="title">{{userFullInfos.users_fsname}} {{userFullInfos.users_name}}</h1>
-            <h2>{{userFullInfos.users_email}}</h2>
-            <h2>{{userFullInfos.users_login}}</h2>
-            {{userStatus}}
+            <h2><b>{{$store.state.interface.email}}:</b> {{userFullInfos.users_email}}</h2>
+            <h2><b>{{$store.state.interface.username}}:</b> {{userFullInfos.users_login}}</h2>
+            <h2><b>{{$store.state.interface.status}}:</b> {{userStatus}}</h2>
           </div>
         </div>
         <div class="column is-6">

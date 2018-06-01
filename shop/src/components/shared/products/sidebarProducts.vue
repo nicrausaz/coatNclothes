@@ -1,27 +1,12 @@
 <template>
   <aside class="menu">
-  <p class="menu-label">
-    {{$store.state.interface.categories}}
-  </p>
-  <ul class="menu-list">
-    <li v-for="mainCategory in categories" :key="mainCategory.id">
-      <router-link :class="{'is-active': isSelected(mainCategory.id)}" :to="/category/ + mainCategory.id">{{mainCategory.name}}</router-link>
-      <ul>
-        <li v-for="subCategory in mainCategory.children" :key="subCategory.id">
-          <router-link :class="{'is-active': isSelected(subCategory.id)}" :to="/category/ + subCategory.id">{{subCategory.name}}</router-link>
-          <ul>
-            <li v-for="child in subCategory.children" :key="child.id">
-              <router-link :class="{'is-active': isSelected(child.id)}" :to="/category/ + child.id">{{child.name}}</router-link>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
+  <p class="menu-label">{{$store.state.interface.categories}}</p>
+  <categoryNode :children="category" v-for="category in categories" :key="category.id" class="menu-list"></categoryNode>
 </aside>
 </template>
 
 <script>
+import categoryNode from '@/components/shared/products/categoryNode'
 export default {
   data () {
     return {
@@ -42,6 +27,9 @@ export default {
     isSelected (id) {
       return parseInt(this.$route.params.id) === id
     }
+  },
+  components: {
+    categoryNode
   }
 }
 </script>
