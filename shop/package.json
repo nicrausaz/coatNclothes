@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "buefy": "^0.6.5",
     "chartkick": "^2.3.5",
     "node-sass": "^4.9.0",

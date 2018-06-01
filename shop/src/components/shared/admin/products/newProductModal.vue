@@ -4,7 +4,7 @@
       <p class="modal-card-title">{{$store.state.interface.addProduct}}</p>
     </header>
     <section class="modal-card-body">
-      <i>TODO: Création du produit en anglais !</i>
+      <i>La création du produit se fait en anglais</i>
       <b-field :label="$store.state.interface.name">
          <b-input v-model="newData.products_name"></b-input>
       </b-field>
