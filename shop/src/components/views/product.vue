@@ -47,12 +47,16 @@
     <b-modal :active.sync="wishlistselect">
       <wishListChooseModal :productId="productData.products_id"></wishListChooseModal>
     </b-modal>
+    <b-modal :active.sync="loginModalOn">
+      <loginModal></loginModal>
+    </b-modal>
   </div>
 </template>
 
 <script>
 import pictureCarousel from '@/components/shared/pictureCarousel'
 import wishListChooseModal from '@/components/shared/wishlists/wishListChooseModal'
+import loginModal from '@/components/shared/forms/loginModal'
 import suggestedproducts from '@/components/shared/products/suggestedProducts'
 import reviews from '@/components/shared/products/productReviews'
 import productshelpers from '@/mixins/productsHelpers'
@@ -68,7 +72,8 @@ export default {
         selectedSize: null
       },
       loaded: false,
-      wishlistselect: false
+      wishlistselect: false,
+      loginModalOn: false
     }
   },
   methods: {
@@ -96,10 +101,18 @@ export default {
       this.currentProduct.selectedSize = size
     },
     openWishlistSelector () {
-      this.wishlistselect = true
+      if (this.$store.state.user.users_id) {
+        this.wishlistselect = true
+      } else {
+        this.loginModalOn = true
+      }
     },
     addToBasket () {
-      this.addProductToBasket(this.$route.params.id, this.currentProduct.selectedSize)
+      if (this.$store.state.user.users_id) {
+        this.addProductToBasket(this.$route.params.id, this.currentProduct.selectedSize)
+      } else {
+        this.loginModalOn = true
+      }
     }
   },
   watch: {
@@ -123,6 +136,7 @@ export default {
   components: {
     pictureCarousel,
     wishListChooseModal,
+    loginModal,
     suggestedproducts,
     reviews,
     StarRating

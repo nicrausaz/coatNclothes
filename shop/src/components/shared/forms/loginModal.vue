@@ -12,7 +12,7 @@
             <b-input type="password" v-model="credentials.users_pass" :placeholder="$store.state.interface.password" password-reveal icon="key" required>
             </b-input>
         </b-field>
-      <router-link to="/user">{{$store.state.interface.NoAccountYet}}</router-link>
+      <router-link to="/user" class="is-pulled-right">{{$store.state.interface.noAccountYet}}</router-link>
       </form>
     </section>
     <footer class="modal-card-foot">
