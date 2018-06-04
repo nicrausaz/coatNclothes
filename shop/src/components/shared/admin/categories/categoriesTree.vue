@@ -1,21 +1,32 @@
 <template>
-  <div>
-    <pre>
-      {{categories}}
-    </pre>
+  <div class="menu">
+    <ul class="menu-list">
+      <categoryNode :children="category" :parentId="category.id" v-for="category in categories" :key="category.id" @update="getCategories" @editing="openModal"></categoryNode>
+    </ul>
+    <b-modal :active.sync="isEditing" has-modal-card>
+      <categoryEditModal @update="getCategories"></categoryEditModal>
+    </b-modal>
+    <b-modal :active.sync="isCreating" has-modal-card>
+      <categoryNewModal :parentId="parentId" @update="getCategories"></categoryNewModal>
+    </b-modal>
   </div>
 </template>
 
 <script>
-// import categoryNode from '@/components/shared/admin/categories/categoryNode'
+import categoryNode from '@/components/shared/admin/categories/categoryNode'
+import categoryEditModal from '@/components/shared/admin/categories/categoryEditModal'
+import categoryNewModal from '@/components/shared/admin/categories/categoryNewModal'
 export default {
   data () {
     return {
-      categories: []
+      categories: [],
+      isEditing: false,
+      isCreating: false,
+      parentId: null
     }
   },
   created () {
-    // this.getCategories()
+    this.getCategories()
   },
   methods: {
     getCategories () {
@@ -25,27 +36,21 @@ export default {
       })
       .then(response => {
         this.categories = response.data
-        // this.formatCategories()
       })
     },
-    formatCategories () {
-      this.categories.forEach(category => {
-        console.log(category)
-        this.formatedCategories.push({
-          'id': category.id,
-          'text': category.name,
-          'data': category.parent,
-          'children': category.children,
-          'state': {}
-        })
-      })
+    openModal (key, parentId) {
+      this[key] = true
+      this.parentId = parentId
     }
   },
   components: {
+    categoryNode,
+    categoryEditModal,
+    categoryNewModal
   }
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

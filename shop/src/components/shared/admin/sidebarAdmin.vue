@@ -1,7 +1,7 @@
 <template>
   <aside class="menu">
     <p class="menu-label">
-      Dashboard {{activeView}}
+      Dashboard
     </p>
     <ul class="menu-list">
       <router-link to="/admin/dashboard" :class="{'is-active' : isActive('/admin/dashboard')}">{{$store.state.interface.summary}}</router-link>
@@ -24,26 +24,10 @@
 
 <script>
 export default {
-  data () {
-    return {
-      active: ''
-    }
-  },
   methods: {
     isActive (item) {
-      return this.active === item
-    }
-  },
-  computed: {
-    activeView () {
-      this.active = this.$route.fullPath
+      return this.$route.fullPath === item
     }
   }
 }
 </script>
-
-<style scoped>
-.notification {
-  margin-top: 10px;
-}
-</style>
