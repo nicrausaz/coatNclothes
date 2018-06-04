@@ -8,6 +8,12 @@
       </button>
     </header>
     <section class="modal-card-body">
+      <b-field :label="$store.state.interface.lang">
+        <b-select :aria-placeholder="$store.state.interface.lang" v-model="newData.selectedLang" expanded>
+          <option v-for="lang in languages" :key="lang" _:value="lang">{{lang}}</option>
+        </b-select>
+      </b-field>
+
       <b-field :label="$store.state.interface.name">
         <b-input v-model="newData.products_name"></b-input>
       </b-field>
@@ -96,6 +102,7 @@ export default {
     return {
       categories: [],
       brands: [],
+      languages: [],
       newData: {},
       newfiles: [],
       loaded: false,
@@ -106,6 +113,7 @@ export default {
     this.getProduct()
     this.getBrands()
     this.getCategories()
+    this.getLanguages()
   },
   methods: {
     getProduct () {
@@ -136,12 +144,21 @@ export default {
         this.brands = response.data
       })
     },
+    getLanguages () {
+      this.axios({
+        method: 'get',
+        url: '/lang/available'
+      })
+      .then(response => {
+        this.languages = response.data.lang
+      })
+    },
     updateProductInfos () {
       this.axios({
         method: 'patch',
         url: '/admin/product/' + this.id,
         data: {
-          products_lang: 'fr',
+          products_lang: this.newData.selectedLang,
           products_name: this.newData.products_name,
           products_description: this.newData.products_description,
           products_category: this.newData.fk_category_id,

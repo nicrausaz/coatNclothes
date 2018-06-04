@@ -9,7 +9,7 @@
         <span class="actions"><b-icon icon="plus" type="is-primary"></b-icon></span>
       </div>
       <div v-if="wishlists.length == 0">
-        <p>{{$store.state.interface.noWishlist}}</p>
+        <p>{{$store.state.interface.noWishlists}}</p>
       </div>
       <hr>
       <div class="choices" @click="createNew">

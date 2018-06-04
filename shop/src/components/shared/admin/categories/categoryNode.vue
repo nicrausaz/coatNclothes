@@ -12,7 +12,10 @@
       <categoryNode v-for="child in children.children" :key="child.id" :children="child" :parentId="child.id" @update="$emit('update')" @editing="emitAgain"></categoryNode>
       <li class="add" @click="addCategory">
         <a>
-          <b-icon icon="plus" size="is-small"></b-icon>
+          <small>
+            <b-icon icon="plus" size="is-small"></b-icon>
+            <i>{{this.$store.state.interface.new}}</i>
+          </small>
         </a>
       </li>
     </ul>
