@@ -7,9 +7,11 @@
       <b-field :label="$store.state.interface.name">
         <b-input type="text" v-model="newData.category_name" :placeholder="$store.state.interface.name" required></b-input>
       </b-field>
-      <b-select v-model="newData.gender_id" :placeholder="$store.state.interface.gender" expanded>
-        <option v-for="gender in genders" :key="gender.gender_id" :value="gender.gender_id">{{gender.gender_sex}}</option>
-      </b-select>
+      <b-field :label="$store.state.interface.gender">
+        <b-select v-model="newData.gender_id" :placeholder="$store.state.interface.gender" expanded>
+          <option v-for="gender in genders" :key="gender.gender_id" :value="gender.gender_id">{{gender.gender_sex}}</option>
+        </b-select>
+      </b-field>
     </section>
     <footer class="modal-card-foot">
       <button class="button" type="button" @click="this.$parent.close">{{$store.state.interface.cancel}}</button>

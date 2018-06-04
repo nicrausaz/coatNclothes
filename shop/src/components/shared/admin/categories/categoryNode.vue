@@ -28,8 +28,8 @@ export default {
   name: 'categoryNode',
   props: ['children', 'parentId'],
   methods: {
-    emitAgain (key, parentId) {
-      this.$emit('editing', key, parentId)
+    emitAgain (key, id) {
+      this.$emit('editing', key, id)
     },
     triggerOpen () {
       this.isOpen = !this.isOpen
@@ -39,7 +39,7 @@ export default {
     },
     editCategory () {
       this.triggerOpen()
-      this.$emit('editing', 'isEditing')
+      this.$emit('editing', 'isEditing', this.children.id)
       // this.$dialog.prompt({
       //   message: 'Éditer la catégorie',
       //   cancelText: this.$store.state.interface.cancel,
