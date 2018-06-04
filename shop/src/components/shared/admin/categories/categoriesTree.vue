@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import VueDragTree from 'vue-drag-tree'
 // import categoryNode from '@/components/shared/admin/categories/categoryNode'
 export default {
   data () {
@@ -43,7 +42,6 @@ export default {
     }
   },
   components: {
-    VueDragTree
   }
 }
 </script>
