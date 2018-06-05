@@ -1,7 +1,7 @@
 <template>
   <div class="menu">
     <ul class="menu-list">
-      <categoryNode :children="category" :parentId="category.id" v-for="category in categories" :key="category.id" @update="getCategories" @editing="openModal"></categoryNode>
+      <categoryNode :children="category" :parentId="null" v-for="category in categories" :key="category.id" @update="getCategories" @editing="openModal"></categoryNode>
     </ul>
     <b-modal :active.sync="isEditing" has-modal-card>
       <categoryEditModal :id="tempId" :parentId="parentId" @update="getCategories"></categoryEditModal>

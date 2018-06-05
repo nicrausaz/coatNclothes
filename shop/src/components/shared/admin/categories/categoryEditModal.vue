@@ -59,6 +59,12 @@ export default {
         })
         this.$parent.close()
       })
+      .catch(err => {
+        this.$toast.open({
+          message: err.response.data.message,
+          type: 'is-danger'
+        })
+      })
     },
     getCategory () {
       this.axios({
