@@ -4,7 +4,7 @@
     <section class="section">
       <b-table :data="orders" :opened-detailed="[requestedOrder]" detailed detail-key="orders_id" default-sort="orders_id">
         <template slot-scope="props">
-            <b-table-column :label="$store.state.interface.number" width="40" numeric sortable>
+            <b-table-column :label="$store.state.interface.No" width="40" numeric sortable>
               {{ props.row.orders_id }}
             </b-table-column>
             <b-table-column :label="$store.state.interface.paid">

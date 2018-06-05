@@ -12,6 +12,7 @@
             <section class="section">
               {{productData.products_brand}}
               <p class="title">{{ productData.products_name }}</p>
+              <p class="subtitle">{{ productData.products_price }} CHF</p>
               <p>
                 <i>{{productData.products_description}}</i>
               </p>
