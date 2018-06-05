@@ -18,6 +18,8 @@
       </b-field>
       <b-field>
         <b-checkbox v-model="userData.users_admin">{{$store.state.interface.admin}}</b-checkbox>
+        {{userData.users_admin}}
+        necessaire ?
       </b-field>
     </section>
     <footer class="modal-card-foot">

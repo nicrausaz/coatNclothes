@@ -9,7 +9,7 @@
       <span @click="editCategory" v-if="hovered"><b-icon icon="edit" size="is-small"></b-icon></span>
     </a>
     <ul class="menu-list" v-if="isOpen">
-      <categoryNode v-for="child in children.children" :key="child.id" :children="child" :parentId="child.id" @update="$emit('update')" @editing="emitAgain"></categoryNode>
+      <categoryNode v-for="child in children.children" :key="child.id" :children="child" :parentId="children.id" @update="$emit('update')" @editing="emitAgain"></categoryNode>
       <li class="add" @click="addCategory">
         <a>
           <small>
@@ -40,18 +40,18 @@ export default {
     }
   },
   methods: {
-    emitAgain (key, id) {
-      this.$emit('editing', key, id)
+    emitAgain (key, id, parentId) {
+      this.$emit('editing', key, id, parentId)
     },
     triggerOpen () {
       this.isOpen = !this.isOpen
     },
     addCategory () {
-      this.$emit('editing', 'isCreating', this.parentId)
+      this.$emit('editing', 'isCreating', null, this.parentId)
     },
     editCategory () {
       this.triggerOpen()
-      this.$emit('editing', 'isEditing', this.children.id)
+      this.$emit('editing', 'isEditing', this.children.id, this.parentId)
     }
   }
 }

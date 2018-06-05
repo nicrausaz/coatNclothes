@@ -4,10 +4,10 @@
       <categoryNode :children="category" :parentId="category.id" v-for="category in categories" :key="category.id" @update="getCategories" @editing="openModal"></categoryNode>
     </ul>
     <b-modal :active.sync="isEditing" has-modal-card>
-      <categoryEditModal :id="tempId" @update="getCategories"></categoryEditModal>
+      <categoryEditModal :id="tempId" :parentId="parentId" @update="getCategories"></categoryEditModal>
     </b-modal>
     <b-modal :active.sync="isCreating" has-modal-card>
-      <categoryNewModal :parentId="tempId" @update="getCategories"></categoryNewModal>
+      <categoryNewModal :parentId="parentId" @update="getCategories"></categoryNewModal>
     </b-modal>
   </div>
 </template>
@@ -22,7 +22,8 @@ export default {
       categories: [],
       isEditing: false,
       isCreating: false,
-      tempId: null
+      tempId: null,
+      parentId: null
     }
   },
   created () {
@@ -38,9 +39,10 @@ export default {
         this.categories = response.data
       })
     },
-    openModal (key, id) {
+    openModal (key, id, parentId) {
       this[key] = true
       this.tempId = id
+      this.parentId = parentId
     }
   },
   components: {
