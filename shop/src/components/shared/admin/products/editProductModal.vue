@@ -24,12 +24,8 @@
         <b-input v-model="newData.products_price" type="number" step="1"></b-input>
       </b-field>
       <b-field :label="$store.state.interface.category">
-        <div class="field is-grouped">
-          <b-select :placeholder="$store.state.interface.chooseCategory" v-model="newData.fk_category_id" expanded>
-            <optgroup v-for="category in categories" :key="category.id" :label="category.name">
-              <option v-for="cat in category.children" :key="cat.id" :value="cat.id" > {{ cat.name }} </option>
-            </optgroup>
-          </b-select>
+        <div class="field">
+          <Treeselect v-model="newData.fk_category_id" :placeholder="$store.state.interface.chooseCategory" :normalizer="normalizer" :options="categories"></Treeselect>
         </div>
       </b-field>
       <b-field :label="$store.state.interface.brand">
@@ -96,6 +92,9 @@
 </template>
 
 <script>
+import Treeselect from '@riophae/vue-treeselect'
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+
 export default {
   props: ['id'],
   data () {
@@ -116,6 +115,13 @@ export default {
     this.getLanguages()
   },
   methods: {
+    normalizer (node) {
+      return {
+        id: node.id,
+        label: node.name,
+        children: node.children
+      }
+    },
     getProduct () {
       this.axios({
         method: 'get',
@@ -263,6 +269,9 @@ export default {
         return this.newData.products_pictures.length > 0
       }
     }
+  },
+  components: {
+    Treeselect
   }
 }
 </script>
