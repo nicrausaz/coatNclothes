@@ -7,7 +7,6 @@
         {{ children.name }}
       </span>
       <span @click="editCategory" v-if="hovered"><b-icon icon="edit" size="is-small"></b-icon></span>
-      <span @click="deleteCategory" v-if="hovered"><b-icon icon="trash" size="is-small"></b-icon></span>
     </a>
     <ul class="menu-list" v-if="isOpen">
       <categoryNode v-for="child in children.children" :key="child.id" :children="child" :parentId="child.id" @update="$emit('update')" @editing="emitAgain"></categoryNode>
@@ -53,27 +52,6 @@ export default {
     editCategory () {
       this.triggerOpen()
       this.$emit('editing', 'isEditing', this.children.id)
-    },
-    deleteCategory () {
-      this.$dialog.confirm({
-        title: this.$store.state.interface.delete,
-        message: 'Attention! Toutes les sous-catégories et leurs produits seront également supprimés',
-        type: 'is-danger',
-        hasIcon: true,
-        icon: 'times-circle',
-        confirmText: this.$store.state.interface.confirm,
-        cancelText: this.$store.state.interface.cancel,
-        onConfirm: () => {
-          // this.axios({
-          //   method: 'delete',
-          //   url: 'wishlist/' + this.infos.wishlist_id + '/user/' + this.$store.state.user.users_id
-          // })
-          // .then((response) => {
-          //   this.$toast.open(response.data.message)
-          //   this.$emit('delete')
-          // })
-        }
-      })
     }
   }
 }

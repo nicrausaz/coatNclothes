@@ -28,11 +28,11 @@
           </div>
           <div class="column">
             <div class="has-text-centered">
-              <button class="button is-small is-primary is-outlined" :disabled="!isEnabled" @click="decrement">
+              <button class="button is-small is-primary is-outlined" :disabled="!isEnabledMin" @click="decrement">
                 <b-icon icon="minus" size="is-small"></b-icon>
               </button>
                 <b>{{infos.basket_quantity}}</b>
-              <button class="button is-small is-primary is-outlined" @click="increment">
+              <button class="button is-small is-primary is-outlined" :disabled="!isEnabledMax" @click="increment">
                 <b-icon icon="plus" size="is-small"></b-icon>
               </button>
             </div>
@@ -75,8 +75,11 @@ export default {
         return this.product.products_pictures.length === 0 ? 'noImg' : this.product.products_pictures[0].altName
       }
     },
-    isEnabled () {
+    isEnabledMin () {
       return this.infos.basket_quantity > 1
+    },
+    isEnabledMax () {
+      return this.infos.basket_quantity < 30
     },
     formatedprice () {
       return this.product.products_price + ' CHF'

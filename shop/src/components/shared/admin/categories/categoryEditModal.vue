@@ -2,6 +2,10 @@
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">{{$store.state.interface.editCategory}}</p>
+      <a class="button is-danger is-outlined is-pulled-right" @click.stop="deleteCategory">
+        <span>{{$store.state.interface.delete}}</span>
+        <b-icon icon="trash" size="is-small"></b-icon>
+      </a>
     </header>
     <section class="modal-card-body">
       <b-field :label="$store.state.interface.name">
@@ -72,6 +76,27 @@ export default {
       })
       .then(response => {
         this.genders = response.data
+      })
+    },
+    deleteCategory () {
+      this.$dialog.confirm({
+        title: this.$store.state.interface.delete,
+        message: 'Attention! Toutes les sous-catégories et leurs produits seront également supprimés',
+        type: 'is-danger',
+        hasIcon: true,
+        icon: 'times-circle',
+        confirmText: this.$store.state.interface.confirm,
+        cancelText: this.$store.state.interface.cancel,
+        onConfirm: () => {
+          // this.axios({
+          //   method: 'delete',
+          //   url: 'wishlist/' + this.infos.wishlist_id + '/user/' + this.$store.state.user.users_id
+          // })
+          // .then((response) => {
+          //   this.$toast.open(response.data.message)
+          //   this.$emit('delete')
+          // })
+        }
       })
     }
   }

@@ -6,19 +6,17 @@
   </a>
 
   <b-dropdown-item custom paddingless>
-    <form action="">
-      <div class="modal-card" style="width: 400px;">
-        <section class="modal-card-body">
-          <b-field>
-            <b-input :placeholder="$store.state.interface.searchProduct" type="search" icon="search" v-model="searchContent" autofocus></b-input>
-          </b-field>
-          <div id="searchResults" v-if="isFilterValid">
-            <searchResult v-for="product in filteredProducts" :key="product.product_id" :data="product"></searchResult>
-            <p v-if="!resultHasContent">{{$store.state.interface.NoProductFound}}</p>
-          </div>
-        </section>
-      </div>
-    </form>
+    <div class="modal-card" style="width: 400px;">
+      <section class="modal-card-body">
+        <b-field>
+          <b-input :placeholder="$store.state.interface.searchProduct" type="search" icon="search" v-model="searchContent" autofocus></b-input>
+        </b-field>
+        <div id="searchResults" v-if="isFilterValid">
+          <searchResult v-for="product in filteredProducts" :key="product.product_id" :data="product"></searchResult>
+          <p v-if="!resultHasContent">{{$store.state.interface.NoProductFound}}</p>
+        </div>
+      </section>
+    </div>
   </b-dropdown-item>
 </b-dropdown>
 </template>
