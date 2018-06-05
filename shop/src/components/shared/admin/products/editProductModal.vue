@@ -7,10 +7,11 @@
         <b-icon icon="trash" size="is-small"></b-icon>
       </button>
     </header>
+
     <section class="modal-card-body">
       <b-field :label="$store.state.interface.lang">
         <b-select :aria-placeholder="$store.state.interface.lang" v-model="newData.selectedLang" expanded>
-          <option v-for="lang in languages" :key="lang" _:value="lang">{{lang}}</option>
+          <option v-for="lang in languages" :key="lang" :value="lang">{{lang}}</option>
         </b-select>
       </b-field>
 
@@ -129,6 +130,7 @@ export default {
       })
       .then(response => {
         this.newData = response.data
+        this.newData.selectedLang = this.$store.state.language
         this.loaded = true
       })
     },

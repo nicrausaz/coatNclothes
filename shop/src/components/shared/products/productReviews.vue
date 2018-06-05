@@ -15,7 +15,7 @@
     <article class="media" id="newCommentZone">
       <div class="media-content">
         <div class="field">
-          <p class="control">
+          <p class="control" @click="checkLoged">
             <span class="subtitle">Notez cet article</span>
             <star-rating :increment="0.5" :star-size="25" :show-rating="false" v-model="newComment.commentsAndOpinions_note" :inline="false"></star-rating>
           </p>
@@ -58,6 +58,11 @@ export default {
     }
   },
   methods: {
+    checkLoged () {
+      if (!this.$store.state.user.users_id) {
+        this.$emit('login')
+      }
+    },
     getComments () {
       this.axios({
         method: 'get',

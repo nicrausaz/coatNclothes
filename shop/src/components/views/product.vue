@@ -42,7 +42,7 @@
           </div>
         </div>
       </div>
-      <reviews class="column" @new="getProductNote"></reviews>
+      <reviews class="column" @new="getProductNote" @login="loginModalOn = true"></reviews>
       <suggestedproducts v-if="loaded" :category="productData.fk_category_id" class="column"></suggestedproducts>
     </section>
     <b-modal :active.sync="wishlistselect">
