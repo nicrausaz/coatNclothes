@@ -2,6 +2,10 @@
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">{{$store.state.interface.editUser}}</p>
+      <a class="button is-danger is-outlined is-pulled-right" @click.stop="deleteUser()">
+        <span>{{$store.state.interface.delete}}</span>
+        <b-icon icon="trash" size="is-small"></b-icon>
+      </a>
     </header>
     <section class="modal-card-body">
       <b-field :label="$store.state.interface.username">
@@ -17,9 +21,10 @@
         <b-input v-model="userData.users_name" icon="address-card" :placeholder="$store.state.interface.name" required></b-input>
       </b-field>
       <b-field>
-        <b-checkbox v-model="userData.users_admin">{{$store.state.interface.admin}}</b-checkbox>
-        {{userData.users_admin}}
-        necessaire ?
+        <b-checkbox v-model="userData.users_admin" :true-value="1" :false-value="0">{{$store.state.interface.admin}}</b-checkbox>
+      </b-field>
+      <b-field>
+        <b-checkbox v-model="userData.users_enabled" :true-value="1" :false-value="0">{{$store.state.interface.enabled}}</b-checkbox>
       </b-field>
     </section>
     <footer class="modal-card-foot">
@@ -48,9 +53,12 @@ export default {
       })
       .then(response => {
         this.userData = response.data
+        console.log(this.userData)
       })
     },
     updateUser () {
+      this.updateAdminStatut()
+      this.changeUserActivation()
       this.axios({
         method: 'patch',
         url: '/admin/user/' + this.id,
@@ -69,6 +77,40 @@ export default {
           message: err.response.data.message,
           type: 'is-danger'
         })
+      })
+    },
+    changeUserActivation () {
+      this.axios({
+        method: 'patch',
+        url: 'admin/user/' + this.id + '/disable/' + this.userData.users_enabled
+      })
+    },
+    deleteUser () {
+      this.$dialog.confirm({
+        title: this.$store.state.interface.delete,
+        message: this.$store.state.interface.remUser,
+        type: 'is-danger',
+        hasIcon: true,
+        icon: 'times-circle',
+        confirmText: this.$store.state.interface.confirm,
+        cancelText: this.$store.state.interface.cancel,
+        onConfirm: () => {
+          this.axios({
+            method: 'delete',
+            url: 'admin/user/' + this.id
+          })
+          .then((response) => {
+            this.$toast.open(response.data.message)
+            this.$emit('update')
+            this.$parent.close()
+          })
+        }
+      })
+    },
+    updateAdminStatut () {
+      this.axios({
+        method: 'patch',
+        url: '/admin/user/' + this.id + '/admin/' + this.userData.users_admin
       })
     }
   }

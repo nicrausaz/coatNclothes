@@ -31,7 +31,11 @@
           {{ props.row.users_createDate }}
         </b-table-column>
         <b-table-column field="users_admin" :label="$store.state.interface.admin" sortable centered>
-          <b-icon size="is-small" :icon="isAdminIcon(props.row.users_admin)"></b-icon>
+          <b-icon size="is-small" :icon="getIcon(props.row.users_admin)"></b-icon>
+        </b-table-column>
+
+        <b-table-column field="users_enabled" :label="$store.state.interface.enabled" sortable centered>
+          <b-icon size="is-small" :icon="getIcon(props.row.users_enabled)"></b-icon>
         </b-table-column>
 
         <b-table-column :label="$store.state.interface.actions" centered>
@@ -94,8 +98,8 @@ export default {
       this.userId = id
       this.isEditing = true
     },
-    isAdminIcon (isAdmin) {
-      return isAdmin ? 'check' : 'times'
+    getIcon (value) {
+      return value ? 'check' : 'times'
     }
   },
   components: {
