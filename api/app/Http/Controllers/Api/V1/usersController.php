@@ -6,7 +6,7 @@ use Dingo\Api\Http\Response;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Lang;
-
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -49,30 +49,41 @@ class usersController extends Controller
             'message' => lang::get('auth.genderChangedSuccess')
         ]);
     }
-    public function getUserInfo(Request $request, $id){
+    public function getUserInfo($id){
         $this->checkTokenFromId($id);
-        $user = \Auth::user();
+        $user = \DB::select('SELECT users_id, users_name, users_fsname, users_email, users_login, users_createDate, users_admin, fk_gender_id FROM TB_Users WHERE users_id = ?', [$id]);
+        if(!empty($user[0])){
+
+            $user = $user[0];
+        }else{
+
+            \Log::error('User not found');
+            abort(403, lang::get('auth.userNotFound'));
+        }
+
         $gender_id=$user->fk_gender_id;
         if (isset($gender_id)){
+
             $gender = \DB::select('SELECT * FROM `TB_Gender` WHERE `gender_id` =  ?', [$gender_id]);
             $user->gender=$this->getTranslation($gender[0]->gender_sex);
             $user->genderAbrev=$gender[0]->gender_abreviation;
 
         }
         $pic = \DB::select('SELECT usersPics_path FROM TB_UsersPics WHERE fk_users_id = ? AND usersPics_dlDate IS NULL', [$id]);
+
         if(isset($pic)) {
             if(!empty($pic[0])){
                 $user->users_pic=$pic[0]->usersPics_path;
             }
         }
-        return $user;
+
+        return json_encode($user);
     }
 
-    public function getUserAdresses(Request $request, $id){
+    public function getUserAdresses($id){
         $this->checkTokenFromId($id);
         $adresses = \DB::select('SELECT * FROM TB_Adresses WHERE fk_users_id = ? AND  adresses_dlDate IS NULL', [$id]);
         return $adresses;
-
     }
     public function changeUserPassword(Request $request, $id){
         $this->checkTokenFromId($id);
@@ -102,7 +113,9 @@ class usersController extends Controller
             \Log::error('missing argument for changing info | user: '.$id);
             abort(403, lang::get('auth.missingArgument'));
         }
-        $user = \Auth::user();
+
+        $user = \DB::select('SELECT users_name, users_login, users_fsname, users_email FROM TB_Users WHERE users_id =?', [$id]);
+        $user = $user[0];
 
         if((!empty($input['users_name'])AND !preg_match('#[^A-Za-z]#', $input['users_name']))) $name = $input['users_name']; else $name = $user->users_name;
         if((!empty($input['users_login'])AND !preg_match('#[^A-Za-z]#', $input['users_login']))) $login = $input['users_login']; else $login = $user->users_login;
@@ -125,14 +138,18 @@ class usersController extends Controller
         $this->checkTokenFromId($id);
         $input =$request->all();
 
-        if(empty($input['adresses_street'])OR empty($input['adresses_npa'])OR empty($input['adresses_locality'])){
+        if(empty($input['adresses_street'])OR empty($input['adresses_state'])OR empty($input['adresses_npa'])OR empty($input['adresses_locality'])){
             \Log::error('missing argument for adding adresse | user: '.$id);
             abort(403, lang::get('auth.missingArgument'));
+        }
+        $validator = $this->validator($request->all());
+        if($validator->fails()){
+            \Log::error('missing argument for adding adresse | user: '.$id);
+            abort(403, $validator->errors());
         }
         if(isset($input['adresses_main'])){
             $main =1;
             $mainAdresse = \DB::select('SELECT adresses_id FROM TB_Adresses WHERE adresses_main = 1 AND fk_users_id = ?', [$id]);
-            $array=array();
             foreach($mainAdresse as $value){
                 \DB::update('UPDATE `TB_Adresses` SET `adresses_main` = 0 WHERE `TB_Adresses`.`adresses_id` = ?', [$value->adresses_id]);
             }
@@ -140,7 +157,7 @@ class usersController extends Controller
 
         try {
             \DB::table('TB_Adresses')->insert([
-                ['adresses_street' => $input['adresses_street'], 'adresses_npa' => $input['adresses_npa'], 'adresses_locality'=>$input['adresses_locality'], 'adresses_main'=>$main, 'fk_users_id'=>$id]
+                ['adresses_street' => $input['adresses_street'],'adresses_state' => $input['adresses_state'], 'adresses_npa' => $input['adresses_npa'], 'adresses_locality'=>$input['adresses_locality'], 'adresses_main'=>$main, 'fk_users_id'=>$id]
             ]);
         }
         catch (\PDOException $e) {
@@ -152,6 +169,16 @@ class usersController extends Controller
             'message' => lang::get('auth.addadresseSuccess')
         ]);
 
+    }
+    protected function validator(array $data)
+    {
+
+        return Validator::make($data, [
+            'adresses_street' => 'regex:/(^[A-Za-z0-9âàéèïäç\'.üö\- ]+$)+/|max:255',
+            'adresses_state' => 'regex:/(^[A-Za-z0-9âàéèïäçüö\- ]+$)+/|max:255',
+            'adresses_locality' => 'regex:/(^[A-Za-z0-9âàéèïäçüö\- ]+$)+/|max:60',
+            'adresses_npa' => 'regex:/(^[A-Za-z0-9 ]+$)+/|max:8'
+        ]);
     }
     public function remAdresse(Request $request, $id, $addrID){
         $this->checkTokenFromId($id);
@@ -186,13 +213,8 @@ class usersController extends Controller
         $this->checkTokenFromId($id);
         $input =$request->all();
 
-        if(empty($addrID)){
-            \Log::error('missing adresses_id for editing adresse | user: '.$id);
-            abort(403, lang::get('auth.missingArgument'));
-        }else if(!is_numeric($addrID)){
-            \Log::error('id not numeric for editing adresse | user: '.$id);
-            abort(403, lang::get('errors.charNotAuthorized'));
-        }
+
+
         $getAdresse = \DB::select('SELECT * FROM TB_Adresses WHERE adresses_id = ? AND fk_users_id = ? AND adresses_dlDate IS NULL', [$addrID, $id]);
         if(empty($getAdresse[0])){
             \Log::error('trying to edit a not authorized adresse: '.$addrID.' | user: '.$id);
@@ -202,6 +224,16 @@ class usersController extends Controller
             \Log::error('missing argument for editing adresse | user: '.$id);
             abort(403, lang::get('auth.missingArgument'));
         }else{
+            $validator = $this->validator($request->all());
+            if($validator->fails()){
+                \Log::error('missing argument for editing adresse | user: '.$id);
+                abort(403, $validator->errors());
+            }
+            if(!empty($input['adresses_state'])){
+                $state = $input['adresses_state'];
+            }else{
+                $state = $getAdresse[0]->adresses_state;
+            }
             if(!empty($input['adresses_street'])){
                 $street = $input['adresses_street'];
             }else{
@@ -236,7 +268,7 @@ class usersController extends Controller
         }
         try {
             \DB::table('TB_Adresses')->where([['adresses_id', '=', $addrID],['fk_users_id', '=', $id]])->update(
-                ['adresses_street' => $street, 'adresses_npa' => $npa, 'adresses_locality'=>$locality, 'adresses_main'=>$main, 'fk_users_id'=>$id]
+                ['adresses_street' => $street, 'adresses_state' => $state, 'adresses_npa' => $npa, 'adresses_locality'=>$locality, 'adresses_main'=>$main, 'fk_users_id'=>$id]
             );
         }
         catch (\PDOException $e) {

@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Lang;
 
 
 class LoginController extends Controller
@@ -49,17 +50,21 @@ class LoginController extends Controller
             'users_email' => $user->users_email,
             'users_admin' => $user->users_admin,
             'status_code' => 200,
-            'message' => 'Utilisateur authentifié !'
+            'message' => lang::get('auth.connectedWithSuccess')
         ]);
     }
 
     public function sendFailedLoginResponse()
     {
-        throw new UnauthorizedHttpException("Nom d'utilisateur ou mot de passe incorrect");
+        abort(401, lang::get('auth.failed'));
     }
 
     public function logout()
     {
         $this->guard()->logout();
+        return $this->response->array([
+            'status_code' => 200,
+            'message' => lang::get('auth.logout')
+        ]);
     }
 }

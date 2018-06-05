@@ -8,7 +8,9 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use http\Env\Request;
 use Lang;
+Use Illuminate\Support\Facades\Auth;
 
 
 class Controller extends \Illuminate\Routing\Controller
@@ -28,7 +30,11 @@ class Controller extends \Illuminate\Routing\Controller
         $admin = \Request::segment(2);
 
         if($admin=='admin') {
+            if (!Auth::check()) {
+                abort(401, lang::get('auth.tokenNotProvided'));
+            }
             $userAdmin = \Auth::user()->users_admin;
+
             if ($userAdmin != 1) {
                 \Log::error("ID: (" . \Auth::user()->users_id . ") tried to access an admin ressource");
                 abort(403, lang::get('errors.notAuthorized'));
@@ -39,9 +45,21 @@ class Controller extends \Illuminate\Routing\Controller
             return false;
         }
     }
-    public function getTranslation($array){
+    public static function getTranslation($array){
         $description=json_decode($array, true);
-        if(key_exists(\App::getLocale(), $description))$description=$description[\App::getLocale()];else {if(isset($description['en']))$description =$description['en']; else$description = NULL;}
+        if(!is_array($description)){
+            \Log::error('Error in database, bad translation');
+            abort(403, lang::get('errors.uknError'));
+        }
+        if(key_exists(\App::getLocale(), $description))$description=$description[\App::getLocale()];
+        else {
+            if(isset($description['en']))$description =$description['en'];
+            else$description = NULL;
+        }
         return $description;
+    }
+    public function getLangageInterface(){
+        $array = Lang::get('interface');
+        return $array;
     }
 }

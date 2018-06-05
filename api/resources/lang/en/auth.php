@@ -14,6 +14,10 @@ return [
     */
 
     'failed' => 'These credentials do not match our records.',
+    'logout'=>'User successfully logued out',
+    'dataValidationFailed'=>'Data incorrect',
+    'userCreatedSuccess'=>'User created successfully',
+    'connectedWithSuccess'=>'Connection with success!',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'missingArgument'=>'Missing argument for request',
     'addadresseSuccess'=>'Adresse added successfully',
@@ -24,7 +28,9 @@ return [
     'noContentToDelete'=>'No picture to delete',
     'genderChangedSuccess'=>'Gender changed successfully !',
     'infoChangedSuccess'=>'User informations updated !',
-    'passChangedSuccess'=>'Password changed successfully !'
+    'passChangedSuccess'=>'Password changed successfully !',
+    'tokenNotProvided'=>'Token Not Provided',
+    'userNotFound'=>'UserNot Found'
 
 
 ];

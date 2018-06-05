@@ -14,6 +14,9 @@ return [
     */
 
     'failed' => 'Identifiants non correspondant',
+    'dataValidationFailed'=>'Erreur avec les données',
+    'userCreatedSuccess'=>'Utilisateur créé avec succès',
+    'connectedWithSuccess'=>'Connexion effectuée avec succès',
     'throttle' => 'Trop de tentative de connexion, réessayer plus tard',
     'missingArgument'=>'Des arguments sont manquants et la requête n\'a pas pu être executée',
     'addadresseSuccess'=>'Adresse ajoutée avec succès !',
@@ -24,7 +27,10 @@ return [
     'noContentToDelete'=>'Pas d\'image à supprimer',
     'genderChangedSuccess'=> 'Sexe changé avec succès',
     'infoChangedSuccess'=>'Information utilisateurs changée avec succès',
-    'passChangedSuccess'=>'Mot de passe modifié avec succès'
+    'passChangedSuccess'=>'Mot de passe modifié avec succès',
+    'tokenNotProvided'=>'Token non fourni',
+    'userNotFound'=>'Utilisateur non trouvé',
+    'logout'=>'Utilisateur déconnecté avec succès'
 
 
 ];

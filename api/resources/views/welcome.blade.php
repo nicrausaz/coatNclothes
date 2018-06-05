@@ -65,27 +65,6 @@
         </style>
     </head>
     <body>
-    <?php
-    try
-    {
-        $bdd = new PDO('mysql:host=localhost;dbname=DB_CoatAndClothes;charset=utf8', 'laravelAccess', 'MK)Nfi7{RQp@ED');
-    }
-    catch (Exception $e)
-    {
-        die('Erreur : ' . $e->getMessage());
-    }
-    $back = $bdd->prepare('SELECT * FROM TB_Users');
-    $back->execute();
-    while ($donnees = $back->fetch())
-    {
-        print_r('<pre>');
-        print_r($donnees);
-        print_r('</pre>');
-
-    }
-
-    ?>
-
 
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))

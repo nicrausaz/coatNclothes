@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Dingo\Api\Exception\StoreResourceFailedException;
 use Dingo\Api\Routing\Helpers;
+use Lang;
+use App\Http\Controllers\Api\V1\Mail\MailController;
 
 class RegisterController extends Controller
 {
@@ -31,15 +33,17 @@ class RegisterController extends Controller
 
         $validator = $this->validator($request->all());
         if($validator->fails()){
-            throw new StoreResourceFailedException("Données non conformes", $validator->errors());
+            throw new StoreResourceFailedException(lang::get('auth.dataValidationFailed'), $validator->errors());
         }
 
         $user = $this->create($request->all());
 
         if($user){
 
-            $token = JWTAuth::fromUser($user);
+            //dispatch(new SendVerificationEmail($user));
+            if(MailController::sendRegistration($user->users_fsname, $user->users_name,$user->users_login, $user->users_email)==true) $sent=1; else $sent=0;
 
+            $token = JWTAuth::fromUser($user);
             return $this->response->array([
                 "token" => $token,
                 'users_id' => $user->users_id,
@@ -48,7 +52,8 @@ class RegisterController extends Controller
                 'users_login' => $user->users_login,
                 'users_email' => $user->users_email,
                 'users_admin' => 0,
-                "message" => "Utilisateur créé !",
+                'start_mail' => $sent,
+                "message" => lang::get('auth.userCreatedSuccess'),
                 "status_code" => 201
             ]);
         }else{
@@ -58,13 +63,28 @@ class RegisterController extends Controller
 
     protected function validator(array $data)
     {
+
         return Validator::make($data, [
-            'users_login' => 'required|unique:TB_Users',
+            'users_login' => 'required|max:30|unique:TB_Users',
             'users_email' => 'required|email|max:255|unique:TB_Users',
             'users_pass' => 'required|min:6',
-            'users_name' => 'required',
-            'users_fsname' => 'required'
+            'users_name' => 'required|max:80',
+            'users_fsname' => 'required|max:80'
         ]);
+    }
+    private function recapcha(Request $request){
+
+        $input = $request->all();
+
+        $data=array([
+          'secret'=>Config::get('app.recapchav2_secret'),
+            'url'=>Config::get('app.recapchav2_url'),
+            'remoteip'=>Request::ip(),
+            'response'=>$input['g-recaptcha-response']
+        ]);
+        $recapcha = json_decode(file_get_contents($data['url']."?secret=".$data['secret']."&response=".$data['response']."&remoteip=".$data['remoteip']));
+
+        if($recapcha->success)return true; else return false;
     }
 
     protected function create(array $data)

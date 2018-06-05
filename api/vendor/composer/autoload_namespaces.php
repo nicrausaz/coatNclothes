@@ -7,6 +7,9 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'phpDocumentor' => array($vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/reflection/src', $vendorDir . '/phpdocumentor/reflection/tests/unit', $vendorDir . '/phpdocumentor/reflection/tests/mocks'),
+    'Svg\\' => array($vendorDir . '/phenx/php-svg-lib/src'),
+    'Sabberworm\\CSS' => array($vendorDir . '/sabberworm/php-css-parser/lib'),
+    'Roumen\\Feed' => array($vendorDir . '/roumen/feed/src'),
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
     'Parsedown' => array($vendorDir . '/erusev/parsedown'),
     'Mockery' => array($vendorDir . '/mockery/mockery/library'),

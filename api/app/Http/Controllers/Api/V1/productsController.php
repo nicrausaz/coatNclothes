@@ -14,22 +14,30 @@ class productsController extends Controller
     private $categories;
     private $categoriesStored;
 
+
+    public function getListCategory(){
+        $gotProduct = \DB::select('select * from TB_Category ');
+        foreach ($gotProduct as $key => $value){
+            $gotProduct[$key]->category_name=self::getTranslation($value->category_name);
+        }
+        return $gotProduct;
+    }
     public function getAllProducts(){
-        $products = \DB::select('select prod.products_id, prod.products_name, prod.products_price, pic.productsPics_altName, pic.productsPics_path from TB_Products prod LEFT JOIN TB_ProductsPics pic ON pic.fk_products_id = prod.products_id GROUP BY prod.products_id', array(1));
+        $products = \DB::select('SELECT prod.products_id, prod.products_name, prod.products_price, CASE WHEN pic.productsPics_dlDate is NULL THEN pic.productsPics_id ELSE NULL END as productsPics_id,CASE WHEN pic.productsPics_dlDate is NULL THEN pic.productsPics_altName ELSE NULL END as productsPics_altName, CASE WHEN pic.productsPics_dlDate is NULL THEN  pic.productsPics_path ELSE NULL END as productsPics_path FROM TB_Products prod LEFT JOIN TB_ProductsPics pic ON pic.fk_products_id = prod.products_id AND pic.productsPics_dlDate IS NULL WHERE  prod.`products_dlDate` IS NULL GROUP BY prod.products_id',array(1));
         foreach ($products as $key=>$value){
             $products[$key]->products_name=$this->getTranslation($value->products_name);
         }
         return $products;
     }
-    public function getspecificcategoryproducts(Request $request, $id){
-        $products = \DB::select('select products_id, products_name from TB_Products WHERE fk_category_id = ?', [$id]);
+    public function getspecificcategoryproducts($id){
+        $products = \DB::select('select products_id, products_name from TB_Products WHERE fk_category_id = ? AND `products_dlDate` IS NULL', [$id]);
         foreach ($products as $key=>$value){
             $products[$key]->products_name=$this->getTranslation($value->products_name);
         }
         return $products;
     }
 
-    public function getProductsByCategoryAndSubs(Request $request, $id){
+    public function getProductsByCategoryAndSubs($id){
         $categories=self::getAllCategories();
         $idOfAllCatAndSub =self::walkUntilFind($categories, $id);
 
@@ -37,7 +45,7 @@ class productsController extends Controller
 
         foreach ($idOfAllCatAndSub as $value){
 
-            if(!empty($this->getProductsByCategory($request, $value))) $result = array_merge($this->getProductsByCategory($request, $value), $result);
+            if(!empty($this->getProductsByCategory($value))) $result = array_merge($this->getProductsByCategory($value), $result);
         }
         return $result;
     }
@@ -78,10 +86,23 @@ class productsController extends Controller
             else return false;
         }else return false;
     }
-    public function getProductsDetails(Request $request, $id)
-    {
-        $gotProduct = \DB::select('select * from TB_Products WHERE products_id = ?', [$id]);
+    public function getProductUnrestricted($prodID){
+        $gotProduct = \DB::select('SELECT prod.products_id, prod.fk_brand_id as products_brand, prod.products_name, prod.products_price, CASE WHEN pic.productsPics_dlDate is NULL THEN pic.productsPics_id ELSE NULL END as productsPics_id,CASE WHEN pic.productsPics_dlDate is NULL THEN pic.productsPics_altName ELSE NULL END as productsPics_altName, CASE WHEN pic.productsPics_dlDate is NULL THEN  pic.productsPics_path ELSE NULL END as productsPics_path FROM TB_Products prod LEFT JOIN TB_ProductsPics pic ON pic.fk_products_id = prod.products_id AND pic.productsPics_dlDate IS NULL WHERE prod.products_id = ?',[$prodID]);
+        if(!isset($gotProduct[0])){
+            \Log::error('Trying to get a non existent product');
+            abort(403, lang::get('errors.nonExistentProduct'));
+        }
+        $gotProduct[0]->products_name=self::getTranslation($gotProduct[0]->products_name);
+        return (array) $gotProduct[0];
 
+    }
+    public function getProductsDetails($id)
+    {
+        $gotProduct = \DB::select('select * from TB_Products WHERE products_id = ? AND `products_dlDate` IS NULL', [$id]);
+        if(!isset($gotProduct[0])){
+            \Log::error('Trying to get a non existent product');
+            abort(403, lang::get('errors.nonExistentProduct'));
+        }
         $gotProduct=json_decode(json_encode($gotProduct[0]), true);
         $gotProduct['products_name']=$this->getTranslation($gotProduct['products_name']);
 
@@ -94,7 +115,6 @@ class productsController extends Controller
         $brand=$gotProduct['fk_brand_id'];
         $brandName= \DB::select('select brand_name from TB_Brand WHERE brand_id = ?', [$brand]);
         $gotProduct['products_brand'] = $brandName[0]->brand_name;
-        unset($gotProduct['fk_brand_id']);
 
         //size
         $size = \DB::select('SELECT productsSize_value FROM TB_ProductsSize WHERE productsSize_dlDate IS NULL AND fk_products_id = ?', [$id]);
@@ -110,6 +130,7 @@ class productsController extends Controller
         foreach($pictures as $key => $value){
             $picturesArray[$key]['altName']=$pictures[$key]->productsPics_altName;
             $picturesArray[$key]['path']=$pictures[$key]->productsPics_path;
+            $picturesArray[$key]['id']=$pictures[$key]->productsPics_id;
         }
         $gotProduct['products_pictures']=$picturesArray;
 
@@ -117,10 +138,14 @@ class productsController extends Controller
     }
     public function getAllCategories(){
         $category = \DB::select('SELECT category_name as name, category_id as id, fk_category_id as parent FROM `TB_Category` ');
+        foreach ($category as $key=>$value){
+            $category[$key]->name=self::getTranslation($value->name);
+        }
         $arr=json_decode(json_encode($category), true);
 
         $new = array();
         foreach ($arr as $a){
+
             $new[$a['parent']][] = $a;
         }
         $parent=($new[NULL]);
@@ -137,17 +162,17 @@ class productsController extends Controller
         }
         return $tree;
     }
-	public function getCategroyName(Request $request, $id){
-		$gotProduct = \DB::select('select category_name from TB_Category WHERE category_id = ?', [$id]);
-		$gotProduct = json_decode(json_encode($gotProduct), true);
-		return $gotProduct;
+	public function getCategoryName($id){
+		$gotProduct = \DB::select('select category_name, fk_gender_id as gender_id from TB_Category WHERE category_id = ?', [$id]);
+		$gotProduct[0]->category_name=self::getTranslation($gotProduct[0]->category_name);
+
+		return (array)$gotProduct[0];
 	
 	}
 
-	public function getProductsByCategory(Request $request, $id){
-		$array=array();
-		
-		$gotProduct = \DB::select('select prod.products_id, prod.products_name, prod.products_price, prod.fk_category_id, prod.fk_brand_id, pic.productsPics_altName, pic.productsPics_path from TB_Products prod LEFT JOIN TB_ProductsPics pic ON pic.fk_products_id = prod.products_id WHERE prod.fk_category_id = ? GROUP BY prod.products_id', [$id]);
+	public function getProductsByCategory($id){
+
+		$gotProduct = \DB::select('SELECT prod.products_id, prod.products_name, prod.products_price, prod.fk_category_id, prod.fk_brand_id, CASE WHEN pic.productsPics_dlDate is NULL THEN pic.productsPics_id ELSE NULL END as productsPics_id,CASE WHEN pic.productsPics_dlDate is NULL THEN pic.productsPics_altName ELSE NULL END as productsPics_altName, CASE WHEN pic.productsPics_dlDate is NULL THEN  pic.productsPics_path ELSE NULL END as productsPics_path FROM TB_Products prod LEFT JOIN TB_ProductsPics pic ON pic.fk_products_id = prod.products_id AND pic.productsPics_dlDate IS NULL WHERE  prod.fk_category_id = ? AND prod.`products_dlDate` IS NULL GROUP BY prod.products_id', [$id]);
         foreach ($gotProduct as $key=>$value){
             $gotProduct[$key]->products_name=$this->getTranslation($value->products_name);
         }
@@ -155,7 +180,7 @@ class productsController extends Controller
 
 	}
     public function getAllBrands(){
-        $gotProduct = \DB::select('select * from TB_Brand');
+        $gotProduct = \DB::select('select * from TB_Brand WHERE brand_dlDate IS NULL');
         return $gotProduct;
     }
     public function getBrand(Request $id, $brandID){
@@ -195,6 +220,7 @@ class productsController extends Controller
     }
     public function addNewComment(Request $request, $id, $prodID){
         $this->checkTokenFromId($id);
+        self::checkIfAlreadyPosted($prodID, $id);
 
         $min= 0;
         $max= 10;
@@ -235,5 +261,11 @@ class productsController extends Controller
             'status_code' => 200,
             'message' => lang::get('orders.commentAddedSuccess')
         ]);
+    }
+    private  function checkIfAlreadyPosted($prodID, $userID){
+        $count =\DB::select('SELECT count(`commentsAndOpinions_id`) as count FROM TB_CommentsAndOpinions WHERE fk_users_id = ? AND fk_products_id = ?', [$userID, $prodID]);
+        if($count[0]->count!=0){
+            abort(403, lang::get('orders.alreadyNoted'));
+        }
     }
 }

@@ -21,6 +21,18 @@ return [
     'emptyAdress'=> 'Commande sans adresse',
     'valueNotInScale'=> 'La valeur doit être entre :min et :max',
     'commentAddedSuccess'=>'Note ajoutée avec succès',
-    'productsUpdated'=>'Produit mis à jours avec succès'
+    'productsUpdated'=>'Produit mis à jours avec succès',
+    'productsAddedd'=>'Produit ajouté avec succès',
+    'removedBrand'=>'marque supprimée avec succès',
+    'alreadyNoted'=>'Vous avez déjà noté ou commenté ce produit',
+    'price'=>'Prix',
+    'brandAdded'=>'Marque ajoutée avec succès',
+    'alreadinInBrand'=>'Marque déjà existante',
+    'removedProduct'=>'Produit supprimé avec succès',
+    'orderUpdated'=>'Commande mise à jour avec succès',
+    'contentAdded'=>'Contenu ajouté au panier avec succès',
+    'catCreatSuccess'=>'Catégorie créée avec succès'
+
+
 
 ];

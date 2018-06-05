@@ -15,11 +15,23 @@ return [
     'updatSuccess'=>'wishlist content successfully updated',
     'successRemFromWish' =>'Successfully removed from wishlist !',
     'OrdersSuccess'=>'Orders created with success, waiting for validation',
+    'orderUpdated'=>'Orders updated successfully',
     'emtpyOrder'=>'Order is empty',
     'alreadinInWish'=>'products already in wishlist',
     'emptyAdress' => 'Command with empty adresse',
     'valueNotInScale'=>'Value must be between :min and :max',
-    'commentAddedSuccess' =>'Not added successfully !',
-    'productsUpdated'=>'Product updated succesffully !'
+    'commentAddedSuccess' =>'Note added successfully !',
+    'productsUpdated'=>'Product updated successfully !',
+    'productsAddedd'=>'Product addedd successfully',
+    'removedBrand'=>'Brand removed successfully',
+    'alreadyNoted'=>'You have already noted or commented on this product',
+    'price'=>'Price',
+    'brandAdded'=>'Brand addedd successfullys',
+    'alreadinInBrand'=>'Brand already existing',
+    'removedProduct'=>'Products removes successfully',
+    'contentAdded'=>'Content successfully added to basket',
+    'catCreatSuccess'=>'Category successfully created',
+
+
 
 ];

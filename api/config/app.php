@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'https://api.coatandclothes.shop'),
 
     /*
     |--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Europe/Zurich',
 
     /*
     |--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'locale' => 'fr',
+    'locale' => ['en', 'fr'],
 
     'languages' => ['en', 'fr'],
 
@@ -127,6 +127,11 @@ return [
     'log' => env('APP_LOG', 'single'),
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
+
+
+
+    'recapchav2_secret' => env('RECAPCHAV2_SECRET', NULL),
+    'recapchav2_url' => env('RECAPCHAV2_URL', 'https://www.google.com/recaptcha/api/siteverify'),
 
     /*
     |--------------------------------------------------------------------------
@@ -181,7 +186,9 @@ return [
         App\Providers\RouteServiceProvider::class,
 		Dingo\Api\Provider\LaravelServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
-    ],
+	Roumen\Feed\FeedServiceProvider::class,
+	Barryvdh\DomPDF\ServiceProvider::class
+],
 
     /*
     |--------------------------------------------------------------------------
@@ -232,6 +239,9 @@ return [
 		'DingoApi' => Dingo\Api\Facade\API::class,
 		'DingoRoute' => Dingo\Api\Facade\Route::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
-    ],
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+	'Feed' => Roumen\Feed\Feed::class,
+	'PDF'  => Barryvdh\DomPDF\Facade::class
+],
 
 ];

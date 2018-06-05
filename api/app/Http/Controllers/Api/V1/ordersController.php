@@ -1,10 +1,12 @@
 <?php
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Controllers\Api\V1\Mail\MailController;
 use Dingo\Api\Contract\Http\Request;
 use Dingo\Api\Http\Response;
 use Dingo\Api\Routing\Helpers;
 use Lang;
+use PDF;
 
 
 class ordersController extends Controller
@@ -17,24 +19,81 @@ class ordersController extends Controller
      *
      */
 
-    public function getAllOrders(Request $request, $id){
+    public function getAllOrders($id){
         $this->checkTokenFromId($id);
 
         $orders = \DB::select('SELECT * FROM `TB_Orders` o INNER JOIN TB_OrdersStatus os ON os.ordersStatus_id = o.fk_ordersStatus_id where o.fk_users_id = ?', [$id]);
         foreach ($orders as $key=>$value){
             $orders[$key]->ordersStatus_name=$this->getTranslation($value->ordersStatus_name);
+            if($value->orders_paidDate==NULL)$paid=0;else$paid=1;
+            $orders[$key]->orders_paid=$paid;
         }
+
 
         return $orders;
     }
 
-    public function getOrderContent(Request $request, $id){
-        $this->checkTokenFromId($id);
+    public function getOrderContent($id){
 
         $ordersContent = \DB::select('SELECT * FROM `TB_OrdersContent` WHERE fk_orders_id = ?', [$id]);
+
+        foreach ($ordersContent as $key=> $value){
+            $size=\DB::select('SELECT * FROM TB_ProductsSize WHERE productsSize_id = ?', [$value->fk_productsSize_id]);
+            $ordersContent[$key]->productsSize_value=$size[0]->productsSize_value;
+        }
         return json_encode($ordersContent);
     }
+    public function generateOrderPDF($orderID){
+        $order = \DB::select('SELECT * FROM TB_Orders WHERE orders_id = ?', [$orderID]);
+        if(empty($order[0])){
+            \Log::error('order not existent');
+            abort(403, lang::get('orders.emtpyOrder'));
+        }
 
+        $data=array('keys'=>array(),'values'=>array());
+        $data['keys']=(object)array(
+            'local'=>\App::getLocale(),
+            'bill'=>lang::get('view.bill'),
+            'orders_id'=>lang::get('view.id'),
+            'orders_name'=>lang::get('view.name'),
+            'orders_quantity'=>lang::get('view.quantity'),
+            'orders_price'=>lang::get('view.price'),
+            'orders_priceTotal'=>lang::get('view.priceTotal'),
+            'total'=>lang::get('view.total')
+            );
+
+        $adresse=\DB::select('select * FROM TB_Adresses WHERE adresses_id = ?', [$order[0]->fk_adresses_id]);
+
+        $data['values']['custommer']=(object)array(
+            'users_completeName'=>\Auth::user()->users_fsname.' '.\Auth::user()->users_name,
+            'adresses_street'=>$adresse[0]->adresses_street,
+            'adresses_locality'=>$adresse[0]->adresses_locality,
+            'adresses_npa'=>$adresse[0]->adresses_npa,
+            'adresses_state'=>$adresse[0]->adresses_state
+            );
+
+        $orderContent=\DB::select('SELECT * FROM TB_OrdersContent WHERE fk_orders_id = ?', [$orderID]);
+
+        $total=0;
+        foreach ($orderContent as $key => $value){
+            $product=\DB::select('SELECT * FROM TB_Products WHERE products_id = ?', [$value->fk_products_id]);
+            $data['values']['products'][]=(object)array(
+                'products_id'=>$value->fk_products_id,
+                'products_name'=>self::getTranslation($product[0]->products_name),
+                'orders_quantity'=>$value->ordersContent_quantity,
+                'orders_price'=>$product[0]->products_price,
+                'orders_priceTotal'=>($product[0]->products_price*$value->ordersContent_quantity)
+            );
+            $total=$total+($product[0]->products_price*$value->ordersContent_quantity);
+        }
+
+        $data['values']['total']=$total;
+        //$pdf = \App::make('dompdf.wrapper');
+        //print_r($data);
+        //die();
+        $pdf= PDF::loadView('pdf.invoice', compact('data'));
+        return $pdf->stream('invoice.pdf');
+    }
     public function getAllOrderContent(Request $request, $id){
         $this->checkTokenFromId($id);
 
@@ -87,7 +146,7 @@ class ordersController extends Controller
         foreach ($input['data'] as $key => $value){
 
             if(empty($value['quantity'])OR empty($value['product'])){
-                \Log::error('missing argument for basket put | user: '.$id);
+                \Log::error('missing argument for order put | user: '.$id);
                 self::deleteOrderAndSub($orderID);
                 abort(403, lang::get('orders.missingArgument'));
             }
@@ -112,7 +171,9 @@ class ordersController extends Controller
                     abort(403, lang::get('errors.notAuthorized'));
                 }
             }else{
-                $size=NULL;
+                \Log::error('missing argument for order put (size)| user: '.$id);
+                self::deleteOrderAndSub($orderID);
+                abort(403, lang::get('orders.missingArgument'));
             }
 
             try {
@@ -129,12 +190,35 @@ class ordersController extends Controller
         }
         return $this->response->array([
             'status_code' => 200,
-            'message' => lang::get('orders.OrdersSuccess')
+            'message' => lang::get('orders.OrdersSuccess'),
+            'orders_id'=>$orderID
         ]);
 
 
 
         //return array(array('product'=>1, 'quantity' => 5, 'size' => 'L'), array('product'=>3, 'quantity' => 6, 'size' => 'S'));
+    }
+    public function addToBasket($wishID){
+        $userID=\Auth::user()->users_id;
+        $count = \DB::select('SELECT count(wishlist_id) as count FROM TB_Wishlist WHERE wishlist_id = ?  AND fk_users_id = ?', [$wishID, $userID]);
+        if($count[0]->count!=1){
+            \Log::error('Trying to access an non existent wishlist | user: '.$id.' wishID: '.$wishID);
+            abort(403, lang::get('errors.notAuthorized'));
+        }
+
+        $wishContent=\DB::select('SELECT fk_products_id FROM TB_WishlistContent WHERE fk_wishlist_id = ?', [$wishID]);
+        foreach($wishContent as $value){
+            $count= \DB::select('SELECT count(basket_id) as count FROM TB_Basket WHERE fk_users_id = ? AND fk_products_id = ?', [$userID, $value->fk_products_id]);
+
+            if($count[0]->count==0){
+                \DB::insert('INSERT INTO TB_Basket(basket_quantity, fk_users_id, fk_products_id) VALUES (1, ?, ?)', [$userID, $value->fk_products_id]);
+            }
+        }
+        return $this->response->array([
+            'status_code' => 200,
+            'message' => lang::get('orders.contentAdded')
+        ]);
+
     }
     private function deleteOrderAndSub($orderID){
         return \DB::delete('DELETE FROM TB_Orders WHERE orders_id = ?', [$orderID]);
@@ -145,10 +229,10 @@ class ordersController extends Controller
      * Basket
      *
      */
-    public function getBasket(Request $request, $id){
+    public function getBasket($id){
         $this->checkTokenFromId($id);
 
-        $basket = \DB::select('SELECT basket_id, basket_quantity, fk_products_id as products_id, fk_productsSize_id FROM TB_Basket WHERE fk_users_id = ?', [$id]);
+        $basket = \DB::select('SELECT basket_id, basket_quantity, fk_products_id as products_id, fk_productsSize_id FROM TB_Basket LEFT JOIN TB_Products ON TB_Products.products_id = TB_Basket.fk_products_id WHERE fk_users_id = ? AND products_dlDate IS NULL', [$id]);
         foreach($basket as $key => $value){
             if($value->fk_productsSize_id==NULL){
                 $basket[$key]->fk_productsSize_id=NULL;
@@ -344,7 +428,9 @@ class ordersController extends Controller
             abort(409, lang::get('orders.wishAlreadinIn'));
         }
         try {
-            \DB::insert('INSERT INTO TB_Wishlist(`wishlist_name`, `wishlist_description`, `fk_users_id`) VALUES (?, ?, ?)', [$input['name'], $description, $id]);
+            $id = \DB::table('TB_Wishlist')->insertGetId(
+                ['wishlist_name' => $input['name'], 'wishlist_description' => $description, 'fk_users_id'=>$id]
+            );
         }
         catch (\PDOException $e) {
             \Log::error($e->getMessage());
@@ -352,7 +438,8 @@ class ordersController extends Controller
         }
         return $this->response->array([
             'status_code' => 200,
-            'message' => lang::get('orders.creatWishSuccess')
+            'message' => lang::get('orders.creatWishSuccess'),
+            'wishlist_id'=>$id
         ]);
     }
     public function remWishlist(Request $request,  $wishID, $id){

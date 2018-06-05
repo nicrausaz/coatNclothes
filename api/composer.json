@@ -11,6 +11,7 @@
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
         "phpdocumentor/reflection": "3.x@dev",
+        "roumen/feed": "^2.11",
         "tymon/jwt-auth": "1.0.0-rc.2"
     },
     "require-dev": {
