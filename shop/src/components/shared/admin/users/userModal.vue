@@ -1,7 +1,7 @@
 <template>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Edition d'utilisateur</p>
+      <p class="modal-card-title">{{$store.state.interface.editUser}}</p>
     </header>
     <section class="modal-card-body">
       <b-field :label="$store.state.interface.username">

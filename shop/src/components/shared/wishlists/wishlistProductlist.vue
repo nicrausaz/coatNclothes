@@ -29,7 +29,7 @@
             <p>
               <b-icon icon="inbox" size="is-large"></b-icon>
             </p>
-            <p>La liste est vide, ajoutez-y des produits !</p>
+            <p>{{$store.state.interface.emptyList}} !</p>
           </div>
         </section>
       </template>

@@ -11,7 +11,6 @@
 
     <div class="navbar-menu" id="navMenu" :class="{'is-active': navIsActive}">
       <div class="navbar-start" @click="toggleMenu">
-        <router-link to="/" class="navbar-item"><b-icon icon="home" style="padding-right: 5px;"></b-icon>{{$store.state.interface.home}}</router-link>
         <router-link to="/category/2" class="navbar-item"><b-icon icon="shopping-bag" style="padding-right: 5px;"></b-icon>{{$store.state.interface.shop}}</router-link>
       </div>
       <div class="navbar-end">
