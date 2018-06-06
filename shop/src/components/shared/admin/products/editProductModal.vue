@@ -11,7 +11,7 @@
     <section class="modal-card-body">
       <b-field :label="$store.state.interface.lang">
         <b-select :aria-placeholder="$store.state.interface.lang" v-model="newData.selectedLang" expanded>
-          <option v-for="lang in languages" :key="lang" :value="lang">{{lang}}</option>
+          <option v-for="lang in languages" :key="lang.locale" :value="lang.locale">{{lang.complete}}</option>
         </b-select>
       </b-field>
 

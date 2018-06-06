@@ -1,22 +1,22 @@
 <template>
   <div class="menu">
     <ul class="menu-list">
-<draggable :element="'ul'" :list="categories" class="dragArea">
+<!-- <draggable :element="'ul'" :list="categories" class="dragArea">
 			<li v-for="el in categories" :key="el.id">
          <p>{{el.name}}</p>
          <local-draggable v-if="el.children" :tasks="el.children" >
           </local-draggable>
         <categoryNode :children="category" :parentId="null" v-for="category in categories" :key="category.id" @update="getCategories" @editing="openModal"></categoryNode>
 			  </li>
-	</draggable>
+	</draggable> -->
 
 
 
 
 
-      <!-- <draggable>
+      <draggable>
         <categoryNode :categories="categories" :children="category" :parentId="null" v-for="category in categories" :key="category.id" @update="getCategories" @editing="openModal"></categoryNode>
-      </draggable> -->
+      </draggable>
     </ul>
     <b-modal :active.sync="isEditing" has-modal-card>
       <categoryEditModal :id="tempId" :parentId="parentId" @update="getCategories"></categoryEditModal>
