@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-card">
+  <div class="modal-card" @keyup.enter="updateProductInfos">
     <header class="modal-card-head">
       <p class="modal-card-title">{{$store.state.interface.editProduct}}</p>
       <button class="button is-danger is-outlined" @click="deleteProduct">

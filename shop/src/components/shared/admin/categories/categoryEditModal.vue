@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-card">
+  <div class="modal-card" @keyup.enter="update">
     <header class="modal-card-head">
       <p class="modal-card-title">{{$store.state.interface.editCategory}}</p>
       <a class="button is-danger is-outlined is-pulled-right" @click.stop="deleteCategory">
@@ -16,7 +16,7 @@
           <option v-for="gender in genders" :key="gender.gender_id" :value="gender.gender_id">{{gender.gender_sex}}</option>
         </b-select>
       </b-field>
-      <b-field :label="$store.state.interface.category">
+      <b-field :label="$store.state.interface.parentCat">
         <Treeselect v-model="newData.fk_category_id" :placeholder="$store.state.interface.chooseCategory" :normalizer="normalizer" :options="categories"></Treeselect>
       </b-field>
     </section>
@@ -83,9 +83,12 @@ export default {
         this.$parent.close()
       })
       .catch(err => {
-        this.$toast.open({
-          message: err.response.data.message,
-          type: 'is-danger'
+        let errors = JSON.parse(err.response.data.message)
+        Object.keys(errors).forEach(key => {
+          this.$toast.open({
+            message: errors[key].toString(),
+            type: 'is-danger'
+          })
         })
       })
     },

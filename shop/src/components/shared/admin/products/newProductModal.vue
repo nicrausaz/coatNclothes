@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-card">
+  <div class="modal-card" @keyup.enter="createProduct">
     <header class="modal-card-head">
       <p class="modal-card-title">{{$store.state.interface.addProduct}}</p>
     </header>

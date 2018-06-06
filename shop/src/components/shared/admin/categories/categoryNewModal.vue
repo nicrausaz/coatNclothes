@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-card">
+  <div class="modal-card" @keyup.enter="create">
     <header class="modal-card-head">
       <p class="modal-card-title">{{$store.state.interface.newCategory}}</p>
     </header>
@@ -55,9 +55,12 @@ export default {
         this.$parent.close()
       })
       .catch(err => {
-        this.$toast.open({
-          message: err.response.data.message,
-          type: 'is-danger'
+        let errors = JSON.parse(err.response.data.message)
+        Object.keys(errors).forEach(key => {
+          this.$toast.open({
+            message: errors[key].toString(),
+            type: 'is-danger'
+          })
         })
       })
     },

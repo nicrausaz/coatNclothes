@@ -3,7 +3,7 @@
     <header class="modal-card-head">
       <p class="modal-card-title">{{$store.state.interface.createAnAddress}}</p>
     </header>
-    <section class="modal-card-body">
+    <section class="modal-card-body" @keyup.enter="create">
       <b-field :label="$store.state.interface.address">
         <b-input v-model="newData.adresses_street" :placeholder="$store.state.interface.address" required></b-input>
       </b-field>

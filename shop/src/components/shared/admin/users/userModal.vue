@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-card">
+  <div class="modal-card" @keyup.enter="updateUser">
     <header class="modal-card-head">
       <p class="modal-card-title">{{$store.state.interface.editUser}}</p>
       <a class="button is-danger is-outlined is-pulled-right" @click.stop="deleteUser()">

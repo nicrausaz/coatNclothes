@@ -7,7 +7,7 @@
         <b-icon icon="trash" size="is-small"></b-icon>
       </a>
     </header>
-    <section class="modal-card-body">
+    <section class="modal-card-body" @keyup.enter="updateAdress">
       <b-field :label="$store.state.interface.address">
         <b-input v-model="newData.adresses_street"></b-input>
       </b-field>
