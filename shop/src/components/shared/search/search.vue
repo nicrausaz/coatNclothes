@@ -1,5 +1,5 @@
 <template>
-<b-dropdown position="is-bottom-left" id="test">
+<b-dropdown position="is-bottom-left">
   <a class="navbar-item" slot="trigger" id="searchItem">
     <b-icon icon="search" style="padding-right: 5px;"></b-icon>
     {{$store.state.interface.search}}

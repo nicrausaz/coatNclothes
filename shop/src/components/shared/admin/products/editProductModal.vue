@@ -26,7 +26,7 @@
       </b-field>
       <b-field :label="$store.state.interface.category">
         <div class="field">
-          <Treeselect v-model="newData.fk_category_id" :placeholder="$store.state.interface.chooseCategory" :normalizer="normalizer" :options="categories"></Treeselect>
+          <Treeselect v-model="newData.fk_category_id" :openDirection="'below'" :placeholder="$store.state.interface.chooseCategory" :normalizer="normalizer" :options="categories"></Treeselect>
         </div>
       </b-field>
       <b-field :label="$store.state.interface.brand">

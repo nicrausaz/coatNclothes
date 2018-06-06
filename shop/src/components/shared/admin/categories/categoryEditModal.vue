@@ -17,7 +17,7 @@
         </b-select>
       </b-field>
       <b-field :label="$store.state.interface.parentCat">
-        <Treeselect v-model="newData.fk_category_id" :placeholder="$store.state.interface.chooseCategory" :normalizer="normalizer" :options="categories"></Treeselect>
+        <Treeselect v-model="newData.fk_category_id" :openDirection="'below'" :placeholder="$store.state.interface.chooseCategory" :normalizer="normalizer" :options="categories"></Treeselect>
       </b-field>
     </section>
     <footer class="modal-card-foot">
@@ -145,3 +145,8 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>
+
