@@ -2,6 +2,27 @@
   <div class="container">
     <subtitle :name="$store.state.interface.home" :text="''"></subtitle>
     <section class="section">
+      <h1 class="title">{{$store.state.interface.bestProducts}}</h1>
+      <carousel :perPage="5" :navigationEnabled="true" paginationActiveColor="#da0f68" paginationColor="#f5f5f5">
+        <slide v-for="product in bestProducts" :key="product.products_id" class="slides">
+          <router-link :to="/product/ + product.products_id">
+            <figure class="image">
+              <img :src="getPicture(product.productsPics_path)" :alt="getAltname(product.productsPics_altName)">
+            </figure>
+            <div class="infos">
+              <ul>
+                <li>{{product.products_name}}</li>
+                <li class="has-text-right">
+                  <small><b>{{product.products_price}} CHF</b></small>
+                </li>
+                <li><star-rating :star-size="15" :show-rating="false" :read-only="true" :rating="getNote(product.commentsAndOpinions_avg)" :inline="true"></star-rating></li>
+              </ul>
+            </div>
+          </router-link>
+        </slide>
+      </carousel>
+    </section>
+    <section class="section">
       <h1 class="title">{{$store.state.interface.lastNews}}</h1>
       <carousel :perPage="5" :navigationEnabled="true" paginationActiveColor="#da0f68" paginationColor="#f5f5f5">
         <slide v-for="product in newProducts" :key="product.products_id" class="slides">
@@ -25,27 +46,6 @@
         <b-icon icon="rss"></b-icon>
         <span>RSS</span>
       </a>
-    </section>
-    <section class="section">
-      <h1 class="title">{{$store.state.interface.bestProducts}}</h1>
-      <carousel :perPage="5" :navigationEnabled="true" paginationActiveColor="#da0f68" paginationColor="#f5f5f5">
-        <slide v-for="product in bestProducts" :key="product.products_id" class="slides">
-          <router-link :to="/product/ + product.products_id">
-            <figure class="image">
-              <img :src="getPicture(product.productsPics_path)" :alt="getAltname(product.productsPics_altName)">
-            </figure>
-            <div class="infos">
-              <ul>
-                <li>{{product.products_name}}</li>
-                <li class="has-text-right">
-                  <small><b>{{product.products_price}} CHF</b></small>
-                </li>
-                <li><star-rating :star-size="15" :show-rating="false" :read-only="true" :rating="getNote(product.commentsAndOpinions_avg)" :inline="true"></star-rating></li>
-              </ul>
-            </div>
-          </router-link>
-        </slide>
-      </carousel>
     </section>
   </div>
 </template>

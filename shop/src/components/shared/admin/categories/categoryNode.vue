@@ -9,9 +9,7 @@
       <span @click="editCategory" v-if="hovered"><b-icon icon="edit" size="is-small"></b-icon></span>
     </a>
     <ul class="menu-list" v-if="isOpen">
-      <draggable>
       <categoryNode v-for="child in children.children" :key="child.id" :children="child" :parentId="children.id" @update="$emit('update')" @editing="emitAgain"></categoryNode>
-      </draggable>
       <li class="add" @click="addCategory">
         <a>
           <small>
@@ -26,13 +24,12 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable'
-
 export default {
   data () {
     return {
       isOpen: false,
-      hovered: false
+      hovered: false,
+      test: null
     }
   },
   name: 'categoryNode',
@@ -50,7 +47,7 @@ export default {
       this.isOpen = !this.isOpen
     },
     addCategory () {
-      this.$emit('editing', 'isCreating', null, this.parentId)
+      this.$emit('editing', 'isCreating', null, this.children.id)
     },
     editCategory () {
       this.triggerOpen()
@@ -58,7 +55,6 @@ export default {
     }
   },
   components: {
-    draggable
   }
 }
 </script>
