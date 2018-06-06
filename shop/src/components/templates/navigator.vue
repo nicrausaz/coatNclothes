@@ -21,8 +21,7 @@
             <span>{{$store.state.interface.lang}}</span>
           </a>
           <div class="navbar-dropdown">
-            <a class="navbar-item" :class="{'is-active': isLangSelected('fr')}" @click="$store.commit('setLanguage', 'fr')">Français</a>
-            <a class="navbar-item" :class="{'is-active': isLangSelected('en')}" @click="$store.commit('setLanguage', 'en')">English</a>
+            <a v-for="lang in languages" :key="lang" class="navbar-item" :class="{'is-active': isLangSelected(lang)}" @click="$store.commit('setLanguage', lang)">{{lang}}</a>
           </div>
         </div>
 
@@ -40,15 +39,26 @@ import search from '@/components/shared/search/search'
 export default {
   data () {
     return {
-      navIsActive: false
+      navIsActive: false,
+      languages: []
     }
   },
+  created () { this.getLanguages() },
   methods: {
     toggleMenu () {
       this.navIsActive = !this.navIsActive
     },
     isLangSelected (lang) {
       return this.$store.state.language === lang
+    },
+    getLanguages () {
+      this.axios({
+        method: 'get',
+        url: '/lang/available'
+      })
+      .then(response => {
+        this.languages = response.data.lang
+      })
     }
   },
   components: {
