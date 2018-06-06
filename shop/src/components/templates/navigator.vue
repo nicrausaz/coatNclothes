@@ -21,7 +21,7 @@
             <span>{{$store.state.interface.lang}}</span>
           </a>
           <div class="navbar-dropdown">
-            <a v-for="lang in languages" :key="lang" class="navbar-item" :class="{'is-active': isLangSelected(lang)}" @click="$store.commit('setLanguage', lang)">{{lang}}</a>
+            <a v-for="lang in languages" :key="lang.locale" class="navbar-item" :class="{'is-active': isLangSelected(lang.locale)}" @click="$store.commit('setLanguage', lang.locale)">{{lang.complete}}</a>
           </div>
         </div>
 

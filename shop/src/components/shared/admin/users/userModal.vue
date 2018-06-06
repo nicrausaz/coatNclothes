@@ -53,7 +53,6 @@ export default {
       })
       .then(response => {
         this.userData = response.data
-        console.log(this.userData)
       })
     },
     updateUser () {
