@@ -16,6 +16,9 @@
           <option v-for="gender in genders" :key="gender.gender_id" :value="gender.gender_id">{{gender.gender_sex}}</option>
         </b-select>
       </b-field>
+      <b-field :label="$store.state.interface.category">
+        <Treeselect v-model="newData.fk_category_id" :placeholder="$store.state.interface.chooseCategory" :normalizer="normalizer" :options="categories"></Treeselect>
+      </b-field>
     </section>
     <footer class="modal-card-foot">
       <button class="button" type="button" @click="this.$parent.close">{{$store.state.interface.cancel}}</button>
@@ -25,12 +28,16 @@
 </template>
 
 <script>
+import Treeselect from '@riophae/vue-treeselect'
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+
 export default {
   props: ['id', 'parentId'],
   data () {
     return {
       genders: [],
       category: {},
+      categories: [],
       newData: {
         category_lang: '',
         category_name: '',
@@ -40,10 +47,27 @@ export default {
     }
   },
   created () {
+    this.getCategories()
     this.getCategory()
     this.getGenders()
   },
   methods: {
+    normalizer (node) {
+      return {
+        id: node.id,
+        label: node.name,
+        children: node.children
+      }
+    },
+    getCategories () {
+      this.axios({
+        method: 'get',
+        url: '/categories'
+      })
+      .then(response => {
+        this.categories = response.data
+      })
+    },
     update () {
       this.axios({
         method: 'patch',
@@ -112,6 +136,9 @@ export default {
         }
       })
     }
+  },
+  components: {
+    Treeselect
   }
 }
 </script>

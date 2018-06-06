@@ -88,7 +88,7 @@ export default {
     filteredProducts () {
       let results = []
       this.products.forEach(product => {
-        if (!product.products_name.toLowerCase().indexOf(this.searchContent.toLowerCase())) {
+        if (product.products_name.toLowerCase().includes(this.searchContent.toLowerCase())) {
           results.push(product)
         }
       })

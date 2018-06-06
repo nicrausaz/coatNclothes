@@ -78,7 +78,7 @@ export default {
     filteredUsers () {
       let results = []
       this.users.forEach(user => {
-        if (!user.users_name.toLowerCase().indexOf(this.searchContent.toLowerCase())) {
+        if (user.users_name.toLowerCase().includes(this.searchContent.toLowerCase())) {
           results.push(user)
         }
       })

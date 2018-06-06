@@ -17,7 +17,6 @@
     <b-modal :active.sync="isCreating" has-modal-card>
       <categoryNewModal :parentId="parentId" @update="getCategories"></categoryNewModal>
     </b-modal>
-    <pre>{{categories}}</pre>
   </div>
 </template>
 
