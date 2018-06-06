@@ -3,7 +3,7 @@
     <subtitle :name="$store.state.interface.home" :text="''"></subtitle>
     <section class="section">
       <h1 class="title">{{$store.state.interface.bestProducts}}</h1>
-      <carousel :perPage="5" :navigationEnabled="true" paginationActiveColor="#da0f68" paginationColor="#f5f5f5">
+      <carousel :perPage="5" :navigationEnabled="true" :loop="true" paginationActiveColor="#da0f68" paginationColor="#f5f5f5">
         <slide v-for="product in bestProducts" :key="product.products_id" class="slides">
           <router-link :to="/product/ + product.products_id">
             <figure class="image">
@@ -24,7 +24,7 @@
     </section>
     <section class="section">
       <h1 class="title">{{$store.state.interface.lastNews}}</h1>
-      <carousel :perPage="5" :navigationEnabled="true" paginationActiveColor="#da0f68" paginationColor="#f5f5f5">
+      <carousel :perPage="5" :navigationEnabled="true" :loop="true" paginationActiveColor="#da0f68" paginationColor="#f5f5f5">
         <slide v-for="product in newProducts" :key="product.products_id" class="slides">
           <router-link :to="/product/ + product.products_id">
             <figure class="image">

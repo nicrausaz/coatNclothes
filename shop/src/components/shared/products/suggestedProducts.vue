@@ -2,7 +2,7 @@
   <div v-if="hasEnoughtSugestions">
     <h1>{{$store.state.interface.similarProduct}}</h1>
     <br>
-    <carousel :perPage="4" :navigationEnabled="true" paginationActiveColor="#da0f68" paginationColor="#f5f5f5">
+    <carousel :perPage="4" :navigationEnabled="true" :loop="true" paginationActiveColor="#da0f68" paginationColor="#f5f5f5">
       <slide v-for="product in suggestedproducts" :key="product.products_id">
         <figure class="image is-128x128">
           <router-link :to="/product/ + product.products_id">
