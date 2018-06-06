@@ -9,6 +9,7 @@
         <option value="5">5 {{$store.state.interface.perPage}}</option>
         <option value="10">10 {{$store.state.interface.perPage}}</option>
         <option value="20">20 {{$store.state.interface.perPage}}</option>
+        <option value="40">40 {{$store.state.interface.perPage}}</option>
       </b-select>
       <b-input :placeholder="$store.state.interface.searchProduct" type="search" icon-pack="fas" icon="search" v-model="searchContent"></b-input>
         <a class="button is-primary is-pulled-right" @click="createProduct">

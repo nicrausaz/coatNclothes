@@ -9,6 +9,7 @@
         <option value="5">5 {{$store.state.interface.perPage}}</option>
         <option value="10">10 {{$store.state.interface.perPage}}</option>
         <option value="20">20 {{$store.state.interface.perPage}}</option>
+        <option value="40">40 {{$store.state.interface.perPage}}</option>
       </b-select>
       <b-input :placeholder="$store.state.interface.nameSearch" type="search" icon-pack="fas" icon="search" v-model="searchContent"></b-input>
     </b-field>
@@ -62,7 +63,7 @@ export default {
   data () {
     return {
       filter: {
-        perPage: 5
+        perPage: 20
       },
       isEditing: false,
       searchContent: '',

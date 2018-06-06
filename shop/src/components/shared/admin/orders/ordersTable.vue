@@ -9,6 +9,7 @@
         <option value="5">5 {{$store.state.interface.perPage}}</option>
         <option value="10">10 {{$store.state.interface.perPage}}</option>
         <option value="20">20 {{$store.state.interface.perPage}}</option>
+        <option value="40">40 {{$store.state.interface.perPage}}</option>
       </b-select>
       <b-select v-model="filter.orderStatus" :placeholder="$store.state.interface.statusSearch">
         <option v-for="orderStatus in ordersStatusAvailable" :key="orderStatus.ordersStatus_id" :value="orderStatus.ordersStatus_id">{{orderStatus.ordersStatus_name}}</option>

@@ -10,13 +10,17 @@
 			  </li>
 	</draggable> -->
 
-
-
-
-
       <draggable>
         <categoryNode :categories="categories" :children="category" :parentId="null" v-for="category in categories" :key="category.id" @update="getCategories" @editing="openModal"></categoryNode>
       </draggable>
+      <li class="add" @click="openModal('isCreating', null, null)">
+        <a>
+          <small>
+            <b-icon icon="plus" size="is-small"></b-icon>
+            <i>{{this.$store.state.interface.new}}</i>
+          </small>
+        </a>
+      </li>
     </ul>
     <b-modal :active.sync="isEditing" has-modal-card>
       <categoryEditModal :id="tempId" :parentId="parentId" @update="getCategories"></categoryEditModal>

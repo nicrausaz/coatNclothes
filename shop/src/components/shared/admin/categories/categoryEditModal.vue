@@ -16,7 +16,6 @@
           <option v-for="gender in genders" :key="gender.gender_id" :value="gender.gender_id">{{gender.gender_sex}}</option>
         </b-select>
       </b-field>
-    {{newData}}
     </section>
     <footer class="modal-card-foot">
       <button class="button" type="button" @click="this.$parent.close">{{$store.state.interface.cancel}}</button>
