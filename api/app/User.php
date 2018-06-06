@@ -17,7 +17,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'users_login', 'users_email', 'users_pass', 'users_name', 'users_fsname', 'users_address', 'users_npa', 'users_locality', 'users_createDate', 'fk_gender_id'
+        'users_login', 'users_email', 'users_pass', 'users_name', 'users_fsname', 'users_address', 'users_npa', 'users_locality', 'users_createDate', 'fk_gender_id', 'users_enabled'
     ];
     protected $table = 'TB_Users';
     public $timestamps = false;

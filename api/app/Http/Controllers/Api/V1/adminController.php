@@ -24,6 +24,9 @@ class adminController extends Controller
 
     }
 
+    /**
+     * Products gestion
+     */
     public function editProduct(Request $request, $prodID){
         $input = $request->all();
 
@@ -66,7 +69,7 @@ class adminController extends Controller
         }
         if(!empty($input['products_category'])) {
             if (is_numeric($input['products_category'])){
-                $count =\DB::select('SELECT count(category_id) as count FROM TB_Category WHERE category_id = ?', [$input['products_category']]);
+                $count =\DB::select('SELECT count(category_id) as count FROM TB_Category WHERE category_id = ? AND  category_dlDate IS NULL', [$input['products_category']]);
                 if($count[0]->count==1) {
                     $products_category = $input['products_category'];
                 }else{
@@ -156,35 +159,6 @@ class adminController extends Controller
             'message' => lang::get('auth.updatePicSuccess')
         ]);
 
-    }
-    public function paidOrder($orderID){
-        try {
-            \DB::update('UPDATE TB_Orders SET orders_paidDate = NOW() WHERE orders_id = ?', [$orderID]);
-        } catch (\PDOException $e) {
-            \Log::error($e->getMessage());
-            abort(403, lang::get('errors.uknError'));
-        }
-        return $this->response->array([
-            'status_code' => 200,
-            'message' => lang::get('orders.orderUpdated')
-        ]);
-    }
-    public function getUserInfo($id){
-        $usersController = new usersController();
-        return $usersController->getUserInfo($id);
-    }
-    public function getUserAdress($id){
-        $usersController = new usersController();
-        return $usersController->getUserAdresses($id);
-    }
-    public function getAdress($addrID){
-        $address = \DB::select('SELECT * FROM TB_Adresses WHERE adresses_id = ?', [$addrID]);
-        if(!isset($address[0])){
-            \Log::error('Trying to get a non existente address');
-            abort(403, lang::get('errors.nonExistentAddress'));
-        }
-
-        return (array)$address[0];
     }
     public function removePicFromProduct($picID){
         $actualPath = public_path('/articles');
@@ -315,41 +289,6 @@ class adminController extends Controller
             'message' => lang::get('orders.productsAddedd')
         ]);
     }
-    public function removeBrand($brandID){
-        try {
-            \DB::update('UPDATE TB_Brand SET brand_dlDate = NOW() WHERE brand_id = ?', [$brandID]);
-        }
-        catch (\PDOException $e) {
-            \Log::error($e->getMessage());
-            abort(403, lang::get('errors.uknError'));
-        }
-        return $this->response->array([
-            'status_code' => 200,
-            'message' => lang::get('orders.removedBrand')
-        ]);
-    }
-    public function addBrand(Request $request){
-        $input = $request->all();
-        $this->validate($request, [
-            'brand_name' => 'regex:/(^[A-Za-z0-9âàé\\\'èï&äçüö\- ]+$)+/|max:255|required'
-        ]);
-        $count = \DB::select('SELECT count(brand_id) as count FROM TB_Brand WHERE brand_name = ?', [$input['brand_name']]);
-        if ($count[0]->count!=0){
-            \Log::error('brand already existing');
-            abort(403, lang::get('orders.alreadinInBrand'));
-        }
-        try {
-            \DB::insert('INSERT INTO TB_Brand (`brand_name`) VALUE  (?)', [$input['brand_name']]);
-        }
-        catch (\PDOException $e) {
-            \Log::error($e->getMessage());
-            abort(403, lang::get('errors.uknError'));
-        }
-        return $this->response->array([
-            'status_code' => 200,
-            'message' => lang::get('orders.brandAdded')
-        ]);
-    }
     public function removeProduct($prodID){
         try {
             \DB::update('UPDATE TB_Products SET products_dlDate = NOW() WHERE products_id = ?', [$prodID]);
@@ -363,86 +302,21 @@ class adminController extends Controller
             'message' => lang::get('orders.removedProduct')
         ]);
     }
-    public function addCategory(Request $request){
-        $validator = Validator::make($request->all(), [
-            'category_name' => 'required|regex:/(^[A-Za-z0-9âàéèïäç\'.üö\- ]+$)+/|max:200',
-            'gender_id'=>'required|int',
-            'fk_category_id'=>'required|int'
-        ]);
-        if($validator->fails()){
-            \Log::error('wrong argument for adding cat');
-            abort(403, $validator->errors());
-        }
-        $input=$request->all();
-        $category_name=json_encode(array('en'=>$input['category_name']));
-        try{
-            \DB::insert('INSERT INTO TB_Category (category_name, fk_category_id, fk_gender_id) VALUES (?, ?, ?)', [$category_name, $input['fk_category_id'], $input['gender_id']]);
-        }
-        catch (\PDOException $e) {
+
+    /**
+     * Orders gestion
+     */
+    public function paidOrder($orderID){
+        try {
+            \DB::update('UPDATE TB_Orders SET orders_paidDate = NOW() WHERE orders_id = ?', [$orderID]);
+        } catch (\PDOException $e) {
             \Log::error($e->getMessage());
             abort(403, lang::get('errors.uknError'));
         }
         return $this->response->array([
             'status_code' => 200,
-            'message' => lang::get('orders.catCreatSuccess')
+            'message' => lang::get('orders.orderUpdated')
         ]);
-
-    }
-    public function moveCategory(){
-
-    }
-    public function removeCategory(){
-
-    }
-    public function editCategory(Request $request, $catID){
-        $validator = Validator::make($request->all(), [
-            'category_name' => 'regex:/(^[A-Za-z0-9âàéèïäç\'.üö\- ]+$)+/|max:200',
-            'gender_id'=>'int',
-            'category_id'=>'int',
-            'category_lang'=>'required|string|max:2'
-        ]);
-        if($validator->fails()){
-            \Log::error('wrong argument for adding cat');
-            abort(403, $validator->errors());
-        }
-        $actualCat = \DB::select('SELECT * FROM TB_Category WHERE category_id = ?', [$catID]);
-
-        if(!isset($actualCat[0])){
-            \Log::error('missing argument for editing category');
-            abort(403, lang::get('orders.missingArgument'));
-        }
-        $input=$request->all();
-
-        $category_name=json_decode($actualCat[0]->category_name, true);
-        if(!empty($input['category_name'])) $category_name[$input['category_lang']]=$input['category_name'];
-        $category_name=json_encode($category_name);
-
-        if(!empty($input['gender_id'])) $gender_id=$input['gender_id']; else $gender_id = $actualCat[0]->fk_gender_id;
-
-        self::checkIfLang($input['category_lang']);
-
-        if(!empty($input['fk_category_id'])) $fk_category_id=$input['fk_category_id']; else $fk_category_id = $actualCat[0]->fk_category_id;
-
-
-        try{
-            \DB::update('UPDATE TB_Category SET category_name=?, fk_category_id=?, fk_gender_id=? WHERE category_id = ?', [$category_name, $fk_category_id, $gender_id, $catID]);
-        }
-        catch (\PDOException $e) {
-            \Log::error($e->getMessage());
-            abort(403, lang::get('errors.uknError'));
-        }
-        return $this->response->array([
-            'status_code' => 200,
-            'message' => lang::get('orders.catCreatSuccess')
-        ]);
-    }
-    public function getAllUsers(){
-        return \DB::select('SELECT users_id, users_name, users_login, users_fsname, users_email, users_createDate, users_admin, fk_gender_id FROM TB_Users');
-    }
-    public function editUser(Request $request, $id){
-        $usersController = new usersController();
-        return $usersController->changeUserInfo($request, $id);
-
     }
     public function getAllOrders(){
         $orders = \DB::select('SELECT * FROM `TB_Orders` ORDER BY `TB_Orders`.`orders_createdDate` DESC ');
@@ -484,11 +358,226 @@ class adminController extends Controller
         }
         return $ordersStatus;
     }
+
+    /**
+     * Users gestion
+     */
+    public function getUserInfo($id){
+        $usersController = new usersController();
+        return $usersController->getUserInfo($id);
+    }
+    public function getUserAdress($id){
+        $usersController = new usersController();
+        return $usersController->getUserAdresses($id);
+    }
+    public function getAdress($addrID){
+        $address = \DB::select('SELECT * FROM TB_Adresses WHERE adresses_id = ?', [$addrID]);
+        if(!isset($address[0])){
+            \Log::error('Trying to get a non existente address');
+            abort(403, lang::get('errors.nonExistentAddress'));
+        }
+
+        return (array)$address[0];
+    }
+    public function setAdmin($id, $value){
+        \Log::error('id:'.$id.' value:'.$value.' user:'.\Auth::user()->users_id);
+
+        try{
+            \DB::update('UPDATE `TB_Users` SET `users_admin` = ? WHERE `TB_Users`.`users_id` = ?; ', [$value, $id]);
+        }
+        catch (\PDOException $e) {
+            \Log::error($e->getMessage());
+            abort(403, lang::get('errors.uknError'));
+        }
+        return $this->response->array([
+            'status_code' => 200,
+            'message' => lang::get('auth.setAdminSucccess')
+        ]);
+    }
+    public function getAllUsers(){
+        return \DB::select('SELECT users_id, users_name, users_login, users_fsname, users_email, users_enabled, users_createDate, users_admin, fk_gender_id FROM TB_Users WHERE users_dlDate IS NULL');
+    }
+    public function editUser(Request $request, $id){
+        $usersController = new usersController();
+        return $usersController->changeUserInfo($request, $id);
+
+    }
+    public function disableUser($id, $value){
+        try {
+            \DB::update('UPDATE `TB_Users` SET `users_enabled` = ? WHERE `TB_Users`.`users_id` = ?; ', [$value, $id]);
+        }
+        catch (\PDOException $e) {
+            \Log::error($e->getMessage());
+            abort(403, lang::get('errors.uknError'));
+        }
+
+        return $this->response->array([
+            'status_code' => 200,
+            'message' => lang::get('auth.disabledSuccess')
+        ]);
+    }
+    public function remUser($id){
+        try {
+            \DB::update('UPDATE `TB_Users` SET `users_dlDate` = NOW() WHERE `TB_Users`.`users_id` = ?; ', [$id]);
+        }
+        catch (\PDOException $e) {
+            \Log::error($e->getMessage());
+            abort(403, lang::get('errors.uknError'));
+        }
+        self::disableUser($id, 0);
+
+        return $this->response->array([
+            'status_code' => 200,
+            'message' => lang::get('auth.removedSuccess')
+        ]);
+    }
+
+    /**
+     * Brands gestion
+     */
+    public function removeBrand($brandID){
+        try {
+            \DB::update('UPDATE TB_Brand SET brand_dlDate = NOW() WHERE brand_id = ?', [$brandID]);
+        }
+        catch (\PDOException $e) {
+            \Log::error($e->getMessage());
+            abort(403, lang::get('errors.uknError'));
+        }
+        return $this->response->array([
+            'status_code' => 200,
+            'message' => lang::get('orders.removedBrand')
+        ]);
+    }
+    public function addBrand(Request $request){
+        $input = $request->all();
+        $this->validate($request, [
+            'brand_name' => 'regex:/(^[A-Za-z0-9âàé\\\'èï&äçüö\- ]+$)+/|max:255|required'
+        ]);
+        $count = \DB::select('SELECT count(brand_id) as count FROM TB_Brand WHERE brand_name = ?', [$input['brand_name']]);
+        if ($count[0]->count!=0){
+            \Log::error('brand already existing');
+            abort(403, lang::get('orders.alreadinInBrand'));
+        }
+        try {
+            \DB::insert('INSERT INTO TB_Brand (`brand_name`) VALUE  (?)', [$input['brand_name']]);
+        }
+        catch (\PDOException $e) {
+            \Log::error($e->getMessage());
+            abort(403, lang::get('errors.uknError'));
+        }
+        return $this->response->array([
+            'status_code' => 200,
+            'message' => lang::get('orders.brandAdded')
+        ]);
+    }
+
+    /**
+     * Categories gestion
+     */
+    public function addCategory(Request $request){
+        $validator = Validator::make($request->all(), [
+            'category_name' => 'required|regex:/(^[A-Za-z0-9âàéèïäç\'.üö\- ]+$)+/|max:200',
+            'gender_id'=>'int|nullable',
+            'fk_category_id'=>'int|nullable'
+        ]);
+        if($validator->fails()){
+            \Log::error('wrong argument for adding cat');
+            abort(403, $validator->errors());
+        }
+        $input=$request->all();
+        $category_name=json_encode(array('en'=>$input['category_name']));
+        try{
+            \DB::insert('INSERT INTO TB_Category (category_name, fk_category_id, fk_gender_id) VALUES (?, ?, ?)', [$category_name, $input['fk_category_id'], $input['gender_id']]);
+        }
+        catch (\PDOException $e) {
+            \Log::error($e->getMessage());
+            abort(403, lang::get('errors.uknError'));
+        }
+        return $this->response->array([
+            'status_code' => 200,
+            'message' => lang::get('orders.catCreatSuccess')
+        ]);
+
+    }
+    public function remCategory($catID){
+        $product = new productsController;
+        $categories= $product->getAllCategories();
+        $idOfAllCatAndSub = $product->walkUntilFind($categories, $catID);
+
+        $products =$product->getProductsByCategoryAndSubs($catID);
+
+        foreach ($idOfAllCatAndSub as $value){
+            try{
+                \DB::update('UPDATE `TB_Category` SET `category_dlDate` = NOW() WHERE `TB_Category`.`category_id` = ?; ', [$value]);
+            }
+            catch (\PDOException $e) {
+                \Log::error($e->getMessage());
+                abort(403, lang::get('errors.uknError'));
+            }
+        }
+        foreach ($products as $value){
+            self::removeProduct($value->products_id);
+        }
+        return $this->response->array([
+            'status_code' => 200,
+            'message' => lang::get('orders.catRemoveSuccess')
+        ]);
+    }
+    public function editCategory(Request $request, $catID){
+        $validator = Validator::make($request->all(), [
+            'category_name' => 'regex:/(^[A-Za-z0-9âàéèïäç\'.üö\- ]+$)+/|max:200',
+            'gender_id'=>'int|nullable',
+            'fk_category_id'=>'int|nullable',
+            'category_lang'=>'required|string|max:2'
+        ]);
+        if($validator->fails()){
+            \Log::error('wrong argument for adding cat');
+            abort(403, $validator->errors());
+        }
+        $actualCat = \DB::select('SELECT * FROM TB_Category WHERE category_id = ? AND  category_dlDate IS NULL', [$catID]);
+
+        if(!isset($actualCat[0])){
+            \Log::error('missing argument for editing category');
+            abort(403, lang::get('orders.missingArgument'));
+        }
+        $input=$request->all();
+
+        $category_name=json_decode($actualCat[0]->category_name, true);
+        if(!empty($input['category_name'])) $category_name[$input['category_lang']]=$input['category_name'];
+        $category_name=json_encode($category_name);
+
+        if(!empty($input['gender_id'])) $gender_id=$input['gender_id']; else $gender_id = $actualCat[0]->fk_gender_id;
+
+        self::checkIfLang($input['category_lang']);
+
+        if(!empty($input['fk_category_id'])) $fk_category_id=$input['fk_category_id']; else $fk_category_id = $actualCat[0]->fk_category_id;
+        if ($fk_category_id==$catID) $fk_category_id = $actualCat[0]->fk_category_id;
+
+        try{
+            \DB::update('UPDATE TB_Category SET category_name=?, fk_category_id=?, fk_gender_id=? WHERE category_id = ?', [$category_name, $fk_category_id, $gender_id, $catID]);
+        }
+        catch (\PDOException $e) {
+            \Log::error($e->getMessage());
+            abort(403, lang::get('errors.uknError'));
+        }
+        return $this->response->array([
+            'status_code' => 200,
+            'message' => lang::get('orders.catSuccessEdit')
+        ]);
+    }
+
+
+
+    /**
+     * Private functions - intern job
+     */
     private function checkIfLang($input){
         $languages = \Config::get('app.languages');
+        foreach($languages as $value){
+            $lang[]=$value['locale'];
+        }
 
-
-        if (!in_array($input, $languages)) {
+        if (!in_array($input, $lang)) {
             \Log::error('lang not in the different language accepted');
             abort(403, lang::get('errors.conflict'));
         }

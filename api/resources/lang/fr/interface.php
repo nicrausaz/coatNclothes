@@ -146,9 +146,15 @@ return [
         "content"=>"Contenu",
         "lang"=>"Langue",
         "search"=>"Rechercher",
-
         'emptyList'=>'La liste est vide, ajoutez y des produits',
         'editUser'=>'Editer un utilisateur',
-        'defaultCreationLanguage'=>'La création du produit se fait en anglais'
+        'defaultCreationLanguage'=>'La création du produit se fait en anglais',
+        'warningDeletCatAndSub'=>'Attention! Toutes les sous-catégories et leurs produits seront également supprimés',
+        'remUser'=>'Supprimer l\'utilisateur ?',
+        'enabled'=>'Activé',
+        'lastNews'=>'Dernières nouveautés',
+        'bestProducts'=>'Produits les mieux notés',
+        'allProducts'=>'Tous les produits',
+        'parentCat'=>'Catégorie parente'
     ])
 ];

@@ -15,6 +15,9 @@ Use Illuminate\Support\Facades\Auth;
 
 class Controller extends \Illuminate\Routing\Controller
 {
+    /*
+     * Commuted intern functions
+     */
     public function checkTokenFromId($id){
         $tokennedId = \Auth::user()->users_id;
 
@@ -25,7 +28,6 @@ class Controller extends \Illuminate\Routing\Controller
         }
         return true;
     }
-
     public function checkIfAdmin(){
         $admin = \Request::segment(2);
 

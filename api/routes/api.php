@@ -14,7 +14,7 @@ use Dingo\Api\Routing\Router;
 |
 */
 $api = app('Dingo\Api\Routing\Router');
-$languages = Config::get('app.languages');
+$languages = Config::get('app.locale');
 
 $locale = \Request::segment(1);
 if (in_array($locale, $languages)) {
@@ -26,30 +26,35 @@ if (in_array($locale, $languages)) {
 
 $api->version('v1', ['prefix' => $locale ], function (Router $api) {
         /*
-         * PUBLIC
+         * PUBLIC - GET
          */
 
+        //RSS
         $api->get('feed/{type?}', '\App\Http\Controllers\Api\V1\feedController@getFeed');
 
+        //Lang
         $api->get('lang/interface', '\App\Http\Controllers\Api\V1\Controller@getLangageInterface');
         $api->get('lang/available', function(){return json_encode(array('status_code'=>200, 'lang'=> Config::get('app.languages')));});
 
+        //Products
+        $api->get('home', '\App\Http\Controllers\Api\V1\productsController@home');
         $api->get('products', '\App\Http\Controllers\Api\V1\productsController@getAllProducts');
         $api->get('product/{id}', '\App\Http\Controllers\Api\V1\productsController@getProductsDetails')->where('id', '[0-9]+');
         $api->get('product/{prodID}/unrestricted', '\App\Http\Controllers\Api\V1\productsController@getProductUnrestricted')->where('prodID', '[0-9]+');
         $api->get('product/{prodID}/notes', '\App\Http\Controllers\Api\V1\productsController@getNoteForProduct')->where('prodID', '[0-9]+');
         $api->get('product/{prodID}/comments', '\App\Http\Controllers\Api\V1\productsController@getCommentForProduct')->where('prodID', '[0-9]+');
 
-
+        //Categories
         $api->get('categories/list', '\App\Http\Controllers\Api\V1\productsController@getListCategory');
-        $api->get('category/{id}/products', '\App\Http\Controllers\Api\V1\productsController@getspecificcategoryproducts')->where('id', '[0-9]+');
         $api->get('categories', '\App\Http\Controllers\Api\V1\productsController@getAllCategories');
 		$api->get('category/{id}/products', '\App\Http\Controllers\Api\V1\productsController@getProductsByCategory')->where('id', '[0-9]+');
 		$api->get('category/{id}', '\App\Http\Controllers\Api\V1\productsController@getCategoryName')->where('id', '[0-9]+');
 		$api->get('category/{id}/subs/products', 'App\Http\Controllers\Api\V1\productsController@getProductsByCategoryAndSubs')->where('id', '[0-9]+');
 
+		//Gender
 		$api->get('genders/available', '\App\Http\Controllers\Api\V1\usersController@getAllGender');
 
+		//Brands
         $api->get('brands', '\App\Http\Controllers\Api\V1\productsController@getAllBrands');
         $api->get('brand/{brandID}', '\App\Http\Controllers\Api\V1\productsController@getBrand')->where('brandID', '[0-9]+');
 
@@ -60,13 +65,16 @@ $api->version('v1', ['prefix' => $locale ], function (Router $api) {
         $api->post('register', 'App\Http\Controllers\Auth\RegisterController@register');
 
         $api->patch('logout', 'App\Http\Controllers\Auth\LoginController@logout');
+
         /*
         * Protégé
         */
+
         $api->group(['middleware' => 'jwt.auth'], function (Router $api) {
-            $api->get('mail/send', '\App\Http\Controllers\Api\V1\Mail\MailController@sendRegistration');
 
-
+            /**
+             * GET - Protected data
+             */
             $api->get('token', function(){return json_encode(array('status_code'=>200, 'message'=>'Token actif'));});
 
             $api->get('/orders/user/{id}', '\App\Http\Controllers\Api\V1\ordersController@getAllOrders')->where('id', '[0-9]+');
@@ -76,6 +84,8 @@ $api->version('v1', ['prefix' => $locale ], function (Router $api) {
 
 
             $api->get('/basket/user/{id}', '\App\Http\Controllers\Api\V1\ordersController@getBasket')->where('id', '[0-9]+');
+            $api->get('/basket/user/{id}/count', '\App\Http\Controllers\Api\V1\ordersController@countBasket')->where('id', '[0-9]+');
+
 
             $api->get('/wishlists/user/{id}', '\App\Http\Controllers\Api\V1\ordersController@getAllWishlists')->where('id', '[0-9]+');
             $api->get('/wishlist/{id}', '\App\Http\Controllers\Api\V1\ordersController@getWishlistContent')->where('id', '[0-9]+');
@@ -137,27 +147,49 @@ $api->version('v1', ['prefix' => $locale ], function (Router $api) {
     */
 
         $api->group(['prefix'=>'admin'],  function (Router $api) {
+            /**
+             * PATCH
+             */
             $api->patch('product/{prodID}', '\App\Http\Controllers\Api\V1\adminController@editProduct')->where('prodID', '[0-9]+');
-            $api->post('product/{prodID}/pic', '\App\Http\Controllers\Api\V1\adminController@addPicToProduct')->where('prodID', '[0-9]+');
-            $api->delete('pic/{picID}', '\App\Http\Controllers\Api\V1\adminController@removePicFromProduct')->where('picID', '[0-9]+');
-            $api->put('product', '\App\Http\Controllers\Api\V1\adminController@addProduct');
-            $api->delete('brand/{brandID}', '\App\Http\Controllers\Api\V1\adminController@removeBrand')->where('brandID', '[0-9]+');
-            $api->put('brand', '\App\Http\Controllers\Api\V1\adminController@addBrand');
-            $api->get('orders', '\App\Http\Controllers\Api\V1\adminController@getAllOrders');
             $api->patch('user/{id}', '\App\Http\Controllers\Api\V1\adminController@editUser')->where('id', '[0-9]+');
+            $api->patch('order/{orderID}/status/{stateID}', '\App\Http\Controllers\Api\V1\adminController@editOrderState')->where(['stateID'=> '[0-9]+', 'orderID' => '[0-9]+']);
+            $api->patch('order/{orderID}/paid', '\App\Http\Controllers\Api\V1\adminController@paidOrder')->where(['orderID' => '[0-9]+']);
+            $api->patch('user/{id}/disable/{value}', '\App\Http\Controllers\Api\V1\adminController@disableUser')->where(['id' => '[0-9]+', 'value'=>'[0-1]']);
+            $api->patch('user/{id}/admin/{value}', '\App\Http\Controllers\Api\V1\adminController@setAdmin')->where(['id' => '[0-9]+', 'value'=>'[0-1]']);
+            $api->patch('category/{catID}', '\App\Http\Controllers\Api\V1\adminController@editCategory')->where(['catID' => '[0-9]+']);
+
+            /**
+             * POST
+             */
+            $api->post('product/{prodID}/pic', '\App\Http\Controllers\Api\V1\adminController@addPicToProduct')->where('prodID', '[0-9]+');
+
+            /**
+            * DELETE
+            */
+            $api->delete('pic/{picID}', '\App\Http\Controllers\Api\V1\adminController@removePicFromProduct')->where('picID', '[0-9]+');
+            $api->delete('brand/{brandID}', '\App\Http\Controllers\Api\V1\adminController@removeBrand')->where('brandID', '[0-9]+');
+            $api->delete('product/{prodID}', '\App\Http\Controllers\Api\V1\adminController@removeProduct')->where('prodID', '[0-9]+');
+            $api->delete('category/{catID}', '\App\Http\Controllers\Api\V1\adminController@remCategory')->where(['catID' => '[0-9]+']);
+            $api->delete('user/{id}', '\App\Http\Controllers\Api\V1\adminController@remUser')->where(['id' => '[0-9]+']);
+
+            /**
+             * PUT
+             */
+            $api->put('product', '\App\Http\Controllers\Api\V1\adminController@addProduct');
+            $api->put('brand', '\App\Http\Controllers\Api\V1\adminController@addBrand');
+            $api->put('category', '\App\Http\Controllers\Api\V1\adminController@addCategory');
+
+            /**
+             * GET
+             */
+            $api->get('orders', '\App\Http\Controllers\Api\V1\adminController@getAllOrders');
             $api->get('users', '\App\Http\Controllers\Api\V1\adminController@getAllUsers');
             $api->get('user/{id}/orders', '\App\Http\Controllers\Api\V1\adminController@getOrdersByUser')->where('id', '[0-9]+');
             $api->get('user/{id}', '\App\Http\Controllers\Api\V1\adminController@getUserInfo')->where('id', '[0-9]+');
             $api->get('user/{id}/adresses', '\App\Http\Controllers\Api\V1\adminController@getUserAdress')->where('id', '[0-9]+');
             $api->get('address/{addrID}', '\App\Http\Controllers\Api\V1\adminController@getAdress')->where('addrID', '[0-9]+');
-
-            $api->delete('product/{prodID}', '\App\Http\Controllers\Api\V1\adminController@removeProduct')->where('prodID', '[0-9]+');
             $api->get('order/{orderID}', '\App\Http\Controllers\Api\V1\adminController@getOrderContent')->where('orderID', '[0-9]+');
             $api->get('orders/status/available', '\App\Http\Controllers\Api\V1\adminController@getOrderStateAvailable');
-            $api->patch('order/{orderID}/status/{stateID}', '\App\Http\Controllers\Api\V1\adminController@editOrderState')->where(['stateID'=> '[0-9]+', 'orderID' => '[0-9]+']);
-            $api->patch('order/{orderID}/paid', '\App\Http\Controllers\Api\V1\adminController@paidOrder')->where(['orderID' => '[0-9]+']);
-            $api->put('category', '\App\Http\Controllers\Api\V1\adminController@addCategory');
-            $api->patch('category/{catID}', '\App\Http\Controllers\Api\V1\adminController@editCategory')->where(['catID' => '[0-9]+']);
 
 
         });

@@ -31,7 +31,10 @@ return [
     'removedProduct'=>'Produit supprimé avec succès',
     'orderUpdated'=>'Commande mise à jour avec succès',
     'contentAdded'=>'Contenu ajouté au panier avec succès',
-    'catCreatSuccess'=>'Catégorie créée avec succès'
+    'catCreatSuccess'=>'Catégorie créée avec succès',
+    'catRemoveSuccess'=>'Catégorie supprimée avec succès',
+    'catSuccessEdit'=>'Catégorie mise à jour avec succès'
+
 
 
 

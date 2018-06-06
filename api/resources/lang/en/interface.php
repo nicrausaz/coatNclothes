@@ -12,7 +12,7 @@ return [
         "shop"=>"Shop",
         "homepage"=>"HomePage",
         "subscribe"=>"Subscribe",
-        "subcribeRSS"=>"Subscribe to our RSS feed (Atom) to be alerted of news!",
+        "subcribeRSS"=>"Subscribe to our RSS feed (Atom) to be notified of news!",
         "viewProduct"=>"View products",
         "categories"=>"Categories",
         "category"=>"Category",
@@ -145,9 +145,16 @@ return [
         "content"=>"Content",
         "lang"=>"Language",
         "search"=>"Search",
-
         'emptyList'=>'The list is empty, add products from the Shop',
         'editUser'=>'Edit User',
-        'defaultCreationLanguage'=>'Product creation in english'
+        'defaultCreationLanguage'=>'Product creation in english',
+        'warningDeletCatAndSub'=>'Warning! Each categories, subcategories and their products would be removed',
+        'remUser'=>'Remove user ?',
+        'enabled'=>'Enabled',
+        'lastNews'=>'New products',
+        'bestProducts'=>'Best products',
+        'allProducts'=>'All products',
+        'parentCat'=>'Parent category'
+
     ])
 ];

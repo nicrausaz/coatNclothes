@@ -11,80 +11,22 @@ class productsController extends Controller
 
     use Helpers;
 
-    private $categories;
-    private $categoriesStored;
-
-
-    public function getListCategory(){
-        $gotProduct = \DB::select('select * from TB_Category ');
-        foreach ($gotProduct as $key => $value){
-            $gotProduct[$key]->category_name=self::getTranslation($value->category_name);
-        }
-        return $gotProduct;
+    /**
+     * Products
+     */
+    public function home(){
+        $best = \DB::select('SELECT avg(comment.commentsAndOpinions_note) as commentsAndOpinions_avg, prod.products_id, prod.products_name,  prod.products_price, CASE WHEN pic.productsPics_dlDate is NULL THEN pic.productsPics_id ELSE NULL END as productsPics_id, CASE WHEN pic.productsPics_dlDate is NULL THEN pic.productsPics_altName ELSE NULL END as productsPics_altName, CASE WHEN pic.productsPics_dlDate is NULL THEN pic.productsPics_path ELSE NULL END as productsPics_path FROM TB_CommentsAndOpinions comment LEFT JOIN TB_Products prod ON comment.fk_products_id = prod.products_id LEFT JOIN TB_ProductsPics pic ON pic.fk_products_id = prod.products_id AND pic.productsPics_dlDate IS NULL WHERE prod.`products_dlDate` IS NULL GROUP BY comment.fk_products_id ORDER BY commentsAndOpinions_avg DESC LIMIT 15  ');
+        $newest=\DB::select('SELECT prod.products_id, prod.products_name, prod.products_price, CASE WHEN pic.productsPics_dlDate is NULL THEN pic.productsPics_id ELSE NULL END as productsPics_id,CASE WHEN pic.productsPics_dlDate is NULL THEN pic.productsPics_altName ELSE NULL END as productsPics_altName, CASE WHEN pic.productsPics_dlDate is NULL THEN  pic.productsPics_path ELSE NULL END as productsPics_path FROM TB_Products prod LEFT JOIN TB_ProductsPics pic ON pic.fk_products_id = prod.products_id AND pic.productsPics_dlDate IS NULL WHERE  prod.`products_dlDate` IS NULL GROUP BY prod.products_id ORDER BY `products_crDate` DESC LIMIT 15');
+        $best =self::foreachHome($best);
+        $newest = self::foreachHome($newest);
+        return array('5best'=> $best, '5newest'=> $newest);
     }
     public function getAllProducts(){
-        $products = \DB::select('SELECT prod.products_id, prod.products_name, prod.products_price, CASE WHEN pic.productsPics_dlDate is NULL THEN pic.productsPics_id ELSE NULL END as productsPics_id,CASE WHEN pic.productsPics_dlDate is NULL THEN pic.productsPics_altName ELSE NULL END as productsPics_altName, CASE WHEN pic.productsPics_dlDate is NULL THEN  pic.productsPics_path ELSE NULL END as productsPics_path FROM TB_Products prod LEFT JOIN TB_ProductsPics pic ON pic.fk_products_id = prod.products_id AND pic.productsPics_dlDate IS NULL WHERE  prod.`products_dlDate` IS NULL GROUP BY prod.products_id',array(1));
+        $products = \DB::select('SELECT prod.fk_brand_id, prod.products_id, prod.products_name, prod.products_price, CASE WHEN pic.productsPics_dlDate is NULL THEN pic.productsPics_id ELSE NULL END as productsPics_id,CASE WHEN pic.productsPics_dlDate is NULL THEN pic.productsPics_altName ELSE NULL END as productsPics_altName, CASE WHEN pic.productsPics_dlDate is NULL THEN  pic.productsPics_path ELSE NULL END as productsPics_path FROM TB_Products prod LEFT JOIN TB_ProductsPics pic ON pic.fk_products_id = prod.products_id AND pic.productsPics_dlDate IS NULL WHERE  prod.`products_dlDate` IS NULL GROUP BY prod.products_id',array(1));
         foreach ($products as $key=>$value){
             $products[$key]->products_name=$this->getTranslation($value->products_name);
         }
         return $products;
-    }
-    public function getspecificcategoryproducts($id){
-        $products = \DB::select('select products_id, products_name from TB_Products WHERE fk_category_id = ? AND `products_dlDate` IS NULL', [$id]);
-        foreach ($products as $key=>$value){
-            $products[$key]->products_name=$this->getTranslation($value->products_name);
-        }
-        return $products;
-    }
-
-    public function getProductsByCategoryAndSubs($id){
-        $categories=self::getAllCategories();
-        $idOfAllCatAndSub =self::walkUntilFind($categories, $id);
-
-        $result = array();
-
-        foreach ($idOfAllCatAndSub as $value){
-
-            if(!empty($this->getProductsByCategory($value))) $result = array_merge($this->getProductsByCategory($value), $result);
-        }
-        return $result;
-    }
-    private function getChildrenFor($ary, $id)
-    {
-        $results = array();
-
-        foreach ($ary as $el)
-        {
-            if (($el['id'] == $id))
-            {
-                $results[] = $el['id'];
-                if(isset($el['children'])) {
-                    foreach ($el['children'] as $value) {
-                        $children = self::getChildrenFor($el['children'], $value['id']);
-                        $results = array_merge($results, $children);
-                    }
-                }
-            }
-
-        }
-        return $results;
-    }
-    private function walkUntilFind($array, $id){
-
-        foreach ($array as $key => $value){
-            if($value['id']==$id) {
-                $val= self::getChildrenFor($array, $id);
-                break;
-            }elseif(isset($value['children'])){
-                $val=self::walkUntilFind($value['children'], $id);
-                if($val != false) break 1;
-            }
-        }
-        if(isset($val)){
-            if($val != false){
-                return $val;}
-            else return false;
-        }else return false;
     }
     public function getProductUnrestricted($prodID){
         $gotProduct = \DB::select('SELECT prod.products_id, prod.fk_brand_id as products_brand, prod.products_name, prod.products_price, CASE WHEN pic.productsPics_dlDate is NULL THEN pic.productsPics_id ELSE NULL END as productsPics_id,CASE WHEN pic.productsPics_dlDate is NULL THEN pic.productsPics_altName ELSE NULL END as productsPics_altName, CASE WHEN pic.productsPics_dlDate is NULL THEN  pic.productsPics_path ELSE NULL END as productsPics_path FROM TB_Products prod LEFT JOIN TB_ProductsPics pic ON pic.fk_products_id = prod.products_id AND pic.productsPics_dlDate IS NULL WHERE prod.products_id = ?',[$prodID]);
@@ -136,8 +78,40 @@ class productsController extends Controller
 
         return $gotProduct;
     }
+    public function getProductsByCategory($id){
+
+        $gotProduct = \DB::select('SELECT prod.products_id, prod.products_name, prod.products_price, prod.fk_category_id, prod.fk_brand_id, CASE WHEN pic.productsPics_dlDate is NULL THEN pic.productsPics_id ELSE NULL END as productsPics_id,CASE WHEN pic.productsPics_dlDate is NULL THEN pic.productsPics_altName ELSE NULL END as productsPics_altName, CASE WHEN pic.productsPics_dlDate is NULL THEN  pic.productsPics_path ELSE NULL END as productsPics_path FROM TB_Products prod LEFT JOIN TB_ProductsPics pic ON pic.fk_products_id = prod.products_id AND pic.productsPics_dlDate IS NULL WHERE  prod.fk_category_id = ? AND prod.`products_dlDate` IS NULL GROUP BY prod.products_id', [$id]);
+        foreach ($gotProduct as $key=>$value){
+            $gotProduct[$key]->products_name=$this->getTranslation($value->products_name);
+        }
+        return $gotProduct;
+
+    }
+    public function getProductsByCategoryAndSubs($id){
+        $categories=self::getAllCategories();
+        $idOfAllCatAndSub =self::walkUntilFind($categories, $id);
+
+        $result = array();
+
+        foreach ($idOfAllCatAndSub as $value){
+
+            if(!empty($this->getProductsByCategory($value))) $result = array_merge($this->getProductsByCategory($value), $result);
+        }
+        return $result;
+    }
+
+    /**
+     * Categories
+     */
+    public function getListCategory(){
+        $gotProduct = \DB::select('select * from TB_Category WHERE category_dlDate IS NULL');
+        foreach ($gotProduct as $key => $value){
+            $gotProduct[$key]->category_name=self::getTranslation($value->category_name);
+        }
+        return $gotProduct;
+    }
     public function getAllCategories(){
-        $category = \DB::select('SELECT category_name as name, category_id as id, fk_category_id as parent FROM `TB_Category` ');
+        $category = \DB::select('SELECT category_name as name, category_id as id, fk_category_id as parent FROM `TB_Category` WHERE category_dlDate IS NULL');
         foreach ($category as $key=>$value){
             $category[$key]->name=self::getTranslation($value->name);
         }
@@ -152,33 +126,17 @@ class productsController extends Controller
         $data = self::createaTree($new, $parent);
         return $data;
     }
-    private function createaTree(&$list, $parent){
-        $tree = array();
-        foreach ($parent as $k=>$l){
-            if(isset($list[$l['id']])){
-                $l['children'] = self::createaTree($list, $list[$l['id']]);
-            }
-            $tree[] = $l;
-        }
-        return $tree;
-    }
 	public function getCategoryName($id){
-		$gotProduct = \DB::select('select category_name, fk_gender_id as gender_id from TB_Category WHERE category_id = ?', [$id]);
+		$gotProduct = \DB::select('select category_name, fk_gender_id as gender_id from TB_Category WHERE category_id = ? AND category_dlDate IS NULL', [$id]);
 		$gotProduct[0]->category_name=self::getTranslation($gotProduct[0]->category_name);
 
 		return (array)$gotProduct[0];
 	
 	}
 
-	public function getProductsByCategory($id){
-
-		$gotProduct = \DB::select('SELECT prod.products_id, prod.products_name, prod.products_price, prod.fk_category_id, prod.fk_brand_id, CASE WHEN pic.productsPics_dlDate is NULL THEN pic.productsPics_id ELSE NULL END as productsPics_id,CASE WHEN pic.productsPics_dlDate is NULL THEN pic.productsPics_altName ELSE NULL END as productsPics_altName, CASE WHEN pic.productsPics_dlDate is NULL THEN  pic.productsPics_path ELSE NULL END as productsPics_path FROM TB_Products prod LEFT JOIN TB_ProductsPics pic ON pic.fk_products_id = prod.products_id AND pic.productsPics_dlDate IS NULL WHERE  prod.fk_category_id = ? AND prod.`products_dlDate` IS NULL GROUP BY prod.products_id', [$id]);
-        foreach ($gotProduct as $key=>$value){
-            $gotProduct[$key]->products_name=$this->getTranslation($value->products_name);
-        }
-		return $gotProduct;
-
-	}
+    /**
+     * Brands
+     */
     public function getAllBrands(){
         $gotProduct = \DB::select('select * from TB_Brand WHERE brand_dlDate IS NULL');
         return $gotProduct;
@@ -196,6 +154,10 @@ class productsController extends Controller
             abort(404, lang::get('errors.notFound'));
         }
     }
+
+    /**
+     * Note
+     */
     public function getNoteForProduct($prodID){
         $moyenne =\DB::select('SELECT avg(`commentsAndOpinions_note`) as commentsAndOpinions_note_average, count(commentsAndOpinions_id) as commentsAndOpinions_number FROM `TB_CommentsAndOpinions` WHERE `fk_products_id` = ?', [$prodID]);
         return $this->response->array([
@@ -203,10 +165,6 @@ class productsController extends Controller
             'average' => $moyenne[0]->commentsAndOpinions_note_average,
             'number'=> $moyenne[0]->commentsAndOpinions_number
         ]);
-    }
-    private function getUserName($id){
-        $login = \DB::select('SELECT users_login FROM TB_Users WHERE users_id = ?', [$id]);
-        return $login[0]->users_login;
     }
     public function getCommentForProduct($prodID){
         $lang=\App::getLocale();
@@ -262,7 +220,68 @@ class productsController extends Controller
             'message' => lang::get('orders.commentAddedSuccess')
         ]);
     }
-    private  function checkIfAlreadyPosted($prodID, $userID){
+
+    /**
+     * Internal job
+     */
+    private function foreachHome($array){
+        foreach($array as $value){
+            $value->products_name=self::getTranslation($value->products_name);
+        }
+        return $array;
+    }
+    public function getChildrenFor($ary, $id)
+    {
+        $results = array();
+
+        foreach ($ary as $el)
+        {
+            if (($el['id'] == $id))
+            {
+                $results[] = $el['id'];
+                if(isset($el['children'])) {
+                    foreach ($el['children'] as $value) {
+                        $children = self::getChildrenFor($el['children'], $value['id']);
+                        $results = array_merge($results, $children);
+                    }
+                }
+            }
+
+        }
+        return $results;
+    }
+    public function walkUntilFind($array, $id){
+
+        foreach ($array as $key => $value){
+            if($value['id']==$id) {
+                $val= self::getChildrenFor($array, $id);
+                break;
+            }elseif(isset($value['children'])){
+                $val=self::walkUntilFind($value['children'], $id);
+                if($val != false) break 1;
+            }
+        }
+        if(isset($val)){
+            if($val != false){
+                return $val;}
+            else return false;
+        }else return false;
+    }
+    private function createaTree(&$list, $parent){
+        $tree = array();
+        foreach ($parent as $k=>$l){
+            if(isset($list[$l['id']])){
+                $l['children'] = self::createaTree($list, $list[$l['id']]);
+            }
+            $tree[] = $l;
+        }
+        return $tree;
+    }
+    private function getUserName($id){
+        $login = \DB::select('SELECT users_login FROM TB_Users WHERE users_id = ?', [$id]);
+        return $login[0]->users_login;
+    }
+    private function checkIfAlreadyPosted($prodID, $userID){
         $count =\DB::select('SELECT count(`commentsAndOpinions_id`) as count FROM TB_CommentsAndOpinions WHERE fk_users_id = ? AND fk_products_id = ?', [$userID, $prodID]);
         if($count[0]->count!=0){
             abort(403, lang::get('orders.alreadyNoted'));

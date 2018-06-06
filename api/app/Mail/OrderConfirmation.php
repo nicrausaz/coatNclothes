@@ -7,8 +7,9 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Lang;
+use App\Http\Controllers\Api\V1\ordersController;
 
-class Registration extends Mailable
+class orderConfirmation extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -18,7 +19,6 @@ class Registration extends Mailable
      * @var Demo
      */
     public $obj;
-    private $choosedPlain;
     private $choosedView;
     public $subject;
 
@@ -30,12 +30,11 @@ class Registration extends Mailable
     public function __construct($obj, $array)
     {
         $this->obj = $obj;
-        if((empty($array['html']))OR(empty($array['plain']))OR(empty($array['subject']))){
+        if((empty($array['html']))OR(empty($array['subject']))){
             \Log::error('missing argument Mailing Registration');
             abort(403, lang::get('auth.missingArgument'));
         }
         $this->choosedView=$array['html'];
-        $this->choosedPlain=$array['plain'];
         $this->subject=$array['subject'];
     }
 
@@ -46,11 +45,11 @@ class Registration extends Mailable
      */
     public function build()
     {
-
+        $pdf=new ordersController;
         return $this->from('no-reply@coatandclothes.shop')
+            ->attachData($pdf->generateOrderPDF($this->obj->id), 'bill.pdf')
             ->subject($this->subject)
             ->view($this->choosedView)
-            ->text($this->choosedPlain)
             ->with(
                 [
                     'testVarOne' => '1',

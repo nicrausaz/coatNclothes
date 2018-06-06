@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', true),
+    'debug' => env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return [
 
     'locale' => ['en', 'fr'],
 
-    'languages' => ['en', 'fr'],
+    'languages' => [array('complete'=>'Français', 'locale'=>'fr'), array('complete'=>'English', 'locale'=>'en')],
 
 
     /*
