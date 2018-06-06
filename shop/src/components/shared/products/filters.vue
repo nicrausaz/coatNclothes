@@ -3,8 +3,7 @@
     <div class="column is-3">
       <div class="field">
         <b-field :label="$store.state.interface.price">
-          <!-- {{hightestPrice}} -->
-          <vueSlider v-model="search.price" :max="300" :formatter="sliderConfig.formatter" :bgStyle="sliderConfig.bgStyle" :processStyle="sliderConfig.processStyle" :tooltipStyle="sliderConfig.tooltipStyle" :tooltip="'hover'"></vueSlider>
+          <vueSlider v-model="search.price" :max="400" :formatter="sliderConfig.formatter" :bgStyle="sliderConfig.bgStyle" :processStyle="sliderConfig.processStyle" :tooltipStyle="sliderConfig.tooltipStyle" :tooltip="'hover'"></vueSlider>
         </b-field>
       </div>
     </div>
@@ -58,7 +57,7 @@ export default {
         }
       },
       search: {
-        price: [0, 300],
+        price: [0, 400],
         brands: null,
         selectedView: 'cardedView'
       },
