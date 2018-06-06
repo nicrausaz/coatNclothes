@@ -10,8 +10,9 @@
       <div class="content">
         <nav class="panel">
           <a v-for="adress in adresses" :key="adress.adresses_id" class="panel-block">
-            <b-checkbox v-model="selectedAdress" :true-value="adress.adresses_id"></b-checkbox>
-            {{adress.adresses_street}} {{adress.adresses_npa}} {{adress.adresses_locality}}
+            <b-checkbox v-model="selectedAdress" :true-value="adress.adresses_id">
+              {{adress.adresses_street}} {{adress.adresses_npa}} {{adress.adresses_locality}}
+            </b-checkbox>
           </a>
           <a class="panel-block" @click="isCreatingAdress = true">
             <span class="panel-icon"><b-icon icon="plus" size="is-small"></b-icon></span>

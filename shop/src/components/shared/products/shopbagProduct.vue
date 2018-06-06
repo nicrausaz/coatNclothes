@@ -121,6 +121,7 @@ export default {
       })
       .then((response) => {
         this.$toast.open(response.data.message)
+        this.$store.dispatch('getShopbagQuantity')
         this.$emit('delete')
       })
     }

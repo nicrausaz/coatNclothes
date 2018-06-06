@@ -81,6 +81,9 @@ export default {
             'product': product.products_id
           }
         })
+        .then(() => {
+          this.$store.dispatch('getShopbagQuantity')
+        })
       })
     },
     finishOrder () {

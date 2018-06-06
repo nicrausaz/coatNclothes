@@ -75,6 +75,7 @@ export default {
         message: 'Déconnecté !',
         type: 'is-success'
       })
+      this.$store.dispatch('getShopbagQuantity')
     }
   },
   components: {

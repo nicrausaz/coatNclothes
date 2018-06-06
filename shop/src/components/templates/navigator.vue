@@ -26,7 +26,7 @@
         </div>
 
         <router-link to="/wishlists" class="navbar-item"><b-icon icon="heart" style="padding-right: 5px;"></b-icon>{{$store.state.interface.wishlists}}</router-link>
-        <router-link to="/shopbag" class="navbar-item" ><b-icon icon="shopping-cart" style="padding-right: 5px;"></b-icon>{{$store.state.interface.basket}} {{shopbagCount}}</router-link>
+        <router-link to="/shopbag" class="navbar-item" ><b-icon icon="shopping-cart" style="padding-right: 5px;"></b-icon>{{$store.state.interface.basket}} {{$store.state.shopbagQuantity}}</router-link>
         <router-link to="/user" class="navbar-item" ><b-icon icon="user" style="padding-right: 5px;"></b-icon>{{$store.state.interface.yourProfile}}</router-link>
       </div>
     </div>
@@ -46,7 +46,7 @@ export default {
   },
   created () {
     this.getLanguages()
-    this.getShopbagCount()
+    this.$store.dispatch('getShopbagQuantity')
   },
   methods: {
     toggleMenu () {
@@ -63,17 +63,6 @@ export default {
       .then(response => {
         this.languages = response.data.lang
       })
-    },
-    getShopbagCount () {
-      if (this.$store.state.user.users_id) {
-        this.axios({
-          method: 'get',
-          url: '/basket/user/' + this.$store.state.user.users_id + '/count'
-        })
-        .then(response => {
-          this.shopbagCount = '(' + response.data + ')'
-        })
-      }
     }
   },
   components: {

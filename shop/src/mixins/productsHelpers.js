@@ -13,6 +13,7 @@ export default {
           }
         })
         .then((response) => {
+          this.$store.dispatch('getShopbagQuantity')
           this.$toast.open({
             message: response.data.message,
             type: 'is-success'

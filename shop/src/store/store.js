@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
@@ -11,7 +12,8 @@ const store = new Vuex.Store({
     language: 'fr',
     tokenExpirationDate: null,
     interface: [],
-    user: {}
+    user: {},
+    shopbagQuantity: ''
   },
   mutations: {
     setUser (state, user) {
@@ -31,6 +33,28 @@ const store = new Vuex.Store({
       let now = Date.now()
       if (this.state.tokenExpirationDate < now) {
         this.state.tokenExpirationDate = now + 86400000
+      }
+    },
+    setShopbagQuantity (state, quantity) {
+      this.state.shopbagQuantity = quantity
+    }
+  },
+  actions: {
+    getShopbagQuantity (context) {
+      if (this.state.user.users_id) {
+        axios({
+          method: 'get',
+          url: 'https://api.coatandclothes.shop/' + this.state.language + '/basket/user/' + this.state.user.users_id + '/count',
+          headers: {
+            'Authorization': 'Bearer' + this.state.user.token
+          }
+        })
+        .then(response => {
+          let value = '(' + response.data + ')'
+          context.commit('setShopbagQuantity', value)
+        })
+      } else {
+        context.commit('setShopbagQuantity', null)
       }
     }
   }

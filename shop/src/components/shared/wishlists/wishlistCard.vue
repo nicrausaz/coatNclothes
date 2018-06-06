@@ -69,6 +69,7 @@ export default {
         url: '/wishlist/' + this.infos.wishlist_id + '/addToBasket'
       })
       .then(response => {
+        this.$store.dispatch('getShopbagQuantity')
         this.$toast.open({
           message: response.data.message,
           type: 'is-success'
