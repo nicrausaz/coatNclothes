@@ -59,17 +59,27 @@ export default {
       this.filters = filters
     },
     getCategoryProducts (id) {
-      this.axios({
-        method: 'get',
-        url: '/category/' + id + '/subs/products'
-      })
-      .then((response) => {
-        if (response.data.length > 0) {
+      if (id) {
+        this.axios({
+          method: 'get',
+          url: '/category/' + id + '/subs/products'
+        })
+        .then((response) => {
+          if (response.data.length > 0) {
+            this.products_list.push(response.data)
+          }
+          this.loaded = true
+        })
+        .catch(() => { this.$router.push('/error') })
+      } else {
+        this.axios({
+          method: 'get',
+          url: '/products'
+        })
+        .then(response => {
           this.products_list.push(response.data)
-        }
-        this.loaded = true
-      })
-      .catch(() => { this.$router.push('/error') })
+        })
+      }
     },
     openLogin () {
       this.loginModalOn = true

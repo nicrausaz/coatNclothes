@@ -25,6 +25,11 @@ export default {
       component: Home
     },
     {
+      path: '/categories',
+      name: 'Categories',
+      component: Categories
+    },
+    {
       path: '/category/:id',
       name: 'Category',
       component: Categories
