@@ -41,11 +41,11 @@
           </router-link>
         </slide>
       </carousel>
-      <h2 class="subtitle">{{$store.state.interface.subcribeRSS}}</h2>
-       <a class="button is-primary" :href="'https://api.coatandclothes.shop/' + this.$store.state.language + '/feed/atom'" target="_blank">
+      <a class="button is-primary" style="margin-top: -5px; margin-right: 5px;" :href="'https://api.coatandclothes.shop/' + this.$store.state.language + '/feed/atom'" target="_blank">
         <b-icon icon="rss"></b-icon>
         <span>RSS</span>
       </a>
+      <span class="subtitle">{{$store.state.interface.subcribeRSS}}</span>
     </section>
   </div>
 </template>
