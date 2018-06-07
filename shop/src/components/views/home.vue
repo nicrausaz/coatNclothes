@@ -2,6 +2,11 @@
   <div class="container">
     <subtitle :name="$store.state.interface.home" :text="''"></subtitle>
     <section class="section">
+      <h1 class="title">Important:</h1>
+      <h1 class="title">Ce site est un magasin fictif dans le cadre d'un projet d'étude.</h1>
+      <h1 class="title">Aucun produit / commande n'est officielle et ne sera traitée.</h1>
+    </section>
+    <section class="section">
       <h1 class="title">{{$store.state.interface.bestProducts}}</h1>
       <carousel :perPage="5" :navigationEnabled="true" :loop="true" paginationActiveColor="#da0f68" paginationColor="#f5f5f5">
         <slide v-for="product in bestProducts" :key="product.products_id" class="slides">
