@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
@@ -21,7 +20,19 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/vendor/autoload.php';
+
+/*
+ *
+ * Add headers
+ */
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: PUT, PATCH, DELETE, POST, GET, OPTIONS, HEAD");
+header("Access-Control-Allow-Headers: Origin, Host, Refer, Connection, X-Requested-With, Content-Type, Accept, Authorization, Content-Range, Content-Disposition, Content-Description");
+header('Content-Type: application/json;charset=UTF-8');
+header('Access-Control-Max-Age: 1728000');
+header('Access-Control-Allow-Credentials: true');
+if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS'])) header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +46,7 @@ require __DIR__.'/../vendor/autoload.php';
 |
 */
 
-$app = require_once __DIR__.'/../bootstrap/app.php';
+$app = require_once __DIR__.'/bootstrap/app.php';
 
 /*
 |--------------------------------------------------------------------------

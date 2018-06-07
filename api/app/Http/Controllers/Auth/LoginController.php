@@ -23,6 +23,15 @@ class LoginController extends Controller
         // Dans notre cas, comme l'on souhaite pouvoir se connecter soit en rentrant l'email, soit le pseudo, je rajoute une condition à ma requête
         $user = User::where('users_email', $request->users_login)->orWhere('users_login', $request->users_login)->first();
 
+        if(isset($user)) {
+            if ((!$user->users_enabled) OR ($user->users_dlDate != NULL)) {
+                return $this->sendDisableAccount();
+            }
+        }else{
+            return $this->sendFailedLoginResponse($request);
+        }
+
+
         if ($user && Hash::check($request->get('users_pass'), $user->users_pass)) {
             $token = JWTAuth::fromUser($user);
             //$token= JWTAuth::attempt($user);
@@ -57,6 +66,9 @@ class LoginController extends Controller
     public function sendFailedLoginResponse()
     {
         abort(401, lang::get('auth.failed'));
+    }
+    public function sendDisableAccount(){
+        abort(401, lang::get('auth.disabled'));
     }
 
     public function logout()

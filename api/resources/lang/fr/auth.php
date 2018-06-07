@@ -30,7 +30,11 @@ return [
     'passChangedSuccess'=>'Mot de passe modifié avec succès',
     'tokenNotProvided'=>'Token non fourni',
     'userNotFound'=>'Utilisateur non trouvé',
-    'logout'=>'Utilisateur déconnecté avec succès'
+    'logout'=>'Utilisateur déconnecté avec succès',
+    'setAdminSucccess'=>'Statut admin mis à jours avec succès',
+    'disabled'=>'Utilisateur désactivé',
+    'removedSuccess'=>'Utilisateur supprimé avec succès'
+
 
 
 ];

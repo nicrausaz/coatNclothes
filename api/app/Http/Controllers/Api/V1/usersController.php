@@ -18,6 +18,9 @@ class usersController extends Controller
     use Helpers;
     use ValidatesRequests;
 
+    /**
+     * Gender
+     */
     public function getAllGender(){
         $gender =\DB::select('SELECT * FROM TB_Gender');
         foreach ($gender as $key => $value){
@@ -25,7 +28,7 @@ class usersController extends Controller
         }
         return $gender;
     }
-    public function changeUserGender(Request $request, $id, $genderID){
+    public function changeUserGender($id, $genderID){
         $this->checkTokenFromId($id);
         $allGender = self::getAllGender();
 
@@ -49,9 +52,13 @@ class usersController extends Controller
             'message' => lang::get('auth.genderChangedSuccess')
         ]);
     }
+
+    /**
+     * Profile
+     */
     public function getUserInfo($id){
         $this->checkTokenFromId($id);
-        $user = \DB::select('SELECT users_id, users_name, users_fsname, users_email, users_login, users_createDate, users_admin, fk_gender_id FROM TB_Users WHERE users_id = ?', [$id]);
+        $user = \DB::select('SELECT users_id, users_name, users_fsname, users_email, users_login, users_createDate, users_enabled, users_admin, fk_gender_id FROM TB_Users WHERE users_id = ?', [$id]);
         if(!empty($user[0])){
 
             $user = $user[0];
@@ -78,12 +85,6 @@ class usersController extends Controller
         }
 
         return json_encode($user);
-    }
-
-    public function getUserAdresses($id){
-        $this->checkTokenFromId($id);
-        $adresses = \DB::select('SELECT * FROM TB_Adresses WHERE fk_users_id = ? AND  adresses_dlDate IS NULL', [$id]);
-        return $adresses;
     }
     public function changeUserPassword(Request $request, $id){
         $this->checkTokenFromId($id);
@@ -134,6 +135,102 @@ class usersController extends Controller
             'message' => lang::get('auth.infoChangedSuccess')
         ]);
     }
+    public function deleteUserProfile($id){
+        $this->checkTokenFromId($id);
+
+    }
+
+    /**
+     * Pics
+     */
+    public function updateUserPic(Request $request, $id){
+
+        $this->checkTokenFromId($id);
+
+
+        $this->validate($request, [
+            'users_pic' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+        ]);
+
+
+        $image = $request->file('users_pic');
+
+
+        $input['imagename'] = hash('sha256',time().rand(11111, 99999)).'.'.$image->getClientOriginalExtension();
+
+        $destinationPath = public_path('/profilePics');
+
+        $image->move($destinationPath, $input['imagename']);
+
+        $actualUserPic = \DB::select('SELECT * FROM TB_UsersPics WHERE usersPics_dlDate IS NULL AND fk_users_id = ?', [$id]);
+
+        if(isset($actualUserPic)) {
+            if (!empty($actualUserPic[0])) {
+                try {
+                    \DB::update('UPDATE `TB_UsersPics` SET `usersPics_dlDate` = NOW() WHERE `TB_UsersPics`.`usersPics_id` = ?', [$actualUserPic[0]->usersPics_id]);
+                } catch (\PDOException $e) {
+                    \Log::error($e->getMessage());
+                    abort(403, lang::get('errors.uknError'));
+                }
+            }
+        }
+        try {
+            \DB::insert('INSERT INTO `TB_UsersPics` (`usersPics_id`, `usersPics_path`, `usersPics_creationDate`, `usersPics_dlDate`, `fk_users_id`) VALUES (NULL, ?, NOW(), NULL, ?);', ['https://'.request()->getHost().'/public/profilePics/'.$input['imagename'], $id]);
+        } catch (\PDOException $e) {
+            \Log::error($e->getMessage());
+            abort(403, lang::get('errors.uknError'));
+        }
+
+        return $this->response->array([
+            'status_code' => 200,
+            'message' => lang::get('auth.updatePicSuccess')
+        ]);
+
+    }
+    public function deleteUserPic($id){
+        $this->checkTokenFromId($id);
+        $actualPath = public_path('/profilePics');
+        $newPath = public_path('/profilePics/OLD');
+
+
+        $actualUserPic = \DB::select('SELECT * FROM TB_UsersPics WHERE usersPics_dlDate IS NULL AND fk_users_id = ?', [$id]);
+
+        if(isset($actualUserPic)) {
+            if (!empty($actualUserPic[0])) {
+                try {
+                    \DB::update('UPDATE `TB_UsersPics` SET `usersPics_dlDate` = NOW() WHERE `TB_UsersPics`.`usersPics_id` = ?', [$actualUserPic[0]->usersPics_id]);
+                } catch (\PDOException $e) {
+                    \Log::error($e->getMessage());
+                    abort(403, lang::get('errors.uknError'));
+                }
+            }else{
+                abort(404, lang::get('auth.noContentToDelete'));
+            }
+        }else{
+            abort(404, lang::get('auth.noContentToDelete'));
+        }
+
+        $GetFileName = explode('/', $actualUserPic[0]->usersPics_path);
+        if(file_exists($actualPath.'/'.$GetFileName[5])){
+            rename($actualPath.'/'.$GetFileName[5], $newPath.'/'.$GetFileName[5]);
+        }else{
+            \Log::error('Trying to move an non existent picture');
+            abort(404, lang::get('errors.uknError'));
+        }
+        return $this->response->array([
+            'status_code' => 200,
+            'message' => lang::get('auth.remPicSuccess')
+        ]);
+    }
+
+    /**
+     * Adresse
+     */
+    public function getUserAdresses($id){
+        $this->checkTokenFromId($id);
+        $adresses = \DB::select('SELECT * FROM TB_Adresses WHERE fk_users_id = ? AND  adresses_dlDate IS NULL', [$id]);
+        return $adresses;
+    }
     public function addAdresse(Request $request, $id){
         $this->checkTokenFromId($id);
         $input =$request->all();
@@ -170,17 +267,7 @@ class usersController extends Controller
         ]);
 
     }
-    protected function validator(array $data)
-    {
-
-        return Validator::make($data, [
-            'adresses_street' => 'regex:/(^[A-Za-z0-9âàéèïäç\'.üö\- ]+$)+/|max:255',
-            'adresses_state' => 'regex:/(^[A-Za-z0-9âàéèïäçüö\- ]+$)+/|max:255',
-            'adresses_locality' => 'regex:/(^[A-Za-z0-9âàéèïäçüö\- ]+$)+/|max:60',
-            'adresses_npa' => 'regex:/(^[A-Za-z0-9 ]+$)+/|max:8'
-        ]);
-    }
-    public function remAdresse(Request $request, $id, $addrID){
+    public function remAdresse($id, $addrID){
         $this->checkTokenFromId($id);
 
         if(empty($addrID)){
@@ -280,90 +367,19 @@ class usersController extends Controller
             'message' => lang::get('auth.updateAdressSuccess')
         ]);
     }
-    public function deleteUserProfile(Request $request, $id){
-        $this->checkTokenFromId($id);
 
-    }
+    /**
+     * Internal job
+     */
+    protected function validator(array $data)
+    {
 
-
-
-    public function updateUserPic(Request $request, $id){
-
-        $this->checkTokenFromId($id);
-
-
-        $this->validate($request, [
-            'users_pic' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
-        ]);
-
-
-        $image = $request->file('users_pic');
-
-
-        $input['imagename'] = hash('sha256',time().rand(11111, 99999)).'.'.$image->getClientOriginalExtension();
-
-        $destinationPath = public_path('/profilePics');
-
-        $image->move($destinationPath, $input['imagename']);
-
-        $actualUserPic = \DB::select('SELECT * FROM TB_UsersPics WHERE usersPics_dlDate IS NULL AND fk_users_id = ?', [$id]);
-
-        if(isset($actualUserPic)) {
-            if (!empty($actualUserPic[0])) {
-                try {
-                    \DB::update('UPDATE `TB_UsersPics` SET `usersPics_dlDate` = NOW() WHERE `TB_UsersPics`.`usersPics_id` = ?', [$actualUserPic[0]->usersPics_id]);
-                } catch (\PDOException $e) {
-                    \Log::error($e->getMessage());
-                    abort(403, lang::get('errors.uknError'));
-                }
-            }
-        }
-        try {
-            \DB::insert('INSERT INTO `TB_UsersPics` (`usersPics_id`, `usersPics_path`, `usersPics_creationDate`, `usersPics_dlDate`, `fk_users_id`) VALUES (NULL, ?, NOW(), NULL, ?);', ['https://'.request()->getHost().'/public/profilePics/'.$input['imagename'], $id]);
-        } catch (\PDOException $e) {
-            \Log::error($e->getMessage());
-            abort(403, lang::get('errors.uknError'));
-        }
-
-        return $this->response->array([
-            'status_code' => 200,
-            'message' => lang::get('auth.updatePicSuccess')
-        ]);
-
-    }
-    public function deleteUserPic(Request $request, $id){
-        $this->checkTokenFromId($id);
-        $actualPath = public_path('/profilePics');
-        $newPath = public_path('/profilePics/OLD');
-
-
-        $actualUserPic = \DB::select('SELECT * FROM TB_UsersPics WHERE usersPics_dlDate IS NULL AND fk_users_id = ?', [$id]);
-
-        if(isset($actualUserPic)) {
-            if (!empty($actualUserPic[0])) {
-                try {
-                    \DB::update('UPDATE `TB_UsersPics` SET `usersPics_dlDate` = NOW() WHERE `TB_UsersPics`.`usersPics_id` = ?', [$actualUserPic[0]->usersPics_id]);
-                } catch (\PDOException $e) {
-                    \Log::error($e->getMessage());
-                    abort(403, lang::get('errors.uknError'));
-                }
-            }else{
-                abort(404, lang::get('auth.noContentToDelete'));
-            }
-        }else{
-            abort(404, lang::get('auth.noContentToDelete'));
-        }
-
-        $GetFileName = explode('/', $actualUserPic[0]->usersPics_path);
-        if(file_exists($actualPath.'/'.$GetFileName[5])){
-            rename($actualPath.'/'.$GetFileName[5], $newPath.'/'.$GetFileName[5]);
-        }else{
-            \Log::error('Trying to move an non existent picture');
-            abort(404, lang::get('errors.uknError'));
-        }
-        return $this->response->array([
-            'status_code' => 200,
-            'message' => lang::get('auth.remPicSuccess')
+        return Validator::make($data, [
+            'adresses_street' => 'regex:/(^[A-Za-z0-9âàéèïäç\'.üö\- ]+$)+/|max:255',
+            'adresses_state' => 'regex:/(^[A-Za-zâàéèïäçüö\- ]+$)+/|max:40',
+            'adresses_locality' => 'regex:/(^[A-Za-zâàéèïäçüö\- ]+$)+/|max:40',
+            'adresses_npa' => 'regex:/(^[0-9 ]+$)+/|max:4'
         ]);
     }
+
 }

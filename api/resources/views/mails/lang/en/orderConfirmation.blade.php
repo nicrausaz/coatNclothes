@@ -17,7 +17,7 @@
     <style type="text/css" id="media-query">
         body {
             margin: 0;
-            padding: f0; }
+            padding: 0; }
 
         table, tr, td {
             vertical-align: top;
@@ -293,7 +293,7 @@
                                     <div class="">
                                         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top: 0px; padding-bottom: 0px;"><![endif]-->
                                         <div style="line-height:120%;color:#FFFFFF;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; padding-right: 0px; padding-left: 0px; padding-top: 0px; padding-bottom: 0px;">
-                                            <div style="font-size:12px;line-height:14px;color:#FFFFFF;background-color: #da0f68; border-radius: 10px;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;text-align:left;"><p style="margin: 0;font-size: 12px;line-height: 14px;text-align: center"><span style="font-size: 46px; line-height: 55px; background-color: rgb(153, 153, 153);"><span style="line-height: 55px; font-size: 46px; background-color: rgb(153, 153, 153);"></span></span><span style="font-size: 46px; line-height: 55px;"><span style="line-height: 55px; font-size: 46px;"><span style="line-height: 55px; font-size: 46px;">Bonjour {{$obj->receiver}} !</span></span></span></p><p style="margin: 0;font-size: 12px;line-height: 14px;text-align: center"><span style="font-size: 30px; line-height: 36px;"><strong><span style="line-height: 36px; font-size: 30px;">Bienvenue chez CoatAndClothes.shop</span></strong></span></p></div>
+                                            <div style="font-size:12px;line-height:14px;color:#FFFFFF;background-color: #da0f68; border-radius: 10px;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;text-align:left;"><p style="margin: 0;font-size: 12px;line-height: 14px;text-align: center"><span style="font-size: 46px; line-height: 55px; background-color: rgb(153, 153, 153);"><span style="line-height: 55px; font-size: 46px; background-color: rgb(153, 153, 153);"></span></span><span style="font-size: 46px; line-height: 55px;"><span style="line-height: 55px; font-size: 46px;"><span style="line-height: 55px; font-size: 46px;">Order confirmation</span></span></span></p></div>
                                         </div>
                                         <!--[if mso]></td></tr></table><![endif]-->
                                     </div>
@@ -319,8 +319,8 @@
 
                                     <div align="center" class="button-container center " style="padding-right: 10px; padding-left: 10px; padding-top:10px; padding-bottom:10px;">
                                         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top:10px; padding-bottom:10px;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://coatandclothes.shop/" style="height:40pt; v-text-anchor:middle; width:124pt;" arcsize="8%" strokecolor="#da0f68" fillcolor="#da0f68"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:'Lato', Tahoma, Verdana, Segoe, sans-serif; font-size:22px;"><![endif]-->
-                                        <a href="https://coatandclothes.shop/" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #ffffff; background-color: #da0f68; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; max-width: 166px; width: 126px;width: auto; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent; padding-top: 5px; padding-right: 20px; padding-bottom: 5px; padding-left: 20px; font-family: 'Lato', Tahoma, Verdana, Segoe, sans-serif;mso-border-alt: none">
-                                            <span style="font-size:12px;line-height:24px;"><span style="font-size: 22px; line-height: 44px;" data-mce-style="font-size: 22px; line-height: 40px;">Rendez vous en magasin</span></span>
+                                        <a href="https://coatandclothes.shop" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #ffffff; background-color: #da0f68; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; max-width: 166px; width: 126px;width: auto; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent; padding-top: 5px; padding-right: 20px; padding-bottom: 5px; padding-left: 20px; font-family: 'Lato', Tahoma, Verdana, Segoe, sans-serif;mso-border-alt: none">
+                                            <span style="font-size:12px;line-height:24px;"><span style="font-size: 22px; line-height: 44px;" data-mce-style="font-size: 22px; line-height: 40px;">SHOP NOW</span></span>
                                         </a>
                                         <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
                                     </div>
@@ -394,59 +394,7 @@
                         <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="background-color:transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width: 600px;"><tr class="layout-full-width" style="background-color:#FFFFFF;"><![endif]-->
 
                         <!--[if (mso)|(IE)]><td align="center" width="300" style=" width:300px; padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><![endif]-->
-                        <div class="col num6" style="max-width: 320px;min-width: 300px;display: table-cell;vertical-align: top;">
-                            <div style="background-color: transparent; width: 100% !important;">
-                                <!--[if (!mso)&(!IE)]><!--><div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;"><!--<![endif]-->
 
-
-                                    <div align="center" class="img-container center  autowidth  fullwidth " style="padding-right: 0px;  padding-left: 0px;">
-                                        <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px;line-height:0px;"><td style="padding-right: 0px; padding-left: 0px;" align="center"><![endif]-->
-                                        <a href="https://coatandclothes.shop/product/{{$obj->product2_id}}" target="_blank">
-                                            <img class="center  autowidth  fullwidth" align="center" border="0" src="{{$obj->product2_url}}" alt="Image" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;width: 100%;max-width: 300px" width="300">
-                                        </a>
-                                        <!--[if mso]></td></tr></table><![endif]-->
-                                    </div>
-
-
-
-                                    <div class="">
-                                        <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 20px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px;"><![endif]-->
-                                        <div style="line-height:120%;color:#555555;font-family:'Lato', Tahoma, Verdana, Segoe, sans-serif; padding-right: 20px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px;">
-                                            <div style="font-size:12px;line-height:14px;color:#555555;font-family:'Lato', Tahoma, Verdana, Segoe, sans-serif;text-align:left;"><p style="margin: 0;font-size: 14px;line-height: 17px;text-align: center"><strong>{{$obj->product2}}</strong></p></div>
-                                        </div>
-                                        <!--[if mso]></td></tr></table><![endif]-->
-                                    </div>
-
-                                    <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
-                            </div>
-                        </div>
-                        <!--[if (mso)|(IE)]></td><td align="center" width="300" style=" width:300px; padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><![endif]-->
-                        <div class="col num6" style="max-width: 320px;min-width: 300px;display: table-cell;vertical-align: top;">
-                            <div style="background-color: transparent; width: 100% !important;">
-                                <!--[if (!mso)&(!IE)]><!--><div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;"><!--<![endif]-->
-
-
-                                    <div class="">
-                                        <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 20px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px;"><![endif]-->
-                                        <div style="line-height:120%;color:#555555;font-family:'Lato', Tahoma, Verdana, Segoe, sans-serif; padding-right: 20px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px;">
-                                            <div style="font-size:12px;line-height:14px;color:#555555;font-family:'Lato', Tahoma, Verdana, Segoe, sans-serif;text-align:left;"><p style="margin: 0;font-size: 12px;line-height: 14px;text-align: center"><span style="font-size: 14px; line-height: 16px;"><strong><span style="line-height: 16px; font-size: 14px;">{{$obj->product1}}</span></strong></span></p></div>
-                                        </div>
-                                        <!--[if mso]></td></tr></table><![endif]-->
-                                    </div>
-
-
-                                    <div align="center" class="img-container center  autowidth  " style="padding-right: 0px;  padding-left: 0px;">
-                                        <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px;line-height:0px;"><td style="padding-right: 0px; padding-left: 0px;" align="center"><![endif]-->
-                                        <a href="https://coatandclothes.shop/product/{{$obj->product1_id}}" target="_blank">
-                                            <img class="center  autowidth " align="center" border="0" src="{{$obj->product1_url}}" alt="Image" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;width: 100%;max-width: 296px" width="296">
-                                        </a>
-                                        <!--[if mso]></td></tr></table><![endif]-->
-                                    </div>
-
-
-                                    <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
-                            </div>
-                        </div>
                         <!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
                     </div>
                 </div>
@@ -500,7 +448,7 @@
                                     <div class="">
                                         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 20px; padding-left: 20px; padding-top: 20px; padding-bottom: 5px;"><![endif]-->
                                         <div style="line-height:120%;color:#555555;font-family:'Lato', Tahoma, Verdana, Segoe, sans-serif; padding-right: 20px; padding-left: 20px; padding-top: 20px; padding-bottom: 5px;">
-                                            <div style="font-size:12px;line-height:14px;font-family:Lato, Tahoma, Verdana, Segoe, sans-serif;color:#555555;text-align:left;"><p style="margin: 0;font-size: 12px;line-height: 14px;text-align: center"><span style="font-size: 48px; line-height: 57px;"><strong><span style="line-height: 57px; font-size: 48px;">Vos informations<br></span></strong></span></p></div>
+                                            <div style="font-size:12px;line-height:14px;font-family:Lato, Tahoma, Verdana, Segoe, sans-serif;color:#555555;text-align:left;"><p style="margin: 0;font-size: 12px;line-height: 14px;text-align: center"><span style="font-size: 48px; line-height: 57px;"><strong><span style="line-height: 57px; font-size: 48px;">Your order<br></span></strong></span></p></div>
                                         </div>
                                         <!--[if mso]></td></tr></table><![endif]-->
                                     </div>
@@ -529,8 +477,8 @@
 
                                     <div align="center" class="button-container center " style="padding-right: 10px; padding-left: 10px; padding-top:10px; padding-bottom:10px;">
                                         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top:10px; padding-bottom:10px;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://coatandclothes.shop/user" style="height:40pt; v-text-anchor:middle; width:161pt;" arcsize="8%" strokecolor="#da0f68" fillcolor="#da0f68"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:'Lato', Tahoma, Verdana, Segoe, sans-serif; font-size:22px;"><![endif]-->
-                                        <a href="https://coatandclothes.shop/user" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #ffffff; background-color: #da0f68; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; max-width: 215px; width: 175px;width: auto; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent; padding-top: 5px; padding-right: 20px; padding-bottom: 5px; padding-left: 20px; font-family: 'Lato', Tahoma, Verdana, Segoe, sans-serif;mso-border-alt: none">
-                                            <span style="font-size:12px;line-height:24px;"><span style="font-size: 22px; line-height: 44px;" data-mce-style="font-size: 22px; line-height: 40px;">Voir son compte </span></span>
+                                        <a href="https://coatandclothes.shop/order/{{$obj->id}}" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #ffffff; background-color: #da0f68; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; max-width: 215px; width: 175px;width: auto; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent; padding-top: 5px; padding-right: 20px; padding-bottom: 5px; padding-left: 20px; font-family: 'Lato', Tahoma, Verdana, Segoe, sans-serif;mso-border-alt: none">
+                                            <span style="font-size:12px;line-height:24px;"><span style="font-size: 22px; line-height: 44px;" data-mce-style="font-size: 22px; line-height: 40px;">Go to your order</span></span>
                                         </a>
                                         <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
                                     </div>
@@ -540,7 +488,8 @@
                                     <div class="">
                                         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
                                         <div style="color:#555555;line-height:120%;font-family:'Lato', Tahoma, Verdana, Segoe, sans-serif; padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px;">
-                                            <div style="font-size:12px;line-height:14px;color:#555555;font-family:'Lato', Tahoma, Verdana, Segoe, sans-serif;text-align:left;"><ul style="list-style-type: square;"><li style="font-size: 12px; line-height: 14px;"><span style="font-size: 18px; line-height: 21px;"><strong>Nom : {{$obj->name}}</strong></span></li><li style="font-size: 12px; line-height: 14px;"><span style="font-size: 18px; line-height: 21px;"><strong>Prénom : {{$obj->fsname}}<br></strong></span></li><li style="font-size: 12px; line-height: 14px;"><span style="font-size: 18px; line-height: 21px;"><strong>Nom d'utilisateur : {{$obj->login}}<br></strong></span></li><li style="font-size: 12px; line-height: 14px;"><span style="font-size: 18px; line-height: 21px;"><strong>Email : {{$obj->email}}<br></strong></span></li></ul><p style="margin: 0;font-size: 12px;line-height: 14px">&#160;<br></p><p style="margin: 0;font-size: 12px;line-height: 14px">&#160;<br></p><p style="margin: 0;font-size: 12px;line-height: 14px">&#160;<br></p></div>
+                                            <div style="font-size:12px;line-height:14px;color:#555555;font-family:'Lato', Tahoma, Verdana, Segoe, sans-serif;text-align:left;"><ul style="list-style-type: square;"><li style="font-size: 12px; line-height: 14px;"><span style="font-size: 18px; line-height: 21px;"><strong>Order n° : {{$obj->id}}</strong></span></li><li style="font-size: 12px; line-height: 14px;"><span style="font-size: 18px; line-height: 21px;"><strong>State :  Pending validation <br></strong></span></li></ul><p style="margin: 0;font-size: 12px;line-height: 14px">&#160;<br></p><p style="margin: 0;font-size: 12px;line-height: 14px">&#160;<br></p><p style="margin: 0;font-size: 12px;line-height: 14px">&#160;<br></p></div>
+                                            <div>A pdf with a summary of ordered products is available in attachment</div>
                                         </div>
                                         <!--[if mso]></td></tr></table><![endif]-->
                                     </div>
@@ -582,6 +531,5 @@
     </tbody>
 </table>
 <!--[if (mso)|(IE)]></div><![endif]-->
-
 
 </body></html>

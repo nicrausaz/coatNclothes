@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Http\Controllers\Api\V1\Mail;
 
 use App\Mail\Registration;
+use App\Mail\OrderConfirmation;
 use Illuminate\Support\Facades\Mail;
 use \App\Http\Controllers\Api\V1\Controller;
 Use Illuminate\Support\Facades\Auth;
@@ -15,8 +17,8 @@ class MailController extends Controller
 
         $objDemo = new \stdClass();
 
-        $objDemo->urlToProfile = 'https://coatandclothes.shop/#/user';
-        $objDemo->urlToProducts='https://coatandclothes.shop/#/';
+        $objDemo->urlToProfile = 'https://coatandclothes.shop/user';
+        $objDemo->urlToProducts='https://coatandclothes.shop/';
 
         $objDemo->fsname=$users_fsname;
 
@@ -45,5 +47,19 @@ class MailController extends Controller
         Mail::to($users_email)->queue(new Registration($objDemo, $array));
 
         return true;
+    }
+    public static function sendOrderConfirmation($orderID){
+        $objDemo = new \stdClass();
+        $users_email=Auth::user()->users_email;
+
+        $objDemo->id=$orderID;
+
+        $array['html'] = 'mails.lang.'.\App::getLocale().'.orderConfirmation';
+        $array['subject']= lang::get('mail.orderConfirmation');
+
+
+        Mail::to($users_email)->queue(new OrderConfirmation($objDemo, $array));
+
+
     }
 }

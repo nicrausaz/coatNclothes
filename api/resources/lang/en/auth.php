@@ -30,7 +30,10 @@ return [
     'infoChangedSuccess'=>'User informations updated !',
     'passChangedSuccess'=>'Password changed successfully !',
     'tokenNotProvided'=>'Token Not Provided',
-    'userNotFound'=>'UserNot Found'
+    'userNotFound'=>'UserNot Found',
+    'setAdminSucccess'=>'Admin status successfully updated',
+    'disabled'=>'User account disabled',
+    'removedSuccess'=>'User successfully removed'
 
 
 ];

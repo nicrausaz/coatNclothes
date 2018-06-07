@@ -8,34 +8,77 @@
         * {
             font-family: Verdana, Arial, sans-serif;
         }
-        table{
+        table, #adress{
             font-size: x-small;
         }
         tfoot tr td{
             font-weight: bold;
             font-size: x-small;
         }
+        #adress{
+            float: left;
+            position: absolute;
+            margin-left: 185px;
+            top: 56px;
+        }
+        #custommerAdress{
+            top: 56px;
+            position: absolute;
+            right: 10px;
+
+        }
+        #custommerAdress h3{
+            margin-bottom: 0;
+        }
+        div span{
+            display:block;
+        }
+        div .title{
+            font-weight: bolder;
+        }
+        tfoot{
+            border-top: 1px black solid;
+
+        }
+        footer{
+            position: absolute;
+            bottom: 5px;
+            background-color:#da0f68;
+            padding:5px;
+            color:white;
+        }
     </style>
 
 </head>
 <body>
 
+<div id="adress">
+    <span class="title">CoatAndClothes.Shop SA</span>
+    <span>   Rue du petit bonheur 69</span>
+    <span>   1296 Gland</span>
+    <span>   CH - Suisse</span>
+</div>
 <table width="100%">
     <tr>
-        <td valign="top"><img src="https://coatandclothes.shop/static/favicon.png" alt="Logo CoatNClothes" width="150"/></td>
+        <td valign="top"><img src="{{asset('resources/assets/images/favicon.png')}}" alt="Logo CoatNClothes" width="150"/></td>
+
+
+    </tr>
+
+    <tr>
         <td align="right">
-            <h3>{{$data['keys']->bill}}</h3>
+            <div id="custommerAdress">
+                <h3>{{$data['values']['custommer']->users_completeName}}</h3>
+                <span>   {{$data['values']['custommer']->adresses_street}}</span>
+                <span>   {{$data['values']['custommer']->adresses_locality}} {{$data['values']['custommer']->adresses_npa}}</span>
+                <span>   {{$data['values']['custommer']->adresses_state}}</span>
+            </div>
         </td>
 
     </tr>
     <tr>
         <td align="right">
-            <h3>{{$data['values']['custommer']->users_completeName}}</h3>
-            <pre>
-                {{$data['values']['custommer']->adresses_street}}
-                {{$data['values']['custommer']->adresses_locality}} {{$data['values']['custommer']->adresses_npa}}
-                {{$data['values']['custommer']->adresses_state}}
-            </pre>
+            <h3>{{$data['keys']->bill}} N° {{$data['keys']->id}}</h3>
         </td>
     </tr>
 
@@ -73,6 +116,8 @@
     </tr>
     </tfoot>
 </table>
-
+<footer>
+    <span>{{$data['keys']->footer}}</span>
+</footer>
 </body>
 </html>

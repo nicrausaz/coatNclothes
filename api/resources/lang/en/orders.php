@@ -31,6 +31,8 @@ return [
     'removedProduct'=>'Products removes successfully',
     'contentAdded'=>'Content successfully added to basket',
     'catCreatSuccess'=>'Category successfully created',
+    'catRemoveSuccess'=>'Category successfully removed',
+    'catSuccessEdit'=>'Category successfully updated'
 
 
 
