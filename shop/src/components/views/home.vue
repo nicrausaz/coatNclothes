@@ -1,10 +1,11 @@
 <template>
   <div class="container">
     <subtitle :name="$store.state.interface.home" :text="''"></subtitle>
-    <section class="section">
+    <br>
+    <section class="notification">
       <h1 class="title">Important:</h1>
       <h1 class="title">Ce site est un magasin fictif dans le cadre d'un projet d'étude.</h1>
-      <h1 class="title">Aucun produit / commande n'est officielle et ne sera traitée.</h1>
+      <h1 class="title">Aucun produit / commande n'est officiel et ne sera traité.</h1>
     </section>
     <section class="section">
       <h1 class="title">{{$store.state.interface.bestProducts}}</h1>

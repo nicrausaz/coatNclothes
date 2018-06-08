@@ -4,11 +4,11 @@ E-Commerce module ICT EPSIC
 ## API
 > Laravel Rest API
 
-## WWW
+## SHOP
 > Vue.js and buefy css
 
 #### How to
-> - cd www/
+> - cd shop/
 > - npm i
 > - npm run dev
 
