@@ -75,18 +75,12 @@ export default {
         }
       })
       .then(response => {
-        this.$toast.open({
-          message: response.data.message,
-          type: 'is-success'
-        })
+        this.successToast(response.data.message)
         this.$emit('edit')
         this.$parent.close()
       })
       .catch(err => {
-        this.$toast.open({
-          message: err.response.data.message,
-          type: 'is-danger'
-        })
+        this.dangerToast(err.response.data.message)
       })
     },
     changePassword () {
@@ -99,16 +93,10 @@ export default {
         }
       })
       .then(response => {
-        this.$toast.open({
-          message: response.data.message,
-          type: 'is-success'
-        })
+        this.successToast(response.data.message)
       })
       .catch(err => {
-        this.$toast.open({
-          message: err.response.data.message,
-          type: 'is-danger'
-        })
+        this.dangerToast(err.response.data.message)
       })
     },
     getGenders () {

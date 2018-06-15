@@ -76,20 +76,12 @@ export default {
       })
       .then(response => {
         this.$emit('update')
-        this.$toast.open({
-          message: response.data.message,
-          type: 'is-success'
-        })
+        this.successToast(response.data.message)
         this.$parent.close()
       })
       .catch(err => {
         let errors = JSON.parse(err.response.data.message)
-        Object.keys(errors).forEach(key => {
-          this.$toast.open({
-            message: errors[key].toString(),
-            type: 'is-danger'
-          })
-        })
+        Object.keys(errors).forEach(key => { this.dangerToast(errors[key].toString()) })
       })
     },
     getCategory () {
@@ -132,7 +124,7 @@ export default {
             url: 'admin/category/' + this.id
           })
           .then((response) => {
-            this.$toast.open(response.data.message)
+            this.defaultToast(response.data.message)
             this.$emit('update')
             this.$parent.close()
           })

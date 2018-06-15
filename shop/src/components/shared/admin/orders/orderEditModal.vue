@@ -134,10 +134,7 @@ export default {
         url: '/admin/order/' + this.orderBaseInfos.orders_id + '/status/' + this.orderBaseInfos.fk_ordersStatus_id
       })
       .then(response => {
-        this.$toast.open({
-          message: response.data.message,
-          type: 'is-success'
-        })
+        this.successToast(response.data.message)
         this.$emit('update')
         this.$parent.close()
       })

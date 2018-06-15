@@ -69,21 +69,13 @@ export default {
         data: this.getData()
       })
       .then(response => {
-        this.$toast.open({
-          message: response.data.message,
-          type: 'is-success'
-        })
+        this.successToast(response.data.message)
         this.$emit('update')
         this.$parent.close()
       })
       .catch(err => {
         let errors = JSON.parse(err.response.data.message)
-        Object.keys(errors).forEach(key => {
-          this.$toast.open({
-            message: errors[key].toString(),
-            type: 'is-danger'
-          })
-        })
+        Object.keys(errors).forEach(key => { this.dangerToast(errors[key].toString()) })
       })
     },
     deleteAdress () {
@@ -92,18 +84,12 @@ export default {
         url: '/user/' + this.$store.state.user.users_id + '/adresse/' + this.newData.adresses_id
       })
       .then(response => {
-        this.$toast.open({
-          message: response.data.message,
-          type: 'is-success'
-        })
+        this.successToast(response.data.message)
         this.$emit('update')
         this.$parent.close()
       })
       .catch(err => {
-        this.$toast.open({
-          message: err.response.data.message,
-          type: 'is-danger'
-        })
+        this.dangerToast(err.response.data.message)
       })
     }
   }

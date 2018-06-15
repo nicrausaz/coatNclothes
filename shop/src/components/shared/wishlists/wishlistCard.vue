@@ -56,8 +56,8 @@ export default {
             method: 'delete',
             url: 'wishlist/' + this.infos.wishlist_id + '/user/' + this.$store.state.user.users_id
           })
-          .then((response) => {
-            this.$toast.open(response.data.message)
+          .then(response => {
+            this.successToast(response.data.message)
             this.$emit('delete')
           })
         }
@@ -70,16 +70,10 @@ export default {
       })
       .then(response => {
         this.$store.dispatch('getShopbagQuantity')
-        this.$toast.open({
-          message: response.data.message,
-          type: 'is-success'
-        })
+        this.successToast(response.data.message)
       })
       .catch(err => {
-        this.$toast.open({
-          message: err.response.data.message,
-          type: 'is-danger'
-        })
+        this.dangerToast(err.response.data.message)
       })
     }
   },

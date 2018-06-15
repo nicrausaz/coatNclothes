@@ -41,9 +41,9 @@ export default {
           'description': this.editedDescription
         }
       })
-      .then((response) => {
+      .then(response => {
         this.$parent.close()
-        this.$toast.open(response.data.message)
+        this.successToast(response.data.message)
         this.$emit('updateInfo')
       })
     }

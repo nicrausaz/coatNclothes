@@ -85,12 +85,10 @@ export default {
         }
       })
       .then(response => {
-        this.$toast.open(response.data)
+        this.successToast(response.data.message)
         this.reset()
       })
-      .catch(err => {
-        this.$toast.open(err.response.data)
-      })
+      .catch(err => { this.warningToast(err.response.data.message) })
     },
     reset () {
       this.newComment.commentsAndOpinions_note = 0

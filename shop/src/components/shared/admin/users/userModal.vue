@@ -64,19 +64,11 @@ export default {
         data: this.userData
       })
       .then(response => {
-        this.$toast.open({
-          message: response.data.message,
-          type: 'is-success'
-        })
+        this.successtToast(response.data.message)
         this.$parent.close()
         this.$emit('update')
       })
-      .catch(err => {
-        this.$toast.open({
-          message: err.response.data.message,
-          type: 'is-danger'
-        })
-      })
+      .catch(err => { this.dangerToast(err.response.data.message) })
     },
     changeUserActivation () {
       this.axios({
@@ -98,8 +90,8 @@ export default {
             method: 'delete',
             url: 'admin/user/' + this.id
           })
-          .then((response) => {
-            this.$toast.open(response.data.message)
+          .then(response => {
+            this.defaultToast(response.data.message)
             this.$emit('update')
             this.$parent.close()
           })

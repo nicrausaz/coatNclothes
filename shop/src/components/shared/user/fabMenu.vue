@@ -71,10 +71,7 @@ export default {
         url: '/logout'
       })
       this.$store.commit('detroyUser')
-      this.$toast.open({
-        message: 'Déconnecté !',
-        type: 'is-success'
-      })
+      this.successToast('Déconnecté !')
       this.$store.dispatch('getShopbagQuantity')
     }
   },

@@ -51,12 +51,12 @@ export default {
         url: '/user/' + this.$store.state.user.users_id + '/pic'
       })
       .then(response => {
-        this.$toast.open(response.data.message)
+        this.successToast(response.data.message)
         this.$parent.close()
         this.$emit('edit')
       })
       .catch(err => {
-        this.$toast.open(err.response.data.message)
+        this.dangerToast(err.response.data.message)
       })
     },
     updatePic () {
@@ -71,13 +71,11 @@ export default {
         data: formData
       })
       .then(response => {
-        this.$toast.open(response.data.message)
+        this.successToast(response.data.message)
         this.$parent.close()
         this.$emit('edit')
       })
-      .catch(err => {
-        this.$toast.open(err.response.data.message)
-      })
+      .catch(err => { this.dangerToast(err.response.data.message) })
     }
   },
   computed: {

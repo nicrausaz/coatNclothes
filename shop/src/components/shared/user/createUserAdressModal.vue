@@ -50,19 +50,11 @@ export default {
         }
       })
       .then(response => {
-        this.$toast.open({
-          message: response.data.message,
-          type: 'is-success'
-        })
+        this.successToast(response.data.message)
         this.$emit('new')
         this.$parent.close()
       })
-      .catch(err => {
-        this.$toast.open({
-          message: err.response.data.message,
-          type: 'is-danger'
-        })
-      })
+      .catch(err => { this.dangerToast(err.response.data.message) })
     }
   }
 }

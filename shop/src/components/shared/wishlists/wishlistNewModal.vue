@@ -36,19 +36,13 @@ export default {
           'description': this.description
         }
       })
-      .then((response) => {
+      .then(response => {
         this.$parent.close()
-        this.$toast.open({
-          message: response.data.message,
-          type: 'is-success'
-        })
+        this.successToast(response.data.message)
         this.$emit('new')
       })
-      .catch((err) => {
-        this.$toast.open({
-          message: err.response.data.message,
-          type: 'is-danger'
-        })
+      .catch(err => {
+        this.dangerToast(err.response.data.message)
       })
     }
   }

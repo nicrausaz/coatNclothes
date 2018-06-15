@@ -97,15 +97,11 @@ export default {
         },
         data: this.orderContentFormatedData
       })
-      .then((response) => {
+      .then(response => {
         this.clearBasket()
         this.$router.push('/order/' + response.data.orders_id)
+        this.successToast(response.data.message)
         this.loading = false
-        this.$toast.open({
-          message: response.data.message,
-          type: 'is-success',
-          duration: 5000
-        })
       })
     }
   },

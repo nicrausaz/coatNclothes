@@ -37,22 +37,14 @@ export default {
         data: this.credentials
       })
       .then(response => {
-        this.$toast.open({
-          message: response.data.message,
-          type: 'is-success'
-        })
+        this.successToast(response.data.message)
         delete response.data.message
         delete response.data.status_code
         this.$store.commit('setUser', response.data)
         this.$store.commit('setTokenExpirationDate')
         location.reload()
       })
-      .catch(err => {
-        this.$toast.open({
-          message: err.response.data.message,
-          type: 'is-danger'
-        })
-      })
+      .catch(err => { this.dangerToast(err.response.data.message) })
     }
   }
 }

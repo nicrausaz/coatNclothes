@@ -52,7 +52,7 @@ export default {
         this.$emit('confirm', 'address')
         this.$emit('address', this.selectedAdress)
       } else {
-        this.$toast.open('Chosissez d\'abord une adresse')
+        this.warningToast('Chosissez d\'abord une adresse')
       }
     },
     getUserAdresses () {
@@ -60,7 +60,7 @@ export default {
         method: 'get',
         url: '/user/' + this.$store.state.user.users_id + '/adresses'
       })
-      .then((response) => {
+      .then(response => {
         this.adresses = response.data
       })
     }

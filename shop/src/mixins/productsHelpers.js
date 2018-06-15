@@ -14,7 +14,7 @@ export default {
         })
         .then(response => {
           this.$store.dispatch('getShopbagQuantity')
-          this.defaultToast(response.data.message)
+          this.successToast(response.data.message)
         })
         .catch(err => {
           this.dangerToast(err.response.data.message)

@@ -85,9 +85,8 @@ export default {
         }
       })
       .then(response => {
-        this.test()
-        this.$toast.open(response.data.message)
-        this.productList = this.productList.filter((product) => { return product.products_id !== productId })
+        this.successToast(response.data.message)
+        this.productList = this.productList.filter(product => { return product.products_id !== productId })
       })
     }
   }

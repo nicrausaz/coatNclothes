@@ -176,18 +176,12 @@ export default {
         }
       })
       .then(response => {
-        this.$toast.open({
-          message: response.data.message,
-          type: 'is-success'
-        })
+        this.successToast(response.data.message)
         this.$emit('update')
         this.$parent.close()
       })
       .catch(err => {
-        this.$toast.open({
-          message: err.response.data.message,
-          type: 'is-danger'
-        })
+        this.dangerToast(err.response.data.message)
       })
     },
     updateProductPictures () {
@@ -230,10 +224,7 @@ export default {
             }
           })
           .then(response => {
-            this.$toast.open({
-              message: response.data.message,
-              type: 'is-success'
-            })
+            this.successToast(response.data.message)
             this.getBrands()
           })
         }
@@ -247,10 +238,7 @@ export default {
       .then(response => {
         this.$parent.close()
         this.$emit('update')
-        this.$toast.open({
-          message: response.data.message,
-          type: 'is-success'
-        })
+        this.successToast(response.data.message)
       })
     },
     deleteFile (index) { this.newfiles.splice(index, 1) },
@@ -261,7 +249,7 @@ export default {
       })
       .then(response => {
         this.newData.products_pictures = this.newData.products_pictures.filter(el => { return el.id !== id })
-        this.$toast.open(response.data.message)
+        this.defaultToast(response.data.message)
       })
     }
   },

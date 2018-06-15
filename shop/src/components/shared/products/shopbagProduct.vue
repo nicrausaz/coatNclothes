@@ -104,12 +104,7 @@ export default {
           'quantity': this.infos.basket_quantity
         }
       })
-      .catch((err) => {
-        this.$toast.open({
-          message: err.response.data.message,
-          type: 'is-danger'
-        })
-      })
+      .catch((err) => { this.dangerToast(err.response.data) })
     },
     removeProductFromShopBag () {
       this.axios({
@@ -119,8 +114,8 @@ export default {
           'product': this.infos.products_id
         }
       })
-      .then((response) => {
-        this.$toast.open(response.data.message)
+      .then(response => {
+        this.defaultToast(response.data.message)
         this.$store.dispatch('getShopbagQuantity')
         this.$emit('delete')
       })

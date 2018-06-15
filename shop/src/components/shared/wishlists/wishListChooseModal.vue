@@ -32,7 +32,10 @@
 </template>
 
 <script>
+import checkAccess from '@/mixins/checkAccess'
+
 export default {
+  mixins: [checkAccess],
   props: ['productId'],
   data () {
     return {
@@ -44,17 +47,7 @@ export default {
       }
     }
   },
-  created () {
-    if (this.$store.state.user.users_id) {
-      this.getUserWishlists()
-    } else {
-      this.$toast.open({
-        message: 'Connectez-vous ou créez un compte pour accéder à cette page!',
-        type: 'is-warning'
-      })
-      this.$router.push('/user')
-    }
-  },
+  created () { this.getUserWishlists() },
   methods: {
     getUserWishlists () {
       this.axios({
@@ -74,15 +67,8 @@ export default {
           product: this.productId
         }
       })
-      .then((response) => {
-        this.$toast.open(response.data.message)
-      })
-      .catch((err) => {
-        this.$toast.open({
-          message: err.response.data.message,
-          type: 'is-danger'
-        })
-      })
+      .then(response => { this.successToast(response.data.message) })
+      .catch(err => { this.dangerToast(err.response.data.message) })
     },
     createAndAdd () {
       this.axios({
@@ -93,11 +79,8 @@ export default {
           'description': this.newWishlist.description
         }
       })
-      .then((response) => {
-        this.$toast.open({
-          message: response.data.message,
-          type: 'is-success'
-        })
+      .then(response => {
+        this.successToast(response.data.message)
         this.choose(response.data.wishlist_id)
       })
     },
