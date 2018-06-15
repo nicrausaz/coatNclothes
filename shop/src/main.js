@@ -15,8 +15,11 @@ import VueCarousel from 'vue-carousel'
 import Chartkick from 'chartkick'
 import VueChartkick from 'vue-chartkick'
 
+import toastsMixins from '@/mixins/toasts'
+
 Vue.use(Buefy, {
-  defaultIconPack: 'fas'
+  defaultIconPack: 'fas',
+  defaultNoticeQueue: false
 })
 
 Vue.use(VueCarousel)
@@ -35,6 +38,8 @@ Vue.prototype.axios = axios.create({
     'Authorization': 'Bearer' + store.state.user.token
   }
 })
+
+Vue.mixin(toastsMixins)
 
 /* eslint-disable no-new */
 new Vue({

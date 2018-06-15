@@ -12,7 +12,7 @@
         </div>
       </div>
       <b-tooltip class="is-pulled-right" :label="$store.state.interface.ConfirmOrder" position="is-bottom" :active="!fullConfirmed">
-        <button class="button is-primary is-large is-pulled-right" :disabled="!fullConfirmed" @click="finishOrder">{{$store.state.interface.confirm}}</button>
+        <button class="button is-primary is-large is-pulled-right" :class="{'is-loading': loading}" :disabled="!fullConfirmed" @click="finishOrder">{{$store.state.interface.confirm}}</button>
       </b-tooltip>
     </section>
   </div>
@@ -37,7 +37,8 @@ export default {
         data: []
       },
       basketproducts: [],
-      selectedAdress: null
+      selectedAdress: null,
+      loading: false
     }
   },
   created () {
@@ -87,6 +88,7 @@ export default {
       })
     },
     finishOrder () {
+      this.loading = true
       this.axios({
         method: 'put',
         url: 'orders/user/' + this.$store.state.user.users_id,
@@ -98,6 +100,7 @@ export default {
       .then((response) => {
         this.clearBasket()
         this.$router.push('/order/' + response.data.orders_id)
+        this.loading = false
         this.$toast.open({
           message: response.data.message,
           type: 'is-success',

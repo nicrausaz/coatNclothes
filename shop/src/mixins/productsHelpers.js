@@ -12,18 +12,12 @@ export default {
             'size': size
           }
         })
-        .then((response) => {
+        .then(response => {
           this.$store.dispatch('getShopbagQuantity')
-          this.$toast.open({
-            message: response.data.message,
-            type: 'is-success'
-          })
+          this.defaultToast(response.data.message)
         })
         .catch(err => {
-          this.$toast.open({
-            message: err.response.data.message,
-            type: 'is-danger'
-          })
+          this.dangerToast(err.response.data.message)
         })
       } else {
         this.$emit('notloged')
